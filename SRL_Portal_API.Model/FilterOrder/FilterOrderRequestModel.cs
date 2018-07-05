@@ -15,7 +15,7 @@ namespace SRL_Portal_API.Model.FilterOrder
         public string From { get; set; }
         public string To { get; set; }
         public int OrderNumber { get; set; }
-        public string ShopOkStatus { get; set; }
+        public string ShopOkStatus { get; set; }    
         public string SlaOkStatus { get; set; }
     }
 }

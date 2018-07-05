@@ -9,48 +9,86 @@ using SRL_Portal_API.Model.FilterOrder;
 
 namespace SRL_Portal_API.Controllers
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// Controller which handles GET requests for filtering orders.
+    /// </summary>
     public class FilterOrderController : ApiController
     {
-        // GET api/filterorder
         /// <summary>
-        /// Get a list of Orders based on the specified filters.
+        /// Get all users from the database.
         /// </summary>
-        /// <param name="actorId">The actor which the orders are from. Value can be <c>null</c></param>
-        /// <param name="orderDateFrom">Date after which the filter searches orders. Value can be <c>null</c></param>
-        /// <param name="orderDateTo">Date before which the filter searches orders. Value can be <c>null</c></param>
-        /// <param name="orderStatus">The status of the order. Value can be <c>null</c></param>
-        /// <param name="ciDateTo">Value can be <c>null</c></param>
-        /// <param name="ciDateFrom">Value can be <c>null</c></param>
-        /// <param name="validationDeadlineStatus">Value which tells the filter what type of status the deadline has. Value can be <c>null</c></param>
-        /// <param name="user">Represents the user looking up the information. Value can be <c>null</c></param>
-        /// <param name="from">Company from which the order is coming. Value can be <c>null</c></param>
-        /// <param name="to">Company to which the order is going. Value can be <c>null</c></param>
-        /// <param name="orderNumber">identifiable number for the order. Value can be <c>null</c></param>
-        /// <param name="shopOkStatus">Value which determines the Shop status. Value can be <c>null</c></param>
-        /// <param name="slaOkStatus">Value which determines the slaOkStatus. Value can be <c>null</c></param>
-        /// <returns>A collection of orders.</returns>
-        public JsonResult<List<FilterOrderResponseModel>> Get(int actorId, DateTime orderDateFrom, DateTime orderDateTo, int orderStatus, DateTime ciDateTo, DateTime ciDateFrom, string validationDeadlineStatus, string user, string from, string to, int orderNumber, string shopOkStatus, string slaOkStatus)
+        /// <returns>A collection of usernames.</returns>
+        [HttpGet]
+        public JsonResult<IList<string>> GetUsers()
+        {
+            IList<string> response = null;
+            using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["SRL_Portal"].ConnectionString))
+            {
+                // todo: Add correct Stored Procedure
+                using (var cmd = new SqlCommand("dbo.API_LIST_ACTORS_TRANSACTION", conn))
+                {
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+                    response = new List<string>();
+                    while (reader.Read())
+                    {
+                        response.Add(reader.GetString(1));
+                    }
+                }
+            }
+
+            return Json(response);
+        }
+
+        /// <summary>
+            /// Get a list of Orders based on the specified filters.
+            /// </summary>
+            /// <param name="actorId">The actor which the orders are from. Value is optional.</param>
+            /// <param name="orderDateFrom">Date after which the filter searches orders. Value is optional.</param>
+            /// <param name="orderDateTo">Date before which the filter searches orders. Value is optional.</param>
+            /// <param name="orderStatus">The status of the order. Value is optional.</param>
+            /// <param name="ciDateTo">Value is optional.</param>
+            /// <param name="ciDateFrom">Value is optional.</param>
+            /// <param name="validationDeadlineStatus">Value which tells the filter what type of status the deadline has.
+            ///     Value is optional.</param>
+            /// <param name="user">Represents the user looking up the information. Value is optional.</param>
+            /// <param name="from">Company from which the order is coming. Value is optional.</param>
+            /// <param name="to">Company to which the order is going. Value is optional.</param>
+            /// <param name="orderNumber">identifiable number for the order. Value is optional.</param>
+            /// <param name="shopOkStatus">Value which determines the Shop status. Value is optional.</param>
+            /// <param name="slaOkStatus">Value which determines the slaOkStatus. Value is optional.</param>
+            /// <returns>A collection of orders.</returns>
+            [HttpPost]
+        public JsonResult<List<FilterOrderResponseModel>> FilterOrder(
+            int? actorId = null, DateTime? orderDateFrom = null, 
+            DateTime? orderDateTo = null, int? orderStatus = null, 
+            DateTime? ciDateTo = null, DateTime? ciDateFrom = null, 
+            string validationDeadlineStatus = null, string user = null, 
+            string from = null, string to = null, int? orderNumber = null, 
+            string shopOkStatus = null, string slaOkStatus = null)
         {
             var response = new List<FilterOrderResponseModel>();
 
             using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["SRL_Portal"].ConnectionString))
             {
-                using (var cmd = new SqlCommand("", conn))
+                // todo: add Stored Procedure
+                using (var cmd = new SqlCommand("dbo", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter("@Actor_ID", actorId));
-                    cmd.Parameters.Add(new SqlParameter("@OrderDateFrom", actorId));
-                    cmd.Parameters.Add(new SqlParameter("@OrderDateTo", actorId));
-                    cmd.Parameters.Add(new SqlParameter("@OrderStatus", actorId));
-                    cmd.Parameters.Add(new SqlParameter("@CIDateFrom", actorId));
-                    cmd.Parameters.Add(new SqlParameter("@CIDateTo", actorId));
-                    cmd.Parameters.Add(new SqlParameter("@ValidationDeadline", actorId));
-                    cmd.Parameters.Add(new SqlParameter("@User", actorId));
-                    cmd.Parameters.Add(new SqlParameter("@From", actorId));
-                    cmd.Parameters.Add(new SqlParameter("@To", actorId));
-                    cmd.Parameters.Add(new SqlParameter("@OrderNumber", actorId));
-                    cmd.Parameters.Add(new SqlParameter("@CountingStatusSLA", actorId));
-                    cmd.Parameters.Add(new SqlParameter("@CountingStatusSHOP", actorId));
+                    cmd.Parameters.Add(new SqlParameter("@Actor_Id", actorId));
+                    cmd.Parameters.Add(new SqlParameter("@OrderDateFrom", orderDateFrom));
+                    cmd.Parameters.Add(new SqlParameter("@OrderDateTo", orderDateTo));
+                    cmd.Parameters.Add(new SqlParameter("@OrderStatus", orderStatus));
+                    cmd.Parameters.Add(new SqlParameter("@CIDateFrom", ciDateFrom));
+                    cmd.Parameters.Add(new SqlParameter("@CIDateTo", ciDateTo));
+                    cmd.Parameters.Add(new SqlParameter("@ValidationDeadline", validationDeadlineStatus));
+                    cmd.Parameters.Add(new SqlParameter("@User", user));
+                    cmd.Parameters.Add(new SqlParameter("@From", from));
+                    cmd.Parameters.Add(new SqlParameter("@To", to));
+                    cmd.Parameters.Add(new SqlParameter("@OrderNumber", orderNumber));
+                    cmd.Parameters.Add(new SqlParameter("@CountingStatusSLA", slaOkStatus));
+                    cmd.Parameters.Add(new SqlParameter("@CountingStatusSHOP", shopOkStatus));
 
                     conn.Open();
                     var reader = cmd.ExecuteReader();
