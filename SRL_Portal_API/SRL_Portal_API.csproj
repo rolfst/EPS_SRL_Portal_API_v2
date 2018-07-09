@@ -46,6 +46,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -53,6 +61,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -177,12 +186,285 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\ActorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SSCCController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ACTION.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ACTOR_LABEL_DETAILS.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ACTOR_REFERENCE.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ACTOR_TYPE.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\API_FN_SPLIT_Result.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\API_LIST_ACTORS_TRANSACTION_Result.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\API_SSCC_OVERVIEW_Result.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AUDIT.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CONTENT.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CPF_410_AGGREGATED_ACTOR_CODE.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CPF_SOURCE_REFERENCE_SLRS.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CPF_SOURCE_REFERENCE_SLRS_NEW.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CPF_SOURCE_REFERENCE_SLRS_RCM410.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CPF_SOURCE_REFERENCE_SLRS_RCM415.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DEPOT_LABEL.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DEVIATION_BY_RETAILER.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ERROR.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ERROR_HANDLING.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ERROR_HANDLING_ARCHIVE.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ERROR_TRANSLATION.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ESOFT_API_RCM500.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\INPUT_SSCC_MANAGEMENT.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\INTERFACING.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LATE_TRANSACTIONS.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LINK_TRANSACTION_LOAD_UNIT_CONDITION.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LOAD_CARRIER.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LOAD_CARRIER_TRANSLATION.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LOAD_UNIT.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LOAD_UNIT_CONDITION.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LOAD_UNIT_CONDITION_TRANSLATION.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LOAD_UNIT_SLA.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LOAD_UNIT_SUB_CONDITION.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LOAD_UNIT_TRANSLATION.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PARAMETER_SRLS.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PARAMETER_SRLS_NEW.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PICTURE_EVIDENCE.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\REF_ORDER.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\REF_ORDER_UPSERT.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\REF_TRANSACTION_TEMP_RECEIPTS.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\REPORTING_ACTOR_TYPE.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RETAILER_CHAIN.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RTI.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RTI_ACCEPTANCE.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RTI_DATASET.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RTI_TRANSLATION.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RT_TYPE.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RUNNING_JOB_CHECK.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SHIPMENT.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SORTING_STATUS.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SORTING_STATUS_TRANSLATION.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SRLModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SRLModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SRLModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SRLModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SRLModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SSCC.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SSCC_DEL.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SSCC_MANAGEMENT.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SSCC_ORDER.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SSCC_RTI_DETAILS.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SSCC_RTI_GRAI.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\STANDARD_DISTRIBUTION.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TIMEONSITE.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TRANSACTION.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TRANSACTION_DEL.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TRANSACTION_SSCC_RTI_DETAILS.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TRANSACTION_SSCC_RTI_DETAILS_DEL.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TRANSACTION_SSCC_RTI_DETAILS_QTY_DIF.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TRANSACTION_SSCC_RTI_GRAI.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TRANSACTION_SUBTYPES.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TRANSLATION_DETAILS.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\XML_EXPORT_MESSAGES.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Z_CHANGES_TO_DATABASE.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Z_LOAD_MESSAGE_STATUS.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Z_SSCC_NUMBERS.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Z_SSCC_ORDER_NUMBER.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Z_SSCC_ORDER_RETAILER_DETAILS.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Z_STG_XML_ANOMALIES.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Z_STG_XML_CONTENT.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Z_STG_XML_COUNTING.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Z_STG_XML_DATA.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Z_STG_XML_LOAD.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Z_STG_XML_LOAD_CARRIER.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Z_STG_XML_ORDER.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Z_STG_XML_PICTURES.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Z_STG_XML_SHIPMENT.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Z_STG_XML_TIMEONSITE.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Z_STG_XML_TRANSACTION.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Z_VALIDATION.cs">
+      <DependentUpon>SRLModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\SSCCListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -191,6 +473,16 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Models\SRLModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SRLModel.edmx</DependentUpon>
+      <LastGenOutput>SRLModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\SRLModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SRLModel.edmx</DependentUpon>
+      <LastGenOutput>SRLModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -215,6 +507,13 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EntityDeploy Include="Models\SRLModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SRLModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\SRLModel.edmx.diagram">
+      <DependentUpon>SRLModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -238,7 +537,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -252,6 +550,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
