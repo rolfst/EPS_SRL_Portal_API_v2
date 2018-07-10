@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d9176325197d488ea48dbf3e03a2144d" Name="Diagram1">
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.ACTION" Width="1.5" PointX="11.25" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.ACTOR_LABEL_DETAILS" Width="1.5" PointX="5.25" PointY="27.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.ACTOR_REFERENCE" Width="1.5" PointX="3" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.ACTOR_TYPE" Width="1.5" PointX="0.75" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.AUDIT" Width="1.5" PointX="0.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.CONTENT" Width="1.5" PointX="8.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.CPF_SOURCE_REFERENCE_SLRS" Width="1.5" PointX="8.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.DEPOT_LABEL" Width="1.5" PointX="5.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.DEVIATION_BY_RETAILER" Width="1.5" PointX="6" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.ERROR" Width="1.5" PointX="20.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.ERROR_HANDLING" Width="1.5" PointX="23" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.ERROR_HANDLING_ARCHIVE" Width="1.5" PointX="23" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.ERROR_TRANSLATION" Width="1.5" PointX="23" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.ESOFT_API_RCM500" Width="1.5" PointX="10.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.INPUT_SSCC_MANAGEMENT" Width="1.5" PointX="7.75" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.INTERFACING" Width="1.5" PointX="12.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.LATE_TRANSACTIONS" Width="1.5" PointX="20.75" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.LINK_TRANSACTION_LOAD_UNIT_CONDITION" Width="1.5" PointX="15.75" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.LOAD_CARRIER" Width="1.5" PointX="3.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.LOAD_CARRIER_TRANSLATION" Width="1.5" PointX="23" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.LOAD_UNIT" Width="1.5" PointX="6" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.LOAD_UNIT_CONDITION" Width="1.5" PointX="13.5" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.LOAD_UNIT_CONDITION_TRANSLATION" Width="1.5" PointX="23" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.LOAD_UNIT_SLA" Width="1.5" PointX="8.25" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.LOAD_UNIT_SUB_CONDITION" Width="1.5" PointX="7.75" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.LOAD_UNIT_TRANSLATION" Width="1.5" PointX="26" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.PICTURE_EVIDENCE" Width="1.5" PointX="15.75" PointY="27.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.REF_ORDER" Width="1.5" PointX="17.75" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.REF_TRANSACTION_TEMP_RECEIPTS" Width="1.5" PointX="19.75" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.REPORTING_ACTOR_TYPE" Width="1.5" PointX="0.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.RETAILER_CHAIN" Width="1.5" PointX="0.75" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.RT_TYPE" Width="1.5" PointX="10.75" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.RTI" Width="1.5" PointX="16.5" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.RTI_ACCEPTANCE" Width="1.5" PointX="21.75" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.RTI_TRANSLATION" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.SHIPMENT" Width="1.5" PointX="9.75" PointY="29.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.SORTING_STATUS" Width="1.5" PointX="3.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.SORTING_STATUS_TRANSLATION" Width="1.5" PointX="26" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.SSCC" Width="1.5" PointX="16.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.SSCC_DEL" Width="1.5" PointX="23.75" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.SSCC_MANAGEMENT" Width="1.5" PointX="12.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.SSCC_ORDER" Width="1.5" PointX="10.5" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.SSCC_RTI_DETAILS" Width="1.5" PointX="18.75" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.SSCC_RTI_GRAI" Width="1.5" PointX="25.75" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.STANDARD_DISTRIBUTION" Width="1.5" PointX="3" PointY="46.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.sysdiagrams" Width="1.5" PointX="25.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.TIMEONSITE" Width="1.5" PointX="25.75" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.TRANSACTION" Width="1.5" PointX="13.5" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.TRANSACTION_DEL" Width="1.5" PointX="19.75" PointY="32.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.TRANSACTION_SSCC_RTI_DETAILS" Width="1.5" PointX="18.75" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.TRANSACTION_SSCC_RTI_DETAILS_DEL" Width="1.5" PointX="25.75" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.TRANSACTION_SSCC_RTI_DETAILS_QTY_DIF" Width="1.5" PointX="14.75" PointY="33.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.TRANSACTION_SSCC_RTI_GRAI" Width="1.5" PointX="5.75" PointY="34.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.TRANSACTION_SUBTYPES" Width="1.5" PointX="27.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.TRANSLATION_DETAILS" Width="1.5" PointX="20.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.XML_EXPORT_MESSAGES" Width="1.5" PointX="7.75" PointY="34.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.Z_CHANGES_TO_DATABASE" Width="1.5" PointX="9.75" PointY="34.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.Z_LOAD_MESSAGE_STATUS" Width="1.5" PointX="27.75" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.Z_SSCC_NUMBERS" Width="1.5" PointX="12.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.Z_SSCC_ORDER_NUMBER" Width="1.5" PointX="27.75" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.Z_SSCC_ORDER_RETAILER_DETAILS" Width="1.5" PointX="27.75" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.Z_STG_XML_ANOMALIES" Width="1.5" PointX="27.75" PointY="30.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.Z_STG_XML_CONTENT" Width="1.5" PointX="0.75" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.Z_STG_XML_COUNTING" Width="1.5" PointX="2.75" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.Z_STG_XML_DATA" Width="1.5" PointX="28.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.Z_STG_XML_LOAD" Width="1.5" PointX="25.75" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.Z_STG_XML_LOAD_CARRIER" Width="1.5" PointX="27.75" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.Z_STG_XML_ORDER" Width="1.5" PointX="29.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.Z_STG_XML_PICTURES" Width="1.5" PointX="29.75" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.Z_STG_XML_SHIPMENT" Width="1.5" PointX="29.75" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.Z_STG_XML_TIMEONSITE" Width="1.5" PointX="29.75" PointY="30.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.Z_STG_XML_TRANSACTION" Width="1.5" PointX="29.75" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.Z_VALIDATION" Width="1.5" PointX="29.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.CPF_410_AGGREGATED_ACTOR_CODE" Width="1.5" PointX="18.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.CPF_SOURCE_REFERENCE_SLRS_NEW" Width="1.5" PointX="30.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.CPF_SOURCE_REFERENCE_SLRS_RCM410" Width="1.5" PointX="14.75" PointY="37.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.CPF_SOURCE_REFERENCE_SLRS_RCM415" Width="1.5" PointX="16.75" PointY="37.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.PARAMETER_SRLS" Width="1.5" PointX="31.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.PARAMETER_SRLS_NEW" Width="1.5" PointX="11.75" PointY="38.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.REF_ORDER_UPSERT" Width="1.5" PointX="31.75" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.RTI_DATASET" Width="1.5" PointX="31.75" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.RUNNING_JOB_CHECK" Width="1.5" PointX="31.75" PointY="7.5" IsExpanded="true" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_TRANSACTION_ACTION" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_ACTOR_LABEL_DETAILS_ACTOR_REFERENCE" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_ACTOR_REFERENCE_ACTOR_TYPE" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_ACTOR_REFERENCE_REPORTING_ACTOR_TYPE" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_ACTOR_REFERENCE_RETAILER_CHAIN" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_LOAD_UNIT_SLA_ACTOR_REFERENCE" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_SSCC_ORDER_ACTOR_REFERENCE" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_SSCC_ORDER_ACTOR_REFERENCE2" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_TRANSACTION_ACTOR_REFERENCE" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_DEVIATION_BY_RETAILER_LOAD_UNIT_CONDITION" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_DEVIATION_BY_RETAILER_RETAILER_CHAIN" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_ERROR_HANDLING_ARCHIVE_ERROR" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_ERROR_HANDLING_ERROR" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_ERROR_TRANSLATION_ERROR" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_ERROR_TRANSLATION_TRANSLATION_DETAILS" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_LINK_TRANSACTION_LOAD_UNIT_CONDITION_LOAD_UNIT_CONDITION" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_LINK_TRANSACTION_LOAD_UNIT_CONDITION_TRANSACTION" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_LOAD_CARRIER_TRANSLATION_LOAD_CARRIER" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_LOAD_UNIT_LOAD_CARRIER" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_LOAD_CARRIER_TRANSLATION_TRANSLATION_DETAILS" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_LOAD_UNIT_SLA_LOAD_UNIT" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_LOAD_UNIT_SORTING_STATUS" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_LOAD_UNIT_TRANSLATION_LOAD_UNIT" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_SSCC_ORDER_LOAD_UNIT" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_LOAD_UNIT_CONDITION_TRANSLATION_LOAD_UNIT_CONDITION" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_LOAD_UNIT_CONDITION_TRANSLATION_TRANSLATION_DETAILS" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_SSCC_ORDER_LOAD_UNIT_SLA" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_TRANSACTION_LOAD_UNIT_SLA" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_LOAD_UNIT_TRANSLATION_TRANSLATION_DETAILS" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_PICTURE_EVIDENCE_TRANSACTION" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_STANDARD_DISTRIBUTION_RETAILER_CHAIN" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_SSCC_RTI_DETAILS_RTI" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_TRANSACTION_SSCC_RTI_DETAILS_RTI" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_RTI_TRANSLATION_RTI_TRANSLATION" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_SORTING_STATUS_TRANSLATION_SORTING_STATUS" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_SORTING_STATUS_TRANSLATION_TRANSLATION_DETAILS" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_SSCC_RTI_DETAILS_SSCC" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_SSCC_MANAGEMENT_SSCC_ORDER" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_SSCC_RTI_DETAILS_SSCC_RTI_DETAILS" ManuallyRouted="false" />
+        <AssociationConnector Association="BACKUP_SRL_20180613Model.FK_TRANSACTION_SSCC_RTI_DETAILS_TRANSACTION" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
