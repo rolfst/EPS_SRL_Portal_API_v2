@@ -42,53 +42,61 @@ namespace SRL_Portal_API.Controllers
         }
 
         /// <summary>
-            /// Get a list of Orders based on the specified filters.
-            /// </summary>
-            /// <param name="actorId">The actor which the orders are from. Value is optional.</param>
-            /// <param name="orderDateFrom">Date after which the filter searches orders. Value is optional.</param>
-            /// <param name="orderDateTo">Date before which the filter searches orders. Value is optional.</param>
-            /// <param name="orderStatus">The status of the order. Value is optional.</param>
-            /// <param name="ciDateTo">Value is optional.</param>
-            /// <param name="ciDateFrom">Value is optional.</param>
-            /// <param name="validationDeadlineStatus">Value which tells the filter what type of status the deadline has.
-            ///     Value is optional.</param>
-            /// <param name="user">Represents the user looking up the information. Value is optional.</param>
-            /// <param name="from">Company from which the order is coming. Value is optional.</param>
-            /// <param name="to">Company to which the order is going. Value is optional.</param>
-            /// <param name="orderNumber">identifiable number for the order. Value is optional.</param>
-            /// <param name="shopOkStatus">Value which determines the Shop status. Value is optional.</param>
-            /// <param name="slaOkStatus">Value which determines the slaOkStatus. Value is optional.</param>
-            /// <returns>A collection of orders.</returns>
-            [HttpPost]
+        /// Get a list of Orders based on the specified filters.
+        /// </summary>
+        /// <param name="actorId">The actor which the orders are from. Value is optional.</param>
+        /// <param name="orderDateFrom">Date after which the filter searches orders. Value is optional.</param>
+        /// <param name="orderDateTo">Date before which the filter searches orders. Value is optional.</param>
+        /// <param name="orderStatus">The status of the order. Value is optional.</param>
+        /// <param name="ciDateTo">Value is optional.</param>
+        /// <param name="ciDateFrom">Value is optional.</param>
+        /// <param name="validationDeadlinePassed"></param>
+        /// <param name="user">Represents the user looking up the information. Value is optional.</param>
+        /// <param name="from">Company from which the order is coming. Value is optional.</param>
+        /// <param name="to">Company to which the order is going. Value is optional.</param>
+        /// <param name="orderNumber">identifiable number for the order. Value is optional.</param>
+        /// <param name="shopNok"></param>
+        /// <param name="slaOkStatus">Value which determines the slaOkStatus. Value is optional.</param>
+        /// <param name="validationDeadline"></param>
+        /// <param name="validationDeadlineOpen"></param>
+        /// <param name="validationDeadlineExceeded"></param>
+        /// <param name="shopOk"></param>
+        /// <returns>A collection of orders.</returns>
+        [HttpPost]
         public JsonResult<List<FilterOrderResponseModel>> FilterOrder(
-            int? actorId = null, DateTime? orderDateFrom = null, 
-            DateTime? orderDateTo = null, int? orderStatus = null, 
-            DateTime? ciDateTo = null, DateTime? ciDateFrom = null, 
-            string validationDeadlineStatus = null, string user = null, 
-            string from = null, string to = null, int? orderNumber = null, 
-            string shopOkStatus = null, string slaOkStatus = null)
+        int? actorId = null, DateTime? orderDateFrom = null,
+        DateTime? orderDateTo = null, int? orderStatus = null,
+        DateTime? ciDateTo = null, DateTime? ciDateFrom = null,
+        DateTime? validationDeadline = null, string validationDeadlineOpen = null, 
+        string validationDeadlineExceeded = null, string validationDeadlinePassed = null, 
+        string user = null, string from = null, 
+        string to = null, string orderNumber = null,
+        bool shopOk = false, bool shopNok = false, string slaOkStatus = null)
         {
             var response = new List<FilterOrderResponseModel>();
 
             using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["SRL_Portal"].ConnectionString))
             {
                 // todo: add Stored Procedure
-                using (var cmd = new SqlCommand("dbo", conn))
+                using (var cmd = new SqlCommand("dbo.API_ORDER_LIST", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter("@Actor_Id", actorId));
-                    cmd.Parameters.Add(new SqlParameter("@OrderDateFrom", orderDateFrom));
-                    cmd.Parameters.Add(new SqlParameter("@OrderDateTo", orderDateTo));
-                    cmd.Parameters.Add(new SqlParameter("@OrderStatus", orderStatus));
-                    cmd.Parameters.Add(new SqlParameter("@CIDateFrom", ciDateFrom));
-                    cmd.Parameters.Add(new SqlParameter("@CIDateTo", ciDateTo));
-                    cmd.Parameters.Add(new SqlParameter("@ValidationDeadline", validationDeadlineStatus));
-                    cmd.Parameters.Add(new SqlParameter("@User", user));
-                    cmd.Parameters.Add(new SqlParameter("@From", from));
-                    cmd.Parameters.Add(new SqlParameter("@To", to));
-                    cmd.Parameters.Add(new SqlParameter("@OrderNumber", orderNumber));
-                    cmd.Parameters.Add(new SqlParameter("@CountingStatusSLA", slaOkStatus));
-                    cmd.Parameters.Add(new SqlParameter("@CountingStatusSHOP", shopOkStatus));
+                    cmd.Parameters.Add(new SqlParameter("@ORD_ORDER_NUMBER", orderNumber));
+                    cmd.Parameters.Add(new SqlParameter("@RETAILER_CHAIN_ID", actorId));
+                    cmd.Parameters.Add(new SqlParameter("@ORDER_DATE_FROM", orderDateFrom));
+                    cmd.Parameters.Add(new SqlParameter("@ORDER_DATE_TO", orderDateTo));
+                    cmd.Parameters.Add(new SqlParameter("@ORDER_STATUS", orderStatus));
+                    cmd.Parameters.Add(new SqlParameter("@CI_DATE_FROM", ciDateFrom));
+                    cmd.Parameters.Add(new SqlParameter("@CI_DATE_TO", ciDateTo));
+                    cmd.Parameters.Add(new SqlParameter("@VALIDATION_DEADLINE", validationDeadline));
+                    cmd.Parameters.Add(new SqlParameter("@USER", user));
+                    cmd.Parameters.Add(new SqlParameter("@ACTOR_ID_FROM", from));
+                    cmd.Parameters.Add(new SqlParameter("@ACTOR_ID_TO", to));
+                    cmd.Parameters.Add(new SqlParameter("@SHOP_COUNT_OK", shopOk));
+                    cmd.Parameters.Add(new SqlParameter("@SHOP_COUNT_NOK", shopNok));
+                    cmd.Parameters.Add(new SqlParameter("@VALIDATION_DEADLINE_OPEN", validationDeadlineOpen));
+                    cmd.Parameters.Add(new SqlParameter("@VALIDATION_DEADLINE_EXCEEDED", validationDeadlineExceeded));
+                    cmd.Parameters.Add(new SqlParameter("@VALIDATION_DEADLINE_PASSED", validationDeadlinePassed));
 
                     conn.Open();
                     var reader = cmd.ExecuteReader();
@@ -96,16 +104,17 @@ namespace SRL_Portal_API.Controllers
                     {
                         var result = new FilterOrderResponseModel
                         {
-                            OrderId = reader.GetInt32(0),
-                            OrderDate = reader.GetDateTime(1),
-                            OrderNumber = reader.GetInt32(2),
-                            From = reader.GetString(3),
-                            To = reader.GetString(4),
-                            OrderStatus = reader.GetString(5),
-                            ValidationDeadline = reader.GetString(6),
-                            SlaOk = reader.GetString(7),
-                            CountingOk = reader.GetString(8),
-                            CiDate = reader.GetDateTime(9)
+                            // todo: Convert datetimes to example: "\/Date(1527808202000)\/"
+                            OrderId = reader["ID_ORDER"],
+                            OrderDate = reader["ORDER_DATE"],
+                            OrderNumber = reader["ORD_ORDER_NUMBER"],
+                            From = reader["FROM_NAME"],
+                            To = reader["TO_NAME"],
+                            OrderStatus = reader["ORDER_STATUS"],
+                            ValidationDeadline = reader["VALIDATION_DEADLINE"],
+                            SlaOk = reader["SHOP_OK"],
+                            CountingOk = reader["SHOP_OK"],
+                            CiDate = reader["CI_DATE"],
                         };
                         response.Add(result);
                     }

@@ -4,15 +4,15 @@ namespace SRL_Portal_API.Model.FilterOrder
 {
     public class FilterOrderResponseModel
     {
-        public int OrderId { get; set; }
-        public DateTime OrderDate { get; set; }
-        public int OrderNumber { get; set; }
-        public string From { get; set; }
-        public string To { get; set; }
-        public string OrderStatus { get; set; }
-        public string ValidationDeadline { get; set; }
-        public string SlaOk { get; set; }
-        public string CountingOk { get; set; }
-        public DateTime CiDate { get; set; }
+        public object OrderId { get; set; }
+        public object OrderDate { get; set; }
+        public object OrderNumber { get; set; }
+        public object From { get; set; }
+        public object To { get; set; }
+        public object OrderStatus { get; set; }
+        public object ValidationDeadline { get; set; }
+        public object SlaOk { get; set; }
+        public object CountingOk { get; set; }
+        public object CiDate { get; set; }
     }
 }
