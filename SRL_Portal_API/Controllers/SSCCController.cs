@@ -60,13 +60,14 @@ namespace SRL_Portal_API.Controllers
                 slaOK = true; slaNOK = true;
             }
 
+
             // call stored procedure with the given parameters to retrieve the list
             dbEntities.Configuration.ProxyCreationEnabled = false;
             var SSCCList = dbEntities.API_SSCC_OVERVIEW(actorId, actorOriginId, 
                 ssccStatusNew, ssccStatusProcessed, ssccStatusValidated, ssccDateFrom, ssccDateTo,
                 ciDateFrom, ciDateTo, validationOpen, validationExceeded, validationPassed, ssccNr, 
                 orderNr, countingOK, countingNOK, slaOK, slaNOK, retailerChainId)
-                .Take(1000) // TODO, remove when business limitations are in place. Full list is to big for Json writer
+                .Take(1000) 
                 .ToList<API_SSCC_OVERVIEW_Result>();
 
             var result = ConvertSSCCList(SSCCList);
@@ -88,7 +89,6 @@ namespace SRL_Portal_API.Controllers
                 vm.SSCC = item.SSCC;
                 vm.ActorFrom = GetActorName(item.ACTOR_ORIGIN_ID);
                 vm.ActorTo = item.ACTOR_ID.HasValue ? GetActorName(item.ACTOR_ID.Value) : "";
-                // TODO confirm definitions for status codes
                 switch (item.SSCC_STATUS)
                 {
                     case 1:
@@ -112,12 +112,7 @@ namespace SRL_Portal_API.Controllers
                 vm.CountingOK = item.SHOP_COUNT == item.CI_COUNT;
                 vm.CIDate = item.CI_DATETIME;
                 vm.IsValidated = item.VALIDATED;
-                if (vm.IsValidated)
-                    vm.ValidationStatus = "Passed";
-                else if (item.VALIDATION_DEADLINE.HasValue && item.VALIDATION_DEADLINE < DateTime.Now)
-                    vm.ValidationStatus = "Exceeded";
-                else
-                    vm.ValidationStatus = "Open";
+                vm.ValidationStatus = SetValidationStatus(item.VALIDATED, item.VALIDATION_DEADLINE);
                 VMList.Add(vm);
             }
 
@@ -131,6 +126,16 @@ namespace SRL_Portal_API.Controllers
                                 select a.ACTOR_LABEL).SingleOrDefault();
 
             return actorName;
+        }
+
+        private string SetValidationStatus(bool IsValidated, DateTime? valDeadline)
+        {
+            if (IsValidated)
+                return "Passed";
+            else if (valDeadline.HasValue && valDeadline < DateTime.Now)
+                return "Exceeded";
+            else
+                return "Open";
         }
     }
 }
