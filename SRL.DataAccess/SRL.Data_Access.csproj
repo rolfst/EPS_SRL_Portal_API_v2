@@ -1,0 +1,549 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{198467D7-782D-4F86-9ED6-D84BC00D0A7F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SRL.Data_Access</RootNamespace>
+    <AssemblyName>SRL.Data_Access</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Adapter\OrderDetailAdapter.cs" />
+    <Compile Include="Adapter\UserAdapter.cs" />
+    <Compile Include="Entity\ACTION.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ACTOR_LABEL_DETAILS.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ACTOR_REFERENCE.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ACTOR_TYPE.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\AUDIT.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CONTENT.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CPF_410_AGGREGATED_ACTOR_CODE.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CPF_SLRS_RCM410_SSCC.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CPF_SLRS_RCM410_SSCC_OUD.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CPF_SLRS_RCM415_SSCC.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CPF_SLRS_RCM419_SSCC.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CPF_SLRS_RCM419_SSCC_NEW.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CPF_SOURCE_REFERENCE_SLRS.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CPF_SOURCE_REFERENCE_SLRS_NEW.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CPF_SOURCE_REFERENCE_SLRS_RCM410.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CPF_SOURCE_REFERENCE_SLRS_RCM415.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\DEPOT_LABEL.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\DEVIATION_BY_RETAILER.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ERROR.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ERROR_HANDLING.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ERROR_HANDLING_ARCHIVE.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ERROR_TRANSLATION.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ESOFT_API_RCM500.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\EXPORT_MESSAGE_UPDATE_STATUS_2.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\EXPORT_MESSAGE_UPDATE_STATUS_2_SUM.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\GetOrderDetail_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\INPUT_SSCC_MANAGEMENT.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\INTERFACING.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\LATE_TRANSACTIONS.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\LINK_TRANSACTION_LOAD_UNIT_CONDITION.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\LOAD_CARRIER.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\LOAD_CARRIER_TRANSLATION.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\LOAD_UNIT.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\LOAD_UNIT_CONDITION.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\LOAD_UNIT_CONDITION_TRANSLATED.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\LOAD_UNIT_CONDITION_TRANSLATION.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\LOAD_UNIT_SLA.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\LOAD_UNIT_SUB_CONDITION.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\LOAD_UNIT_TRANSLATION.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\NOVEXX.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PARAMETER_SRLS.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PARAMETER_SRLS_NEW.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PICTURE_EVIDENCE.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\RCM410_SSCC_VW.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\REF_ARTICLE_PACKING.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\REF_CALENDAR_DAY.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\REF_CALENDAR_MONTH.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\REF_CALENDAR_WEEK.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\REF_ORDER.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\REF_ORDER_UPSERT.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\REF_PARAMETER_OUD.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\REF_TRANSACTION_TEMP_RECEIPTS.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\REPORTING_ACTOR_TYPE.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\RETAILER_CHAIN.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\RTI.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\RTI_ACCEPTANCE.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\RTI_DATASET.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\RTI_TRANSLATED.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\RTI_TRANSLATION.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\RT_TYPE.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\RUNNING_JOB_CHECK.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SHIPMENT.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SLA_UNIT_INFO_DETAILS.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SORTING_STATUS.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SORTING_STATUS_TRANSLATION.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sp_GetUsers_Result.cs">
+      <DependentUpon>SRLUser.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SRL.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SRL.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SRL.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SRL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SRL.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SSCC.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SSCC_DEL.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SSCC_MANAGEMENT.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SSCC_ORDER.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SSCC_ORDER_OVERVIEW.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SSCC_RTI_DETAILS.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SSCC_RTI_GRAI.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\STANDARD_DISTRIBUTION.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sysdiagrams.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\temp_TRANSACTION_2018.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\temp_TRANSACTION_SSCC_RTI_DETAILS_2018.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\temp_Z_STG_XML_DATA_2018.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\TIMEONSITE.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\TRANSACTION.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\TRANSACTION_DEL.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\TRANSACTION_SSCC_RTI_DETAILS.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\TRANSACTION_SSCC_RTI_DETAILS_DEL.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\TRANSACTION_SSCC_RTI_DETAILS_QTY_DIF.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\TRANSACTION_SSCC_RTI_GRAI.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\TRANSACTION_SUBTYPES.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\TRANSLATION_DETAILS.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\VW_AUTOMATIC_SLA_MATCH.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\VW_CI_WITHOUT_INBOUND.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\vw_DEPOT_LABEL.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\VW_ERROR_DOUBLE_COUNTING.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\VW_INBOUND_WITHOUT_CI.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\VW_MONO_SSCC.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\vw_RTG_DATASET.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\vw_RTG_DATASET_MT.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\vw_RTI_DATASET.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\vw_RTI_DATASET_MT.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\vw_RTI_DATASET_X.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\VW_SSCC_CI.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\VW_SSCC_MULTI_LOAD_CARRIER.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\VW_SSCC_VALIDATED.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\VW_SSCC_VALIDATED_MT.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\XML_EXPORT_MESSAGES.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_CHANGES_TO_DATABASE.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_LOAD_MESSAGE_STATUS.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_RPT_PROCESS_QTY.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_SSCC_NUMBERS.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_SSCC_ORDER_NUMBER.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_SSCC_ORDER_RETAILER_DETAILS.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_ANOMALIES.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_CONTENT.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_COUNTING.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_DATA.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_DV_ANOMALIES.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_DV_CONTENT.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_DV_COUNTING.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_DV_LOAD.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_DV_LOAD_CARRIER.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_DV_ORDER.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_DV_PICTURES.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_DV_SHIPMENT.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_DV_TIMEONSITE.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_DV_TRANSACTION.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_LOAD.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_LOAD_CARRIER.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_ORDER.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_PICTURES.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_SHIPMENT.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_TIMEONSITE.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_STG_XML_TRANSACTION.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Z_VALIDATION.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Entity\Roles.cs">
+      <DependentUpon>SRLUser.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\RoleScreen.cs">
+      <DependentUpon>SRLUser.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Screens.cs">
+      <DependentUpon>SRLUser.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SRLUser.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SRLUser.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SRLUser.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SRLUser.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SRLUser.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SRLUser.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\UserRole.cs">
+      <DependentUpon>SRLUser.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Users.cs">
+      <DependentUpon>SRLUser.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\OrderDetailRepository.cs" />
+    <Compile Include="Repository\UserRespository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Entity\SRLUser.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SRLUser.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="Entity\SRL.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SRL.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Entity\SRL.edmx.diagram">
+      <DependentUpon>SRL.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Entity\SRLUser.edmx.diagram">
+      <DependentUpon>SRLUser.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Entity\SRL.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SRL.edmx</DependentUpon>
+      <LastGenOutput>SRL.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entity\SRL.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SRL.edmx</DependentUpon>
+      <LastGenOutput>SRL.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entity\SRLUser.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SRLUser.Context.cs</LastGenOutput>
+      <DependentUpon>SRLUser.edmx</DependentUpon>
+    </Content>
+    <Content Include="Entity\SRLUser.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SRLUser.edmx</DependentUpon>
+      <LastGenOutput>SRLUser.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SRL.Entities\SRL.Entities.csproj">
+      <Project>{0fba6976-1efb-4f0c-9a34-a8627e0acd56}</Project>
+      <Name>SRL.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

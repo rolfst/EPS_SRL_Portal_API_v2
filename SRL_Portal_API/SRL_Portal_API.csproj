@@ -284,12 +284,12 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Users\maduke\source\repos\SRL\SRL.DataAccess1\SRL.Data_Access.csproj">
+    <ProjectReference Include="..\SRL.DataAccess\SRL.Data_Access.csproj">
       <Project>{198467d7-782d-4f86-9ed6-d84bc00d0a7f}</Project>
       <Name>SRL.Data_Access</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Users\maduke\source\repos\SRL\SRL.Entities\SRL.Entities.csproj">
-      <Project>{eb6d2531-7e29-4214-9961-3d2a2239345b}</Project>
+    <ProjectReference Include="..\SRL.Entities\SRL.Entities.csproj">
+      <Project>{e92c802d-bedc-478f-8e08-380b00c171d2}</Project>
       <Name>SRL.Entities</Name>
     </ProjectReference>
   </ItemGroup>

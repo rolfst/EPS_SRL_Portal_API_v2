@@ -1,0 +1,595 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SRLManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoleScreen">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="ScreenId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="ScreenId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime2" Precision="7" />
+          <Property Name="CreatedUserId" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+          <Property Name="ModifiedUserId" Type="int" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Screens">
+          <Key>
+            <PropertyRef Name="ScreenId" />
+          </Key>
+          <Property Name="ScreenId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ScreenName" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedUserId" Type="int" />
+          <Property Name="CreatedDate" Type="datetime2" Precision="7" />
+          <Property Name="ModifiedUserId" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="250" />
+          <Property Name="Admin" Type="bit" Nullable="false" />
+          <Property Name="Language" Type="nvarchar" MaxLength="50" />
+          <Property Name="Invited" Type="bit" Nullable="false" />
+          <Property Name="Accepted" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="CreatedUserId" Type="int" />
+          <Property Name="CreatedDate" Type="datetime2" Precision="7" />
+          <Property Name="ModifiedUserId" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
+          <Property Name="IsInternal" Type="bit" Nullable="false" />
+          <Property Name="Assigned" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_RoleScreen_CreatedUserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="RoleScreen" Type="Self.RoleScreen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RoleScreen">
+              <PropertyRef Name="CreatedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleScreen_ModifiedUserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="RoleScreen" Type="Self.RoleScreen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RoleScreen">
+              <PropertyRef Name="ModifiedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleScreen_RoleId">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="RoleScreen" Type="Self.RoleScreen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RoleScreen">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleScreen_ScreenId">
+          <End Role="Screens" Type="Self.Screens" Multiplicity="1" />
+          <End Role="RoleScreen" Type="Self.RoleScreen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Screens">
+              <PropertyRef Name="ScreenId" />
+            </Principal>
+            <Dependent Role="RoleScreen">
+              <PropertyRef Name="ScreenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_CreatedUserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="CreatedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_ModfiedUserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="ModifiedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_RoleId">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_UserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_CreatedUserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Users1" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Users1">
+              <PropertyRef Name="CreatedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_ModifiedUserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Users1" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Users1">
+              <PropertyRef Name="ModifiedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_GetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="SRLManagementModelStoreContainer">
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleScreen" EntityType="Self.RoleScreen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Screens" EntityType="Self.Screens" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_RoleScreen_CreatedUserId" Association="Self.FK_RoleScreen_CreatedUserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="RoleScreen" EntitySet="RoleScreen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleScreen_ModifiedUserId" Association="Self.FK_RoleScreen_ModifiedUserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="RoleScreen" EntitySet="RoleScreen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleScreen_RoleId" Association="Self.FK_RoleScreen_RoleId">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RoleScreen" EntitySet="RoleScreen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleScreen_ScreenId" Association="Self.FK_RoleScreen_ScreenId">
+            <End Role="Screens" EntitySet="Screens" />
+            <End Role="RoleScreen" EntitySet="RoleScreen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_CreatedUserId" Association="Self.FK_UserRole_CreatedUserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_ModfiedUserId" Association="Self.FK_UserRole_ModfiedUserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_RoleId" Association="Self.FK_UserRole_RoleId">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_UserId" Association="Self.FK_UserRole_UserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_CreatedUserId" Association="Self.FK_Users_CreatedUserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Users1" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_ModifiedUserId" Association="Self.FK_Users_ModifiedUserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Users1" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SRLManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="RoleScreen" Relationship="Self.FK_RoleScreen_RoleId" FromRole="Roles" ToRole="RoleScreen" />
+          <NavigationProperty Name="UserRole" Relationship="Self.FK_UserRole_RoleId" FromRole="Roles" ToRole="UserRole" />
+        </EntityType>
+        <EntityType Name="RoleScreen">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="ScreenId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="ScreenId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="7" />
+          <Property Name="CreatedUserId" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
+          <Property Name="ModifiedUserId" Type="Int32" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK_RoleScreen_RoleId" FromRole="RoleScreen" ToRole="Roles" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_RoleScreen_CreatedUserId" FromRole="RoleScreen" ToRole="Users" />
+          <NavigationProperty Name="Users1" Relationship="Self.FK_RoleScreen_ModifiedUserId" FromRole="RoleScreen" ToRole="Users" />
+          <NavigationProperty Name="Screens" Relationship="Self.FK_RoleScreen_ScreenId" FromRole="RoleScreen" ToRole="Screens" />
+        </EntityType>
+        <EntityType Name="Screens">
+          <Key>
+            <PropertyRef Name="ScreenId" />
+          </Key>
+          <Property Name="ScreenId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ScreenName" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="RoleScreen" Relationship="Self.FK_RoleScreen_ScreenId" FromRole="Screens" ToRole="RoleScreen" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedUserId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="7" />
+          <Property Name="ModifiedUserId" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK_UserRole_RoleId" FromRole="UserRole" ToRole="Roles" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_UserRole_CreatedUserId" FromRole="UserRole" ToRole="Users" />
+          <NavigationProperty Name="Users1" Relationship="Self.FK_UserRole_ModfiedUserId" FromRole="UserRole" ToRole="Users" />
+          <NavigationProperty Name="Users2" Relationship="Self.FK_UserRole_UserId" FromRole="UserRole" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Admin" Type="Boolean" Nullable="false" />
+          <Property Name="Language" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Invited" Type="Boolean" Nullable="false" />
+          <Property Name="Accepted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedUserId" Type="Int32" Nullable="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="7" Nullable="true" />
+          <Property Name="ModifiedUserId" Type="Int32" Nullable="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="7" Nullable="true" />
+          <Property Name="IsInternal" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="RoleScreen" Relationship="Self.FK_RoleScreen_CreatedUserId" FromRole="Users" ToRole="RoleScreen" />
+          <NavigationProperty Name="RoleScreen1" Relationship="Self.FK_RoleScreen_ModifiedUserId" FromRole="Users" ToRole="RoleScreen" />
+          <NavigationProperty Name="UserRole" Relationship="Self.FK_UserRole_CreatedUserId" FromRole="Users" ToRole="UserRole" />
+          <NavigationProperty Name="UserRole1" Relationship="Self.FK_UserRole_ModfiedUserId" FromRole="Users" ToRole="UserRole" />
+          <NavigationProperty Name="UserRole2" Relationship="Self.FK_UserRole_UserId" FromRole="Users" ToRole="UserRole" />
+          <NavigationProperty Name="Users1" Relationship="Self.FK_Users_CreatedUserId" FromRole="Users" ToRole="Users1" />
+          <NavigationProperty Name="Users2" Relationship="Self.FK_Users_CreatedUserId" FromRole="Users1" ToRole="Users" />
+          <NavigationProperty Name="Users11" Relationship="Self.FK_Users_ModifiedUserId" FromRole="Users" ToRole="Users1" />
+          <NavigationProperty Name="Users3" Relationship="Self.FK_Users_ModifiedUserId" FromRole="Users1" ToRole="Users" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Assigned" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_RoleScreen_RoleId">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="RoleScreen" Type="Self.RoleScreen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RoleScreen">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_RoleId">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleScreen_CreatedUserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="RoleScreen" Type="Self.RoleScreen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RoleScreen">
+              <PropertyRef Name="CreatedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleScreen_ModifiedUserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="RoleScreen" Type="Self.RoleScreen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RoleScreen">
+              <PropertyRef Name="ModifiedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleScreen_ScreenId">
+          <End Role="Screens" Type="Self.Screens" Multiplicity="1" />
+          <End Role="RoleScreen" Type="Self.RoleScreen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Screens">
+              <PropertyRef Name="ScreenId" />
+            </Principal>
+            <Dependent Role="RoleScreen">
+              <PropertyRef Name="ScreenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_CreatedUserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="CreatedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_ModfiedUserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="ModifiedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_UserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_CreatedUserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Users1" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Users1">
+              <PropertyRef Name="CreatedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_ModifiedUserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Users1" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Users1">
+              <PropertyRef Name="ModifiedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SRLManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="RoleScreen" EntityType="Self.RoleScreen" />
+          <EntitySet Name="Screens" EntityType="Self.Screens" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_RoleScreen_RoleId" Association="Self.FK_RoleScreen_RoleId">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RoleScreen" EntitySet="RoleScreen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_RoleId" Association="Self.FK_UserRole_RoleId">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleScreen_CreatedUserId" Association="Self.FK_RoleScreen_CreatedUserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="RoleScreen" EntitySet="RoleScreen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleScreen_ModifiedUserId" Association="Self.FK_RoleScreen_ModifiedUserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="RoleScreen" EntitySet="RoleScreen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleScreen_ScreenId" Association="Self.FK_RoleScreen_ScreenId">
+            <End Role="Screens" EntitySet="Screens" />
+            <End Role="RoleScreen" EntitySet="RoleScreen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_CreatedUserId" Association="Self.FK_UserRole_CreatedUserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_ModfiedUserId" Association="Self.FK_UserRole_ModfiedUserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_UserId" Association="Self.FK_UserRole_UserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_CreatedUserId" Association="Self.FK_Users_CreatedUserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Users1" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_ModifiedUserId" Association="Self.FK_Users_ModifiedUserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Users1" EntitySet="Users" />
+          </AssociationSet>
+          <FunctionImport Name="GetAllUsers" EntitySet="Users" ReturnType="Collection(SRLManagementModel.Users)" />
+        </EntityContainer>
+        <ComplexType Name="sp_GetUsers_Result">
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="Admin" Nullable="false" />
+          <Property Type="Boolean" Name="isActive" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SRLManagementModelStoreContainer" CdmEntityContainer="SRLManagementEntities">
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="SRLManagementModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleScreen">
+            <EntityTypeMapping TypeName="SRLManagementModel.RoleScreen">
+              <MappingFragment StoreEntitySet="RoleScreen">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ScreenId" ColumnName="ScreenId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedUserId" ColumnName="CreatedUserId" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedUserId" ColumnName="ModifiedUserId" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Screens">
+            <EntityTypeMapping TypeName="SRLManagementModel.Screens">
+              <MappingFragment StoreEntitySet="Screens">
+                <ScalarProperty Name="ScreenId" ColumnName="ScreenId" />
+                <ScalarProperty Name="ScreenName" ColumnName="ScreenName" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRole">
+            <EntityTypeMapping TypeName="SRLManagementModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="CreatedUserId" ColumnName="CreatedUserId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedUserId" ColumnName="ModifiedUserId" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SRLManagementModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Assigned" ColumnName="Assigned" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Admin" ColumnName="Admin" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="Invited" ColumnName="Invited" />
+                <ScalarProperty Name="Accepted" ColumnName="Accepted" />
+                <ScalarProperty Name="CreatedUserId" ColumnName="CreatedUserId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedUserId" ColumnName="ModifiedUserId" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsInternal" ColumnName="IsInternal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetAllUsers" FunctionName="SRLManagementModel.Store.sp_GetUsers" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
