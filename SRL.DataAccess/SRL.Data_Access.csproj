@@ -539,9 +539,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SRL.Entities\SRL.Entities.csproj">
-      <Project>{0fba6976-1efb-4f0c-9a34-a8627e0acd56}</Project>
-      <Name>SRL.Entities</Name>
+    <ProjectReference Include="..\SRL.Entities\SRL.Models.csproj">
+      <Project>{E92C802D-BEDC-478F-8E08-380B00C171D2}</Project>
+      <Name>SRL.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

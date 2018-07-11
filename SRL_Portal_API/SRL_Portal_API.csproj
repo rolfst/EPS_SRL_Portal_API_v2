@@ -211,7 +211,6 @@
     <Compile Include="Controllers\ActorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SSCCController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\OrderDetailController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -579,9 +578,9 @@
       <Project>{198467d7-782d-4f86-9ed6-d84bc00d0a7f}</Project>
       <Name>SRL.Data_Access</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SRL.Entities\SRL.Entities.csproj">
+    <ProjectReference Include="..\SRL.Entities\SRL.Models.csproj">
       <Project>{e92c802d-bedc-478f-8e08-380b00c171d2}</Project>
-      <Name>SRL.Entities</Name>
+      <Name>SRL.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

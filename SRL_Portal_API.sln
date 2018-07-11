@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRL_Portal_API", "SRL_Porta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRL.Data_Access", "SRL.DataAccess\SRL.Data_Access.csproj", "{198467D7-782D-4F86-9ED6-D84BC00D0A7F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SRL.Entities", "SRL.Entities\SRL.Entities.csproj", "{E92C802D-BEDC-478F-8E08-380B00C171D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SRL.Models", "SRL.Entities\SRL.Models.csproj", "{E92C802D-BEDC-478F-8E08-380B00C171D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
