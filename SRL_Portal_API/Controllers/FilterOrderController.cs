@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.Http;
 using System.Web.Http.Results;
-using SRL_Portal_API.Model.FilterOrder;
+using SRL.Models.Order;
 
 namespace SRL_Portal_API.Controllers
 {

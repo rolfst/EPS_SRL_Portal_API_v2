@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using SRL.Models;
 
 namespace SRL.Data_Access.Adapter
 {
     public static class UserAdapter
     {
-        internal static SRL.Entities.User ToEntityUser(this Data_Access.Entity.Users user)
+        internal static User ToEntityUser(this Data_Access.Entity.Users user)
         {
-            return new Entities.User
+            return new User
             {
                 UserId = user.UserId,
                 FirstName = user.FirstName,
@@ -22,9 +23,9 @@ namespace SRL.Data_Access.Adapter
             };
         }
 
-        internal static List<SRL.Entities.User> ToEntityUserList(this List<Data_Access.Entity.Users> users)
+        internal static List<User> ToEntityUserList(this List<Data_Access.Entity.Users> users)
         {
-            List<SRL.Entities.User> userList = new List<Entities.User>();
+            List<User> userList = new List<User>();
             if (users != null)
             {
                 users.ForEach(user => userList.Add(user.ToEntityUser()));

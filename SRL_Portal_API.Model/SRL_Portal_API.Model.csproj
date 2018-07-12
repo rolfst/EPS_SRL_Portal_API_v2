@@ -40,8 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FilterOrder\FilterOrderRequestModel.cs" />
-    <Compile Include="FilterOrder\OrderResponseModel.cs" />
+    <Compile Include="Order\FilterOrderRequestModel.cs" />
+    <Compile Include="Order\OrderResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
