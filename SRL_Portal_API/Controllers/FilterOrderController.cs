@@ -63,7 +63,7 @@ namespace SRL_Portal_API.Controllers
         /// <param name="shopOk"></param>
         /// <returns>A collection of orders.</returns>
         [HttpPost]
-        public JsonResult<List<FilterOrderResponseModel>> FilterOrder(
+        public JsonResult<List<OrderResponseModel>> FilterOrder(
         int? actorId = null, DateTime? orderDateFrom = null,
         DateTime? orderDateTo = null, int? orderStatus = null,
         DateTime? ciDateTo = null, DateTime? ciDateFrom = null,
@@ -73,7 +73,7 @@ namespace SRL_Portal_API.Controllers
         string to = null, string orderNumber = null,
         bool shopOk = false, bool shopNok = false, string slaOkStatus = null)
         {
-            var response = new List<FilterOrderResponseModel>();
+            var response = new List<OrderResponseModel>();
 
             using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["SRL_Portal"].ConnectionString))
             {
@@ -102,19 +102,19 @@ namespace SRL_Portal_API.Controllers
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        var result = new FilterOrderResponseModel
+                        var result = new OrderResponseModel
                         {
                             // todo: Convert datetimes to example: "\/Date(1527808202000)\/"
-                            OrderId = reader["ID_ORDER"],
-                            OrderDate = reader["ORDER_DATE"],
-                            OrderNumber = reader["ORD_ORDER_NUMBER"],
-                            From = reader["FROM_NAME"],
-                            To = reader["TO_NAME"],
-                            OrderStatus = reader["ORDER_STATUS"],
-                            ValidationDeadline = reader["VALIDATION_DEADLINE"],
-                            SlaOk = reader["SHOP_OK"],
-                            CountingOk = reader["SHOP_OK"],
-                            CiDate = reader["CI_DATE"],
+                            //OrderId = reader["ID_ORDER"],
+                            //OrderDate = reader["ORDER_DATE"],
+                            //OrderNumber = reader["ORD_ORDER_NUMBER"],
+                            //From = reader["FROM_NAME"],
+                            //To = reader["TO_NAME"],
+                            //OrderStatus = reader["ORDER_STATUS"],
+                            //ValidationDeadline = reader["VALIDATION_DEADLINE"],
+                            //SlaOk = reader["SHOP_OK"],
+                            //CountingOk = reader["SHOP_OK"],
+                            //CiDate = reader["CI_DATE"],
                         };
                         response.Add(result);
                     }

@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FilterOrder\FilterOrderRequestModel.cs" />
-    <Compile Include="FilterOrder\FilterOrderResponseModel.cs" />
+    <Compile Include="FilterOrder\OrderResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
