@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SRL.Entities;
 using SRL.Data_Access.Entity;
 using SRL.Data_Access.Adapter;
+using SRL.Models;
 
 namespace SRL.Data_Access
 {

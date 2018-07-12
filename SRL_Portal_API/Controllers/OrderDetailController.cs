@@ -4,8 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using SRL.Entities;
 using SRL.Data_Access.Repository;
+using SRL.Models.Order;
 
 namespace SRL.WebAPI.Controllers
 {
