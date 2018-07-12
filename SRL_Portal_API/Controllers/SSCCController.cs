@@ -1,5 +1,5 @@
-﻿using SRL_Portal_API.Models;
-using SRL_Portal_API.ViewModels;
+﻿using SRL.Data_Access.Entity;
+using SRL.Models.SSCC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +18,9 @@ namespace SRL_Portal_API.Controllers
 
 
         // Parameters default values for dev purposes
-        [System.Web.Http.AcceptVerbs("GET")]
-        [System.Web.Http.HttpGet]
-        public IList<SSCCListViewModel> Index(
+        [System.Web.Http.AcceptVerbs("POST")]
+        [System.Web.Http.HttpPost]
+        public IList<SSCCListItem> Index(
             string actorId = null,
             string actorOriginId = null,
             bool ssccStatusNew = false,
@@ -60,7 +60,6 @@ namespace SRL_Portal_API.Controllers
                 slaOK = true; slaNOK = true;
             }
 
-
             // call stored procedure with the given parameters to retrieve the list
             dbEntities.Configuration.ProxyCreationEnabled = false;
             var SSCCList = dbEntities.API_SSCC_OVERVIEW(actorId, actorOriginId, 
@@ -79,44 +78,44 @@ namespace SRL_Portal_API.Controllers
         /// </summary>
         /// <param name="input">The raw data as retrieved list of SSCC's</param>
         /// <returns>A list of SSCCListViewModels based on the input</returns>
-        private List<SSCCListViewModel> ConvertSSCCList(List<API_SSCC_OVERVIEW_Result> input)
+        private List<SSCCListItem> ConvertSSCCList(List<API_SSCC_OVERVIEW_Result> input)
         {
-            var VMList = new List<SSCCListViewModel>();
+            var LIMList = new List<SSCCListItem>();
             foreach (var item in input)
             {
-                SSCCListViewModel vm = new SSCCListViewModel();
-                vm.OrderDate = item.FIRST_SSCC_USAGE;
-                vm.SSCC = item.SSCC;
-                vm.ActorFrom = GetActorName(item.ACTOR_ORIGIN_ID);
-                vm.ActorTo = item.ACTOR_ID.HasValue ? GetActorName(item.ACTOR_ID.Value) : "";
+                SSCCListItem lim = new SSCCListItem();
+                lim.OrderDate = item.FIRST_SSCC_USAGE;
+                lim.SSCC = item.SSCC;
+                lim.ActorFrom = GetActorName(item.ACTOR_ORIGIN_ID);
+                lim.ActorTo = item.ACTOR_ID.HasValue ? GetActorName(item.ACTOR_ID.Value) : "";
                 switch (item.SSCC_STATUS)
                 {
                     case 1:
-                        vm.SsccStatus = "New";
+                        lim.SsccStatus = "New";
                         break;
                     case 2:
-                        vm.SsccStatus = "Processed";
+                        lim.SsccStatus = "Processed";
                         break;
                     case 3:
-                        vm.SsccStatus = "Validated";
+                        lim.SsccStatus = "Validated";
                         break;
                     default:
-                        vm.SsccStatus = "New";
+                        lim.SsccStatus = "New";
                         break;
                 }
                 if (item.VALIDATION_DEADLINE.HasValue)
                 {
-                    vm.ValidationDeadline = Math.Round((item.VALIDATION_DEADLINE.Value - now).TotalHours, 0);
+                    lim.ValidationDeadline = Math.Round((item.VALIDATION_DEADLINE.Value - now).TotalHours, 0);
                 }
-                vm.SlaOK = item.SLA_VALUE == item.SLA_MIN_VALUE;
-                vm.CountingOK = item.SHOP_COUNT == item.CI_COUNT;
-                vm.CIDate = item.CI_DATETIME;
-                vm.IsValidated = item.VALIDATED;
-                vm.ValidationStatus = SetValidationStatus(item.VALIDATED, item.VALIDATION_DEADLINE);
-                VMList.Add(vm);
+                lim.SlaOK = item.SLA_VALUE == item.SLA_MIN_VALUE;
+                lim.CountingOK = item.SHOP_COUNT == item.CI_COUNT;
+                lim.CIDate = item.CI_DATETIME;
+                lim.IsValidated = item.VALIDATED;
+                lim.ValidationStatus = SetValidationStatus(item.VALIDATED, item.VALIDATION_DEADLINE);
+                LIMList.Add(lim);
             }
 
-            return VMList;
+            return LIMList;
         }
 
         private string GetActorName(int actorId)

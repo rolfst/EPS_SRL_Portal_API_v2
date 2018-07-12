@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -69,6 +70,9 @@
     <Compile Include="Entity\API_LIST_ACTORS_TRANSACTION_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\API_ORDER_LIST_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\API_SSCC_DEVIATION_DETAILS_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
@@ -79,6 +83,9 @@
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\API_SSCC_ORDER_DETAILS_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_SSCC_OVERVIEW_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\API_SSCC_PALLET_COUNTING_Result.cs">

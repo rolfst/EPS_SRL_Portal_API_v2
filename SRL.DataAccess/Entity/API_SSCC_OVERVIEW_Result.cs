@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SRL_Portal_API.Models
+namespace SRL.Data_Access.Entity
 {
     using System;
     
