@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5250b66895ef44808394d019ed954c42" Name="Diagram1">
+        <EntityTypeShape EntityType="SRLManagementModel.Roles" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="SRLManagementModel.RoleScreen" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SRLManagementModel.Screens" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SRLManagementModel.UserRole" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SRLManagementModel.Users" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <AssociationConnector Association="SRLManagementModel.FK_RoleScreen_RoleId" ManuallyRouted="false" />
+        <AssociationConnector Association="SRLManagementModel.FK_UserRole_RoleId" ManuallyRouted="false" />
+        <AssociationConnector Association="SRLManagementModel.FK_RoleScreen_CreatedUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="SRLManagementModel.FK_RoleScreen_ModifiedUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="SRLManagementModel.FK_RoleScreen_ScreenId" ManuallyRouted="false" />
+        <AssociationConnector Association="SRLManagementModel.FK_UserRole_CreatedUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="SRLManagementModel.FK_UserRole_ModfiedUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="SRLManagementModel.FK_UserRole_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="SRLManagementModel.FK_Users_CreatedUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="SRLManagementModel.FK_Users_ModifiedUserId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
