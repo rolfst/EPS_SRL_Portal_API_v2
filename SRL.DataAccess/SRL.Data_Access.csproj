@@ -192,6 +192,9 @@
     <Compile Include="Entity\NOVEXX.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\ORDER_LIST_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\PARAMETER_SRLS.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
