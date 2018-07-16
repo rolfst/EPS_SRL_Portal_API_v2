@@ -193,79 +193,6 @@ namespace SRL.Data_Access.Entity
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_ACTORS_TRANSACTION_Result>("API_LIST_ACTORS_TRANSACTION", rETAILER_CHAIN_IDParameter);
         }
     
-        public virtual int API_ORDER_LIST(string oRD_ORDER_NUMBER, Nullable<int> rETAILER_CHAIN_ID, Nullable<System.DateTime> oRDER_DATE_FROM, Nullable<System.DateTime> oRDER_DATE_TO, Nullable<int> oRDER_STATUS, Nullable<System.DateTime> cI_DATE_FROM, Nullable<System.DateTime> cI_DATE_TO, Nullable<System.DateTime> vALIDATION_DEADLINE, string uSER, string aCTOR_ID_FROM, string aCTOR_ID_TO, string oRDER_NUMBER, Nullable<bool> sHOP_COUNT_OK, Nullable<bool> sHOP_COUNT_NOK, Nullable<bool> vALIDATION_DEADLINE_OPEN, Nullable<bool> vALIDATION_DEADLINE_EXCEEDED, Nullable<bool> vALIDATION_DEADLINE_PASSED)
-        {
-            var oRD_ORDER_NUMBERParameter = oRD_ORDER_NUMBER != null ?
-                new ObjectParameter("ORD_ORDER_NUMBER", oRD_ORDER_NUMBER) :
-                new ObjectParameter("ORD_ORDER_NUMBER", typeof(string));
-    
-            var rETAILER_CHAIN_IDParameter = rETAILER_CHAIN_ID.HasValue ?
-                new ObjectParameter("RETAILER_CHAIN_ID", rETAILER_CHAIN_ID) :
-                new ObjectParameter("RETAILER_CHAIN_ID", typeof(int));
-    
-            var oRDER_DATE_FROMParameter = oRDER_DATE_FROM.HasValue ?
-                new ObjectParameter("ORDER_DATE_FROM", oRDER_DATE_FROM) :
-                new ObjectParameter("ORDER_DATE_FROM", typeof(System.DateTime));
-    
-            var oRDER_DATE_TOParameter = oRDER_DATE_TO.HasValue ?
-                new ObjectParameter("ORDER_DATE_TO", oRDER_DATE_TO) :
-                new ObjectParameter("ORDER_DATE_TO", typeof(System.DateTime));
-    
-            var oRDER_STATUSParameter = oRDER_STATUS.HasValue ?
-                new ObjectParameter("ORDER_STATUS", oRDER_STATUS) :
-                new ObjectParameter("ORDER_STATUS", typeof(int));
-    
-            var cI_DATE_FROMParameter = cI_DATE_FROM.HasValue ?
-                new ObjectParameter("CI_DATE_FROM", cI_DATE_FROM) :
-                new ObjectParameter("CI_DATE_FROM", typeof(System.DateTime));
-    
-            var cI_DATE_TOParameter = cI_DATE_TO.HasValue ?
-                new ObjectParameter("CI_DATE_TO", cI_DATE_TO) :
-                new ObjectParameter("CI_DATE_TO", typeof(System.DateTime));
-    
-            var vALIDATION_DEADLINEParameter = vALIDATION_DEADLINE.HasValue ?
-                new ObjectParameter("VALIDATION_DEADLINE", vALIDATION_DEADLINE) :
-                new ObjectParameter("VALIDATION_DEADLINE", typeof(System.DateTime));
-    
-            var uSERParameter = uSER != null ?
-                new ObjectParameter("USER", uSER) :
-                new ObjectParameter("USER", typeof(string));
-    
-            var aCTOR_ID_FROMParameter = aCTOR_ID_FROM != null ?
-                new ObjectParameter("ACTOR_ID_FROM", aCTOR_ID_FROM) :
-                new ObjectParameter("ACTOR_ID_FROM", typeof(string));
-    
-            var aCTOR_ID_TOParameter = aCTOR_ID_TO != null ?
-                new ObjectParameter("ACTOR_ID_TO", aCTOR_ID_TO) :
-                new ObjectParameter("ACTOR_ID_TO", typeof(string));
-    
-            var oRDER_NUMBERParameter = oRDER_NUMBER != null ?
-                new ObjectParameter("ORDER_NUMBER", oRDER_NUMBER) :
-                new ObjectParameter("ORDER_NUMBER", typeof(string));
-    
-            var sHOP_COUNT_OKParameter = sHOP_COUNT_OK.HasValue ?
-                new ObjectParameter("SHOP_COUNT_OK", sHOP_COUNT_OK) :
-                new ObjectParameter("SHOP_COUNT_OK", typeof(bool));
-    
-            var sHOP_COUNT_NOKParameter = sHOP_COUNT_NOK.HasValue ?
-                new ObjectParameter("SHOP_COUNT_NOK", sHOP_COUNT_NOK) :
-                new ObjectParameter("SHOP_COUNT_NOK", typeof(bool));
-    
-            var vALIDATION_DEADLINE_OPENParameter = vALIDATION_DEADLINE_OPEN.HasValue ?
-                new ObjectParameter("VALIDATION_DEADLINE_OPEN", vALIDATION_DEADLINE_OPEN) :
-                new ObjectParameter("VALIDATION_DEADLINE_OPEN", typeof(bool));
-    
-            var vALIDATION_DEADLINE_EXCEEDEDParameter = vALIDATION_DEADLINE_EXCEEDED.HasValue ?
-                new ObjectParameter("VALIDATION_DEADLINE_EXCEEDED", vALIDATION_DEADLINE_EXCEEDED) :
-                new ObjectParameter("VALIDATION_DEADLINE_EXCEEDED", typeof(bool));
-    
-            var vALIDATION_DEADLINE_PASSEDParameter = vALIDATION_DEADLINE_PASSED.HasValue ?
-                new ObjectParameter("VALIDATION_DEADLINE_PASSED", vALIDATION_DEADLINE_PASSED) :
-                new ObjectParameter("VALIDATION_DEADLINE_PASSED", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("API_ORDER_LIST", oRD_ORDER_NUMBERParameter, rETAILER_CHAIN_IDParameter, oRDER_DATE_FROMParameter, oRDER_DATE_TOParameter, oRDER_STATUSParameter, cI_DATE_FROMParameter, cI_DATE_TOParameter, vALIDATION_DEADLINEParameter, uSERParameter, aCTOR_ID_FROMParameter, aCTOR_ID_TOParameter, oRDER_NUMBERParameter, sHOP_COUNT_OKParameter, sHOP_COUNT_NOKParameter, vALIDATION_DEADLINE_OPENParameter, vALIDATION_DEADLINE_EXCEEDEDParameter, vALIDATION_DEADLINE_PASSEDParameter);
-        }
-    
         public virtual ObjectResult<API_SSCC_DEVIATION_DETAILS_Result> API_SSCC_DEVIATION_DETAILS(string sSCC)
         {
             var sSCCParameter = sSCC != null ?
@@ -390,6 +317,87 @@ namespace SRL.Data_Access.Entity
                 new ObjectParameter("SSCC", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SSCC_PALLET_COUNTING_Result>("API_SSCC_PALLET_COUNTING", sSCCParameter);
+        }
+    
+        public virtual ObjectResult<ORDER_LIST_Result> API_ORDER_LIST(string oRD_ORDER_NUMBER, Nullable<int> rETAILER_CHAIN_ID, Nullable<System.DateTime> oRDER_DATE_FROM, Nullable<System.DateTime> oRDER_DATE_TO, Nullable<bool> oRDER_NEW, Nullable<bool> oRDER_OPEN, Nullable<bool> oRDER_VALIDATED, Nullable<System.DateTime> cI_DATE_FROM, Nullable<System.DateTime> cI_DATE_TO, Nullable<System.DateTime> vALIDATION_DEADLINE, string uSER, string aCTOR_ID_FROM, string aCTOR_ID_TO, string oRDER_NUMBER, Nullable<bool> sHOP_COUNT_OK, Nullable<bool> sHOP_COUNT_NOK, Nullable<bool> vALIDATION_DEADLINE_OPEN, Nullable<bool> vALIDATION_DEADLINE_EXCEEDED, Nullable<bool> vALIDATION_DEADLINE_PASSED)
+        {
+            var oRD_ORDER_NUMBERParameter = oRD_ORDER_NUMBER != null ?
+                new ObjectParameter("ORD_ORDER_NUMBER", oRD_ORDER_NUMBER) :
+                new ObjectParameter("ORD_ORDER_NUMBER", typeof(string));
+    
+            var rETAILER_CHAIN_IDParameter = rETAILER_CHAIN_ID.HasValue ?
+                new ObjectParameter("RETAILER_CHAIN_ID", rETAILER_CHAIN_ID) :
+                new ObjectParameter("RETAILER_CHAIN_ID", typeof(int));
+    
+            var oRDER_DATE_FROMParameter = oRDER_DATE_FROM.HasValue ?
+                new ObjectParameter("ORDER_DATE_FROM", oRDER_DATE_FROM) :
+                new ObjectParameter("ORDER_DATE_FROM", typeof(System.DateTime));
+    
+            var oRDER_DATE_TOParameter = oRDER_DATE_TO.HasValue ?
+                new ObjectParameter("ORDER_DATE_TO", oRDER_DATE_TO) :
+                new ObjectParameter("ORDER_DATE_TO", typeof(System.DateTime));
+    
+            var oRDER_NEWParameter = oRDER_NEW.HasValue ?
+                new ObjectParameter("ORDER_NEW", oRDER_NEW) :
+                new ObjectParameter("ORDER_NEW", typeof(bool));
+    
+            var oRDER_OPENParameter = oRDER_OPEN.HasValue ?
+                new ObjectParameter("ORDER_OPEN", oRDER_OPEN) :
+                new ObjectParameter("ORDER_OPEN", typeof(bool));
+    
+            var oRDER_VALIDATEDParameter = oRDER_VALIDATED.HasValue ?
+                new ObjectParameter("ORDER_VALIDATED", oRDER_VALIDATED) :
+                new ObjectParameter("ORDER_VALIDATED", typeof(bool));
+    
+            var cI_DATE_FROMParameter = cI_DATE_FROM.HasValue ?
+                new ObjectParameter("CI_DATE_FROM", cI_DATE_FROM) :
+                new ObjectParameter("CI_DATE_FROM", typeof(System.DateTime));
+    
+            var cI_DATE_TOParameter = cI_DATE_TO.HasValue ?
+                new ObjectParameter("CI_DATE_TO", cI_DATE_TO) :
+                new ObjectParameter("CI_DATE_TO", typeof(System.DateTime));
+    
+            var vALIDATION_DEADLINEParameter = vALIDATION_DEADLINE.HasValue ?
+                new ObjectParameter("VALIDATION_DEADLINE", vALIDATION_DEADLINE) :
+                new ObjectParameter("VALIDATION_DEADLINE", typeof(System.DateTime));
+    
+            var uSERParameter = uSER != null ?
+                new ObjectParameter("USER", uSER) :
+                new ObjectParameter("USER", typeof(string));
+    
+            var aCTOR_ID_FROMParameter = aCTOR_ID_FROM != null ?
+                new ObjectParameter("ACTOR_ID_FROM", aCTOR_ID_FROM) :
+                new ObjectParameter("ACTOR_ID_FROM", typeof(string));
+    
+            var aCTOR_ID_TOParameter = aCTOR_ID_TO != null ?
+                new ObjectParameter("ACTOR_ID_TO", aCTOR_ID_TO) :
+                new ObjectParameter("ACTOR_ID_TO", typeof(string));
+    
+            var oRDER_NUMBERParameter = oRDER_NUMBER != null ?
+                new ObjectParameter("ORDER_NUMBER", oRDER_NUMBER) :
+                new ObjectParameter("ORDER_NUMBER", typeof(string));
+    
+            var sHOP_COUNT_OKParameter = sHOP_COUNT_OK.HasValue ?
+                new ObjectParameter("SHOP_COUNT_OK", sHOP_COUNT_OK) :
+                new ObjectParameter("SHOP_COUNT_OK", typeof(bool));
+    
+            var sHOP_COUNT_NOKParameter = sHOP_COUNT_NOK.HasValue ?
+                new ObjectParameter("SHOP_COUNT_NOK", sHOP_COUNT_NOK) :
+                new ObjectParameter("SHOP_COUNT_NOK", typeof(bool));
+    
+            var vALIDATION_DEADLINE_OPENParameter = vALIDATION_DEADLINE_OPEN.HasValue ?
+                new ObjectParameter("VALIDATION_DEADLINE_OPEN", vALIDATION_DEADLINE_OPEN) :
+                new ObjectParameter("VALIDATION_DEADLINE_OPEN", typeof(bool));
+    
+            var vALIDATION_DEADLINE_EXCEEDEDParameter = vALIDATION_DEADLINE_EXCEEDED.HasValue ?
+                new ObjectParameter("VALIDATION_DEADLINE_EXCEEDED", vALIDATION_DEADLINE_EXCEEDED) :
+                new ObjectParameter("VALIDATION_DEADLINE_EXCEEDED", typeof(bool));
+    
+            var vALIDATION_DEADLINE_PASSEDParameter = vALIDATION_DEADLINE_PASSED.HasValue ?
+                new ObjectParameter("VALIDATION_DEADLINE_PASSED", vALIDATION_DEADLINE_PASSED) :
+                new ObjectParameter("VALIDATION_DEADLINE_PASSED", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ORDER_LIST_Result>("API_ORDER_LIST", oRD_ORDER_NUMBERParameter, rETAILER_CHAIN_IDParameter, oRDER_DATE_FROMParameter, oRDER_DATE_TOParameter, oRDER_NEWParameter, oRDER_OPENParameter, oRDER_VALIDATEDParameter, cI_DATE_FROMParameter, cI_DATE_TOParameter, vALIDATION_DEADLINEParameter, uSERParameter, aCTOR_ID_FROMParameter, aCTOR_ID_TOParameter, oRDER_NUMBERParameter, sHOP_COUNT_OKParameter, sHOP_COUNT_NOKParameter, vALIDATION_DEADLINE_OPENParameter, vALIDATION_DEADLINE_EXCEEDEDParameter, vALIDATION_DEADLINE_PASSEDParameter);
         }
     }
 }
