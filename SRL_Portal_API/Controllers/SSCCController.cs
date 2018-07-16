@@ -18,7 +18,6 @@ namespace SRL_Portal_API.Controllers
 
 
         // Parameters default values for dev purposes
-        [System.Web.Http.AcceptVerbs("POST")]
         [System.Web.Http.HttpPost]
         public IList<SSCCListItemModel> Index(
             string actorId = null,
