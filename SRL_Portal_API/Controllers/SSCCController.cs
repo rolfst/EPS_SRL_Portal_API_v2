@@ -20,7 +20,7 @@ namespace SRL_Portal_API.Controllers
         // Parameters default values for dev purposes
         [System.Web.Http.AcceptVerbs("POST")]
         [System.Web.Http.HttpPost]
-        public IList<SSCCListItem> Index(
+        public IList<SSCCListItemModel> Index(
             string actorId = null,
             string actorOriginId = null,
             bool ssccStatusNew = false,
@@ -78,12 +78,12 @@ namespace SRL_Portal_API.Controllers
         /// </summary>
         /// <param name="input">The raw data as retrieved list of SSCC's</param>
         /// <returns>A list of SSCCListViewModels based on the input</returns>
-        private List<SSCCListItem> ConvertSSCCList(List<API_SSCC_OVERVIEW_Result> input)
+        private List<SSCCListItemModel> ConvertSSCCList(List<API_SSCC_OVERVIEW_Result> input)
         {
-            var LIMList = new List<SSCCListItem>();
+            var LIMList = new List<SSCCListItemModel>();
             foreach (var item in input)
             {
-                SSCCListItem lim = new SSCCListItem();
+                SSCCListItemModel lim = new SSCCListItemModel();
                 lim.OrderDate = item.FIRST_SSCC_USAGE;
                 lim.SSCC = item.SSCC;
                 lim.ActorFrom = GetActorName(item.ACTOR_ORIGIN_ID);

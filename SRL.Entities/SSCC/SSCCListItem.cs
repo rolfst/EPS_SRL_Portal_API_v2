@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SRL.Models.SSCC
 {
-    public class SSCCListItem
+    public class SSCCListItemModel
     {
     public DateTime? OrderDate { get; set; }
     public string SSCC { get; set; }
