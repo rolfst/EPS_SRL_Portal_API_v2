@@ -10,14 +10,10 @@
 namespace SRL.Data_Access.Entity
 {
     using System;
-    using System.Data.Entity.Core.Objects;
-
+    
     public partial class GetOrderDetail_Result
     {
         public string ORD_ORDER_NUMBER { get; set; }
-
-     
-
         public decimal ID_ORDER { get; set; }
         public string REGISTERED_BY { get; set; }
         public decimal FROM_CODE { get; set; }

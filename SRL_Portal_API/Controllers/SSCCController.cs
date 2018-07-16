@@ -1,13 +1,10 @@
-﻿using SRL_Portal_API.Models;
-using SRL_Portal_API.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Results;
-using System.Web.Mvc;
+using SRL_Portal_API.ViewModels;
 
 namespace SRL_Portal_API.Controllers
 {
@@ -43,7 +40,7 @@ namespace SRL_Portal_API.Controllers
         )
         {
             // Filterfunctionality checkboxgroups: Select none = See all
-            if (!ssccStatusNew && !ssccStatusProcessed && !ssccStatusValidated )
+            if (!ssccStatusNew && !ssccStatusProcessed && !ssccStatusValidated)
             {
                 ssccStatusNew = true; ssccStatusProcessed = true; ssccStatusValidated = true;
             }
@@ -63,11 +60,11 @@ namespace SRL_Portal_API.Controllers
 
             // call stored procedure with the given parameters to retrieve the list
             dbEntities.Configuration.ProxyCreationEnabled = false;
-            var SSCCList = dbEntities.API_SSCC_OVERVIEW(actorId, actorOriginId, 
+            var SSCCList = dbEntities.API_SSCC_OVERVIEW(actorId, actorOriginId,
                 ssccStatusNew, ssccStatusProcessed, ssccStatusValidated, ssccDateFrom, ssccDateTo,
-                ciDateFrom, ciDateTo, validationOpen, validationExceeded, validationPassed, ssccNr, 
+                ciDateFrom, ciDateTo, validationOpen, validationExceeded, validationPassed, ssccNr,
                 orderNr, countingOK, countingNOK, slaOK, slaNOK, retailerChainId)
-                .Take(1000) 
+                .Take(1000)
                 .ToList<API_SSCC_OVERVIEW_Result>();
 
             var result = ConvertSSCCList(SSCCList);

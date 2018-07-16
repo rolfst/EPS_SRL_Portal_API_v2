@@ -36,6 +36,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -246,7 +249,22 @@
     <Compile Include="Entity\SORTING_STATUS_TRANSLATION.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\sp_GetUserRoles_Result.cs">
+      <DependentUpon>SRLUser.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sp_GetUserScreens1_Result.cs">
+      <DependentUpon>SRLUser.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sp_GetUserScreens_Result.cs">
+      <DependentUpon>SRLUser.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\sp_GetUsers_Result.cs">
+      <DependentUpon>SRLUser.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>SRLUser.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sp_helpdiagrams_Result.cs">
       <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\SRL.Context.cs">

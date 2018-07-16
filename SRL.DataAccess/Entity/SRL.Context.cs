@@ -157,17 +157,17 @@ namespace SRL.Data_Access.Entity
         public virtual DbSet<temp_TRANSACTION_SSCC_RTI_DETAILS_2018> temp_TRANSACTION_SSCC_RTI_DETAILS_2018 { get; set; }
         public virtual DbSet<temp_Z_STG_XML_DATA_2018> temp_Z_STG_XML_DATA_2018 { get; set; }
     
-        public virtual ObjectResult<GetOrderDetail_Result> GetOrderDetail(string oRD_ORDER_NUMBER, Nullable<int> rETAILER_CHAIN_ID)
+        public virtual ObjectResult<GetOrderDetail_Result> GetOrderDetail(Nullable<int> oRDER_ID, Nullable<int> rETAILER_CHAIN_ID)
         {
-            var oRD_ORDER_NUMBERParameter = oRD_ORDER_NUMBER != null ?
-                new ObjectParameter("ORD_ORDER_NUMBER", oRD_ORDER_NUMBER) :
-                new ObjectParameter("ORD_ORDER_NUMBER", typeof(string));
+            var oRDER_IDParameter = oRDER_ID.HasValue ?
+                new ObjectParameter("ORDER_ID", oRDER_ID) :
+                new ObjectParameter("ORDER_ID", typeof(int));
     
             var rETAILER_CHAIN_IDParameter = rETAILER_CHAIN_ID.HasValue ?
                 new ObjectParameter("RETAILER_CHAIN_ID", rETAILER_CHAIN_ID) :
                 new ObjectParameter("RETAILER_CHAIN_ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderDetail_Result>("GetOrderDetail", oRD_ORDER_NUMBERParameter, rETAILER_CHAIN_IDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderDetail_Result>("GetOrderDetail", oRDER_IDParameter, rETAILER_CHAIN_IDParameter);
         }
     }
 }

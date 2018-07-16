@@ -24,6 +24,7 @@ namespace SRL.Data_Access.Entity
         public int RoleId { get; set; }
         public string RoleName { get; set; }
         public bool isActive { get; set; }
+        public Nullable<int> RolePriority { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RoleScreen> RoleScreen { get; set; }

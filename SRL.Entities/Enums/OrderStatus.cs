@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SRL.Entities.Enums
+namespace SRL.Models.Enums
 {
     //TODO: Change the enum values with the required ones post Marcel's confirmation
     public enum OrderStatus
     {
         New = 0,
-        InProgress = 8,
         Status1 = 1,
         Status4 = 4,
         Status5 = 5,
