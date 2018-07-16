@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapter\OrderDetailAdapter.cs" />
+    <Compile Include="Adapter\OrderListAdapter.cs" />
     <Compile Include="Adapter\UserAdapter.cs" />
     <Compile Include="Entity\ACTION.cs">
       <DependentUpon>SRL.tt</DependentUpon>
@@ -197,6 +198,9 @@
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\NOVEXX.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ORDER_LIST_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\PARAMETER_SRLS.cs">
@@ -519,6 +523,7 @@
       <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\OrderDetailRepository.cs" />
+    <Compile Include="Repository\OrderListRepository.cs" />
     <Compile Include="Repository\UserRespository.cs" />
   </ItemGroup>
   <ItemGroup>
