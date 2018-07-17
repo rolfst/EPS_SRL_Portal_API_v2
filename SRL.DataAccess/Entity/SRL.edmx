@@ -3456,7 +3456,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           </ReferentialConstraint>
         </Association>
         <Function Name="API_ORDER_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ORD_ORDER_NUMBER" Type="nvarchar" Mode="In" />
+          <Parameter Name="ORDER_ID" Type="int" Mode="In" />
           <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
         </Function>
         <Function Name="CHANGE_REQUESTS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -8679,7 +8679,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             <End Role="TRANSACTION_SSCC_RTI_DETAILS" EntitySet="TRANSACTION_SSCC_RTI_DETAILS" />
           </AssociationSet>
           <FunctionImport Name="GetOrderDetail" ReturnType="Collection(BACKUP_SRL_20180613Model.GetOrderDetail_Result)">
-            <Parameter Name="ORD_ORDER_NUMBER" Mode="In" Type="String" />
+            <Parameter Name="ORDER_ID" Mode="In" Type="Int32" />
             <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SRL.Entities.Enums
+namespace SRL.Models.Enums
 {
     //TODO: Change the enum values with the required ones post Marcel's confirmation
     public enum OrderStatus
