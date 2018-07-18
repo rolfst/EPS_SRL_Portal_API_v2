@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using SRL.Data_Access;
 using SRL.Models;
 using SRL_Portal_API.Common;
@@ -39,8 +40,41 @@ namespace SRL_Portal_API.Controllers
 
         [Route("screens/{userEmail}/")]
         [HttpGet]
-        public List<Screen> GetScreens(string userEmail)
+        public List<Screen> GetScreens(string userEmail = "")
         {
+            if(string.IsNullOrEmpty(userEmail))
+            {
+                userEmail = RequestContext.Principal.Identity.Name;
+            }
+            if (!string.IsNullOrEmpty(userEmail))
+            {
+                if (ValidateUserEmail(userEmail))
+                {
+                    UserRespository userRepository = new UserRespository();
+                    return userRepository.GetUserScreens(userEmail);
+                }
+
+                return new List<Screen>();
+            }
+            else
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent("No email passed"),
+                    ReasonPhrase = "User email address not provided"
+                };
+                throw new HttpResponseException(response);
+            }
+        }
+
+        [Route("screens/")]
+        [HttpGet]
+        [Authorize]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<Screen> GetScreens()
+        {
+              string  userEmail = RequestContext.Principal.Identity.Name;
+            
             if (!string.IsNullOrEmpty(userEmail))
             {
                 if (ValidateUserEmail(userEmail))
