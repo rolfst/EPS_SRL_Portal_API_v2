@@ -229,7 +229,7 @@ namespace SRL.Data_Access.Entity
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SSCC_ORDER_DETAILS_Result>("API_SSCC_ORDER_DETAILS", sSCCParameter);
         }
     
-        public virtual int API_SSCC_OVERVIEW(string aCTOR_ID, string aCTOR_ORIGIN_ID, Nullable<bool> sSCC_STATUS_NEW, Nullable<bool> sSCC_STATUS_PROCESSED, Nullable<bool> sSCC_STATUS_VALIDATED, Nullable<System.DateTime> fIRST_SSCC_USAGE_FROM, Nullable<System.DateTime> fIRST_SSCC_USAGE_TO, Nullable<System.DateTime> cI_DATETIME_FROM, Nullable<System.DateTime> cI_DATETIME_TO, Nullable<bool> vALIDATION_DEADLINE_OPEN, Nullable<bool> vALIDATION_DEADLINE_EXCEEDED, Nullable<bool> vALIDATION_DEADLINE_PASSED, string sSCC, Nullable<decimal> oRDER_NUMBER, Nullable<bool> cOUNTING_OK, Nullable<bool> cOUNTING_NOK, Nullable<bool> sLA_OK, Nullable<bool> sLA_NOK, Nullable<int> rETAILER_CHAIN_ID)
+        public virtual ObjectResult<API_SSCC_OVERVIEW_Result> API_SSCC_OVERVIEW(string aCTOR_ID, string aCTOR_ORIGIN_ID, Nullable<bool> sSCC_STATUS_NEW, Nullable<bool> sSCC_STATUS_PROCESSED, Nullable<bool> sSCC_STATUS_VALIDATED, Nullable<System.DateTime> fIRST_SSCC_USAGE_FROM, Nullable<System.DateTime> fIRST_SSCC_USAGE_TO, Nullable<System.DateTime> cI_DATETIME_FROM, Nullable<System.DateTime> cI_DATETIME_TO, Nullable<bool> vALIDATION_DEADLINE_OPEN, Nullable<bool> vALIDATION_DEADLINE_EXCEEDED, Nullable<bool> vALIDATION_DEADLINE_PASSED, string sSCC, Nullable<decimal> oRDER_NUMBER, Nullable<bool> cOUNTING_OK, Nullable<bool> cOUNTING_NOK, Nullable<bool> sLA_OK, Nullable<bool> sLA_NOK, Nullable<int> rETAILER_CHAIN_ID)
         {
             var aCTOR_IDParameter = aCTOR_ID != null ?
                 new ObjectParameter("ACTOR_ID", aCTOR_ID) :
@@ -307,7 +307,7 @@ namespace SRL.Data_Access.Entity
                 new ObjectParameter("RETAILER_CHAIN_ID", rETAILER_CHAIN_ID) :
                 new ObjectParameter("RETAILER_CHAIN_ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("API_SSCC_OVERVIEW", aCTOR_IDParameter, aCTOR_ORIGIN_IDParameter, sSCC_STATUS_NEWParameter, sSCC_STATUS_PROCESSEDParameter, sSCC_STATUS_VALIDATEDParameter, fIRST_SSCC_USAGE_FROMParameter, fIRST_SSCC_USAGE_TOParameter, cI_DATETIME_FROMParameter, cI_DATETIME_TOParameter, vALIDATION_DEADLINE_OPENParameter, vALIDATION_DEADLINE_EXCEEDEDParameter, vALIDATION_DEADLINE_PASSEDParameter, sSCCParameter, oRDER_NUMBERParameter, cOUNTING_OKParameter, cOUNTING_NOKParameter, sLA_OKParameter, sLA_NOKParameter, rETAILER_CHAIN_IDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SSCC_OVERVIEW_Result>("API_SSCC_OVERVIEW", aCTOR_IDParameter, aCTOR_ORIGIN_IDParameter, sSCC_STATUS_NEWParameter, sSCC_STATUS_PROCESSEDParameter, sSCC_STATUS_VALIDATEDParameter, fIRST_SSCC_USAGE_FROMParameter, fIRST_SSCC_USAGE_TOParameter, cI_DATETIME_FROMParameter, cI_DATETIME_TOParameter, vALIDATION_DEADLINE_OPENParameter, vALIDATION_DEADLINE_EXCEEDEDParameter, vALIDATION_DEADLINE_PASSEDParameter, sSCCParameter, oRDER_NUMBERParameter, cOUNTING_OKParameter, cOUNTING_NOKParameter, sLA_OKParameter, sLA_NOKParameter, rETAILER_CHAIN_IDParameter);
         }
     
         public virtual ObjectResult<API_SSCC_PALLET_COUNTING_Result> API_SSCC_PALLET_COUNTING(string sSCC)

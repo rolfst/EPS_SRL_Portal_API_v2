@@ -10,7 +10,10 @@ namespace SRL_Portal_API.Controllers
 {
     public class ActorController : ApiController
     {
-        [System.Web.Http.AcceptVerbs("GET")]
+        /// <summary>
+        /// Controller for Actor related actions
+        /// </summary>
+        /// <returns></returns>
         [System.Web.Http.HttpGet]
         public IList<API_LIST_ACTORS_TRANSACTION_Result> Index()
         {
