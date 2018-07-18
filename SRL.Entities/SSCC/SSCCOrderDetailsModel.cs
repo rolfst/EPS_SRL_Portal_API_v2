@@ -10,6 +10,7 @@ namespace SRL.Models.SSCC
         public string OrderNumber { get; set; }
         public string PhysicalFrom { get; set; }
         public string PhysicalTo { get; set; }
+        public string TransportedBy { get; set; }
         public int AnomaliesCount { get; set; }
         public Nullable<System.DateTime> ValidationDeadline { get; set; }
     }

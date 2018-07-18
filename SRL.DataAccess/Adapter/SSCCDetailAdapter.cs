@@ -27,6 +27,7 @@ namespace SRL.Data_Access.Adapter
             odm.SsccNumber = odResult.SSCC;
             odm.PhysicalFrom = odResult.PHYSICAL_FROM;
             odm.PhysicalTo = odResult.PHYSICAL_TO;
+            odm.TransportedBy = odResult.TRANSPORTED_BY;
             odm.AnomaliesCount = devResult.Count();
             odm.ValidationDeadline = odResult.VALIDATION_DEADLINE;
             sdModel.OrderDetails = odm;
