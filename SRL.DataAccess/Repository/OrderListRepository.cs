@@ -15,7 +15,7 @@ namespace SRL.Data_Access.Repository
                 List<ORDER_LIST_Result> result = dbEntity.API_ORDER_LIST(request.OrdOrderNumber, request.RetailerChainId, request.OrderDateFrom,
                         request.OrderDateTo, request.OrderNew, request.OrderOpen, request.OrderValidated, request.CiDateFrom, request.CiDateTo,
                         request.ValidationDeadline, request.User, request.ActorIdFrom, request.ActorIdTo, request.OrderNumber,
-                        request.ShopCountOk, request.ShopCountNok, request.ValidationOpen, request.ValidationExceeded, request.ValidationPassed).Take(1000)
+                        request.ShopCountOk, request.ShopCountNok, request.ValidationOpen, request.ValidationExceeded, request.ValidationPassed, request.ActorId).Take(1000)
                     .ToList();
                 return result;
             };
