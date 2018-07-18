@@ -25,7 +25,7 @@ namespace SRL.Models.Order
         public bool ValidationPassed { get; set; }
         public string ActorId { get; set; }
 
-        public OrderRequest(string ordOrderNumber = null, int retailerChainId = -1, DateTime? orderDateFrom = null, DateTime? orderDateTo = null, bool orderNew = false, bool orderOpen = false, bool orderValidated = false, DateTime? ciDateFrom = null, DateTime? ciDateTo = null, DateTime? validationDeadline = null, string user = null, string actorIdFrom = null, string actorIdTo = null, string orderNumber = null, bool shopCountOk = false, bool shopCountNok = false, bool validationOpen = false, bool validationExceeded = false, bool validationPassed = false, string actorId = null)
+        public OrderRequest(string ordOrderNumber = null, int retailerChainId = -1, DateTime? orderDateFrom = null, DateTime? orderDateTo = null, bool orderNew = true, bool orderOpen = true, bool orderValidated = true, DateTime? ciDateFrom = null, DateTime? ciDateTo = null, DateTime? validationDeadline = null, string user = null, string actorIdFrom = null, string actorIdTo = null, string orderNumber = null, bool shopCountOk = true, bool shopCountNok = true, bool validationOpen = true, bool validationExceeded = true, bool validationPassed = true, string actorId = null)
         {
             OrdOrderNumber = ordOrderNumber;
             RetailerChainId = retailerChainId;
