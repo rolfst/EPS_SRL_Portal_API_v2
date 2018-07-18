@@ -8770,7 +8770,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <FunctionImport Name="API_SSCC_ORDER_DETAILS" ReturnType="Collection(BACKUP_SRL_20180613Model.API_SSCC_ORDER_DETAILS_Result)">
           <Parameter Name="SSCC" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="API_SSCC_OVERVIEW">
+          <FunctionImport Name="API_SSCC_OVERVIEW" ReturnType="Collection(BACKUP_SRL_20180613Model.API_SSCC_OVERVIEW_Result)">
             <Parameter Name="ACTOR_ID" Mode="In" Type="String" />
             <Parameter Name="ACTOR_ORIGIN_ID" Mode="In" Type="String" />
             <Parameter Name="SSCC_STATUS_NEW" Mode="In" Type="Boolean" />
@@ -8932,6 +8932,24 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="DateTime" Name="VALIDATION_DEADLINE" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="VALIDATED" Nullable="true" />
           <Property Type="DateTime" Name="VALIDATED_DATE" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="API_SSCC_OVERVIEW_Result">
+          <Property Type="Decimal" Name="ORDER_NUMBER" Nullable="true" Precision="10" Scale="0" />
+          <Property Type="Int64" Name="SSCC_ID" Nullable="false" />
+          <Property Type="String" Name="SSCC" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="CI_DATETIME" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="FIRST_SSCC_USAGE" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="ACTOR_ID" Nullable="true" />
+          <Property Type="Int32" Name="ACTOR_ORIGIN_ID" Nullable="false" />
+          <Property Type="Int32" Name="SSCC_STATUS" Nullable="false" />
+          <Property Type="Decimal" Name="SLA_VALUE" Nullable="true" Precision="20" Scale="3" />
+          <Property Type="Decimal" Name="SLA_MIN_VALUE" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="SLA_MAX_VALUE" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="SHOP_COUNT" Nullable="true" />
+          <Property Type="Int32" Name="CI_COUNT" Nullable="true" />
+          <Property Type="DateTime" Name="VALIDATION_DEADLINE" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="VALIDATED" Nullable="false" />
+          <Property Type="DateTime" Name="DATE_VALIDATED" Nullable="true" Precision="23" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -11738,7 +11756,28 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="API_SSCC_OVERVIEW" FunctionName="BACKUP_SRL_20180613Model.Store.API_SSCC_OVERVIEW" />
+          <FunctionImportMapping FunctionImportName="API_SSCC_OVERVIEW" FunctionName="BACKUP_SRL_20180613Model.Store.API_SSCC_OVERVIEW" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_SSCC_OVERVIEW_Result">
+                <ScalarProperty Name="ORDER_NUMBER" ColumnName="ORDER_NUMBER" />
+                <ScalarProperty Name="SSCC_ID" ColumnName="SSCC_ID" />
+                <ScalarProperty Name="SSCC" ColumnName="SSCC" />
+                <ScalarProperty Name="CI_DATETIME" ColumnName="CI_DATETIME" />
+                <ScalarProperty Name="FIRST_SSCC_USAGE" ColumnName="FIRST_SSCC_USAGE" />
+                <ScalarProperty Name="ACTOR_ID" ColumnName="ACTOR_ID" />
+                <ScalarProperty Name="ACTOR_ORIGIN_ID" ColumnName="ACTOR_ORIGIN_ID" />
+                <ScalarProperty Name="SSCC_STATUS" ColumnName="SSCC_STATUS" />
+                <ScalarProperty Name="SLA_VALUE" ColumnName="SLA_VALUE" />
+                <ScalarProperty Name="SLA_MIN_VALUE" ColumnName="SLA_MIN_VALUE" />
+                <ScalarProperty Name="SLA_MAX_VALUE" ColumnName="SLA_MAX_VALUE" />
+                <ScalarProperty Name="SHOP_COUNT" ColumnName="SHOP_COUNT" />
+                <ScalarProperty Name="CI_COUNT" ColumnName="CI_COUNT" />
+                <ScalarProperty Name="VALIDATION_DEADLINE" ColumnName="VALIDATION_DEADLINE" />
+                <ScalarProperty Name="VALIDATED" ColumnName="VALIDATED" />
+                <ScalarProperty Name="DATE_VALIDATED" ColumnName="DATE_VALIDATED" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="API_SSCC_PALLET_COUNTING" FunctionName="BACKUP_SRL_20180613Model.Store.API_SSCC_PALLET_COUNTING">
             <ResultMapping>
               <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_SSCC_PALLET_COUNTING_Result">
