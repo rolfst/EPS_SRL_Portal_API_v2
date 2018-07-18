@@ -29,6 +29,12 @@ namespace SRL_Portal_API.Controllers
         /// <returns>a list of Actors depending on the destination (from/to)</returns>
         [HttpPost]
         public IList<API_LIST_ACTORS_TRANSACTION_Result> GetOnDestination(bool fromTo)
+        /// <summary>
+        /// Controller for Actor related actions
+        /// </summary>
+        /// <returns></returns>
+        [System.Web.Http.HttpGet]
+        public IList<API_LIST_ACTORS_TRANSACTION_Result> Index()
         {
             BACKUP_SRL_20180613Entities dbEntities = new BACKUP_SRL_20180613Entities();
 
