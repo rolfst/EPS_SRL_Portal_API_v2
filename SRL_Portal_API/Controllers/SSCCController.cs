@@ -18,6 +18,11 @@ namespace SRL_Portal_API.Controllers
     public class SSCCController : ApiController
     {
         private readonly SSCCListRepository _sSCCListRepository = new SSCCListRepository();
+        private readonly SSCCOrderDetailsRepository _sSCCOrderDetailsRepository = new SSCCOrderDetailsRepository();
+        private readonly SSCCLoadCarrierRepository _sSCCLoadCarrierRepository = new SSCCLoadCarrierRepository();
+        private readonly SSCCPalletCountingRepository _sSCCPalletCountingRepository = new SSCCPalletCountingRepository();
+        private readonly SSCCImagesRepository _sSCCImagesRepository = new SSCCImagesRepository();
+        private readonly SSCCDeviationDetailsRepository _sSCCDeviationDetailsRepository = new SSCCDeviationDetailsRepository();
 
         // Parameters default values for dev purposes
         /// <summary>
@@ -53,6 +58,29 @@ namespace SRL_Portal_API.Controllers
             }
 
             return SSCCListAdapter.ConvertSsccList(_sSCCListRepository.GetSSCCList(request));
+        }
+
+        /// <summary>
+        /// This function gets all the data needed to display it on the SSCC Detail Page
+        /// The data is retrieved in 5 'blocks', and send to the adapter to put it all together
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [System.Web.Http.HttpPost]
+        public SSCCDetailsModel GetSSCCDetails(string id)
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException(id, "Request is not valid.");
+            }
+
+            var orderDetails = _sSCCOrderDetailsRepository.GetSSCCOrderDetails(id);
+            var loadCarrierDetailsList = _sSCCLoadCarrierRepository.GetSSCCLoadCarrier(id);
+            var palletCountingList = _sSCCPalletCountingRepository.GetSSCCPalletCounting(id);
+            var imageList = _sSCCImagesRepository.GetSSCCImages(id);
+            var deviationDetailsList = _sSCCDeviationDetailsRepository.GetSSCCDeviationDetails(id);
+
+            return SSCCDetailAdapter.ConvertSSCCDetails(orderDetails, loadCarrierDetailsList, palletCountingList, imageList, deviationDetailsList);
         }
     }
 }
