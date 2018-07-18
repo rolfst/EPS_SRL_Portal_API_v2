@@ -3490,6 +3490,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="VALIDATION_DEADLINE_OPEN" Type="bit" Mode="In" />
           <Parameter Name="VALIDATION_DEADLINE_EXCEEDED" Type="bit" Mode="In" />
           <Parameter Name="VALIDATION_DEADLINE_PASSED" Type="bit" Mode="In" />
+          <Parameter Name="ACTOR_ID" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="API_SSCC_DEVIATION_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
@@ -8813,6 +8814,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             <Parameter Name="VALIDATION_DEADLINE_OPEN" Mode="In" Type="Boolean" />
             <Parameter Name="VALIDATION_DEADLINE_EXCEEDED" Mode="In" Type="Boolean" />
             <Parameter Name="VALIDATION_DEADLINE_PASSED" Mode="In" Type="Boolean" />
+            <Parameter Name="ACTOR_ID" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetOrderDetail_Result">
