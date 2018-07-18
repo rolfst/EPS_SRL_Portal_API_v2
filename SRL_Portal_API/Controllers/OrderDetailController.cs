@@ -25,6 +25,7 @@ namespace SRL_Portal_API.Controllers
         public OrderDetail Get(int orderId, int retailerChainId)
         {
             OrderDetailRepository repository = new OrderDetailRepository();
+
             return repository.GetOrderDetail(orderId, retailerChainId);
         }
     }
