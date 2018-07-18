@@ -61,7 +61,7 @@ namespace SRL_Portal_API.Controllers
         }
 
         [HttpGet]
-        public IList<string> Index()
+        public IList<string> GetSSCCNumbers()
         {
             var request = new SSCCListRequest
             {
