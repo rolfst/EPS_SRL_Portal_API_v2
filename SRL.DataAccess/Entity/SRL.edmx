@@ -3470,6 +3470,10 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
         <Function Name="API_LIST_ACTORS_TRANSACTION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="API_ORDER_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ORDER_ID" Type="int" Mode="In" />
+          <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="API_ORDER_LIST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ORD_ORDER_NUMBER" Type="nvarchar" Mode="In" />
           <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
@@ -8747,10 +8751,6 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             <End Role="TRANSACTION" EntitySet="TRANSACTION" />
             <End Role="TRANSACTION_SSCC_RTI_DETAILS" EntitySet="TRANSACTION_SSCC_RTI_DETAILS" />
           </AssociationSet>
-          <FunctionImport Name="GetOrderDetail" ReturnType="Collection(BACKUP_SRL_20180613Model.GetOrderDetail_Result)">
-            <Parameter Name="ORD_ORDER_NUMBER" Mode="In" Type="String" />
-            <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="API_FN_SPLIT" IsComposable="true" ReturnType="Collection(BACKUP_SRL_20180613Model.API_FN_SPLIT_Result)">
             <Parameter Name="TEXT" Mode="In" Type="String" />
             <Parameter Name="DELIMITER" Mode="In" Type="String" />
@@ -8815,6 +8815,10 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             <Parameter Name="VALIDATION_DEADLINE_EXCEEDED" Mode="In" Type="Boolean" />
             <Parameter Name="VALIDATION_DEADLINE_PASSED" Mode="In" Type="Boolean" />
             <Parameter Name="ACTOR_ID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetOrderDetail" ReturnType="Collection(BACKUP_SRL_20180613Model.GetOrderDetail_Result)">
+            <Parameter Name="ORDER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetOrderDetail_Result">
@@ -11823,6 +11827,37 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
                 <ScalarProperty Name="VALIDATION_DEADLINE" ColumnName="VALIDATION_DEADLINE" />
                 <ScalarProperty Name="VALIDATED" ColumnName="VALIDATED" />
                 <ScalarProperty Name="VALIDATED_DATE" ColumnName="VALIDATED_DATE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetOrderDetail" FunctionName="BACKUP_SRL_20180613Model.Store.API_ORDER_DETAILS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.GetOrderDetail_Result">
+                <ScalarProperty Name="ORD_ORDER_NUMBER" ColumnName="ORD_ORDER_NUMBER" />
+                <ScalarProperty Name="ID_ORDER" ColumnName="ID_ORDER" />
+                <ScalarProperty Name="REGISTERED_BY" ColumnName="REGISTERED_BY" />
+                <ScalarProperty Name="FROM_CODE" ColumnName="FROM_CODE" />
+                <ScalarProperty Name="FROM_NAME" ColumnName="FROM_NAME" />
+                <ScalarProperty Name="FROM_ADDRESSLINE1" ColumnName="FROM_ADDRESSLINE1" />
+                <ScalarProperty Name="FROM_ADDRESSLINE2" ColumnName="FROM_ADDRESSLINE2" />
+                <ScalarProperty Name="TO_CODE" ColumnName="TO_CODE" />
+                <ScalarProperty Name="TO_NAME" ColumnName="TO_NAME" />
+                <ScalarProperty Name="TO_ADDRESSLINE1" ColumnName="TO_ADDRESSLINE1" />
+                <ScalarProperty Name="TO_ADDRESSLINE2" ColumnName="TO_ADDRESSLINE2" />
+                <ScalarProperty Name="ORDER_DATE" ColumnName="ORDER_DATE" />
+                <ScalarProperty Name="ORDER_STATUS" ColumnName="ORDER_STATUS" />
+                <ScalarProperty Name="UNLOADING_DATE" ColumnName="UNLOADING_DATE" />
+                <ScalarProperty Name="CI_DATE" ColumnName="CI_DATE" />
+                <ScalarProperty Name="ORD_CUSTOMER_REFERENCE" ColumnName="ORD_CUSTOMER_REFERENCE" />
+                <ScalarProperty Name="SHIPMENT_COMPANY" ColumnName="SHIPMENT_COMPANY" />
+                <ScalarProperty Name="SHIPMENT_COMPANY_NAME" ColumnName="SHIPMENT_COMPANY_NAME" />
+                <ScalarProperty Name="TOUR_NUMBER" ColumnName="TOUR_NUMBER" />
+                <ScalarProperty Name="LICENSE_PLATE" ColumnName="LICENSE_PLATE" />
+                <ScalarProperty Name="OUTBOUND_SSCC_ON_ORDER" ColumnName="OUTBOUND_SSCC_ON_ORDER" />
+                <ScalarProperty Name="INBOUND_SSCC_ON_ORDER" ColumnName="INBOUND_SSCC_ON_ORDER" />
+                <ScalarProperty Name="CI_SSCC_ON_ORDER" ColumnName="CI_SSCC_ON_ORDER" />
+                <ScalarProperty Name="NUMBER_SSCC_ON_ORDER_OPEN" ColumnName="NUMBER_SSCC_ON_ORDER_OPEN" />
+                <ScalarProperty Name="NUMBER_SSCC_ON_ORDER_VALIDATED" ColumnName="NUMBER_SSCC_ON_ORDER_VALIDATED" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

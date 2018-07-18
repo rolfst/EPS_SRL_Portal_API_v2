@@ -4,11 +4,7 @@ using SRL.Models.SSCC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Results;
-using System.Web.Mvc;
 
 namespace SRL_Portal_API.Controllers
 {
@@ -24,7 +20,7 @@ namespace SRL_Portal_API.Controllers
         /// Get the list of SSCC's, based on the given parameters
         /// </summary>
         /// <returns></returns>
-        [System.Web.Http.HttpPost]
+        [HttpPost]
         public IList<SSCCListModel> Index(
             [FromBody] SSCCListRequest request
         )
@@ -37,22 +33,51 @@ namespace SRL_Portal_API.Controllers
             // Filterfunctionality checkboxgroups: Select none = See all
             if (!request.SsccStatusNew && !request.SsccStatusProcessed && !request.SsccStatusValidated)
             {
-                request.SsccStatusNew = true; request.SsccStatusProcessed = true; request.SsccStatusValidated = true;
+                request.SsccStatusNew = true;
+                request.SsccStatusProcessed = true;
+                request.SsccStatusValidated = true;
             }
+
             if (!request.ValidationOpen && !request.ValidationExceeded && !request.ValidationPassed)
             {
-                request.ValidationOpen = true; request.ValidationExceeded = true; request.ValidationPassed = true;
+                request.ValidationOpen = true;
+                request.ValidationExceeded = true;
+                request.ValidationPassed = true;
             }
+
             if (!request.CountingOK && !request.CountingNOK)
             {
-                request.CountingOK = true; request.CountingNOK = true;
+                request.CountingOK = true;
+                request.CountingNOK = true;
             }
+
             if (!request.SlaOK && !request.SlaNOK)
             {
-                request.SlaOK = true; request.SlaNOK = true;
+                request.SlaOK = true;
+                request.SlaNOK = true;
             }
 
             return SSCCListAdapter.ConvertSsccList(_sSCCListRepository.GetSSCCList(request));
+        }
+
+        [HttpGet]
+        public IList<string> Index()
+        {
+            var request = new SSCCListRequest
+            {
+                SsccStatusNew = true,
+                SsccStatusProcessed = true,
+                SsccStatusValidated = true,
+                ValidationOpen = true,
+                ValidationExceeded = true,
+                ValidationPassed = true,
+                CountingOK = true,
+                CountingNOK = true,
+                SlaOK = true,
+                SlaNOK = true,
+            };
+
+            return _sSCCListRepository.GetSSCCList(request).Select(x => x.SSCC).Distinct().ToList();
         }
     }
 }

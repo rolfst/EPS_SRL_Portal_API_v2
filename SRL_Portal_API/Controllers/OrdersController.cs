@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
+using Microsoft.Ajax.Utilities;
 using SRL.Data_Access.Adapter;
 using SRL.Data_Access.Repository;
 using SRL.Models.Order;
@@ -44,6 +46,13 @@ namespace SRL_Portal_API.Controllers
             }
 
             return OrderListAdapter.ConvertOrderList(_repo.GetOrders(request));
+        }
+
+        [HttpGet]
+        public IList<string> GetOrderNumber()
+        {
+            var request = new OrderRequest();
+            return _repo.GetOrders(request).Select(x => x.ORD_ORDER_NUMBER).Distinct().ToList();
         }
     }
 }
