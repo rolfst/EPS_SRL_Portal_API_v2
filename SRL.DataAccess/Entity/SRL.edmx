@@ -3455,9 +3455,81 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="API_ORDER_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="API_FN_SPLIT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TEXT" Type="varchar" Mode="In" />
+          <Parameter Name="DELIMITER" Type="varchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="POSITION" Type="int" Nullable="false" />
+                <Property Name="VALUE" Type="varchar" MaxLength="8000" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="API_LIST_ACTORS_TRANSACTION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="API_ORDER_LIST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ORD_ORDER_NUMBER" Type="nvarchar" Mode="In" />
+          <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
+          <Parameter Name="ORDER_DATE_FROM" Type="date" Mode="In" />
+          <Parameter Name="ORDER_DATE_TO" Type="date" Mode="In" />
+          <Parameter Name="ORDER_NEW" Type="bit" Mode="In" />
+          <Parameter Name="ORDER_OPEN" Type="bit" Mode="In" />
+          <Parameter Name="ORDER_VALIDATED" Type="bit" Mode="In" />
+          <Parameter Name="CI_DATE_FROM" Type="date" Mode="In" />
+          <Parameter Name="CI_DATE_TO" Type="date" Mode="In" />
+          <Parameter Name="VALIDATION_DEADLINE" Type="datetime" Mode="In" />
+          <Parameter Name="USER" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ACTOR_ID_FROM" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ACTOR_ID_TO" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ORDER_NUMBER" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SHOP_COUNT_OK" Type="bit" Mode="In" />
+          <Parameter Name="SHOP_COUNT_NOK" Type="bit" Mode="In" />
+          <Parameter Name="VALIDATION_DEADLINE_OPEN" Type="bit" Mode="In" />
+          <Parameter Name="VALIDATION_DEADLINE_EXCEEDED" Type="bit" Mode="In" />
+          <Parameter Name="VALIDATION_DEADLINE_PASSED" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="API_SSCC_DEVIATION_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="API_SSCC_IMAGES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="API_SSCC_LOADCARRIER_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="API_SSCC_ORDER_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
+        </Function>
+		<Function Name="API_ORDER_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ORDER_ID" Type="int" Mode="In" />
           <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="API_SSCC_OVERVIEW" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ACTOR_ID" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ACTOR_ORIGIN_ID" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SSCC_STATUS_NEW" Type="bit" Mode="In" />
+          <Parameter Name="SSCC_STATUS_PROCESSED" Type="bit" Mode="In" />
+          <Parameter Name="SSCC_STATUS_VALIDATED" Type="bit" Mode="In" />
+          <Parameter Name="FIRST_SSCC_USAGE_FROM" Type="datetime" Mode="In" />
+          <Parameter Name="FIRST_SSCC_USAGE_TO" Type="datetime" Mode="In" />
+          <Parameter Name="CI_DATETIME_FROM" Type="datetime" Mode="In" />
+          <Parameter Name="CI_DATETIME_TO" Type="datetime" Mode="In" />
+          <Parameter Name="VALIDATION_DEADLINE_OPEN" Type="bit" Mode="In" />
+          <Parameter Name="VALIDATION_DEADLINE_EXCEEDED" Type="bit" Mode="In" />
+          <Parameter Name="VALIDATION_DEADLINE_PASSED" Type="bit" Mode="In" />
+          <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
+          <Parameter Name="ORDER_NUMBER" Type="numeric" Mode="In" />
+          <Parameter Name="COUNTING_OK" Type="bit" Mode="In" />
+          <Parameter Name="COUNTING_NOK" Type="bit" Mode="In" />
+          <Parameter Name="SLA_OK" Type="bit" Mode="In" />
+          <Parameter Name="SLA_NOK" Type="bit" Mode="In" />
+          <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="API_SSCC_PALLET_COUNTING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="CHANGE_REQUESTS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
@@ -8682,6 +8754,70 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             <Parameter Name="ORDER_ID" Mode="In" Type="Int32" />
             <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="API_FN_SPLIT" IsComposable="true" ReturnType="Collection(BACKUP_SRL_20180613Model.API_FN_SPLIT_Result)">
+            <Parameter Name="TEXT" Mode="In" Type="String" />
+            <Parameter Name="DELIMITER" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="API_LIST_ACTORS_TRANSACTION" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_ACTORS_TRANSACTION_Result)">
+          <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="API_SSCC_DEVIATION_DETAILS" ReturnType="Collection(BACKUP_SRL_20180613Model.API_SSCC_DEVIATION_DETAILS_Result)">
+          <Parameter Name="SSCC" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="API_SSCC_IMAGES" ReturnType="Collection(BACKUP_SRL_20180613Model.API_SSCC_IMAGES_Result)">
+          <Parameter Name="SSCC" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="API_SSCC_LOADCARRIER_DETAILS" ReturnType="Collection(BACKUP_SRL_20180613Model.API_SSCC_LOADCARRIER_DETAILS_Result)">
+          <Parameter Name="SSCC" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="API_SSCC_ORDER_DETAILS" ReturnType="Collection(BACKUP_SRL_20180613Model.API_SSCC_ORDER_DETAILS_Result)">
+          <Parameter Name="SSCC" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="API_SSCC_OVERVIEW">
+            <Parameter Name="ACTOR_ID" Mode="In" Type="String" />
+            <Parameter Name="ACTOR_ORIGIN_ID" Mode="In" Type="String" />
+            <Parameter Name="SSCC_STATUS_NEW" Mode="In" Type="Boolean" />
+            <Parameter Name="SSCC_STATUS_PROCESSED" Mode="In" Type="Boolean" />
+            <Parameter Name="SSCC_STATUS_VALIDATED" Mode="In" Type="Boolean" />
+            <Parameter Name="FIRST_SSCC_USAGE_FROM" Mode="In" Type="DateTime" />
+            <Parameter Name="FIRST_SSCC_USAGE_TO" Mode="In" Type="DateTime" />
+            <Parameter Name="CI_DATETIME_FROM" Mode="In" Type="DateTime" />
+            <Parameter Name="CI_DATETIME_TO" Mode="In" Type="DateTime" />
+            <Parameter Name="VALIDATION_DEADLINE_OPEN" Mode="In" Type="Boolean" />
+            <Parameter Name="VALIDATION_DEADLINE_EXCEEDED" Mode="In" Type="Boolean" />
+            <Parameter Name="VALIDATION_DEADLINE_PASSED" Mode="In" Type="Boolean" />
+            <Parameter Name="SSCC" Mode="In" Type="String" />
+            <Parameter Name="ORDER_NUMBER" Mode="In" Type="Decimal" />
+            <Parameter Name="COUNTING_OK" Mode="In" Type="Boolean" />
+            <Parameter Name="COUNTING_NOK" Mode="In" Type="Boolean" />
+            <Parameter Name="SLA_OK" Mode="In" Type="Boolean" />
+            <Parameter Name="SLA_NOK" Mode="In" Type="Boolean" />
+            <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="API_SSCC_PALLET_COUNTING" ReturnType="Collection(BACKUP_SRL_20180613Model.API_SSCC_PALLET_COUNTING_Result)">
+          <Parameter Name="SSCC" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="API_ORDER_LIST" ReturnType="Collection(BACKUP_SRL_20180613Model.ORDER_LIST_Result)">
+            <Parameter Name="ORD_ORDER_NUMBER" Mode="In" Type="String" />
+            <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="Int32" />
+            <Parameter Name="ORDER_DATE_FROM" Mode="In" Type="DateTime" />
+            <Parameter Name="ORDER_DATE_TO" Mode="In" Type="DateTime" />
+            <Parameter Name="ORDER_NEW" Mode="In" Type="Boolean" />
+            <Parameter Name="ORDER_OPEN" Mode="In" Type="Boolean" />
+            <Parameter Name="ORDER_VALIDATED" Mode="In" Type="Boolean" />
+            <Parameter Name="CI_DATE_FROM" Mode="In" Type="DateTime" />
+            <Parameter Name="CI_DATE_TO" Mode="In" Type="DateTime" />
+            <Parameter Name="VALIDATION_DEADLINE" Mode="In" Type="DateTime" />
+            <Parameter Name="USER" Mode="In" Type="String" />
+            <Parameter Name="ACTOR_ID_FROM" Mode="In" Type="String" />
+            <Parameter Name="ACTOR_ID_TO" Mode="In" Type="String" />
+            <Parameter Name="ORDER_NUMBER" Mode="In" Type="String" />
+            <Parameter Name="SHOP_COUNT_OK" Mode="In" Type="Boolean" />
+            <Parameter Name="SHOP_COUNT_NOK" Mode="In" Type="Boolean" />
+            <Parameter Name="VALIDATION_DEADLINE_OPEN" Mode="In" Type="Boolean" />
+            <Parameter Name="VALIDATION_DEADLINE_EXCEEDED" Mode="In" Type="Boolean" />
+            <Parameter Name="VALIDATION_DEADLINE_PASSED" Mode="In" Type="Boolean" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetOrderDetail_Result">
           <Property Type="String" Name="ORD_ORDER_NUMBER" Nullable="false" MaxLength="60" />
@@ -8709,6 +8845,91 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="Int32" Name="CI_SSCC_ON_ORDER" Nullable="true" />
           <Property Type="Int32" Name="NUMBER_SSCC_ON_ORDER_OPEN" Nullable="true" />
           <Property Type="Int32" Name="NUMBER_SSCC_ON_ORDER_VALIDATED" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="API_FN_SPLIT_Result">
+          <Property Type="Int32" Name="POSITION" Nullable="false" />
+          <Property Type="String" Name="VALUE" Nullable="true" MaxLength="8000" />
+        </ComplexType>
+        <ComplexType Name="API_LIST_ACTORS_TRANSACTION_Result">
+          <Property Type="Int32" Name="ACTOR_ID" Nullable="false" />
+          <Property Type="String" Name="ACTOR_LABEL" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="FROM_TO" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="API_SSCC_DEVIATION_DETAILS_Result">
+          <Property Type="String" Name="SSCC" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="TRANSACTION_DATETIME" Nullable="true" Precision="23" />
+          <Property Type="String" Name="TRANSACTION_TYPE_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TRANSACTION_SUBTYPE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LOAD_UNIT_CONDITION_CODE" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="LOAD_UNIT_CONDITION_SUB_CODE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LOAD_UNIT_CONDITION_NAME" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="API_SSCC_IMAGES_Result">
+          <Property Type="String" Name="SSCC" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="PICTURE_EVIDENCE_PATH" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="PICTURE_POSITION" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="PALLET_POSITION" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="API_SSCC_LOADCARRIER_DETAILS_Result">
+          <Property Type="String" Name="SSCC" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="TRANSACTION_DATETIME" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ACTOR_NAME" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="TRANSACTION_TYPE_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TRANSACTION_SUBTYPE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DEVICE_CODE" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="VALIDATED" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="API_SSCC_ORDER_DETAILS_Result">
+          <Property Type="String" Name="SSCC" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="ORDER_NUMBER" Nullable="false" MaxLength="60" />
+          <Property Type="String" Name="PHYSICAL_FROM" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PHYSICAL_TO" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TRANSPORTED_BY" Nullable="true" MaxLength="400" />
+          <Property Type="DateTime" Name="VALIDATION_DEADLINE" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="API_SSCC_PALLET_COUNTING_Result">
+          <Property Type="String" Name="SSCC" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="COUNTING_TYPE" Nullable="false" MaxLength="17" />
+          <Property Type="String" Name="RTI_NAME" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="QTY_RTI" Nullable="false" />
+          <Property Type="String" Name="LOAD_CARRIER_NAME" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="UNIT" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="RETURNED_VALUE" Nullable="true" Precision="20" Scale="3" />
+          <Property Type="Decimal" Name="EXPECTED_VALUE_MIN" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="EXPECTED_VALUE_MAX" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="ACTOR_ORIGIN" Nullable="true" MaxLength="400" />
+        </ComplexType>
+        <ComplexType Name="ORDER_LIST_Result">
+          <Property Type="String" Name="ORD_ORDER_NUMBER" Nullable="false" MaxLength="60" />
+          <Property Type="Decimal" Name="ID_ORDER" Nullable="false" Precision="10" Scale="0" />
+          <Property Type="String" Name="REGISTERED_BY" Nullable="false" MaxLength="7" />
+          <Property Type="Decimal" Name="FROM_CODE" Nullable="false" Precision="10" Scale="0" />
+          <Property Type="String" Name="FROM_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FROM_ADDRESSLINE1" Nullable="true" MaxLength="281" />
+          <Property Type="String" Name="FROM_ADDRESSLINE2" Nullable="true" MaxLength="241" />
+          <Property Type="Decimal" Name="TO_CODE" Nullable="false" Precision="10" Scale="0" />
+          <Property Type="String" Name="TO_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TO_ADDRESSLINE1" Nullable="true" MaxLength="281" />
+          <Property Type="String" Name="TO_ADDRESSLINE2" Nullable="true" MaxLength="241" />
+          <Property Type="DateTime" Name="ORDER_DATE" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="ORDER_STATUS" Nullable="false" Precision="10" Scale="0" />
+          <Property Type="DateTime" Name="UNLOADING_DATE" Nullable="true" />
+          <Property Type="DateTime" Name="CI_DATE" Nullable="true" />
+          <Property Type="String" Name="ORD_CUSTOMER_REFERENCE" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="SHIPMENT_COMPANY" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SHIPMENT_COMPANY_NAME" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="TOUR_NUMBER" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LICENSE_PLATE" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="OUTBOUND_SSCC_ON_ORDER" Nullable="true" Precision="10" Scale="0" />
+          <Property Type="Int32" Name="INBOUND_SSCC_ON_ORDER" Nullable="true" />
+          <Property Type="Int32" Name="CI_SSCC_ON_ORDER" Nullable="true" />
+          <Property Type="Int32" Name="NUMBER_SSCC_ON_ORDER_OPEN" Nullable="true" />
+          <Property Type="Int32" Name="NUMBER_SSCC_ON_ORDER_VALIDATED" Nullable="true" />
+          <Property Type="Int32" Name="SHOP_OK" Nullable="false" />
+          <Property Type="Int32" Name="SHOP_NOK" Nullable="false" />
+          <Property Type="DateTime" Name="VALIDATION_DEADLINE" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="VALIDATED" Nullable="true" />
+          <Property Type="DateTime" Name="VALIDATED_DATE" Nullable="true" Precision="23" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -11450,9 +11671,91 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetOrderDetail" FunctionName="BACKUP_SRL_20180613Model.Store.API_ORDER_DETAILS">
+          <FunctionImportMapping FunctionImportName="API_FN_SPLIT" FunctionName="BACKUP_SRL_20180613Model.Store.API_FN_SPLIT">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.GetOrderDetail_Result">
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_FN_SPLIT_Result">
+                <ScalarProperty Name="POSITION" ColumnName="POSITION" />
+                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_LIST_ACTORS_TRANSACTION" FunctionName="BACKUP_SRL_20180613Model.Store.API_LIST_ACTORS_TRANSACTION">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_LIST_ACTORS_TRANSACTION_Result">
+                <ScalarProperty Name="ACTOR_ID" ColumnName="ACTOR_ID" />
+                <ScalarProperty Name="ACTOR_LABEL" ColumnName="ACTOR_LABEL" />
+                <ScalarProperty Name="FROM_TO" ColumnName="FROM_TO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_SSCC_DEVIATION_DETAILS" FunctionName="BACKUP_SRL_20180613Model.Store.API_SSCC_DEVIATION_DETAILS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_SSCC_DEVIATION_DETAILS_Result">
+                <ScalarProperty Name="SSCC" ColumnName="SSCC" />
+                <ScalarProperty Name="TRANSACTION_DATETIME" ColumnName="TRANSACTION_DATETIME" />
+                <ScalarProperty Name="TRANSACTION_TYPE_ID" ColumnName="TRANSACTION_TYPE_ID" />
+                <ScalarProperty Name="TRANSACTION_SUBTYPE" ColumnName="TRANSACTION_SUBTYPE" />
+                <ScalarProperty Name="LOAD_UNIT_CONDITION_CODE" ColumnName="LOAD_UNIT_CONDITION_CODE" />
+                <ScalarProperty Name="LOAD_UNIT_CONDITION_SUB_CODE" ColumnName="LOAD_UNIT_CONDITION_SUB_CODE" />
+                <ScalarProperty Name="LOAD_UNIT_CONDITION_NAME" ColumnName="LOAD_UNIT_CONDITION_NAME" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_SSCC_IMAGES" FunctionName="BACKUP_SRL_20180613Model.Store.API_SSCC_IMAGES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_SSCC_IMAGES_Result">
+                <ScalarProperty Name="SSCC" ColumnName="SSCC" />
+                <ScalarProperty Name="PICTURE_EVIDENCE_PATH" ColumnName="PICTURE_EVIDENCE_PATH" />
+                <ScalarProperty Name="PICTURE_POSITION" ColumnName="PICTURE_POSITION" />
+                <ScalarProperty Name="PALLET_POSITION" ColumnName="PALLET_POSITION" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_SSCC_LOADCARRIER_DETAILS" FunctionName="BACKUP_SRL_20180613Model.Store.API_SSCC_LOADCARRIER_DETAILS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_SSCC_LOADCARRIER_DETAILS_Result">
+                <ScalarProperty Name="SSCC" ColumnName="SSCC" />
+                <ScalarProperty Name="TRANSACTION_DATETIME" ColumnName="TRANSACTION_DATETIME" />
+                <ScalarProperty Name="ACTOR_NAME" ColumnName="ACTOR_NAME" />
+                <ScalarProperty Name="TRANSACTION_TYPE_ID" ColumnName="TRANSACTION_TYPE_ID" />
+                <ScalarProperty Name="TRANSACTION_SUBTYPE" ColumnName="TRANSACTION_SUBTYPE" />
+                <ScalarProperty Name="DEVICE_CODE" ColumnName="DEVICE_CODE" />
+                <ScalarProperty Name="VALIDATED" ColumnName="VALIDATED" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_SSCC_ORDER_DETAILS" FunctionName="BACKUP_SRL_20180613Model.Store.API_SSCC_ORDER_DETAILS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_SSCC_ORDER_DETAILS_Result">
+                <ScalarProperty Name="SSCC" ColumnName="SSCC" />
+                <ScalarProperty Name="ORDER_NUMBER" ColumnName="ORDER_NUMBER" />
+                <ScalarProperty Name="PHYSICAL_FROM" ColumnName="PHYSICAL_FROM" />
+                <ScalarProperty Name="PHYSICAL_TO" ColumnName="PHYSICAL_TO" />
+                <ScalarProperty Name="TRANSPORTED_BY" ColumnName="TRANSPORTED_BY" />
+                <ScalarProperty Name="VALIDATION_DEADLINE" ColumnName="VALIDATION_DEADLINE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_SSCC_OVERVIEW" FunctionName="BACKUP_SRL_20180613Model.Store.API_SSCC_OVERVIEW" />
+          <FunctionImportMapping FunctionImportName="API_SSCC_PALLET_COUNTING" FunctionName="BACKUP_SRL_20180613Model.Store.API_SSCC_PALLET_COUNTING">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_SSCC_PALLET_COUNTING_Result">
+                <ScalarProperty Name="SSCC" ColumnName="SSCC" />
+                <ScalarProperty Name="COUNTING_TYPE" ColumnName="COUNTING_TYPE" />
+                <ScalarProperty Name="RTI_NAME" ColumnName="RTI_NAME" />
+                <ScalarProperty Name="QTY_RTI" ColumnName="QTY_RTI" />
+                <ScalarProperty Name="LOAD_CARRIER_NAME" ColumnName="LOAD_CARRIER_NAME" />
+                <ScalarProperty Name="UNIT" ColumnName="UNIT" />
+                <ScalarProperty Name="RETURNED_VALUE" ColumnName="RETURNED_VALUE" />
+                <ScalarProperty Name="EXPECTED_VALUE_MIN" ColumnName="EXPECTED_VALUE_MIN" />
+                <ScalarProperty Name="EXPECTED_VALUE_MAX" ColumnName="EXPECTED_VALUE_MAX" />
+                <ScalarProperty Name="ACTOR_ORIGIN" ColumnName="ACTOR_ORIGIN" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_ORDER_LIST" FunctionName="BACKUP_SRL_20180613Model.Store.API_ORDER_LIST" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.ORDER_LIST_Result">
                 <ScalarProperty Name="ORD_ORDER_NUMBER" ColumnName="ORD_ORDER_NUMBER" />
                 <ScalarProperty Name="ID_ORDER" ColumnName="ID_ORDER" />
                 <ScalarProperty Name="REGISTERED_BY" ColumnName="REGISTERED_BY" />
@@ -11478,6 +11781,11 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
                 <ScalarProperty Name="CI_SSCC_ON_ORDER" ColumnName="CI_SSCC_ON_ORDER" />
                 <ScalarProperty Name="NUMBER_SSCC_ON_ORDER_OPEN" ColumnName="NUMBER_SSCC_ON_ORDER_OPEN" />
                 <ScalarProperty Name="NUMBER_SSCC_ON_ORDER_VALIDATED" ColumnName="NUMBER_SSCC_ON_ORDER_VALIDATED" />
+                <ScalarProperty Name="SHOP_OK" ColumnName="SHOP_OK" />
+                <ScalarProperty Name="SHOP_NOK" ColumnName="SHOP_NOK" />
+                <ScalarProperty Name="VALIDATION_DEADLINE" ColumnName="VALIDATION_DEADLINE" />
+                <ScalarProperty Name="VALIDATED" ColumnName="VALIDATED" />
+                <ScalarProperty Name="VALIDATED_DATE" ColumnName="VALIDATED_DATE" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

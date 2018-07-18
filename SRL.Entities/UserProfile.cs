@@ -1,4 +1,4 @@
-﻿namespace SRL.Entities
+﻿namespace SRL.Models
 {
    public class UserProfile
     {

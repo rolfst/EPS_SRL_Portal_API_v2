@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapter\OrderDetailAdapter.cs" />
+    <Compile Include="Adapter\OrderListAdapter.cs" />
     <Compile Include="Adapter\UserAdapter.cs" />
     <Compile Include="Entity\ACTION.cs">
       <DependentUpon>SRL.tt</DependentUpon>
@@ -61,6 +62,27 @@
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\ACTOR_TYPE.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_FN_SPLIT_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LIST_ACTORS_TRANSACTION_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_SSCC_DEVIATION_DETAILS_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_SSCC_IMAGES_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_SSCC_LOADCARRIER_DETAILS_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_SSCC_ORDER_DETAILS_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_SSCC_PALLET_COUNTING_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\AUDIT.cs">
@@ -169,6 +191,9 @@
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\NOVEXX.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ORDER_LIST_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\PARAMETER_SRLS.cs">
@@ -491,6 +516,7 @@
       <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\OrderDetailRepository.cs" />
+    <Compile Include="Repository\OrderListRepository.cs" />
     <Compile Include="Repository\UserRespository.cs" />
   </ItemGroup>
   <ItemGroup>
