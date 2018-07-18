@@ -42,6 +42,7 @@ namespace SRL_Portal_API.Common
                 invalid = true;
             }
             return match.Groups[1].Value + domainName;
+
         }
     }
 }

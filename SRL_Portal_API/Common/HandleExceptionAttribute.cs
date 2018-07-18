@@ -17,6 +17,7 @@ namespace SRL_Portal_API.Common
                     ReasonPhrase = exception.Message
                 };
                 actionExecutedContext.Response = response;
+
             }
         }
     }

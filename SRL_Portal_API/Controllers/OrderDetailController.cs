@@ -7,6 +7,9 @@ using SRL_Portal_API.Common;
 
 namespace SRL_Portal_API.Controllers
 {
+    /// <summary>
+    /// To handle order detail actions
+    /// </summary>
     public class OrderDetailController : ApiController
     {
         [CustomAuthorizationFilter(UserRoles.SuperUser)]

@@ -7,6 +7,9 @@ using SRL.Data_Access;
 
 namespace SRL_Portal_API.Common
 {
+    /// <summary>
+    /// To handle custom authorization
+    /// </summary>
     public class CustomAuthorizationFilterAttribute : System.Web.Http.AuthorizeAttribute
     {
         private string[] RequiredUserRoles { get; set; }
