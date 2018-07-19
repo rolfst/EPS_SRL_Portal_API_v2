@@ -1,11 +1,11 @@
 ﻿using SRL.Data_Access.Adapter;
-using SRL.Data_Access.Repository;
 using SRL.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Microsoft.Ajax.Utilities;
+using SRL.Data_Access.Entity;
+using SRL.Data_Access.Repository;
 
 namespace SRL_Portal_API.Controllers
 {
@@ -21,7 +21,7 @@ namespace SRL_Portal_API.Controllers
         [HttpPost]
         public IList<API_LIST_ACTORS_TRANSACTION_Result> Get()
         {
-            BACKUP_SRL_20180613Entities dbEntities = new BACKUP_SRL_20180613Entities();
+            var dbEntities = new BACKUP_SRL_20180613Entities();
 
             var result = dbEntities.API_LIST_ACTORS_TRANSACTION(-1);
 
@@ -36,7 +36,7 @@ namespace SRL_Portal_API.Controllers
         [HttpPost]
         public IList<API_LIST_ACTORS_TRANSACTION_Result> GetOnDestination(bool fromTo)
         {
-            BACKUP_SRL_20180613Entities dbEntities = new BACKUP_SRL_20180613Entities();
+            var dbEntities = new BACKUP_SRL_20180613Entities();
 
             var result = dbEntities.API_LIST_ACTORS_TRANSACTION(-1);
 
@@ -55,7 +55,8 @@ namespace SRL_Portal_API.Controllers
         /// <returns></returns>
         public List<Actor> GetActors(int retailerChainId = -1)
         {
-            return ActorAdapter.ConvertActorList(_actorRepository.GetActorList(retailerChainId));
+            var repo = new ActorRepository();
+            return ActorAdapter.ConvertActorList(repo.GetActorList(retailerChainId));
         }
     }
 }

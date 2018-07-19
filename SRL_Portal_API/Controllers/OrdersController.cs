@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using Microsoft.Ajax.Utilities;
 using SRL.Data_Access.Adapter;
 using SRL.Data_Access.Repository;
 using SRL.Models.Order;
@@ -26,6 +25,12 @@ namespace SRL_Portal_API.Controllers
         public IList<OrderResponse> FilterOrder(
             [FromBody] OrderRequest request)
         {
+            request = EditRequest(request);
+            return OrderListAdapter.ConvertOrderList(_repo.GetOrders(request));
+        }
+
+        private OrderRequest EditRequest(OrderRequest request)
+        {
             if (request == null)
             {
                 throw new ArgumentNullException(nameof(OrderRequest), "Request is not valid.");
@@ -44,8 +49,17 @@ namespace SRL_Portal_API.Controllers
             {
                 request.ValidationOpen = true; request.ValidationExceeded = true; request.ValidationPassed = true;
             }
+            // Filterfunctionality Dates: If date from is not null and date to is null, get only selected date.
+            if (request.OrderDateFrom != null && request.OrderDateTo == null)
+            {
+                request.OrderDateTo = request.OrderDateFrom;
+            }
+            if (request.CiDateFrom != null && request.CiDateTo == null)
+            {
+                request.CiDateTo = request.CiDateFrom;
+            }
 
-            return OrderListAdapter.ConvertOrderList(_repo.GetOrders(request));
+            return request;
         }
 
         [HttpGet]
