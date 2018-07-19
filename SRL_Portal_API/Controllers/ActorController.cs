@@ -1,4 +1,7 @@
-﻿using SRL_Portal_API.Models;
+﻿using SRL.Data_Access.Adapter;
+using SRL.Data_Access.Repository;
+using SRL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -6,6 +9,9 @@ using Microsoft.Ajax.Utilities;
 
 namespace SRL_Portal_API.Controllers
 {
+    /// <summary>
+    /// Controller for all Actor related actions
+    /// </summary>
     public class ActorController : ApiController
     {
         /// <summary>
@@ -42,17 +48,14 @@ namespace SRL_Portal_API.Controllers
         }
 
         /// <summary>
-        /// Controller for Actor related actions
+        /// Get the list of actors for a given retailerchain
+        /// default = -1; all chains
         /// </summary>
+        /// <param name="retailerChainId"></param>
         /// <returns></returns>
-        [HttpGet]
-        public IList<API_LIST_ACTORS_TRANSACTION_Result> Index()
+        public List<Actor> GetActors(int retailerChainId = -1)
         {
-            BACKUP_SRL_20180613Entities dbEntities = new BACKUP_SRL_20180613Entities();
-
-            var result = dbEntities.API_LIST_ACTORS_TRANSACTION(-1);
-
-            return result.ToList();
+            return ActorAdapter.ConvertActorList(_actorRepository.GetActorList(retailerChainId));
         }
     }
 }
