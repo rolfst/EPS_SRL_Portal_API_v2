@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapter\ActorAdapter.cs" />
     <Compile Include="Adapter\OrderDetailAdapter.cs" />
     <Compile Include="Adapter\OrderListAdapter.cs" />
     <Compile Include="Adapter\SSCCListAdapter.cs" />
@@ -519,6 +520,7 @@
     <Compile Include="Entity\Users.cs">
       <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\ActorRepository.cs" />
     <Compile Include="Repository\OrderDetailRepository.cs" />
     <Compile Include="Repository\OrderListRepository.cs" />
     <Compile Include="Repository\SSCCListRepository.cs" />
