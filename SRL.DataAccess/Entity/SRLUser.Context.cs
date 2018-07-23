@@ -32,23 +32,54 @@ namespace SRL.Data_Access.Entity
         public virtual DbSet<Screens> Screens { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Template> Templates { get; set; }
+        public virtual DbSet<UserActor> UserActors { get; set; }
+        public virtual DbSet<UserRetailerChain> UserRetailerChains { get; set; }
+        public virtual DbSet<UserTemplate> UserTemplates { get; set; }
     
-        public virtual ObjectResult<Users> GetAllUsers(string viewingUserRole)
+        public virtual ObjectResult<GetAllUsers_Result> GetAllUsers(string viewingUserEmail, string firstName, string lastName, string email, Nullable<bool> isAssigned, Nullable<bool> isActive, Nullable<bool> hasTemplate, Nullable<bool> isAdmin, string retailerChainCode, Nullable<bool> isInternal)
         {
-            var viewingUserRoleParameter = viewingUserRole != null ?
-                new ObjectParameter("ViewingUserRole", viewingUserRole) :
-                new ObjectParameter("ViewingUserRole", typeof(string));
+            var viewingUserEmailParameter = viewingUserEmail != null ?
+                new ObjectParameter("ViewingUserEmail", viewingUserEmail) :
+                new ObjectParameter("ViewingUserEmail", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Users>("GetAllUsers", viewingUserRoleParameter);
-        }
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("FirstName", firstName) :
+                new ObjectParameter("FirstName", typeof(string));
     
-        public virtual ObjectResult<Users> GetAllUsers(string viewingUserRole, MergeOption mergeOption)
-        {
-            var viewingUserRoleParameter = viewingUserRole != null ?
-                new ObjectParameter("ViewingUserRole", viewingUserRole) :
-                new ObjectParameter("ViewingUserRole", typeof(string));
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("LastName", lastName) :
+                new ObjectParameter("LastName", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Users>("GetAllUsers", mergeOption, viewingUserRoleParameter);
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var isAssignedParameter = isAssigned.HasValue ?
+                new ObjectParameter("IsAssigned", isAssigned) :
+                new ObjectParameter("IsAssigned", typeof(bool));
+    
+            var isActiveParameter = isActive.HasValue ?
+                new ObjectParameter("IsActive", isActive) :
+                new ObjectParameter("IsActive", typeof(bool));
+    
+            var hasTemplateParameter = hasTemplate.HasValue ?
+                new ObjectParameter("HasTemplate", hasTemplate) :
+                new ObjectParameter("HasTemplate", typeof(bool));
+    
+            var isAdminParameter = isAdmin.HasValue ?
+                new ObjectParameter("IsAdmin", isAdmin) :
+                new ObjectParameter("IsAdmin", typeof(bool));
+    
+            var retailerChainCodeParameter = retailerChainCode != null ?
+                new ObjectParameter("RetailerChainCode", retailerChainCode) :
+                new ObjectParameter("RetailerChainCode", typeof(string));
+    
+            var isInternalParameter = isInternal.HasValue ?
+                new ObjectParameter("IsInternal", isInternal) :
+                new ObjectParameter("IsInternal", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllUsers_Result>("GetAllUsers", viewingUserEmailParameter, firstNameParameter, lastNameParameter, emailParameter, isAssignedParameter, isActiveParameter, hasTemplateParameter, isAdminParameter, retailerChainCodeParameter, isInternalParameter);
         }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
@@ -188,6 +219,24 @@ namespace SRL.Data_Access.Entity
                 new ObjectParameter("UserEmail", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUserScreens1_Result>("sp_GetUserScreens1", userEmailParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetUserScreens2_Result> sp_GetUserScreens2(string userEmail)
+        {
+            var userEmailParameter = userEmail != null ?
+                new ObjectParameter("UserEmail", userEmail) :
+                new ObjectParameter("UserEmail", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUserScreens2_Result>("sp_GetUserScreens2", userEmailParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetScreensForUser_Result> sp_GetScreensForUser(string userEmail)
+        {
+            var userEmailParameter = userEmail != null ?
+                new ObjectParameter("UserEmail", userEmail) :
+                new ObjectParameter("UserEmail", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetScreensForUser_Result>("sp_GetScreensForUser", userEmailParameter);
         }
     }
 }

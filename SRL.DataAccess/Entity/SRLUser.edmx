@@ -35,6 +35,42 @@
           <Property Name="ScreenName" Type="nvarchar" MaxLength="75" Nullable="false" />
           <Property Name="isActive" Type="bit" Nullable="false" />
           <Property Name="RouterLink" Type="varchar" MaxLength="120" />
+          <Property Name="Level" Type="int" Nullable="false" />
+          <Property Name="ParentScreenId" Type="int" />
+        </EntityType>
+        <EntityType Name="Template">
+          <Key>
+            <PropertyRef Name="TemplateId" />
+          </Key>
+          <Property Name="TemplateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TemplateBody" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserActor">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="ActorId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ActorId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="UserRetailerChain">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RetailerChainCode" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RetailerChainCode" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedUserId" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedUserId" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -68,6 +104,19 @@
           <Property Name="ModifiedDate" Type="datetime2" Precision="7" />
           <Property Name="IsInternal" Type="bit" Nullable="false" />
           <Property Name="Assigned" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserTemplate">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="TemplateId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="TemplateId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedBy" Type="int" />
         </EntityType>
         <Association Name="FK_RoleScreen_CreatedUserId">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
@@ -114,6 +163,54 @@
             </Principal>
             <Dependent Role="RoleScreen">
               <PropertyRef Name="ScreenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserActor_CreatedBy">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserActor" Type="Self.UserActor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserActor">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserActor_ModifiedBy">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserActor" Type="Self.UserActor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserActor">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRetailerChain_CreatedUserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserRetailerChain" Type="Self.UserRetailerChain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRetailerChain">
+              <PropertyRef Name="CreatedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRetailerChain_ModifiedUserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserRetailerChain" Type="Self.UserRetailerChain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRetailerChain">
+              <PropertyRef Name="ModifiedUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -189,55 +286,61 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_GetUserProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Association Name="FK_UserTemplate_CreatedBy">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserTemplate" Type="Self.UserTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserTemplate">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTemplate_ModifiedBy">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserTemplate" Type="Self.UserTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserTemplate">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_GetScreensForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserEmail" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_GetUserRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserEmail" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_GetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ViewingUserRole" Type="nvarchar" Mode="In" />
+          <Parameter Name="ViewingUserEmail" Type="nvarchar" Mode="In" />
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="IsAssigned" Type="bit" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+          <Parameter Name="HasTemplate" Type="bit" Mode="In" />
+          <Parameter Name="IsAdmin" Type="bit" Mode="In" />
+          <Parameter Name="RetailerChainCode" Type="char" Mode="In" />
+          <Parameter Name="IsInternal" Type="bit" Mode="In" />
         </Function>
         <Function Name="sp_GetUserScreens" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserEmail" Type="nvarchar" Mode="In" />
         </Function>
-        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="SRLManagementModelStoreContainer">
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoleScreen" EntityType="Self.RoleScreen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Screens" EntityType="Self.Screens" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Template" EntityType="Self.Template" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserActor" EntityType="Self.UserActor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRetailerChain" EntityType="Self.UserRetailerChain" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTemplate" EntityType="Self.UserTemplate" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_RoleScreen_CreatedUserId" Association="Self.FK_RoleScreen_CreatedUserId">
             <End Role="Users" EntitySet="Users" />
             <End Role="RoleScreen" EntitySet="RoleScreen" />
@@ -253,6 +356,22 @@
           <AssociationSet Name="FK_RoleScreen_ScreenId" Association="Self.FK_RoleScreen_ScreenId">
             <End Role="Screens" EntitySet="Screens" />
             <End Role="RoleScreen" EntitySet="RoleScreen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActor_CreatedBy" Association="Self.FK_UserActor_CreatedBy">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserActor" EntitySet="UserActor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActor_ModifiedBy" Association="Self.FK_UserActor_ModifiedBy">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserActor" EntitySet="UserActor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRetailerChain_CreatedUserId" Association="Self.FK_UserRetailerChain_CreatedUserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRetailerChain" EntitySet="UserRetailerChain" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRetailerChain_ModifiedUserId" Association="Self.FK_UserRetailerChain_ModifiedUserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRetailerChain" EntitySet="UserRetailerChain" />
           </AssociationSet>
           <AssociationSet Name="FK_UserRole_CreatedUserId" Association="Self.FK_UserRole_CreatedUserId">
             <End Role="Users" EntitySet="Users" />
@@ -277,6 +396,14 @@
           <AssociationSet Name="FK_Users_ModifiedUserId" Association="Self.FK_Users_ModifiedUserId">
             <End Role="Users" EntitySet="Users" />
             <End Role="Users1" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTemplate_CreatedBy" Association="Self.FK_UserTemplate_CreatedBy">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserTemplate" EntitySet="UserTemplate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTemplate_ModifiedBy" Association="Self.FK_UserTemplate_ModifiedBy">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserTemplate" EntitySet="UserTemplate" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -320,6 +447,8 @@
           <Property Name="isActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="RoleScreen" Relationship="Self.FK_RoleScreen_ScreenId" FromRole="Screens" ToRole="RoleScreen" />
           <Property Name="RouterLink" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
+          <Property Name="ParentScreenId" Type="Int32" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -366,6 +495,12 @@
           <NavigationProperty Name="Users3" Relationship="Self.FK_Users_ModifiedUserId" FromRole="Users1" ToRole="Users" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <Property Name="Assigned" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UserActors" Relationship="SRLManagementModel.FK_UserActor_CreatedBy" FromRole="Users" ToRole="UserActor" />
+          <NavigationProperty Name="UserActors1" Relationship="SRLManagementModel.FK_UserActor_ModifiedBy" FromRole="Users" ToRole="UserActor" />
+          <NavigationProperty Name="UserRetailerChains" Relationship="SRLManagementModel.FK_UserRetailerChain_CreatedUserId" FromRole="Users" ToRole="UserRetailerChain" />
+          <NavigationProperty Name="UserRetailerChains1" Relationship="SRLManagementModel.FK_UserRetailerChain_ModifiedUserId" FromRole="Users" ToRole="UserRetailerChain" />
+          <NavigationProperty Name="UserTemplates" Relationship="SRLManagementModel.FK_UserTemplate_CreatedBy" FromRole="Users" ToRole="UserTemplate" />
+          <NavigationProperty Name="UserTemplates1" Relationship="SRLManagementModel.FK_UserTemplate_ModifiedBy" FromRole="Users" ToRole="UserTemplate" />
         </EntityType>
         <Association Name="FK_RoleScreen_RoleId">
           <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
@@ -533,8 +668,17 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Users1" EntitySet="Users" />
           </AssociationSet>
-          <FunctionImport Name="GetAllUsers" EntitySet="Users" ReturnType="Collection(SRLManagementModel.Users)" >
-          <Parameter Name="ViewingUserRole" Mode="In" Type="String" />
+          <FunctionImport Name="GetAllUsers" ReturnType="Collection(SRLManagementModel.GetAllUsers_Result)" >
+            <Parameter Name="ViewingUserEmail" Mode="In" Type="String" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="IsAssigned" Mode="In" Type="Boolean" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+            <Parameter Name="HasTemplate" Mode="In" Type="Boolean" />
+            <Parameter Name="IsAdmin" Mode="In" Type="Boolean" />
+            <Parameter Name="RetailerChainCode" Mode="In" Type="String" />
+            <Parameter Name="IsInternal" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -576,8 +720,42 @@
           <Parameter Name="UserEmail" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetUserScreens1" ReturnType="Collection(SRLManagementModel.sp_GetUserScreens1_Result)">
-            <Parameter Name="UserEmail" Mode="In" Type="String" />
+          <Parameter Name="UserEmail" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_GetUserScreens2" ReturnType="Collection(SRLManagementModel.sp_GetUserScreens2_Result)">
+          <Parameter Name="UserEmail" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetScreensForUser" ReturnType="Collection(SRLManagementModel.sp_GetScreensForUser_Result)">
+          <Parameter Name="UserEmail" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Templates" EntityType="SRLManagementModel.Template" />
+          <EntitySet Name="UserActors" EntityType="SRLManagementModel.UserActor" />
+          <EntitySet Name="UserRetailerChains" EntityType="SRLManagementModel.UserRetailerChain" />
+          <EntitySet Name="UserTemplates" EntityType="SRLManagementModel.UserTemplate" />
+          <AssociationSet Name="FK_UserActor_CreatedBy" Association="SRLManagementModel.FK_UserActor_CreatedBy">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserActor" EntitySet="UserActors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActor_ModifiedBy" Association="SRLManagementModel.FK_UserActor_ModifiedBy">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserActor" EntitySet="UserActors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRetailerChain_CreatedUserId" Association="SRLManagementModel.FK_UserRetailerChain_CreatedUserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRetailerChain" EntitySet="UserRetailerChains" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRetailerChain_ModifiedUserId" Association="SRLManagementModel.FK_UserRetailerChain_ModifiedUserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRetailerChain" EntitySet="UserRetailerChains" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTemplate_CreatedBy" Association="SRLManagementModel.FK_UserTemplate_CreatedBy">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserTemplate" EntitySet="UserTemplates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTemplate_ModifiedBy" Association="SRLManagementModel.FK_UserTemplate_ModifiedBy">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserTemplate" EntitySet="UserTemplates" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_GetUsers_Result">
           <Property Type="Int32" Name="UserId" Nullable="false" />
@@ -617,6 +795,161 @@
           <Property Type="String" Name="ScreenName" Nullable="false" MaxLength="75" />
           <Property Type="String" Name="RouterLink" Nullable="true" MaxLength="120" />
         </ComplexType>
+        <ComplexType Name="sp_GetUserScreens2_Result">
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="RoleId" Nullable="false" />
+          <Property Type="Int32" Name="ScreenId" Nullable="false" />
+          <Property Type="String" Name="ScreenName" Nullable="false" MaxLength="75" />
+          <Property Type="String" Name="RouterLink" Nullable="true" MaxLength="120" />
+        </ComplexType>
+        <ComplexType Name="sp_GetScreensForUser_Result">
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="RoleId" Nullable="false" />
+          <Property Type="Int32" Name="ScreenId" Nullable="false" />
+          <Property Type="String" Name="ScreenName" Nullable="false" MaxLength="75" />
+          <Property Type="String" Name="RouterLink" Nullable="true" MaxLength="120" />
+          <Property Type="Int32" Name="Level" Nullable="false" />
+          <Property Type="Int32" Name="ParentScreenId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllUsers_Result">
+          <Property Type="Boolean" Name="Admin" Nullable="false" />
+          <Property Type="Int32" Name="Assigned" Nullable="false" />
+          <Property Type="Boolean" Name="IsInternal" Nullable="false" />
+          <Property Type="Int32" Name="HasTemplate" Nullable="false" />
+          <Property Type="String" Name="RetailerChainCode" Nullable="true" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="RolePriority" Nullable="true" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Template">
+          <Key>
+            <PropertyRef Name="TemplateId" />
+          </Key>
+          <Property Name="TemplateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemplateBody" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserActor">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="ActorId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ActorId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="SRLManagementModel.FK_UserActor_CreatedBy" FromRole="UserActor" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="SRLManagementModel.FK_UserActor_ModifiedBy" FromRole="UserActor" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="UserRetailerChain">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RetailerChainCode" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="RetailerChainCode" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedUserId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedUserId" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="SRLManagementModel.FK_UserRetailerChain_CreatedUserId" FromRole="UserRetailerChain" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="SRLManagementModel.FK_UserRetailerChain_ModifiedUserId" FromRole="UserRetailerChain" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="UserTemplate">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="TemplateId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="TemplateId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="SRLManagementModel.FK_UserTemplate_CreatedBy" FromRole="UserTemplate" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="SRLManagementModel.FK_UserTemplate_ModifiedBy" FromRole="UserTemplate" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_UserActor_CreatedBy">
+          <End Type="SRLManagementModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="SRLManagementModel.UserActor" Role="UserActor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserActor">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserActor_ModifiedBy">
+          <End Type="SRLManagementModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="SRLManagementModel.UserActor" Role="UserActor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserActor">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRetailerChain_CreatedUserId">
+          <End Type="SRLManagementModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="SRLManagementModel.UserRetailerChain" Role="UserRetailerChain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRetailerChain">
+              <PropertyRef Name="CreatedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRetailerChain_ModifiedUserId">
+          <End Type="SRLManagementModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="SRLManagementModel.UserRetailerChain" Role="UserRetailerChain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRetailerChain">
+              <PropertyRef Name="ModifiedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTemplate_CreatedBy">
+          <End Type="SRLManagementModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="SRLManagementModel.UserTemplate" Role="UserTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserTemplate">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTemplate_ModifiedBy">
+          <End Type="SRLManagementModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="SRLManagementModel.UserTemplate" Role="UserTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserTemplate">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -649,6 +982,8 @@
           <EntitySetMapping Name="Screens">
             <EntityTypeMapping TypeName="SRLManagementModel.Screens">
               <MappingFragment StoreEntitySet="Screens">
+                <ScalarProperty Name="ParentScreenId" ColumnName="ParentScreenId" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
                 <ScalarProperty Name="RouterLink" ColumnName="RouterLink" />
                 <ScalarProperty Name="ScreenId" ColumnName="ScreenId" />
                 <ScalarProperty Name="ScreenName" ColumnName="ScreenName" />
@@ -690,32 +1025,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetAllUsers" FunctionName="SRLManagementModel.Store.sp_GetUsers" />
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="SRLManagementModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="SRLManagementModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="SRLManagementModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="SRLManagementModel.Store.sp_helpdiagramdefinition">
+          <FunctionImportMapping FunctionImportName="GetAllUsers" FunctionName="SRLManagementModel.Store.sp_GetUsers" >
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SRLManagementModel.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
+              <ComplexTypeMapping TypeName="SRLManagementModel.GetAllUsers_Result">
+                <ScalarProperty Name="Admin" ColumnName="Admin" />
+                <ScalarProperty Name="Assigned" ColumnName="Assigned" />
+                <ScalarProperty Name="IsInternal" ColumnName="IsInternal" />
+                <ScalarProperty Name="HasTemplate" ColumnName="HasTemplate" />
+                <ScalarProperty Name="RetailerChainCode" ColumnName="RetailerChainCode" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RolePriority" ColumnName="RolePriority" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="SRLManagementModel.Store.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SRLManagementModel.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="SRLManagementModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="SRLManagementModel.Store.sp_upgraddiagrams" />
-          <FunctionImportMapping FunctionImportName="sp_GetUserProfile" FunctionName="SRLManagementModel.Store.sp_GetUserProfile" />
           <FunctionImportMapping FunctionImportName="sp_GetUserRoles" FunctionName="SRLManagementModel.Store.sp_GetUserRoles">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SRLManagementModel.sp_GetUserRoles_Result">
@@ -726,9 +1053,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_GetUserScreens1" FunctionName="SRLManagementModel.Store.sp_GetUserScreens">
+          <FunctionImportMapping FunctionImportName="sp_GetUserScreens2" FunctionName="SRLManagementModel.Store.sp_GetUserScreens">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SRLManagementModel.sp_GetUserScreens1_Result">
+              <ComplexTypeMapping TypeName="SRLManagementModel.sp_GetUserScreens2_Result">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="ScreenId" ColumnName="ScreenId" />
@@ -737,6 +1064,77 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetUserScreens" FunctionName="SRLManagementModel.Store.sp_GetUserScreens">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SRLManagementModel.sp_GetUserScreens_Result">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ScreenId" ColumnName="ScreenId" />
+                <ScalarProperty Name="ScreenName" ColumnName="ScreenName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetScreensForUser" FunctionName="SRLManagementModel.Store.sp_GetScreensForUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SRLManagementModel.sp_GetScreensForUser_Result">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ScreenId" ColumnName="ScreenId" />
+                <ScalarProperty Name="ScreenName" ColumnName="ScreenName" />
+                <ScalarProperty Name="RouterLink" ColumnName="RouterLink" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="ParentScreenId" ColumnName="ParentScreenId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Templates">
+            <EntityTypeMapping TypeName="SRLManagementModel.Template">
+              <MappingFragment StoreEntitySet="Template">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="TemplateBody" ColumnName="TemplateBody" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserActors">
+            <EntityTypeMapping TypeName="SRLManagementModel.UserActor">
+              <MappingFragment StoreEntitySet="UserActor">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ActorId" ColumnName="ActorId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRetailerChains">
+            <EntityTypeMapping TypeName="SRLManagementModel.UserRetailerChain">
+              <MappingFragment StoreEntitySet="UserRetailerChain">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedUserId" ColumnName="ModifiedUserId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedUserId" ColumnName="CreatedUserId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RetailerChainCode" ColumnName="RetailerChainCode" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTemplates">
+            <EntityTypeMapping TypeName="SRLManagementModel.UserTemplate">
+              <MappingFragment StoreEntitySet="UserTemplate">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

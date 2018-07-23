@@ -19,7 +19,7 @@ namespace SRL_Portal_API
             config.MapHttpAttributeRoutes();
 
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-
+            config.Formatters.JsonFormatter.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

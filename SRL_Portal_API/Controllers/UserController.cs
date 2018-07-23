@@ -8,10 +8,11 @@ using System.Web.Http.Cors;
 using SRL.Data_Access;
 using SRL.Models;
 using SRL_Portal_API.Common;
+using SRL.Models.Constants;
 
 namespace SRL_Portal_API.Controllers
 {
-    [RoutePrefix("api/user")]
+    [RoutePrefix("api")]
     public class UserController : ApiController
     {
         [Route("roles/{userEmail}/")]
@@ -38,36 +39,35 @@ namespace SRL_Portal_API.Controllers
             }
         }
 
-        [Route("screens/{userEmail}/")]
-        [HttpGet]
-        public List<Screen> GetScreens(string userEmail = "")
+        [Route("users")]
+        [HttpPost]
+       [EnableCors(origins: "*", headers: "*", methods: "*")]
+    // [CustomAuthorizationFilter(new string[] { UserRoles.SRLModuleAdministrator, UserRoles.SuperUser, UserRoles.UltraUser})]
+        public List<User> GetUsers(UserListRequest userListRequest)
         {
-            if(string.IsNullOrEmpty(userEmail))
-            {
-                userEmail = RequestContext.Principal.Identity.Name;
-            }
-            if (!string.IsNullOrEmpty(userEmail))
-            {
-                if (ValidateUserEmail(userEmail))
-                {
-                    UserRespository userRepository = new UserRespository();
-                    return userRepository.GetUserScreens(userEmail);
-                }
+            if (userListRequest == null)
+                userListRequest = new UserListRequest();
 
-                return new List<Screen>();
+          if(userListRequest.ViewingUserEmail == null)
+               userListRequest.ViewingUserEmail = RequestContext.Principal.Identity.Name;
+            UserRespository userRespository = new UserRespository();
+            try
+            {
+                return userRespository.GetUsersList(userListRequest);
             }
-            else
+            catch(Exception ex)
             {
                 var response = new HttpResponseMessage(HttpStatusCode.BadRequest)
                 {
-                    Content = new StringContent("No email passed"),
-                    ReasonPhrase = "User email address not provided"
+                    Content = new StringContent(ex.Message),
+                    ReasonPhrase = ex.Message
                 };
                 throw new HttpResponseException(response);
             }
         }
+      
 
-        [Route("screens/")]
+        [Route("screens")]
         [HttpGet]
         [Authorize]
         [EnableCors(origins: "*", headers: "*", methods: "*")]

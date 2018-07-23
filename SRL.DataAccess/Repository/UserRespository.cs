@@ -15,14 +15,19 @@ namespace SRL.Data_Access
     public class UserRespository
     {
 
-        public List<User> GetUsersList(string currentUserRole)
+        public List<User> GetUsersList(UserListRequest userFilter)
         {
             List<User> users = new List<User>();
-            using (var ctx = new SRLManagementEntities())
+            if (userFilter != null)
             {
-                // users = (ctx.GetAllUsers(currentUserRole).ToList<Data_Access.Entity.Users>()).ToEntityUserList();
-            };
-            return users;
+                using (var ctx = new SRLManagementEntities())
+                {
+                    users = (ctx.GetAllUsers(userFilter.ViewingUserEmail,userFilter.FirstName,userFilter.LastName,userFilter.Email,userFilter.IsAssigned, userFilter.IsActive,userFilter.HasTemplate
+                        , userFilter.IsAdmin,userFilter.RetailerChainCode,userFilter.IsInternal).ToList<Data_Access.Entity.GetAllUsers_Result>()).ToEntityUserList();
+                };
+            }
+                return users;
+            
         }
 
         public UserProfile GetUserProfile(string userEmail)
@@ -57,7 +62,7 @@ namespace SRL.Data_Access
             List<Screen> screens = new List<Screen>();
             using (var ctx = new SRLManagementEntities())
             {               
-                screens = ctx.sp_GetUserScreens1(userEmail).ToList().ToEntityScreenList();
+                screens = ctx.sp_GetScreensForUser(userEmail).ToList().ToEntityScreenList();
             }
             return screens;
         }

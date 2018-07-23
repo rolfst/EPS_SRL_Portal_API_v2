@@ -20,6 +20,16 @@
         <AssociationConnector Association="SRLManagementModel.FK_UserRole_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="SRLManagementModel.FK_Users_CreatedUserId" ManuallyRouted="false" />
         <AssociationConnector Association="SRLManagementModel.FK_Users_ModifiedUserId" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SRLManagementModel.Template" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SRLManagementModel.UserActor" Width="1.5" PointX="3" PointY="9.5" />
+        <EntityTypeShape EntityType="SRLManagementModel.UserRetailerChain" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="SRLManagementModel.UserTemplate" Width="1.5" PointX="3" PointY="13" />
+        <AssociationConnector Association="SRLManagementModel.FK_UserActor_CreatedBy" />
+        <AssociationConnector Association="SRLManagementModel.FK_UserActor_ModifiedBy" />
+        <AssociationConnector Association="SRLManagementModel.FK_UserRetailerChain_CreatedUserId" />
+        <AssociationConnector Association="SRLManagementModel.FK_UserRetailerChain_ModifiedUserId" />
+        <AssociationConnector Association="SRLManagementModel.FK_UserTemplate_CreatedBy" />
+        <AssociationConnector Association="SRLManagementModel.FK_UserTemplate_ModifiedBy" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -10,24 +10,15 @@
 namespace SRL.Data_Access.Entity
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Screens
+    public partial class sp_GetScreensForUser_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Screens()
-        {
-            this.RoleScreen = new HashSet<RoleScreen>();
-        }
-    
+        public int UserId { get; set; }
+        public int RoleId { get; set; }
         public int ScreenId { get; set; }
         public string ScreenName { get; set; }
-        public bool isActive { get; set; }
         public string RouterLink { get; set; }
         public int Level { get; set; }
         public Nullable<int> ParentScreenId { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RoleScreen> RoleScreen { get; set; }
     }
 }
