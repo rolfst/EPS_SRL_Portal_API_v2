@@ -41,21 +41,21 @@ namespace SRL_Portal_API.Controllers
 
         [Route("users")]
         [HttpPost]
-       [EnableCors(origins: "*", headers: "*", methods: "*")]
-    // [CustomAuthorizationFilter(new string[] { UserRoles.SRLModuleAdministrator, UserRoles.SuperUser, UserRoles.UltraUser})]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        [CustomAuthorizationFilter(new string[] { UserRoles.SRLModuleAdministrator, UserRoles.SuperUser, UserRoles.UltraUser })]
         public List<User> GetUsers(UserListRequest userListRequest)
         {
             if (userListRequest == null)
                 userListRequest = new UserListRequest();
 
-          if(userListRequest.ViewingUserEmail == null)
-               userListRequest.ViewingUserEmail = RequestContext.Principal.Identity.Name;
+            if (userListRequest.ViewingUserEmail == null)
+                userListRequest.ViewingUserEmail = RequestContext.Principal.Identity.Name;
             UserRespository userRespository = new UserRespository();
             try
             {
                 return userRespository.GetUsersList(userListRequest);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var response = new HttpResponseMessage(HttpStatusCode.BadRequest)
                 {
@@ -65,7 +65,7 @@ namespace SRL_Portal_API.Controllers
                 throw new HttpResponseException(response);
             }
         }
-      
+
 
         [Route("screens")]
         [HttpGet]
@@ -73,8 +73,8 @@ namespace SRL_Portal_API.Controllers
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<Screen> GetScreens()
         {
-              string  userEmail = RequestContext.Principal.Identity.Name;
-            
+            string userEmail = RequestContext.Principal.Identity.Name;
+
             if (!string.IsNullOrEmpty(userEmail))
             {
                 if (ValidateUserEmail(userEmail))

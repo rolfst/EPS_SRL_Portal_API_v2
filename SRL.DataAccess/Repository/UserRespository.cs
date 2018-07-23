@@ -14,7 +14,11 @@ namespace SRL.Data_Access
 {
     public class UserRespository
     {
-
+        /// <summary>
+        /// Filter users based on the filter passed
+        /// </summary>
+        /// <param name="userFilter"></param>
+        /// <returns></returns>
         public List<User> GetUsersList(UserListRequest userFilter)
         {
             List<User> users = new List<User>();

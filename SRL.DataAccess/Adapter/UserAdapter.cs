@@ -5,6 +5,11 @@ namespace SRL.Data_Access.Adapter
 {
     public static class UserAdapter
     {
+        /// <summary>
+        /// Convert result fetched from stored procedure execution to business model User
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         internal static SRL.Models.User ToEntityUser(this GetAllUsers_Result user)
         {
             return new Models.User
@@ -22,6 +27,12 @@ namespace SRL.Data_Access.Adapter
             };
         }
 
+
+        /// <summary>
+        /// Convert result fetched from stored procedure execution to a list of business model User
+        /// </summary>
+        /// <param name="users"></param>
+        /// <returns></returns>
         internal static List<SRL.Models.User> ToEntityUserList(this List<GetAllUsers_Result> users)
         {
             List<SRL.Models.User> userList = new List<Models.User>();

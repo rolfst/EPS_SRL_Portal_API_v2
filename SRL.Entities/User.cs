@@ -2,6 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 namespace SRL.Models
 {
+    /// <summary>
+    /// Model for User
+    /// </summary>
     public class User
     {
         public string FirstName { get; set; }

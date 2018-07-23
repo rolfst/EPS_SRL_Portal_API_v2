@@ -4,6 +4,9 @@ using System.Text;
 
 namespace SRL.Models
 {
+    /// <summary>
+    /// Filter object to search user list
+    /// </summary>
    public class UserListRequest
     {
         public string ViewingUserEmail{ get; set; }
