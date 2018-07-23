@@ -180,42 +180,6 @@ namespace SRL.Data_Access.Entity
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_ACTORS_TRANSACTION_Result>("API_LIST_ACTORS_TRANSACTION", rETAILER_CHAIN_IDParameter);
         }
     
-        public virtual ObjectResult<API_SSCC_DEVIATION_DETAILS_Result> API_SSCC_DEVIATION_DETAILS(string sSCC)
-        {
-            var sSCCParameter = sSCC != null ?
-                new ObjectParameter("SSCC", sSCC) :
-                new ObjectParameter("SSCC", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SSCC_DEVIATION_DETAILS_Result>("API_SSCC_DEVIATION_DETAILS", sSCCParameter);
-        }
-    
-        public virtual ObjectResult<API_SSCC_IMAGES_Result> API_SSCC_IMAGES(string sSCC)
-        {
-            var sSCCParameter = sSCC != null ?
-                new ObjectParameter("SSCC", sSCC) :
-                new ObjectParameter("SSCC", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SSCC_IMAGES_Result>("API_SSCC_IMAGES", sSCCParameter);
-        }
-    
-        public virtual ObjectResult<API_SSCC_LOADCARRIER_DETAILS_Result> API_SSCC_LOADCARRIER_DETAILS(string sSCC)
-        {
-            var sSCCParameter = sSCC != null ?
-                new ObjectParameter("SSCC", sSCC) :
-                new ObjectParameter("SSCC", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SSCC_LOADCARRIER_DETAILS_Result>("API_SSCC_LOADCARRIER_DETAILS", sSCCParameter);
-        }
-    
-        public virtual ObjectResult<API_SSCC_ORDER_DETAILS_Result> API_SSCC_ORDER_DETAILS(string sSCC)
-        {
-            var sSCCParameter = sSCC != null ?
-                new ObjectParameter("SSCC", sSCC) :
-                new ObjectParameter("SSCC", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SSCC_ORDER_DETAILS_Result>("API_SSCC_ORDER_DETAILS", sSCCParameter);
-        }
-    
         public virtual ObjectResult<API_SSCC_OVERVIEW_Result> API_SSCC_OVERVIEW(string aCTOR_ID, string aCTOR_ORIGIN_ID, Nullable<bool> sSCC_STATUS_NEW, Nullable<bool> sSCC_STATUS_PROCESSED, Nullable<bool> sSCC_STATUS_VALIDATED, Nullable<System.DateTime> fIRST_SSCC_USAGE_FROM, Nullable<System.DateTime> fIRST_SSCC_USAGE_TO, Nullable<System.DateTime> cI_DATETIME_FROM, Nullable<System.DateTime> cI_DATETIME_TO, Nullable<bool> vALIDATION_DEADLINE_OPEN, Nullable<bool> vALIDATION_DEADLINE_EXCEEDED, Nullable<bool> vALIDATION_DEADLINE_PASSED, string sSCC, Nullable<decimal> oRDER_NUMBER, Nullable<bool> cOUNTING_OK, Nullable<bool> cOUNTING_NOK, Nullable<bool> sLA_OK, Nullable<bool> sLA_NOK, Nullable<int> rETAILER_CHAIN_ID)
         {
             var aCTOR_IDParameter = aCTOR_ID != null ?
@@ -295,15 +259,6 @@ namespace SRL.Data_Access.Entity
                 new ObjectParameter("RETAILER_CHAIN_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SSCC_OVERVIEW_Result>("API_SSCC_OVERVIEW", aCTOR_IDParameter, aCTOR_ORIGIN_IDParameter, sSCC_STATUS_NEWParameter, sSCC_STATUS_PROCESSEDParameter, sSCC_STATUS_VALIDATEDParameter, fIRST_SSCC_USAGE_FROMParameter, fIRST_SSCC_USAGE_TOParameter, cI_DATETIME_FROMParameter, cI_DATETIME_TOParameter, vALIDATION_DEADLINE_OPENParameter, vALIDATION_DEADLINE_EXCEEDEDParameter, vALIDATION_DEADLINE_PASSEDParameter, sSCCParameter, oRDER_NUMBERParameter, cOUNTING_OKParameter, cOUNTING_NOKParameter, sLA_OKParameter, sLA_NOKParameter, rETAILER_CHAIN_IDParameter);
-        }
-    
-        public virtual ObjectResult<API_SSCC_PALLET_COUNTING_Result> API_SSCC_PALLET_COUNTING(string sSCC)
-        {
-            var sSCCParameter = sSCC != null ?
-                new ObjectParameter("SSCC", sSCC) :
-                new ObjectParameter("SSCC", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SSCC_PALLET_COUNTING_Result>("API_SSCC_PALLET_COUNTING", sSCCParameter);
         }
     
         public virtual ObjectResult<ORDER_LIST_Result> API_ORDER_LIST(string oRD_ORDER_NUMBER, Nullable<int> rETAILER_CHAIN_ID, Nullable<System.DateTime> oRDER_DATE_FROM, Nullable<System.DateTime> oRDER_DATE_TO, Nullable<bool> oRDER_NEW, Nullable<bool> oRDER_OPEN, Nullable<bool> oRDER_VALIDATED, Nullable<System.DateTime> cI_DATE_FROM, Nullable<System.DateTime> cI_DATE_TO, Nullable<System.DateTime> vALIDATION_DEADLINE, string uSER, string aCTOR_ID_FROM, string aCTOR_ID_TO, string oRDER_NUMBER, Nullable<bool> sHOP_COUNT_OK, Nullable<bool> sHOP_COUNT_NOK, Nullable<bool> vALIDATION_DEADLINE_OPEN, Nullable<bool> vALIDATION_DEADLINE_EXCEEDED, Nullable<bool> vALIDATION_DEADLINE_PASSED, string aCTOR_ID)
@@ -402,6 +357,51 @@ namespace SRL.Data_Access.Entity
                 new ObjectParameter("RETAILER_CHAIN_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderDetail_Result>("GetOrderDetail", oRDER_IDParameter, rETAILER_CHAIN_IDParameter);
+        }
+    
+        public virtual ObjectResult<API_LCP_COUNTING_Result> API_LCP_COUNTING(string sSCC)
+        {
+            var sSCCParameter = sSCC != null ?
+                new ObjectParameter("SSCC", sSCC) :
+                new ObjectParameter("SSCC", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LCP_COUNTING_Result>("API_LCP_COUNTING", sSCCParameter);
+        }
+    
+        public virtual ObjectResult<API_LCP_DEVIATIONS_Result> API_LCP_DEVIATIONS(string sSCC)
+        {
+            var sSCCParameter = sSCC != null ?
+                new ObjectParameter("SSCC", sSCC) :
+                new ObjectParameter("SSCC", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LCP_DEVIATIONS_Result>("API_LCP_DEVIATIONS", sSCCParameter);
+        }
+    
+        public virtual ObjectResult<API_LCP_IMAGES_Result> API_LCP_IMAGES(string sSCC)
+        {
+            var sSCCParameter = sSCC != null ?
+                new ObjectParameter("SSCC", sSCC) :
+                new ObjectParameter("SSCC", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LCP_IMAGES_Result>("API_LCP_IMAGES", sSCCParameter);
+        }
+    
+        public virtual ObjectResult<API_LCP_ORDER_DETAILS_Result> API_LCP_ORDER_DETAILS(string sSCC)
+        {
+            var sSCCParameter = sSCC != null ?
+                new ObjectParameter("SSCC", sSCC) :
+                new ObjectParameter("SSCC", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LCP_ORDER_DETAILS_Result>("API_LCP_ORDER_DETAILS", sSCCParameter);
+        }
+    
+        public virtual ObjectResult<API_LCP_TRANSACTIONS_Result> API_LCP_TRANSACTIONS(string sSCC)
+        {
+            var sSCCParameter = sSCC != null ?
+                new ObjectParameter("SSCC", sSCC) :
+                new ObjectParameter("SSCC", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LCP_TRANSACTIONS_Result>("API_LCP_TRANSACTIONS", sSCCParameter);
         }
     }
 }

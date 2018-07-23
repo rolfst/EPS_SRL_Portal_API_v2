@@ -9,12 +9,12 @@ namespace SRL.Data_Access.Repository
 {
     public class SSCCDeviationDetailsRepository
     {
-        public IEnumerable<API_SSCC_DEVIATION_DETAILS_Result> GetSSCCDeviationDetails(string id)
+        public IEnumerable<API_LCP_DEVIATIONS_Result> GetSSCCDeviationDetails(string id)
         {
             using (var dbEntity = new BACKUP_SRL_20180613Entities())
             {
                 dbEntity.Configuration.ProxyCreationEnabled = false;
-                var deviationDetailsList = dbEntity.API_SSCC_DEVIATION_DETAILS(id).ToList<API_SSCC_DEVIATION_DETAILS_Result>();
+                var deviationDetailsList = dbEntity.API_LCP_DEVIATIONS(id).ToList<API_LCP_DEVIATIONS_Result>();
 
                 return deviationDetailsList;
             }

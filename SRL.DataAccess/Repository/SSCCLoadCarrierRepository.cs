@@ -9,12 +9,12 @@ namespace SRL.Data_Access.Repository
 {
     public class SSCCLoadCarrierRepository
     {
-        public IEnumerable<API_SSCC_LOADCARRIER_DETAILS_Result> GetSSCCLoadCarrier(string id)
+        public IEnumerable<API_LCP_TRANSACTIONS_Result> GetSSCCLoadCarrier(string id)
         {
             using (var dbEntity = new BACKUP_SRL_20180613Entities())
             {
                 dbEntity.Configuration.ProxyCreationEnabled = false;
-                var loadCarrierDetailsList = dbEntity.API_SSCC_LOADCARRIER_DETAILS(id).ToList<API_SSCC_LOADCARRIER_DETAILS_Result>();
+                var loadCarrierDetailsList = dbEntity.API_LCP_TRANSACTIONS(id).ToList<API_LCP_TRANSACTIONS_Result>();
 
                 return loadCarrierDetailsList;
             }

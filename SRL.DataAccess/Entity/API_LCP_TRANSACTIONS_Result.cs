@@ -11,7 +11,7 @@ namespace SRL.Data_Access.Entity
 {
     using System;
     
-    public partial class API_SSCC_LOADCARRIER_DETAILS_Result
+    public partial class API_LCP_TRANSACTIONS_Result
     {
         public string SSCC { get; set; }
         public Nullable<System.DateTime> TRANSACTION_DATETIME { get; set; }
