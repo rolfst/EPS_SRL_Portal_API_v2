@@ -29,7 +29,7 @@ namespace SRL_Portal_API.Controllers
         /// Get the list of SSCC's, based on the given parameters
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public IList<SSCCListModel> Index(
             [FromBody] SSCCListRequest request
         )
@@ -92,7 +92,7 @@ namespace SRL_Portal_API.Controllers
             return SSCCDetailAdapter.ConvertSSCCDetails(orderDetails, loadCarrierDetailsList, palletCountingList, imageList, deviationDetailsList);
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         public IList<string> GetSSCCNumbers()
         {
             var request = new SSCCListRequest
