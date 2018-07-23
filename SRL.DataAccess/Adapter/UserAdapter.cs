@@ -64,7 +64,8 @@ namespace SRL.Data_Access.Adapter
                 IsActive = true ,//////as we are fetching only assigned screens. This property would be used in assigning new screen and removing a screen for the user
                 RouterLink = screen.RouterLink,
                 Level = screen.Level,
-                ParentScreenId = screen.ParentScreenId?? 0
+                ParentScreenId = screen.ParentScreenId?? 0,
+                IsMenuItem = screen.IsMenuItem
             };
         }
 

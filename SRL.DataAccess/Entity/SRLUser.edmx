@@ -37,6 +37,7 @@
           <Property Name="RouterLink" Type="varchar" MaxLength="120" />
           <Property Name="Level" Type="int" Nullable="false" />
           <Property Name="ParentScreenId" Type="int" />
+          <Property Name="IsMenuItem" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Template">
           <Key>
@@ -449,6 +450,7 @@
           <Property Name="RouterLink" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
           <Property Name="Level" Type="Int32" Nullable="false" />
           <Property Name="ParentScreenId" Type="Int32" />
+          <Property Name="IsMenuItem" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -787,6 +789,10 @@
           <Property Type="Int32" Name="RoleId" Nullable="false" />
           <Property Type="Int32" Name="ScreenId" Nullable="false" />
           <Property Type="String" Name="ScreenName" Nullable="false" MaxLength="75" />
+          <Property Type="String" Name="RouterLink" Nullable="true" MaxLength="120" />
+          <Property Type="Int32" Name="Level" Nullable="false" />
+          <Property Type="Int32" Name="ParentScreenId" Nullable="true" />
+          <Property Type="Boolean" Name="IsMenuItem" Nullable="false" />
         </ComplexType>
         <ComplexType Name="sp_GetUserScreens1_Result">
           <Property Type="Int32" Name="UserId" Nullable="false" />
@@ -810,6 +816,7 @@
           <Property Type="String" Name="RouterLink" Nullable="true" MaxLength="120" />
           <Property Type="Int32" Name="Level" Nullable="false" />
           <Property Type="Int32" Name="ParentScreenId" Nullable="true" />
+          <Property Type="Boolean" Name="IsMenuItem" Nullable="false" />
         </ComplexType>
         <ComplexType Name="GetAllUsers_Result">
           <Property Type="Boolean" Name="Admin" Nullable="false" />
@@ -982,6 +989,7 @@
           <EntitySetMapping Name="Screens">
             <EntityTypeMapping TypeName="SRLManagementModel.Screens">
               <MappingFragment StoreEntitySet="Screens">
+                <ScalarProperty Name="IsMenuItem" ColumnName="IsMenuItem" />
                 <ScalarProperty Name="ParentScreenId" ColumnName="ParentScreenId" />
                 <ScalarProperty Name="Level" ColumnName="Level" />
                 <ScalarProperty Name="RouterLink" ColumnName="RouterLink" />
@@ -1071,6 +1079,10 @@
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="ScreenId" ColumnName="ScreenId" />
                 <ScalarProperty Name="ScreenName" ColumnName="ScreenName" />
+                <ScalarProperty Name="RouterLink" ColumnName="RouterLink" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="ParentScreenId" ColumnName="ParentScreenId" />
+                <ScalarProperty Name="IsMenuItem" ColumnName="IsMenuItem" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1084,6 +1096,7 @@
                 <ScalarProperty Name="RouterLink" ColumnName="RouterLink" />
                 <ScalarProperty Name="Level" ColumnName="Level" />
                 <ScalarProperty Name="ParentScreenId" ColumnName="ParentScreenId" />
+                <ScalarProperty Name="IsMenuItem" ColumnName="IsMenuItem" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

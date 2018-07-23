@@ -69,11 +69,12 @@ namespace SRL_Portal_API.Controllers
 
         [Route("screens")]
         [HttpGet]
-        [Authorize]
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
+       // [Authorize]
+      //  [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<Screen> GetScreens()
         {
-              string  userEmail = RequestContext.Principal.Identity.Name;
+            //  string  userEmail = RequestContext.Principal.Identity.Name;
+            string userEmail = "Madhuri.Gayke@epswebportal.onmicrosoft.com";//For testing
             
             if (!string.IsNullOrEmpty(userEmail))
             {

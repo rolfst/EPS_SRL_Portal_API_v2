@@ -26,6 +26,7 @@ namespace SRL.Data_Access.Entity
         public string RouterLink { get; set; }
         public int Level { get; set; }
         public Nullable<int> ParentScreenId { get; set; }
+        public bool IsMenuItem { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RoleScreen> RoleScreen { get; set; }

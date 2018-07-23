@@ -20,5 +20,6 @@ namespace SRL.Data_Access.Entity
         public string RouterLink { get; set; }
         public int Level { get; set; }
         public Nullable<int> ParentScreenId { get; set; }
+        public bool IsMenuItem { get; set; }
     }
 }

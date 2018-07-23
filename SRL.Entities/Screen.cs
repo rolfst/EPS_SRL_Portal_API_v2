@@ -17,6 +17,8 @@ namespace SRL.Models
 
         public int ParentScreenId { get; set; }
 
+        public bool IsMenuItem { get; set; }
+
         public List<Screen> Children { get; set; }
     }
 }
