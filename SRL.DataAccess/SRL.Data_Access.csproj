@@ -52,6 +52,7 @@
     <Compile Include="Adapter\ActorAdapter.cs" />
     <Compile Include="Adapter\OrderDetailAdapter.cs" />
     <Compile Include="Adapter\OrderListAdapter.cs" />
+    <Compile Include="Adapter\SSCCDetailAdapter.cs" />
     <Compile Include="Adapter\SSCCListAdapter.cs" />
     <Compile Include="Adapter\UserAdapter.cs" />
     <Compile Include="Entity\ACTION.cs">
@@ -523,7 +524,12 @@
     <Compile Include="Repository\ActorRepository.cs" />
     <Compile Include="Repository\OrderDetailRepository.cs" />
     <Compile Include="Repository\OrderListRepository.cs" />
+    <Compile Include="Repository\SSCCDeviationDetailsRepository.cs" />
+    <Compile Include="Repository\SSCCImagesRepository.cs" />
     <Compile Include="Repository\SSCCListRepository.cs" />
+    <Compile Include="Repository\SSCCLoadCarrierRepository.cs" />
+    <Compile Include="Repository\SSCCOrderDetailsRepository.cs" />
+    <Compile Include="Repository\SSCCPalletCountingRepository.cs" />
     <Compile Include="Repository\UserRespository.cs" />
   </ItemGroup>
   <ItemGroup>
