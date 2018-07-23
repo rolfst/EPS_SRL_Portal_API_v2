@@ -157,19 +157,6 @@ namespace SRL.Data_Access.Entity
         public virtual DbSet<temp_TRANSACTION_SSCC_RTI_DETAILS_2018> temp_TRANSACTION_SSCC_RTI_DETAILS_2018 { get; set; }
         public virtual DbSet<temp_Z_STG_XML_DATA_2018> temp_Z_STG_XML_DATA_2018 { get; set; }
     
-        public virtual ObjectResult<GetOrderDetail_Result> GetOrderDetail(string oRD_ORDER_NUMBER, Nullable<int> rETAILER_CHAIN_ID)
-        {
-            var oRD_ORDER_NUMBERParameter = oRD_ORDER_NUMBER != null ?
-                new ObjectParameter("ORD_ORDER_NUMBER", oRD_ORDER_NUMBER) :
-                new ObjectParameter("ORD_ORDER_NUMBER", typeof(string));
-    
-            var rETAILER_CHAIN_IDParameter = rETAILER_CHAIN_ID.HasValue ?
-                new ObjectParameter("RETAILER_CHAIN_ID", rETAILER_CHAIN_ID) :
-                new ObjectParameter("RETAILER_CHAIN_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderDetail_Result>("GetOrderDetail", oRD_ORDER_NUMBERParameter, rETAILER_CHAIN_IDParameter);
-        }
-    
         [DbFunction("BACKUP_SRL_20180613Entities", "API_FN_SPLIT")]
         public virtual IQueryable<API_FN_SPLIT_Result> API_FN_SPLIT(string tEXT, string dELIMITER)
         {
@@ -402,6 +389,19 @@ namespace SRL.Data_Access.Entity
                 new ObjectParameter("ACTOR_ID", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ORDER_LIST_Result>("API_ORDER_LIST", oRD_ORDER_NUMBERParameter, rETAILER_CHAIN_IDParameter, oRDER_DATE_FROMParameter, oRDER_DATE_TOParameter, oRDER_NEWParameter, oRDER_OPENParameter, oRDER_VALIDATEDParameter, cI_DATE_FROMParameter, cI_DATE_TOParameter, vALIDATION_DEADLINEParameter, uSERParameter, aCTOR_ID_FROMParameter, aCTOR_ID_TOParameter, oRDER_NUMBERParameter, sHOP_COUNT_OKParameter, sHOP_COUNT_NOKParameter, vALIDATION_DEADLINE_OPENParameter, vALIDATION_DEADLINE_EXCEEDEDParameter, vALIDATION_DEADLINE_PASSEDParameter, aCTOR_IDParameter);
+        }
+    
+        public virtual ObjectResult<GetOrderDetail_Result> GetOrderDetail(Nullable<int> oRDER_ID, Nullable<int> rETAILER_CHAIN_ID)
+        {
+            var oRDER_IDParameter = oRDER_ID.HasValue ?
+                new ObjectParameter("ORDER_ID", oRDER_ID) :
+                new ObjectParameter("ORDER_ID", typeof(int));
+    
+            var rETAILER_CHAIN_IDParameter = rETAILER_CHAIN_ID.HasValue ?
+                new ObjectParameter("RETAILER_CHAIN_ID", rETAILER_CHAIN_ID) :
+                new ObjectParameter("RETAILER_CHAIN_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderDetail_Result>("GetOrderDetail", oRDER_IDParameter, rETAILER_CHAIN_IDParameter);
         }
     }
 }
