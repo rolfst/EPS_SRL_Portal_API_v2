@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SRL_Portal_API.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Formatting;
@@ -11,6 +12,7 @@ namespace SRL_Portal_API
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            config.Filters.Add(new HandleExceptionAttribute());
             config.Formatters.Clear();
             config.Formatters.Add(new JsonMediaTypeFormatter());
             // Web API routes
