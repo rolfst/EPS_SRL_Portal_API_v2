@@ -11,13 +11,11 @@ namespace SRL.Data_Access.Entity
 {
     using System;
     
-    public partial class API_SSCC_ORDER_DETAILS_Result
+    public partial class API_LCP_IMAGES_Result
     {
         public string SSCC { get; set; }
-        public string ORDER_NUMBER { get; set; }
-        public string PHYSICAL_FROM { get; set; }
-        public string PHYSICAL_TO { get; set; }
-        public string TRANSPORTED_BY { get; set; }
-        public Nullable<System.DateTime> VALIDATION_DEADLINE { get; set; }
+        public string PICTURE_EVIDENCE_PATH { get; set; }
+        public string PICTURE_POSITION { get; set; }
+        public string PALLET_POSITION { get; set; }
     }
 }

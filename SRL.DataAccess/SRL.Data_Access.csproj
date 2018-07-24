@@ -70,25 +70,25 @@
     <Compile Include="Entity\API_FN_SPLIT_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\API_LCP_COUNTING_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LCP_DEVIATIONS_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LCP_IMAGES_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LCP_ORDER_DETAILS_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LCP_TRANSACTIONS_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\API_LIST_ACTORS_TRANSACTION_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\API_SSCC_DEVIATION_DETAILS_Result.cs">
-      <DependentUpon>SRL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\API_SSCC_IMAGES_Result.cs">
-      <DependentUpon>SRL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\API_SSCC_LOADCARRIER_DETAILS_Result.cs">
-      <DependentUpon>SRL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\API_SSCC_ORDER_DETAILS_Result.cs">
-      <DependentUpon>SRL.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entity\API_SSCC_OVERVIEW_Result.cs">
-      <DependentUpon>SRL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\API_SSCC_PALLET_COUNTING_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\AUDIT.cs">

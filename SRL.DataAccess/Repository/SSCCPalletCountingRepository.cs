@@ -9,12 +9,12 @@ namespace SRL.Data_Access.Repository
 {
     public class SSCCPalletCountingRepository
     {
-        public IEnumerable<API_SSCC_PALLET_COUNTING_Result> GetSSCCPalletCounting(string id)
+        public IEnumerable<API_LCP_COUNTING_Result> GetSSCCPalletCounting(string id)
         {
             using (var dbEntity = new BACKUP_SRL_20180613Entities())
             {
                 dbEntity.Configuration.ProxyCreationEnabled = false;
-                var palletCountingList = dbEntity.API_SSCC_PALLET_COUNTING(id).ToList<API_SSCC_PALLET_COUNTING_Result>();
+                var palletCountingList = dbEntity.API_LCP_COUNTING(id).ToList<API_LCP_COUNTING_Result>();
 
                 return palletCountingList;
             }

@@ -11,11 +11,11 @@ namespace SRL.Data_Access.Adapter
     public static class SSCCDetailAdapter
     {
         public static SSCCDetailsModel ConvertSSCCDetails(
-            API_SSCC_ORDER_DETAILS_Result odResult,
-            IEnumerable<API_SSCC_LOADCARRIER_DETAILS_Result> lcResult,
-            IEnumerable<API_SSCC_PALLET_COUNTING_Result> pcResult,
-            IEnumerable<API_SSCC_IMAGES_Result> imgResult,
-            IEnumerable<API_SSCC_DEVIATION_DETAILS_Result> devResult)
+            API_LCP_ORDER_DETAILS_Result orderDetailResult,
+            IEnumerable<API_LCP_TRANSACTIONS_Result> transactionsResult,
+            IEnumerable<API_LCP_COUNTING_Result> countingResult,
+            IEnumerable<API_LCP_IMAGES_Result> imagesResult,
+            IEnumerable<API_LCP_DEVIATIONS_Result> deviationsResult)
         {
             // Create new SSCCDetailsViewModel
             SSCCDetailsModel sdModel = new SSCCDetailsModel();
@@ -23,20 +23,20 @@ namespace SRL.Data_Access.Adapter
             #region SSCCOrderDetails
             // Fill SSCCOrderDetailsModel from queryresult
             SSCCOrderDetailsModel odm = new SSCCOrderDetailsModel();
-            odm.OrderNumber = odResult.ORDER_NUMBER;
-            odm.SsccNumber = odResult.SSCC;
-            odm.PhysicalFrom = odResult.PHYSICAL_FROM;
-            odm.PhysicalTo = odResult.PHYSICAL_TO;
-            odm.TransportedBy = odResult.TRANSPORTED_BY;
-            odm.AnomaliesCount = devResult.Count();
-            odm.ValidationDeadline = odResult.VALIDATION_DEADLINE;
+            odm.OrderNumber = orderDetailResult.ORDER_NUMBER;
+            odm.SsccNumber = orderDetailResult.SSCC;
+            odm.PhysicalFrom = orderDetailResult.PHYSICAL_FROM;
+            odm.PhysicalTo = orderDetailResult.PHYSICAL_TO;
+            odm.TransportedBy = orderDetailResult.TRANSPORTED_BY;
+            odm.AnomaliesCount = deviationsResult.Count();
+            odm.ValidationDeadline = orderDetailResult.VALIDATION_DEADLINE;
             sdModel.OrderDetails = odm;
             #endregion
 
             #region SSCCLoadCarrier
             // Fill SSCCLoadCarrierModel from queryresult
             List<SSCCLoadCarrierModel> lcList = new List<SSCCLoadCarrierModel>();
-            foreach (var item in lcResult)
+            foreach (var item in transactionsResult)
             {
                 SSCCLoadCarrierModel lcm = new SSCCLoadCarrierModel();
                 lcm.TransactionDate = item.TRANSACTION_DATETIME;
@@ -56,14 +56,14 @@ namespace SRL.Data_Access.Adapter
             List<SSCCPalletCountingModel> pcList = new List<SSCCPalletCountingModel>();
 
             //Get a list of the different COUNTING_TYPES and loop through them
-            List<string> types = pcResult.Select(o => o.COUNTING_TYPE).Distinct().ToList();
+            List<string> types = countingResult.Select(o => o.COUNTING_TYPE).Distinct().ToList();
             foreach (string type in types)
             {
                 int counter = 1;
                 SSCCPalletCountingModel pcm = new SSCCPalletCountingModel();
 
                 // Select the rows from the queryresult on COUNTING_TYPE
-                List<API_SSCC_PALLET_COUNTING_Result> tList = pcResult.Where(o => o.COUNTING_TYPE == type).ToList();
+                List<API_LCP_COUNTING_Result> tList = countingResult.Where(o => o.COUNTING_TYPE == type).ToList();
                 foreach (var t in tList)
                 {
                     switch (t.RTI_NAME)
@@ -120,7 +120,7 @@ namespace SRL.Data_Access.Adapter
             #region SSCC Images
             // Fill the list of SSCCDetailsImagesModels
             List<SSCCImagesModel> imageList = new List<SSCCImagesModel>();
-            foreach (var item in imgResult)
+            foreach (var item in imagesResult)
             {
                 SSCCImagesModel imageVm = new SSCCImagesModel();
                 imageVm.ImagePath = item.PICTURE_EVIDENCE_PATH;
@@ -135,7 +135,7 @@ namespace SRL.Data_Access.Adapter
             // Fill deviations
             SSCCDeviationsModel deviations = new SSCCDeviationsModel();
             int i = 1;
-            foreach (var item in devResult)
+            foreach (var item in deviationsResult)
             {
                 if (i == 1)
                 {

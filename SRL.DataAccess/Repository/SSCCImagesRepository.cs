@@ -9,12 +9,12 @@ namespace SRL.Data_Access.Repository
 {
     public class SSCCImagesRepository
     {
-        public IEnumerable<API_SSCC_IMAGES_Result> GetSSCCImages(string id)
+        public IEnumerable<API_LCP_IMAGES_Result> GetSSCCImages(string id)
         {
             using (var dbEntity = new BACKUP_SRL_20180613Entities())
             {
                 dbEntity.Configuration.ProxyCreationEnabled = false;
-                var imageList = dbEntity.API_SSCC_IMAGES(id).ToList<API_SSCC_IMAGES_Result>();
+                var imageList = dbEntity.API_LCP_IMAGES(id).ToList<API_LCP_IMAGES_Result>();
 
                 return imageList;
             }
