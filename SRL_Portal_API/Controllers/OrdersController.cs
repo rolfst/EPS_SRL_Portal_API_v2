@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Microsoft.Ajax.Utilities;
 using SRL.Data_Access.Adapter;
 using SRL.Data_Access.Repository;
 using SRL.Models.Order;
@@ -27,6 +28,19 @@ namespace SRL_Portal_API.Controllers
         {
             request = EditRequest(request);
             return OrderListAdapter.ConvertOrderList(_repo.GetOrders(request));
+        }
+
+        /// <summary>
+        /// get all orders linked to a customer.
+        /// </summary>
+        /// <param name="retailerChainId">specific customer related id. Returns all orders if value is -1</param>
+        /// <returns>a <see cref="List{T}"/> containing the orderid and ordernumber.</returns>
+        [HttpGet]
+        public object GetOrderNumber(int retailerChainId = -1)
+        {
+            var request = new OrderRequest(retailerChainId: retailerChainId);
+            dynamic response = _repo.GetOrders(request).DistinctBy(x => x.ID_ORDER).Select(x => new { x.ID_ORDER, x.ORD_ORDER_NUMBER });
+            return response;
         }
 
         private OrderRequest EditRequest(OrderRequest request)
@@ -60,13 +74,6 @@ namespace SRL_Portal_API.Controllers
             }
 
             return request;
-        }
-
-        [HttpGet]
-        public IList<string> GetOrderNumber()
-        {
-            var request = new OrderRequest();
-            return _repo.GetOrders(request).Select(x => x.ORD_ORDER_NUMBER).Distinct().ToList();
         }
     }
 }
