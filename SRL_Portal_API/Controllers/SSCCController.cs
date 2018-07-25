@@ -66,6 +66,16 @@ namespace SRL_Portal_API.Controllers
                 request.SlaNOK = true;
             }
 
+            // Filterfunctionality Dates: If date from is not null and date to is null, get only selected date.
+            if (request.SsccDateFrom != null && request.SsccDateTo == null)
+            {
+                // request.SsccDateFrom = new DateTime(request.SsccDateFrom.Value.Day, request.SsccDateFrom.Value.Month, request.SsccDateFrom.Value.Year);
+                request.SsccDateTo = request.SsccDateFrom.Value.AddDays(1);
+            }
+            if (request.CiDateFrom != null && request.CiDateTo == null)
+            {
+                request.CiDateTo = request.CiDateFrom.Value.AddDays(1);
+            }
             return SSCCListAdapter.ConvertSsccList(_sSCCListRepository.GetSSCCList(request));
         }
 
@@ -93,7 +103,7 @@ namespace SRL_Portal_API.Controllers
         }
 
         [System.Web.Http.HttpGet]
-        public IList<string> GetSSCCNumbers()
+        public IList<string> GetSSCCNumbers(int retailerChainId = -1)
         {
             var request = new SSCCListRequest
             {
@@ -107,6 +117,7 @@ namespace SRL_Portal_API.Controllers
                 CountingNOK = true,
                 SlaOK = true,
                 SlaNOK = true,
+                RetailerChainId = retailerChainId
             };
 
             return _sSCCListRepository.GetSSCCList(request).Select(x => x.SSCC).Distinct().ToList();
