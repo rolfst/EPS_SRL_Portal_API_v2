@@ -1,5 +1,6 @@
 ﻿using SRL.Data_Access.Entity;
 using System.Collections.Generic;
+using SRL.Models;
 
 namespace SRL.Data_Access.Adapter
 {

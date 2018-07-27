@@ -1,11 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Text;
 
-namespace SRL_Portal_API.ViewModels
+namespace SRL.Models.SSCC
 {
-    public class SSCCListViewModel
+    public class SSCCListModel
     {
         public DateTime? OrderDate { get; set; }
         public string SSCC { get; set; }

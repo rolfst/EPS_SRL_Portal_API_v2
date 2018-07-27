@@ -52,7 +52,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapter\ActorAdapter.cs" />
     <Compile Include="Adapter\OrderDetailAdapter.cs" />
+    <Compile Include="Adapter\OrderListAdapter.cs" />
+    <Compile Include="Adapter\SSCCDetailAdapter.cs" />
+    <Compile Include="Adapter\SSCCListAdapter.cs" />
     <Compile Include="Adapter\UserAdapter.cs" />
     <Compile Include="Entity\ACTION.cs">
       <DependentUpon>SRL.tt</DependentUpon>
@@ -64,6 +68,30 @@
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\ACTOR_TYPE.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_FN_SPLIT_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LCP_COUNTING_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LCP_DEVIATIONS_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LCP_IMAGES_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LCP_ORDER_DETAILS_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LCP_TRANSACTIONS_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LIST_ACTORS_TRANSACTION_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_SSCC_OVERVIEW_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\API_FN_SPLIT_Result.cs">
@@ -196,6 +224,9 @@
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\NOVEXX.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ORDER_LIST_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\PARAMETER_SRLS.cs">
@@ -550,7 +581,15 @@
     <Compile Include="Entity\Users.cs">
       <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\ActorRepository.cs" />
     <Compile Include="Repository\OrderDetailRepository.cs" />
+    <Compile Include="Repository\OrderListRepository.cs" />
+    <Compile Include="Repository\SSCCDeviationDetailsRepository.cs" />
+    <Compile Include="Repository\SSCCImagesRepository.cs" />
+    <Compile Include="Repository\SSCCListRepository.cs" />
+    <Compile Include="Repository\SSCCLoadCarrierRepository.cs" />
+    <Compile Include="Repository\SSCCOrderDetailsRepository.cs" />
+    <Compile Include="Repository\SSCCPalletCountingRepository.cs" />
     <Compile Include="Repository\UserRespository.cs" />
   </ItemGroup>
   <ItemGroup>

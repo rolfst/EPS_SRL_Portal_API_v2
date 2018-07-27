@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SRL.Models
+﻿namespace SRL.Models
 {
    public class UserProfile
     {

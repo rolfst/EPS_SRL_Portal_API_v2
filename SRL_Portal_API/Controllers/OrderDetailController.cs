@@ -8,7 +8,7 @@ using SRL_Portal_API.Common;
 namespace SRL_Portal_API.Controllers
 {
     /// <summary>
-    /// To handle order detail actions
+    /// Controller handling order related actions
     /// </summary>
     public class OrderDetailController : ApiController
     {

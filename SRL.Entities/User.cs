@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-namespace SRL.Models
+﻿namespace SRL.Models
 {
     public class User
     {

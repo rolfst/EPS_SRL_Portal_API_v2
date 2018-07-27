@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using SRL.Models.Enums;
-namespace SRL.Models
+
+namespace SRL.Models.Order
 {
     public class OrderDetail
     {
