@@ -57,18 +57,17 @@ namespace SRL_Portal_API.Controllers
                 slaOK = true; slaNOK = true;
             }
 
-
-            // call stored procedure with the given parameters to retrieve the list
-            dbEntities.Configuration.ProxyCreationEnabled = false;
-            var SSCCList = dbEntities.API_SSCC_OVERVIEW(actorId, actorOriginId,
-                ssccStatusNew, ssccStatusProcessed, ssccStatusValidated, ssccDateFrom, ssccDateTo,
-                ciDateFrom, ciDateTo, validationOpen, validationExceeded, validationPassed, ssccNr,
-                orderNr, countingOK, countingNOK, slaOK, slaNOK, retailerChainId)
-                .Take(1000)
-                .ToList<API_SSCC_OVERVIEW_Result>();
-
-            var result = ConvertSSCCList(SSCCList);
-            return result;
+            // Filterfunctionality Dates: If date from is not null and date to is null, get only selected date.
+            if (request.SsccDateFrom != null && request.SsccDateTo == null)
+            {
+                // request.SsccDateFrom = new DateTime(request.SsccDateFrom.Value.Day, request.SsccDateFrom.Value.Month, request.SsccDateFrom.Value.Year);
+                request.SsccDateTo = request.SsccDateFrom.Value.AddDays(1);
+            }
+            if (request.CiDateFrom != null && request.CiDateTo == null)
+            {
+                request.CiDateTo = request.CiDateFrom.Value.AddDays(1);
+            }
+            return SSCCListAdapter.ConvertSsccList(_sSCCListRepository.GetSSCCList(request));
         }
 
         /// <summary>
@@ -125,14 +124,24 @@ namespace SRL_Portal_API.Controllers
             return actorName;
         }
 
-        private string SetValidationStatus(bool IsValidated, DateTime? valDeadline)
+        [System.Web.Http.HttpGet]
+        public IList<string> GetSSCCNumbers()
         {
-            if (IsValidated)
-                return "Passed";
-            else if (valDeadline.HasValue && valDeadline < DateTime.Now)
-                return "Exceeded";
-            else
-                return "Open";
+            var request = new SSCCListRequest
+            {
+                SsccStatusNew = true,
+                SsccStatusProcessed = true,
+                SsccStatusValidated = true,
+                ValidationOpen = true,
+                ValidationExceeded = true,
+                ValidationPassed = true,
+                CountingOK = true,
+                CountingNOK = true,
+                SlaOK = true,
+                SlaNOK = true,
+            };
+
+            return _sSCCListRepository.GetSSCCList(request).Select(x => x.SSCC).Distinct().ToList();
         }
     }
 }
