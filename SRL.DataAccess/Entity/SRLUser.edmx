@@ -12,6 +12,7 @@
           <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="RolePriority" Type="int" />
         </EntityType>
         <EntityType Name="RoleScreen">
           <Key>
@@ -33,6 +34,10 @@
           <Property Name="ScreenId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ScreenName" Type="nvarchar" MaxLength="75" Nullable="false" />
           <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="RouterLink" Type="varchar" MaxLength="120" />
+          <Property Name="Level" Type="int" Nullable="false" />
+          <Property Name="ParentScreenId" Type="int" />
+          <Property Name="IsMenuItem" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -187,7 +192,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="sp_GetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="API_FN_SPLIT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TEXT" Type="varchar" Mode="In" />
+          <Parameter Name="DELIMITER" Type="varchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="POSITION" Type="int" Nullable="false" />
+                <Property Name="VALUE" Type="varchar" MaxLength="8000" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="sp_GetScreensForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserEmail" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_GetUserRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserEmail" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_GetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ViewingUserEmail" Type="nvarchar" Mode="In" />
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="IsAssigned" Type="bit" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+          <Parameter Name="HasTemplate" Type="bit" Mode="In" />
+          <Parameter Name="IsAdmin" Type="bit" Mode="In" />
+          <Parameter Name="RetailerChainCode" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="IsInternal" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="sp_GetUserScreens" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserEmail" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="SRLManagementModelStoreContainer">
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoleScreen" EntityType="Self.RoleScreen" Schema="dbo" store:Type="Tables" />
@@ -248,6 +285,7 @@
           <Property Name="isActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="RoleScreen" Relationship="Self.FK_RoleScreen_RoleId" FromRole="Roles" ToRole="RoleScreen" />
           <NavigationProperty Name="UserRole" Relationship="Self.FK_UserRole_RoleId" FromRole="Roles" ToRole="UserRole" />
+          <Property Name="RolePriority" Type="Int32" />
         </EntityType>
         <EntityType Name="RoleScreen">
           <Key>
@@ -274,6 +312,10 @@
           <Property Name="ScreenName" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="isActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="RoleScreen" Relationship="Self.FK_RoleScreen_ScreenId" FromRole="Screens" ToRole="RoleScreen" />
+          <Property Name="RouterLink" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
+          <Property Name="ParentScreenId" Type="Int32" />
+          <Property Name="IsMenuItem" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -487,7 +529,31 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Users1" EntitySet="Users" />
           </AssociationSet>
-          <FunctionImport Name="GetAllUsers" EntitySet="Users" ReturnType="Collection(SRLManagementModel.Users)" />
+          <FunctionImport Name="API_FN_SPLIT" IsComposable="true" ReturnType="Collection(SRLManagementModel.API_FN_SPLIT_Result)">
+            <Parameter Name="TEXT" Mode="In" Type="String" />
+            <Parameter Name="DELIMITER" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetScreensForUser" ReturnType="Collection(SRLManagementModel.sp_GetScreensForUser_Result)">
+            <Parameter Name="UserEmail" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetUserRoles" ReturnType="Collection(SRLManagementModel.sp_GetUserRoles_Result)">
+            <Parameter Name="UserEmail" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetUserScreens" ReturnType="Collection(SRLManagementModel.sp_GetUserScreens_Result)">
+            <Parameter Name="UserEmail" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllUsers" ReturnType="Collection(SRLManagementModel.GetAllUsers_Result)">
+            <Parameter Name="ViewingUserEmail" Mode="In" Type="String" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="IsAssigned" Mode="In" Type="Boolean" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+            <Parameter Name="HasTemplate" Mode="In" Type="Boolean" />
+            <Parameter Name="IsAdmin" Mode="In" Type="Boolean" />
+            <Parameter Name="RetailerChainCode" Mode="In" Type="String" />
+            <Parameter Name="IsInternal" Mode="In" Type="Boolean" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_GetUsers_Result">
           <Property Type="Int32" Name="UserId" Nullable="false" />
@@ -496,6 +562,51 @@
           <Property Type="String" Name="Email" Nullable="true" MaxLength="250" />
           <Property Type="Boolean" Name="Admin" Nullable="false" />
           <Property Type="Boolean" Name="isActive" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="API_FN_SPLIT_Result">
+          <Property Type="Int32" Name="POSITION" Nullable="false" />
+          <Property Type="String" Name="VALUE" Nullable="true" MaxLength="8000" />
+        </ComplexType>
+        <ComplexType Name="sp_GetScreensForUser_Result">
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="RoleId" Nullable="false" />
+          <Property Type="Int32" Name="ScreenId" Nullable="false" />
+          <Property Type="String" Name="ScreenName" Nullable="false" MaxLength="75" />
+          <Property Type="String" Name="RouterLink" Nullable="true" MaxLength="120" />
+          <Property Type="Int32" Name="Level" Nullable="false" />
+          <Property Type="Int32" Name="ParentScreenId" Nullable="true" />
+          <Property Type="Boolean" Name="IsMenuItem" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_GetUserRoles_Result">
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="RoleId" Nullable="false" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="RolePriority" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_GetUserScreens_Result">
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="RoleId" Nullable="false" />
+          <Property Type="Int32" Name="ScreenId" Nullable="false" />
+          <Property Type="String" Name="ScreenName" Nullable="false" MaxLength="75" />
+          <Property Type="String" Name="RouterLink" Nullable="true" MaxLength="120" />
+          <Property Type="Int32" Name="Level" Nullable="false" />
+          <Property Type="Int32" Name="ParentScreenId" Nullable="true" />
+          <Property Type="Boolean" Name="IsMenuItem" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetAllUsers_Result">
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="RolePriority" Nullable="true" />
+          <Property Type="Boolean" Name="Admin" Nullable="false" />
+          <Property Type="Int32" Name="Assigned" Nullable="false" />
+          <Property Type="Boolean" Name="IsInternal" Nullable="false" />
+          <Property Type="Int32" Name="HasTemplate" Nullable="true" />
+          <Property Type="String" Name="RetailerChain" Nullable="false" MaxLength="1" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="Int32" Name="IsEnabled" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -506,6 +617,7 @@
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="SRLManagementModel.Roles">
               <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RolePriority" ColumnName="RolePriority" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
@@ -528,6 +640,10 @@
           <EntitySetMapping Name="Screens">
             <EntityTypeMapping TypeName="SRLManagementModel.Screens">
               <MappingFragment StoreEntitySet="Screens">
+                <ScalarProperty Name="IsMenuItem" ColumnName="IsMenuItem" />
+                <ScalarProperty Name="ParentScreenId" ColumnName="ParentScreenId" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="RouterLink" ColumnName="RouterLink" />
                 <ScalarProperty Name="ScreenId" ColumnName="ScreenId" />
                 <ScalarProperty Name="ScreenName" ColumnName="ScreenName" />
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
@@ -568,7 +684,71 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetAllUsers" FunctionName="SRLManagementModel.Store.sp_GetUsers" />
+          <FunctionImportMapping FunctionImportName="API_FN_SPLIT" FunctionName="SRLManagementModel.Store.API_FN_SPLIT">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SRLManagementModel.API_FN_SPLIT_Result">
+                <ScalarProperty Name="POSITION" ColumnName="POSITION" />
+                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetScreensForUser" FunctionName="SRLManagementModel.Store.sp_GetScreensForUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SRLManagementModel.sp_GetScreensForUser_Result">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ScreenId" ColumnName="ScreenId" />
+                <ScalarProperty Name="ScreenName" ColumnName="ScreenName" />
+                <ScalarProperty Name="RouterLink" ColumnName="RouterLink" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="ParentScreenId" ColumnName="ParentScreenId" />
+                <ScalarProperty Name="IsMenuItem" ColumnName="IsMenuItem" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetUserRoles" FunctionName="SRLManagementModel.Store.sp_GetUserRoles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SRLManagementModel.sp_GetUserRoles_Result">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RolePriority" ColumnName="RolePriority" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetUserScreens" FunctionName="SRLManagementModel.Store.sp_GetUserScreens">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SRLManagementModel.sp_GetUserScreens_Result">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ScreenId" ColumnName="ScreenId" />
+                <ScalarProperty Name="ScreenName" ColumnName="ScreenName" />
+                <ScalarProperty Name="RouterLink" ColumnName="RouterLink" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="ParentScreenId" ColumnName="ParentScreenId" />
+                <ScalarProperty Name="IsMenuItem" ColumnName="IsMenuItem" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllUsers" FunctionName="SRLManagementModel.Store.sp_GetUsers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SRLManagementModel.GetAllUsers_Result">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RolePriority" ColumnName="RolePriority" />
+                <ScalarProperty Name="Admin" ColumnName="Admin" />
+                <ScalarProperty Name="Assigned" ColumnName="Assigned" />
+                <ScalarProperty Name="IsInternal" ColumnName="IsInternal" />
+                <ScalarProperty Name="HasTemplate" ColumnName="HasTemplate" />
+                <ScalarProperty Name="RetailerChain" ColumnName="RetailerChain" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

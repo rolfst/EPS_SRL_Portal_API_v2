@@ -1,42 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using SRL.Models;
-using SRL.Data_Access.Repository;
+﻿using System.Web.Http;
 using SRL.Models.Order;
+using SRL.Data_Access.Repository;
+using System.Web.Http.Cors;
+using SRL.Models.Constants;
+using SRL_Portal_API.Common;
 
-namespace SRL.WebAPI.Controllers
+namespace SRL_Portal_API.Controllers
 {
     /// <summary>
-    /// Controller handling order related actions
+    /// To handle order detail actions
     /// </summary>
     public class OrderDetailController : ApiController
     {
-        /// <summary>
-        /// Fetch order details based on order id for internal user
-        /// </summary>
-        /// <param name="orderId"></param>
-        /// <returns>Returns order details</returns>
-        [HttpGet]
+        [CustomAuthorizationFilter(UserRoles.SuperUser)]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public OrderDetail Get(int orderId)
         {
             OrderDetailRepository repository = new OrderDetailRepository();
-           return repository.GetOrderDetail(orderId);
+            return repository.GetOrderDetail(orderId);
         }
 
-        /// <summary>
-        /// Fetch order details based on order id and retailer chain id for external user
-        /// </summary>
-        /// <param name="orderId"></param>
-        /// <param name="retailerChainId"></param>
-        /// <returns></returns>
-        [HttpGet]
+        [CustomAuthorizationFilter(UserRoles.Customer)]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public OrderDetail Get(int orderId, int retailerChainId)
         {
             OrderDetailRepository repository = new OrderDetailRepository();
+
             return repository.GetOrderDetail(orderId, retailerChainId);
         }
     }

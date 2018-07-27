@@ -4,7 +4,6 @@
     public enum OrderStatus
     {
         New = 0,
-        InProgress = 8,
         Status1 = 1,
         Status4 = 4,
         Status5 = 5,

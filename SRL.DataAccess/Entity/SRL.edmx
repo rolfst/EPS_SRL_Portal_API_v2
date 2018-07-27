@@ -3467,6 +3467,33 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             </CollectionType>
           </ReturnType>
         </Function>
+        <Function Name="API_INSERT_CHANGE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
+          <Parameter Name="ORDER_NUMBER" Type="numeric" Mode="In" />
+          <Parameter Name="NEW_ORDER_NUMBER" Type="numeric" Mode="In" />
+          <Parameter Name="OLD_ACTOR" Type="numeric" Mode="In" />
+          <Parameter Name="NEW_ACTOR" Type="numeric" Mode="In" />
+          <Parameter Name="LOAD_MESSAGE_STATUS_ID" Type="int" Mode="In" />
+          <Parameter Name="UPDATE_DATE" Type="datetime" Mode="In" />
+          <Parameter Name="UPDATE_USER" Type="nvarchar" Mode="In" />
+          <Parameter Name="OLD_LOAD_UNIT_CONDITION_CODE" Type="nvarchar" Mode="In" />
+          <Parameter Name="NEW_LOAD_UNIT_CONDITION_CODE" Type="nvarchar" Mode="In" />
+          <Parameter Name="OLD_QTY_RTI" Type="int" Mode="In" />
+          <Parameter Name="ESOFT_PACKING_ID" Type="numeric" Mode="In" />
+          <Parameter Name="NEW_QTY_RTI" Type="int" Mode="In" />
+          <Parameter Name="DELETE_SSCC" Type="nvarchar" Mode="In" />
+          <Parameter Name="OLD_SSCC" Type="nvarchar" Mode="In" />
+          <Parameter Name="NEW_SSCC" Type="nvarchar" Mode="In" />
+          <Parameter Name="TRA_ITEM_IN_ID" Type="bigint" Mode="In" />
+          <Parameter Name="SLA_CODE" Type="nvarchar" Mode="In" />
+          <Parameter Name="TIME" Type="nvarchar" Mode="In" />
+          <Parameter Name="VALIDATION" Type="nvarchar" Mode="In" />
+          <Parameter Name="OLD_LOAD_UNIT_CONDITION_SUB_CODE" Type="nvarchar" Mode="In" />
+          <Parameter Name="NEW_LOAD_UNIT_CONDITION_SUB_CODE" Type="nvarchar" Mode="In" />
+          <Parameter Name="VOID_SSCC" Type="nvarchar" Mode="In" />
+          <Parameter Name="OLD_LOAD_CARRIER_EAN" Type="nvarchar" Mode="In" />
+          <Parameter Name="NEW_LOAD_CARRIER_EAN" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="API_LCP_COUNTING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
         </Function>
@@ -3485,6 +3512,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
         <Function Name="API_LIST_ACTORS_TRANSACTION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="API_LIST_RETAILERS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="API_ORDER_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ORDER_ID" Type="int" Mode="In" />
           <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
@@ -8806,20 +8834,48 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="API_LCP_COUNTING" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LCP_COUNTING_Result)">
-            <Parameter Name="SSCC" Mode="In" Type="String" />
+          <Parameter Name="SSCC" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="API_LCP_DEVIATIONS" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LCP_DEVIATIONS_Result)">
-            <Parameter Name="SSCC" Mode="In" Type="String" />
+          <Parameter Name="SSCC" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="API_LCP_IMAGES" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LCP_IMAGES_Result)">
-            <Parameter Name="SSCC" Mode="In" Type="String" />
+          <Parameter Name="SSCC" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="API_LCP_ORDER_DETAILS" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LCP_ORDER_DETAILS_Result)">
-            <Parameter Name="SSCC" Mode="In" Type="String" />
+          <Parameter Name="SSCC" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="API_LCP_TRANSACTIONS" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LCP_TRANSACTIONS_Result)">
-            <Parameter Name="SSCC" Mode="In" Type="String" />
+          <Parameter Name="SSCC" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="API_INSERT_CHANGE" ReturnType="Collection(Int32)">
+            <Parameter Name="SSCC" Mode="In" Type="String" />
+            <Parameter Name="ORDER_NUMBER" Mode="In" Type="Decimal" />
+            <Parameter Name="NEW_ORDER_NUMBER" Mode="In" Type="Decimal" />
+            <Parameter Name="OLD_ACTOR" Mode="In" Type="Decimal" />
+            <Parameter Name="NEW_ACTOR" Mode="In" Type="Decimal" />
+            <Parameter Name="LOAD_MESSAGE_STATUS_ID" Mode="In" Type="Int32" />
+            <Parameter Name="UPDATE_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="UPDATE_USER" Mode="In" Type="String" />
+            <Parameter Name="OLD_LOAD_UNIT_CONDITION_CODE" Mode="In" Type="String" />
+            <Parameter Name="NEW_LOAD_UNIT_CONDITION_CODE" Mode="In" Type="String" />
+            <Parameter Name="OLD_QTY_RTI" Mode="In" Type="Int32" />
+            <Parameter Name="ESOFT_PACKING_ID" Mode="In" Type="Decimal" />
+            <Parameter Name="NEW_QTY_RTI" Mode="In" Type="Int32" />
+            <Parameter Name="DELETE_SSCC" Mode="In" Type="String" />
+            <Parameter Name="OLD_SSCC" Mode="In" Type="String" />
+            <Parameter Name="NEW_SSCC" Mode="In" Type="String" />
+            <Parameter Name="TRA_ITEM_IN_ID" Mode="In" Type="Int64" />
+            <Parameter Name="SLA_CODE" Mode="In" Type="String" />
+            <Parameter Name="TIME" Mode="In" Type="String" />
+            <Parameter Name="VALIDATION" Mode="In" Type="String" />
+            <Parameter Name="OLD_LOAD_UNIT_CONDITION_SUB_CODE" Mode="In" Type="String" />
+            <Parameter Name="NEW_LOAD_UNIT_CONDITION_SUB_CODE" Mode="In" Type="String" />
+            <Parameter Name="VOID_SSCC" Mode="In" Type="String" />
+            <Parameter Name="OLD_LOAD_CARRIER_EAN" Mode="In" Type="String" />
+            <Parameter Name="NEW_LOAD_CARRIER_EAN" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="API_LIST_RETAILERS" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_RETAILERS_Result)" />
         </EntityContainer>
         <ComplexType Name="GetOrderDetail_Result">
           <Property Type="String" Name="ORD_ORDER_NUMBER" Nullable="false" MaxLength="60" />
@@ -8950,6 +9006,10 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="String" Name="TRANSACTION_SUBTYPE" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="DEVICE_CODE" Nullable="true" MaxLength="100" />
           <Property Type="Boolean" Name="VALIDATED" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="API_LIST_RETAILERS_Result">
+          <Property Type="Int32" Name="RETAILER_CHAIN_ID" Nullable="false" />
+          <Property Type="String" Name="RETAILER_CHAIN" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -11858,6 +11918,15 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
                 <ScalarProperty Name="TRANSACTION_SUBTYPE" ColumnName="TRANSACTION_SUBTYPE" />
                 <ScalarProperty Name="DEVICE_CODE" ColumnName="DEVICE_CODE" />
                 <ScalarProperty Name="VALIDATED" ColumnName="VALIDATED" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_INSERT_CHANGE" FunctionName="BACKUP_SRL_20180613Model.Store.API_INSERT_CHANGE" />
+          <FunctionImportMapping FunctionImportName="API_LIST_RETAILERS" FunctionName="BACKUP_SRL_20180613Model.Store.API_LIST_RETAILERS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_LIST_RETAILERS_Result">
+                <ScalarProperty Name="RETAILER_CHAIN_ID" ColumnName="RETAILER_CHAIN_ID" />
+                <ScalarProperty Name="RETAILER_CHAIN" ColumnName="RETAILER_CHAIN" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -403,5 +403,115 @@ namespace SRL.Data_Access.Entity
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LCP_TRANSACTIONS_Result>("API_LCP_TRANSACTIONS", sSCCParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> API_INSERT_CHANGE(string sSCC, Nullable<decimal> oRDER_NUMBER, Nullable<decimal> nEW_ORDER_NUMBER, Nullable<decimal> oLD_ACTOR, Nullable<decimal> nEW_ACTOR, Nullable<int> lOAD_MESSAGE_STATUS_ID, Nullable<System.DateTime> uPDATE_DATE, string uPDATE_USER, string oLD_LOAD_UNIT_CONDITION_CODE, string nEW_LOAD_UNIT_CONDITION_CODE, Nullable<int> oLD_QTY_RTI, Nullable<decimal> eSOFT_PACKING_ID, Nullable<int> nEW_QTY_RTI, string dELETE_SSCC, string oLD_SSCC, string nEW_SSCC, Nullable<long> tRA_ITEM_IN_ID, string sLA_CODE, string tIME, string vALIDATION, string oLD_LOAD_UNIT_CONDITION_SUB_CODE, string nEW_LOAD_UNIT_CONDITION_SUB_CODE, string vOID_SSCC, string oLD_LOAD_CARRIER_EAN, string nEW_LOAD_CARRIER_EAN)
+        {
+            var sSCCParameter = sSCC != null ?
+                new ObjectParameter("SSCC", sSCC) :
+                new ObjectParameter("SSCC", typeof(string));
+    
+            var oRDER_NUMBERParameter = oRDER_NUMBER.HasValue ?
+                new ObjectParameter("ORDER_NUMBER", oRDER_NUMBER) :
+                new ObjectParameter("ORDER_NUMBER", typeof(decimal));
+    
+            var nEW_ORDER_NUMBERParameter = nEW_ORDER_NUMBER.HasValue ?
+                new ObjectParameter("NEW_ORDER_NUMBER", nEW_ORDER_NUMBER) :
+                new ObjectParameter("NEW_ORDER_NUMBER", typeof(decimal));
+    
+            var oLD_ACTORParameter = oLD_ACTOR.HasValue ?
+                new ObjectParameter("OLD_ACTOR", oLD_ACTOR) :
+                new ObjectParameter("OLD_ACTOR", typeof(decimal));
+    
+            var nEW_ACTORParameter = nEW_ACTOR.HasValue ?
+                new ObjectParameter("NEW_ACTOR", nEW_ACTOR) :
+                new ObjectParameter("NEW_ACTOR", typeof(decimal));
+    
+            var lOAD_MESSAGE_STATUS_IDParameter = lOAD_MESSAGE_STATUS_ID.HasValue ?
+                new ObjectParameter("LOAD_MESSAGE_STATUS_ID", lOAD_MESSAGE_STATUS_ID) :
+                new ObjectParameter("LOAD_MESSAGE_STATUS_ID", typeof(int));
+    
+            var uPDATE_DATEParameter = uPDATE_DATE.HasValue ?
+                new ObjectParameter("UPDATE_DATE", uPDATE_DATE) :
+                new ObjectParameter("UPDATE_DATE", typeof(System.DateTime));
+    
+            var uPDATE_USERParameter = uPDATE_USER != null ?
+                new ObjectParameter("UPDATE_USER", uPDATE_USER) :
+                new ObjectParameter("UPDATE_USER", typeof(string));
+    
+            var oLD_LOAD_UNIT_CONDITION_CODEParameter = oLD_LOAD_UNIT_CONDITION_CODE != null ?
+                new ObjectParameter("OLD_LOAD_UNIT_CONDITION_CODE", oLD_LOAD_UNIT_CONDITION_CODE) :
+                new ObjectParameter("OLD_LOAD_UNIT_CONDITION_CODE", typeof(string));
+    
+            var nEW_LOAD_UNIT_CONDITION_CODEParameter = nEW_LOAD_UNIT_CONDITION_CODE != null ?
+                new ObjectParameter("NEW_LOAD_UNIT_CONDITION_CODE", nEW_LOAD_UNIT_CONDITION_CODE) :
+                new ObjectParameter("NEW_LOAD_UNIT_CONDITION_CODE", typeof(string));
+    
+            var oLD_QTY_RTIParameter = oLD_QTY_RTI.HasValue ?
+                new ObjectParameter("OLD_QTY_RTI", oLD_QTY_RTI) :
+                new ObjectParameter("OLD_QTY_RTI", typeof(int));
+    
+            var eSOFT_PACKING_IDParameter = eSOFT_PACKING_ID.HasValue ?
+                new ObjectParameter("ESOFT_PACKING_ID", eSOFT_PACKING_ID) :
+                new ObjectParameter("ESOFT_PACKING_ID", typeof(decimal));
+    
+            var nEW_QTY_RTIParameter = nEW_QTY_RTI.HasValue ?
+                new ObjectParameter("NEW_QTY_RTI", nEW_QTY_RTI) :
+                new ObjectParameter("NEW_QTY_RTI", typeof(int));
+    
+            var dELETE_SSCCParameter = dELETE_SSCC != null ?
+                new ObjectParameter("DELETE_SSCC", dELETE_SSCC) :
+                new ObjectParameter("DELETE_SSCC", typeof(string));
+    
+            var oLD_SSCCParameter = oLD_SSCC != null ?
+                new ObjectParameter("OLD_SSCC", oLD_SSCC) :
+                new ObjectParameter("OLD_SSCC", typeof(string));
+    
+            var nEW_SSCCParameter = nEW_SSCC != null ?
+                new ObjectParameter("NEW_SSCC", nEW_SSCC) :
+                new ObjectParameter("NEW_SSCC", typeof(string));
+    
+            var tRA_ITEM_IN_IDParameter = tRA_ITEM_IN_ID.HasValue ?
+                new ObjectParameter("TRA_ITEM_IN_ID", tRA_ITEM_IN_ID) :
+                new ObjectParameter("TRA_ITEM_IN_ID", typeof(long));
+    
+            var sLA_CODEParameter = sLA_CODE != null ?
+                new ObjectParameter("SLA_CODE", sLA_CODE) :
+                new ObjectParameter("SLA_CODE", typeof(string));
+    
+            var tIMEParameter = tIME != null ?
+                new ObjectParameter("TIME", tIME) :
+                new ObjectParameter("TIME", typeof(string));
+    
+            var vALIDATIONParameter = vALIDATION != null ?
+                new ObjectParameter("VALIDATION", vALIDATION) :
+                new ObjectParameter("VALIDATION", typeof(string));
+    
+            var oLD_LOAD_UNIT_CONDITION_SUB_CODEParameter = oLD_LOAD_UNIT_CONDITION_SUB_CODE != null ?
+                new ObjectParameter("OLD_LOAD_UNIT_CONDITION_SUB_CODE", oLD_LOAD_UNIT_CONDITION_SUB_CODE) :
+                new ObjectParameter("OLD_LOAD_UNIT_CONDITION_SUB_CODE", typeof(string));
+    
+            var nEW_LOAD_UNIT_CONDITION_SUB_CODEParameter = nEW_LOAD_UNIT_CONDITION_SUB_CODE != null ?
+                new ObjectParameter("NEW_LOAD_UNIT_CONDITION_SUB_CODE", nEW_LOAD_UNIT_CONDITION_SUB_CODE) :
+                new ObjectParameter("NEW_LOAD_UNIT_CONDITION_SUB_CODE", typeof(string));
+    
+            var vOID_SSCCParameter = vOID_SSCC != null ?
+                new ObjectParameter("VOID_SSCC", vOID_SSCC) :
+                new ObjectParameter("VOID_SSCC", typeof(string));
+    
+            var oLD_LOAD_CARRIER_EANParameter = oLD_LOAD_CARRIER_EAN != null ?
+                new ObjectParameter("OLD_LOAD_CARRIER_EAN", oLD_LOAD_CARRIER_EAN) :
+                new ObjectParameter("OLD_LOAD_CARRIER_EAN", typeof(string));
+    
+            var nEW_LOAD_CARRIER_EANParameter = nEW_LOAD_CARRIER_EAN != null ?
+                new ObjectParameter("NEW_LOAD_CARRIER_EAN", nEW_LOAD_CARRIER_EAN) :
+                new ObjectParameter("NEW_LOAD_CARRIER_EAN", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("API_INSERT_CHANGE", sSCCParameter, oRDER_NUMBERParameter, nEW_ORDER_NUMBERParameter, oLD_ACTORParameter, nEW_ACTORParameter, lOAD_MESSAGE_STATUS_IDParameter, uPDATE_DATEParameter, uPDATE_USERParameter, oLD_LOAD_UNIT_CONDITION_CODEParameter, nEW_LOAD_UNIT_CONDITION_CODEParameter, oLD_QTY_RTIParameter, eSOFT_PACKING_IDParameter, nEW_QTY_RTIParameter, dELETE_SSCCParameter, oLD_SSCCParameter, nEW_SSCCParameter, tRA_ITEM_IN_IDParameter, sLA_CODEParameter, tIMEParameter, vALIDATIONParameter, oLD_LOAD_UNIT_CONDITION_SUB_CODEParameter, nEW_LOAD_UNIT_CONDITION_SUB_CODEParameter, vOID_SSCCParameter, oLD_LOAD_CARRIER_EANParameter, nEW_LOAD_CARRIER_EANParameter);
+        }
+    
+        public virtual ObjectResult<API_LIST_RETAILERS_Result> API_LIST_RETAILERS()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_RETAILERS_Result>("API_LIST_RETAILERS");
+        }
     }
 }

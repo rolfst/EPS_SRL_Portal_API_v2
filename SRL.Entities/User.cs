@@ -9,9 +9,9 @@
         public bool IsAdmin { get; set; }
         public bool IsActive { get; set; }
         public bool IsInvited { get; set; }
-        public bool HasAccepted { get; set; }
-        public string Language { get; set; }
+        public bool HasTemplate { get; set; }
         public bool IsInteranlUser { get; set; }
         public bool Assigned { get; set; }
+        public string RetailerChainCode { get; set; }
     }
 }

@@ -1,69 +1,60 @@
-﻿using SRL.Data_Access.Adapter;
-using SRL.Data_Access.Repository;
-using SRL.Models.SSCC;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Results;
-using System.Web.Mvc;
+using SRL_Portal_API.ViewModels;
 
 namespace SRL_Portal_API.Controllers
 {
-    /// <summary>
-    /// Controller for all SSCC related actions
-    /// </summary>
     public class SSCCController : ApiController
     {
-        private readonly SSCCListRepository _sSCCListRepository = new SSCCListRepository();
-        private readonly SSCCOrderDetailsRepository _sSCCOrderDetailsRepository = new SSCCOrderDetailsRepository();
-        private readonly SSCCLoadCarrierRepository _sSCCLoadCarrierRepository = new SSCCLoadCarrierRepository();
-        private readonly SSCCPalletCountingRepository _sSCCPalletCountingRepository = new SSCCPalletCountingRepository();
-        private readonly SSCCImagesRepository _sSCCImagesRepository = new SSCCImagesRepository();
-        private readonly SSCCDeviationDetailsRepository _sSCCDeviationDetailsRepository = new SSCCDeviationDetailsRepository();
+        BACKUP_SRL_20180613Entities dbEntities = new BACKUP_SRL_20180613Entities();
+        DateTime now = DateTime.Now;
+
 
         // Parameters default values for dev purposes
-        /// <summary>
-        /// Get the list of SSCC's, based on the given parameters
-        /// </summary>
-        /// <returns></returns>
-        [System.Web.Http.HttpPost]
-        public IList<SSCCListModel> Index(
-            [FromBody] SSCCListRequest request
+        [System.Web.Http.AcceptVerbs("GET")]
+        [System.Web.Http.HttpGet]
+        public IList<SSCCListViewModel> Index(
+            string actorId = null,
+            string actorOriginId = null,
+            bool ssccStatusNew = false,
+            bool ssccStatusProcessed = false,
+            bool ssccStatusValidated = false,
+            DateTime? ssccDateFrom = null,
+            DateTime? ssccDateTo = null,
+            DateTime? ciDateFrom = null,
+            DateTime? ciDateTo = null,
+            bool validationOpen = false,
+            bool validationExceeded = false,
+            bool validationPassed = false,
+            string ssccNr = null,
+            decimal? orderNr = 0,
+            bool countingOK = false,
+            bool countingNOK = false,
+            bool slaOK = false,
+            bool slaNOK = false,
+            int? retailerChainId = -1
         )
         {
-            if (request == null)
-            {
-                throw new ArgumentNullException(nameof(SSCCListRequest), "Request is not valid.");
-            }
-
             // Filterfunctionality checkboxgroups: Select none = See all
-            if (!request.SsccStatusNew && !request.SsccStatusProcessed && !request.SsccStatusValidated)
+            if (!ssccStatusNew && !ssccStatusProcessed && !ssccStatusValidated)
             {
-                request.SsccStatusNew = true;
-                request.SsccStatusProcessed = true;
-                request.SsccStatusValidated = true;
+                ssccStatusNew = true; ssccStatusProcessed = true; ssccStatusValidated = true;
             }
-
-            if (!request.ValidationOpen && !request.ValidationExceeded && !request.ValidationPassed)
+            if (!validationOpen && !validationExceeded && !validationPassed)
             {
-                request.ValidationOpen = true;
-                request.ValidationExceeded = true;
-                request.ValidationPassed = true;
+                validationOpen = true; validationExceeded = true; validationPassed = true;
             }
-
-            if (!request.CountingOK && !request.CountingNOK)
+            if (!countingOK && !countingNOK)
             {
-                request.CountingOK = true;
-                request.CountingNOK = true;
+                countingOK = true; countingNOK = true;
             }
-
-            if (!request.SlaOK && !request.SlaNOK)
+            if (!slaOK && !slaNOK)
             {
-                request.SlaOK = true;
-                request.SlaNOK = true;
+                slaOK = true; slaNOK = true;
             }
 
             // Filterfunctionality Dates: If date from is not null and date to is null, get only selected date.
@@ -80,30 +71,61 @@ namespace SRL_Portal_API.Controllers
         }
 
         /// <summary>
-        /// This function gets all the data needed to display it on the SSCC Detail Page
-        /// The data is retrieved in 5 'blocks', and send to the adapter to put it all together
+        /// Convert the raw data from the database into the form as expected by the front-end
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [System.Web.Http.HttpPost]
-        public SSCCDetailsModel GetSSCCDetails(string id)
+        /// <param name="input">The raw data as retrieved list of SSCC's</param>
+        /// <returns>A list of SSCCListViewModels based on the input</returns>
+        private List<SSCCListViewModel> ConvertSSCCList(List<API_SSCC_OVERVIEW_Result> input)
         {
-            if (id == null)
+            var VMList = new List<SSCCListViewModel>();
+            foreach (var item in input)
             {
-                throw new ArgumentNullException(id, "Request is not valid.");
+                SSCCListViewModel vm = new SSCCListViewModel();
+                vm.OrderDate = item.FIRST_SSCC_USAGE;
+                vm.SSCC = item.SSCC;
+                vm.ActorFrom = GetActorName(item.ACTOR_ORIGIN_ID);
+                vm.ActorTo = item.ACTOR_ID.HasValue ? GetActorName(item.ACTOR_ID.Value) : "";
+                switch (item.SSCC_STATUS)
+                {
+                    case 1:
+                        vm.SsccStatus = "New";
+                        break;
+                    case 2:
+                        vm.SsccStatus = "Processed";
+                        break;
+                    case 3:
+                        vm.SsccStatus = "Validated";
+                        break;
+                    default:
+                        vm.SsccStatus = "New";
+                        break;
+                }
+                if (item.VALIDATION_DEADLINE.HasValue)
+                {
+                    vm.ValidationDeadline = Math.Round((item.VALIDATION_DEADLINE.Value - now).TotalHours, 0);
+                }
+                vm.SlaOK = item.SLA_VALUE == item.SLA_MIN_VALUE;
+                vm.CountingOK = item.SHOP_COUNT == item.CI_COUNT;
+                vm.CIDate = item.CI_DATETIME;
+                vm.IsValidated = item.VALIDATED;
+                vm.ValidationStatus = SetValidationStatus(item.VALIDATED, item.VALIDATION_DEADLINE);
+                VMList.Add(vm);
             }
 
-            var orderDetails = _sSCCOrderDetailsRepository.GetSSCCOrderDetails(id);
-            var loadCarrierDetailsList = _sSCCLoadCarrierRepository.GetSSCCLoadCarrier(id);
-            var palletCountingList = _sSCCPalletCountingRepository.GetSSCCPalletCounting(id);
-            var imageList = _sSCCImagesRepository.GetSSCCImages(id);
-            var deviationDetailsList = _sSCCDeviationDetailsRepository.GetSSCCDeviationDetails(id);
+            return VMList;
+        }
 
-            return SSCCDetailAdapter.ConvertSSCCDetails(orderDetails, loadCarrierDetailsList, palletCountingList, imageList, deviationDetailsList);
+        private string GetActorName(int actorId)
+        {
+            string actorName = (from a in dbEntities.ACTOR_REFERENCE
+                                where a.ACTOR_ID == actorId
+                                select a.ACTOR_LABEL).SingleOrDefault();
+
+            return actorName;
         }
 
         [System.Web.Http.HttpGet]
-        public IList<string> GetSSCCNumbers(int retailerChainId = -1)
+        public IList<string> GetSSCCNumbers()
         {
             var request = new SSCCListRequest
             {
@@ -117,7 +139,6 @@ namespace SRL_Portal_API.Controllers
                 CountingNOK = true,
                 SlaOK = true,
                 SlaNOK = true,
-                RetailerChainId = retailerChainId
             };
 
             return _sSCCListRepository.GetSSCCList(request).Select(x => x.SSCC).Distinct().ToList();
