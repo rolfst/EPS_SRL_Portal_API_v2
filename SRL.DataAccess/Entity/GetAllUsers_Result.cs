@@ -13,17 +13,18 @@ namespace SRL.Data_Access.Entity
     
     public partial class GetAllUsers_Result
     {
-        public bool Admin { get; set; }
-        public int Assigned { get; set; }
-        public bool IsInternal { get; set; }
-        public int HasTemplate { get; set; }
-        public string RetailerChainCode { get; set; }
         public int UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public string RoleName { get; set; }
         public Nullable<int> RolePriority { get; set; }
+        public bool Admin { get; set; }
+        public int Assigned { get; set; }
+        public bool IsInternal { get; set; }
+        public Nullable<int> HasTemplate { get; set; }
+        public string RetailerChain { get; set; }
         public bool Active { get; set; }
+        public int IsEnabled { get; set; }
     }
 }

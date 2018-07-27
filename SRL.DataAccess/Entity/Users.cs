@@ -24,12 +24,6 @@ namespace SRL.Data_Access.Entity
             this.UserRole2 = new HashSet<UserRole>();
             this.Users1 = new HashSet<Users>();
             this.Users11 = new HashSet<Users>();
-            this.UserActors = new HashSet<UserActor>();
-            this.UserActors1 = new HashSet<UserActor>();
-            this.UserRetailerChains = new HashSet<UserRetailerChain>();
-            this.UserRetailerChains1 = new HashSet<UserRetailerChain>();
-            this.UserTemplates = new HashSet<UserTemplate>();
-            this.UserTemplates1 = new HashSet<UserTemplate>();
         }
     
         public int UserId { get; set; }
@@ -64,17 +58,5 @@ namespace SRL.Data_Access.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Users> Users11 { get; set; }
         public virtual Users Users3 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserActor> UserActors { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserActor> UserActors1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserRetailerChain> UserRetailerChains { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserRetailerChain> UserRetailerChains1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserTemplate> UserTemplates { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserTemplate> UserTemplates1 { get; set; }
     }
 }

@@ -11,15 +11,14 @@ namespace SRL.Data_Access.Entity
 {
     using System;
     
-    public partial class sp_GetUserScreens_Result
+    public partial class API_LCP_TRANSACTIONS_Result
     {
-        public int UserId { get; set; }
-        public int RoleId { get; set; }
-        public int ScreenId { get; set; }
-        public string ScreenName { get; set; }
-        public string RouterLink { get; set; }
-        public int Level { get; set; }
-        public Nullable<int> ParentScreenId { get; set; }
-        public bool IsMenuItem { get; set; }
+        public string SSCC { get; set; }
+        public Nullable<System.DateTime> TRANSACTION_DATETIME { get; set; }
+        public string ACTOR_NAME { get; set; }
+        public string TRANSACTION_TYPE_ID { get; set; }
+        public string TRANSACTION_SUBTYPE { get; set; }
+        public string DEVICE_CODE { get; set; }
+        public bool VALIDATED { get; set; }
     }
 }

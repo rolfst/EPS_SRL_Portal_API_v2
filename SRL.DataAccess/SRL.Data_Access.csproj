@@ -71,7 +71,7 @@
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\API_FN_SPLIT_Result.cs">
-      <DependentUpon>SRL.tt</DependentUpon>
+      <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\API_LCP_COUNTING_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
@@ -91,28 +91,10 @@
     <Compile Include="Entity\API_LIST_ACTORS_TRANSACTION_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\API_LIST_RETAILERS_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\API_SSCC_OVERVIEW_Result.cs">
-      <DependentUpon>SRL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\API_FN_SPLIT_Result.cs">
-      <DependentUpon>SRL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\API_LIST_ACTORS_TRANSACTION_Result.cs">
-      <DependentUpon>SRL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\API_SSCC_DEVIATION_DETAILS_Result.cs">
-      <DependentUpon>SRL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\API_SSCC_IMAGES_Result.cs">
-      <DependentUpon>SRL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\API_SSCC_LOADCARRIER_DETAILS_Result.cs">
-      <DependentUpon>SRL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\API_SSCC_ORDER_DETAILS_Result.cs">
-      <DependentUpon>SRL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\API_SSCC_PALLET_COUNTING_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\AUDIT.cs">
@@ -310,22 +292,10 @@
     <Compile Include="Entity\sp_GetUserRoles_Result.cs">
       <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\sp_GetUserScreens1_Result.cs">
-      <DependentUpon>SRLUser.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\sp_GetUserScreens2_Result.cs">
-      <DependentUpon>SRLUser.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entity\sp_GetUserScreens_Result.cs">
       <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\sp_GetUsers_Result.cs">
-      <DependentUpon>SRLUser.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>SRLUser.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\sp_helpdiagrams_Result.cs">
       <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\SRL.Context.cs">
@@ -370,9 +340,6 @@
     <Compile Include="Entity\sysdiagrams.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\Template.cs">
-      <DependentUpon>SRLUser.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entity\temp_TRANSACTION_2018.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
@@ -408,15 +375,6 @@
     </Compile>
     <Compile Include="Entity\TRANSLATION_DETAILS.cs">
       <DependentUpon>SRL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\UserActor.cs">
-      <DependentUpon>SRLUser.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\UserRetailerChain.cs">
-      <DependentUpon>SRLUser.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\UserTemplate.cs">
-      <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\VW_AUTOMATIC_SLA_MATCH.cs">
       <DependentUpon>SRL.tt</DependentUpon>

@@ -11,15 +11,11 @@ namespace SRL.Data_Access.Entity
 {
     using System;
     
-    public partial class sp_GetUserScreens_Result
+    public partial class API_LCP_IMAGES_Result
     {
-        public int UserId { get; set; }
-        public int RoleId { get; set; }
-        public int ScreenId { get; set; }
-        public string ScreenName { get; set; }
-        public string RouterLink { get; set; }
-        public int Level { get; set; }
-        public Nullable<int> ParentScreenId { get; set; }
-        public bool IsMenuItem { get; set; }
+        public string SSCC { get; set; }
+        public string PICTURE_EVIDENCE_PATH { get; set; }
+        public string PICTURE_POSITION { get; set; }
+        public string PALLET_POSITION { get; set; }
     }
 }

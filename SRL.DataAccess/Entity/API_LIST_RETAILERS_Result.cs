@@ -11,15 +11,9 @@ namespace SRL.Data_Access.Entity
 {
     using System;
     
-    public partial class sp_GetUserScreens_Result
+    public partial class API_LIST_RETAILERS_Result
     {
-        public int UserId { get; set; }
-        public int RoleId { get; set; }
-        public int ScreenId { get; set; }
-        public string ScreenName { get; set; }
-        public string RouterLink { get; set; }
-        public int Level { get; set; }
-        public Nullable<int> ParentScreenId { get; set; }
-        public bool IsMenuItem { get; set; }
+        public int RETAILER_CHAIN_ID { get; set; }
+        public string RETAILER_CHAIN { get; set; }
     }
 }

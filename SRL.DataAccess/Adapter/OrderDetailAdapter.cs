@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using SRL.Data_Access.Entity;
 using SRL.Models.Enums;
 using SRL.Models.Order;
-using SRL.Models;
+
 
 namespace SRL.Data_Access.Adapter
 {
     public static class OrderDetailAdapter
     {
         const string NoReference = "No reference";
-        internal static SRL.Models.OrderDetail ConvertOrderDetailResult(this GetOrderDetail_Result orderDetail)
+        internal static OrderDetail ConvertOrderDetailResult(this GetOrderDetail_Result orderDetail)
         {
             if(orderDetail == null)
             {
                 return new OrderDetail();
             }
-            return new SRL.Models.OrderDetail
+            return new OrderDetail
             {
                 OrderNumber = orderDetail.ORD_ORDER_NUMBER,
                 FromActorName = orderDetail.FROM_NAME,

@@ -1,5 +1,5 @@
 ﻿using System.Web.Http;
-using SRL.Models;
+using SRL.Models.Order;
 using SRL.Data_Access.Repository;
 using System.Web.Http.Cors;
 using SRL.Models.Constants;
@@ -8,7 +8,7 @@ using SRL_Portal_API.Common;
 namespace SRL_Portal_API.Controllers
 {
     /// <summary>
-    /// Controller handling order related actions
+    /// To handle order detail actions
     /// </summary>
     public class OrderDetailController : ApiController
     {

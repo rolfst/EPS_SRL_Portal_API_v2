@@ -157,19 +157,6 @@ namespace SRL.Data_Access.Entity
         public virtual DbSet<temp_TRANSACTION_SSCC_RTI_DETAILS_2018> temp_TRANSACTION_SSCC_RTI_DETAILS_2018 { get; set; }
         public virtual DbSet<temp_Z_STG_XML_DATA_2018> temp_Z_STG_XML_DATA_2018 { get; set; }
     
-        public virtual ObjectResult<GetOrderDetail_Result> GetOrderDetail(Nullable<int> oRDER_ID, Nullable<int> rETAILER_CHAIN_ID)
-        {
-            var oRDER_IDParameter = oRDER_ID.HasValue ?
-                new ObjectParameter("ORDER_ID", oRDER_ID) :
-                new ObjectParameter("ORDER_ID", typeof(int));
-    
-            var rETAILER_CHAIN_IDParameter = rETAILER_CHAIN_ID.HasValue ?
-                new ObjectParameter("RETAILER_CHAIN_ID", rETAILER_CHAIN_ID) :
-                new ObjectParameter("RETAILER_CHAIN_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderDetail_Result>("GetOrderDetail", oRDER_IDParameter, rETAILER_CHAIN_IDParameter);
-        }
-    
         [DbFunction("BACKUP_SRL_20180613Entities", "API_FN_SPLIT")]
         public virtual IQueryable<API_FN_SPLIT_Result> API_FN_SPLIT(string tEXT, string dELIMITER)
         {
@@ -193,7 +180,88 @@ namespace SRL.Data_Access.Entity
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_ACTORS_TRANSACTION_Result>("API_LIST_ACTORS_TRANSACTION", rETAILER_CHAIN_IDParameter);
         }
     
-        public virtual int API_ORDER_LIST(string oRD_ORDER_NUMBER, Nullable<int> rETAILER_CHAIN_ID, Nullable<System.DateTime> oRDER_DATE_FROM, Nullable<System.DateTime> oRDER_DATE_TO, Nullable<bool> oRDER_NEW, Nullable<bool> oRDER_OPEN, Nullable<bool> oRDER_VALIDATED, Nullable<System.DateTime> cI_DATE_FROM, Nullable<System.DateTime> cI_DATE_TO, Nullable<System.DateTime> vALIDATION_DEADLINE, string uSER, string aCTOR_ID_FROM, string aCTOR_ID_TO, string oRDER_NUMBER, Nullable<bool> sHOP_COUNT_OK, Nullable<bool> sHOP_COUNT_NOK, Nullable<bool> vALIDATION_DEADLINE_OPEN, Nullable<bool> vALIDATION_DEADLINE_EXCEEDED, Nullable<bool> vALIDATION_DEADLINE_PASSED, string aCTOR_ID)
+        public virtual ObjectResult<API_SSCC_OVERVIEW_Result> API_SSCC_OVERVIEW(string aCTOR_ID, string aCTOR_ORIGIN_ID, Nullable<bool> sSCC_STATUS_NEW, Nullable<bool> sSCC_STATUS_PROCESSED, Nullable<bool> sSCC_STATUS_VALIDATED, Nullable<System.DateTime> fIRST_SSCC_USAGE_FROM, Nullable<System.DateTime> fIRST_SSCC_USAGE_TO, Nullable<System.DateTime> cI_DATETIME_FROM, Nullable<System.DateTime> cI_DATETIME_TO, Nullable<bool> vALIDATION_DEADLINE_OPEN, Nullable<bool> vALIDATION_DEADLINE_EXCEEDED, Nullable<bool> vALIDATION_DEADLINE_PASSED, string sSCC, Nullable<decimal> oRDER_NUMBER, Nullable<bool> cOUNTING_OK, Nullable<bool> cOUNTING_NOK, Nullable<bool> sLA_OK, Nullable<bool> sLA_NOK, Nullable<int> rETAILER_CHAIN_ID)
+        {
+            var aCTOR_IDParameter = aCTOR_ID != null ?
+                new ObjectParameter("ACTOR_ID", aCTOR_ID) :
+                new ObjectParameter("ACTOR_ID", typeof(string));
+    
+            var aCTOR_ORIGIN_IDParameter = aCTOR_ORIGIN_ID != null ?
+                new ObjectParameter("ACTOR_ORIGIN_ID", aCTOR_ORIGIN_ID) :
+                new ObjectParameter("ACTOR_ORIGIN_ID", typeof(string));
+    
+            var sSCC_STATUS_NEWParameter = sSCC_STATUS_NEW.HasValue ?
+                new ObjectParameter("SSCC_STATUS_NEW", sSCC_STATUS_NEW) :
+                new ObjectParameter("SSCC_STATUS_NEW", typeof(bool));
+    
+            var sSCC_STATUS_PROCESSEDParameter = sSCC_STATUS_PROCESSED.HasValue ?
+                new ObjectParameter("SSCC_STATUS_PROCESSED", sSCC_STATUS_PROCESSED) :
+                new ObjectParameter("SSCC_STATUS_PROCESSED", typeof(bool));
+    
+            var sSCC_STATUS_VALIDATEDParameter = sSCC_STATUS_VALIDATED.HasValue ?
+                new ObjectParameter("SSCC_STATUS_VALIDATED", sSCC_STATUS_VALIDATED) :
+                new ObjectParameter("SSCC_STATUS_VALIDATED", typeof(bool));
+    
+            var fIRST_SSCC_USAGE_FROMParameter = fIRST_SSCC_USAGE_FROM.HasValue ?
+                new ObjectParameter("FIRST_SSCC_USAGE_FROM", fIRST_SSCC_USAGE_FROM) :
+                new ObjectParameter("FIRST_SSCC_USAGE_FROM", typeof(System.DateTime));
+    
+            var fIRST_SSCC_USAGE_TOParameter = fIRST_SSCC_USAGE_TO.HasValue ?
+                new ObjectParameter("FIRST_SSCC_USAGE_TO", fIRST_SSCC_USAGE_TO) :
+                new ObjectParameter("FIRST_SSCC_USAGE_TO", typeof(System.DateTime));
+    
+            var cI_DATETIME_FROMParameter = cI_DATETIME_FROM.HasValue ?
+                new ObjectParameter("CI_DATETIME_FROM", cI_DATETIME_FROM) :
+                new ObjectParameter("CI_DATETIME_FROM", typeof(System.DateTime));
+    
+            var cI_DATETIME_TOParameter = cI_DATETIME_TO.HasValue ?
+                new ObjectParameter("CI_DATETIME_TO", cI_DATETIME_TO) :
+                new ObjectParameter("CI_DATETIME_TO", typeof(System.DateTime));
+    
+            var vALIDATION_DEADLINE_OPENParameter = vALIDATION_DEADLINE_OPEN.HasValue ?
+                new ObjectParameter("VALIDATION_DEADLINE_OPEN", vALIDATION_DEADLINE_OPEN) :
+                new ObjectParameter("VALIDATION_DEADLINE_OPEN", typeof(bool));
+    
+            var vALIDATION_DEADLINE_EXCEEDEDParameter = vALIDATION_DEADLINE_EXCEEDED.HasValue ?
+                new ObjectParameter("VALIDATION_DEADLINE_EXCEEDED", vALIDATION_DEADLINE_EXCEEDED) :
+                new ObjectParameter("VALIDATION_DEADLINE_EXCEEDED", typeof(bool));
+    
+            var vALIDATION_DEADLINE_PASSEDParameter = vALIDATION_DEADLINE_PASSED.HasValue ?
+                new ObjectParameter("VALIDATION_DEADLINE_PASSED", vALIDATION_DEADLINE_PASSED) :
+                new ObjectParameter("VALIDATION_DEADLINE_PASSED", typeof(bool));
+    
+            var sSCCParameter = sSCC != null ?
+                new ObjectParameter("SSCC", sSCC) :
+                new ObjectParameter("SSCC", typeof(string));
+    
+            var oRDER_NUMBERParameter = oRDER_NUMBER.HasValue ?
+                new ObjectParameter("ORDER_NUMBER", oRDER_NUMBER) :
+                new ObjectParameter("ORDER_NUMBER", typeof(decimal));
+    
+            var cOUNTING_OKParameter = cOUNTING_OK.HasValue ?
+                new ObjectParameter("COUNTING_OK", cOUNTING_OK) :
+                new ObjectParameter("COUNTING_OK", typeof(bool));
+    
+            var cOUNTING_NOKParameter = cOUNTING_NOK.HasValue ?
+                new ObjectParameter("COUNTING_NOK", cOUNTING_NOK) :
+                new ObjectParameter("COUNTING_NOK", typeof(bool));
+    
+            var sLA_OKParameter = sLA_OK.HasValue ?
+                new ObjectParameter("SLA_OK", sLA_OK) :
+                new ObjectParameter("SLA_OK", typeof(bool));
+    
+            var sLA_NOKParameter = sLA_NOK.HasValue ?
+                new ObjectParameter("SLA_NOK", sLA_NOK) :
+                new ObjectParameter("SLA_NOK", typeof(bool));
+    
+            var rETAILER_CHAIN_IDParameter = rETAILER_CHAIN_ID.HasValue ?
+                new ObjectParameter("RETAILER_CHAIN_ID", rETAILER_CHAIN_ID) :
+                new ObjectParameter("RETAILER_CHAIN_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SSCC_OVERVIEW_Result>("API_SSCC_OVERVIEW", aCTOR_IDParameter, aCTOR_ORIGIN_IDParameter, sSCC_STATUS_NEWParameter, sSCC_STATUS_PROCESSEDParameter, sSCC_STATUS_VALIDATEDParameter, fIRST_SSCC_USAGE_FROMParameter, fIRST_SSCC_USAGE_TOParameter, cI_DATETIME_FROMParameter, cI_DATETIME_TOParameter, vALIDATION_DEADLINE_OPENParameter, vALIDATION_DEADLINE_EXCEEDEDParameter, vALIDATION_DEADLINE_PASSEDParameter, sSCCParameter, oRDER_NUMBERParameter, cOUNTING_OKParameter, cOUNTING_NOKParameter, sLA_OKParameter, sLA_NOKParameter, rETAILER_CHAIN_IDParameter);
+        }
+    
+        public virtual ObjectResult<ORDER_LIST_Result> API_ORDER_LIST(string oRD_ORDER_NUMBER, Nullable<int> rETAILER_CHAIN_ID, Nullable<System.DateTime> oRDER_DATE_FROM, Nullable<System.DateTime> oRDER_DATE_TO, Nullable<bool> oRDER_NEW, Nullable<bool> oRDER_OPEN, Nullable<bool> oRDER_VALIDATED, Nullable<System.DateTime> cI_DATE_FROM, Nullable<System.DateTime> cI_DATE_TO, Nullable<System.DateTime> vALIDATION_DEADLINE, string uSER, string aCTOR_ID_FROM, string aCTOR_ID_TO, string oRDER_NUMBER, Nullable<bool> sHOP_COUNT_OK, Nullable<bool> sHOP_COUNT_NOK, Nullable<bool> vALIDATION_DEADLINE_OPEN, Nullable<bool> vALIDATION_DEADLINE_EXCEEDED, Nullable<bool> vALIDATION_DEADLINE_PASSED, string aCTOR_ID)
         {
             var oRD_ORDER_NUMBERParameter = oRD_ORDER_NUMBER != null ?
                 new ObjectParameter("ORD_ORDER_NUMBER", oRD_ORDER_NUMBER) :
@@ -275,95 +343,69 @@ namespace SRL.Data_Access.Entity
                 new ObjectParameter("ACTOR_ID", aCTOR_ID) :
                 new ObjectParameter("ACTOR_ID", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("API_ORDER_LIST", oRD_ORDER_NUMBERParameter, rETAILER_CHAIN_IDParameter, oRDER_DATE_FROMParameter, oRDER_DATE_TOParameter, oRDER_NEWParameter, oRDER_OPENParameter, oRDER_VALIDATEDParameter, cI_DATE_FROMParameter, cI_DATE_TOParameter, vALIDATION_DEADLINEParameter, uSERParameter, aCTOR_ID_FROMParameter, aCTOR_ID_TOParameter, oRDER_NUMBERParameter, sHOP_COUNT_OKParameter, sHOP_COUNT_NOKParameter, vALIDATION_DEADLINE_OPENParameter, vALIDATION_DEADLINE_EXCEEDEDParameter, vALIDATION_DEADLINE_PASSEDParameter, aCTOR_IDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ORDER_LIST_Result>("API_ORDER_LIST", oRD_ORDER_NUMBERParameter, rETAILER_CHAIN_IDParameter, oRDER_DATE_FROMParameter, oRDER_DATE_TOParameter, oRDER_NEWParameter, oRDER_OPENParameter, oRDER_VALIDATEDParameter, cI_DATE_FROMParameter, cI_DATE_TOParameter, vALIDATION_DEADLINEParameter, uSERParameter, aCTOR_ID_FROMParameter, aCTOR_ID_TOParameter, oRDER_NUMBERParameter, sHOP_COUNT_OKParameter, sHOP_COUNT_NOKParameter, vALIDATION_DEADLINE_OPENParameter, vALIDATION_DEADLINE_EXCEEDEDParameter, vALIDATION_DEADLINE_PASSEDParameter, aCTOR_IDParameter);
         }
     
-        public virtual ObjectResult<API_SSCC_DEVIATION_DETAILS_Result> API_SSCC_DEVIATION_DETAILS(string sSCC)
+        public virtual ObjectResult<GetOrderDetail_Result> GetOrderDetail(Nullable<int> oRDER_ID, Nullable<int> rETAILER_CHAIN_ID)
+        {
+            var oRDER_IDParameter = oRDER_ID.HasValue ?
+                new ObjectParameter("ORDER_ID", oRDER_ID) :
+                new ObjectParameter("ORDER_ID", typeof(int));
+    
+            var rETAILER_CHAIN_IDParameter = rETAILER_CHAIN_ID.HasValue ?
+                new ObjectParameter("RETAILER_CHAIN_ID", rETAILER_CHAIN_ID) :
+                new ObjectParameter("RETAILER_CHAIN_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderDetail_Result>("GetOrderDetail", oRDER_IDParameter, rETAILER_CHAIN_IDParameter);
+        }
+    
+        public virtual ObjectResult<API_LCP_COUNTING_Result> API_LCP_COUNTING(string sSCC)
         {
             var sSCCParameter = sSCC != null ?
                 new ObjectParameter("SSCC", sSCC) :
                 new ObjectParameter("SSCC", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SSCC_DEVIATION_DETAILS_Result>("API_SSCC_DEVIATION_DETAILS", sSCCParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LCP_COUNTING_Result>("API_LCP_COUNTING", sSCCParameter);
         }
     
-        public virtual ObjectResult<API_SSCC_IMAGES_Result> API_SSCC_IMAGES(string sSCC)
+        public virtual ObjectResult<API_LCP_DEVIATIONS_Result> API_LCP_DEVIATIONS(string sSCC)
         {
             var sSCCParameter = sSCC != null ?
                 new ObjectParameter("SSCC", sSCC) :
                 new ObjectParameter("SSCC", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SSCC_IMAGES_Result>("API_SSCC_IMAGES", sSCCParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LCP_DEVIATIONS_Result>("API_LCP_DEVIATIONS", sSCCParameter);
         }
     
-        public virtual ObjectResult<API_SSCC_LOADCARRIER_DETAILS_Result> API_SSCC_LOADCARRIER_DETAILS(string sSCC)
+        public virtual ObjectResult<API_LCP_IMAGES_Result> API_LCP_IMAGES(string sSCC)
         {
             var sSCCParameter = sSCC != null ?
                 new ObjectParameter("SSCC", sSCC) :
                 new ObjectParameter("SSCC", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SSCC_LOADCARRIER_DETAILS_Result>("API_SSCC_LOADCARRIER_DETAILS", sSCCParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LCP_IMAGES_Result>("API_LCP_IMAGES", sSCCParameter);
         }
     
-        public virtual ObjectResult<API_SSCC_ORDER_DETAILS_Result> API_SSCC_ORDER_DETAILS(string sSCC)
+        public virtual ObjectResult<API_LCP_ORDER_DETAILS_Result> API_LCP_ORDER_DETAILS(string sSCC)
         {
             var sSCCParameter = sSCC != null ?
                 new ObjectParameter("SSCC", sSCC) :
                 new ObjectParameter("SSCC", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SSCC_ORDER_DETAILS_Result>("API_SSCC_ORDER_DETAILS", sSCCParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LCP_ORDER_DETAILS_Result>("API_LCP_ORDER_DETAILS", sSCCParameter);
         }
     
-        public virtual int API_SSCC_OVERVIEW(string aCTOR_ID, string aCTOR_ORIGIN_ID, Nullable<bool> sSCC_STATUS_NEW, Nullable<bool> sSCC_STATUS_PROCESSED, Nullable<bool> sSCC_STATUS_VALIDATED, Nullable<System.DateTime> fIRST_SSCC_USAGE_FROM, Nullable<System.DateTime> fIRST_SSCC_USAGE_TO, Nullable<System.DateTime> cI_DATETIME_FROM, Nullable<System.DateTime> cI_DATETIME_TO, Nullable<bool> vALIDATION_DEADLINE_OPEN, Nullable<bool> vALIDATION_DEADLINE_EXCEEDED, Nullable<bool> vALIDATION_DEADLINE_PASSED, string sSCC, Nullable<decimal> oRDER_NUMBER, Nullable<bool> cOUNTING_OK, Nullable<bool> cOUNTING_NOK, Nullable<bool> sLA_OK, Nullable<bool> sLA_NOK, Nullable<int> rETAILER_CHAIN_ID)
+        public virtual ObjectResult<API_LCP_TRANSACTIONS_Result> API_LCP_TRANSACTIONS(string sSCC)
         {
-            var aCTOR_IDParameter = aCTOR_ID != null ?
-                new ObjectParameter("ACTOR_ID", aCTOR_ID) :
-                new ObjectParameter("ACTOR_ID", typeof(string));
+            var sSCCParameter = sSCC != null ?
+                new ObjectParameter("SSCC", sSCC) :
+                new ObjectParameter("SSCC", typeof(string));
     
-            var aCTOR_ORIGIN_IDParameter = aCTOR_ORIGIN_ID != null ?
-                new ObjectParameter("ACTOR_ORIGIN_ID", aCTOR_ORIGIN_ID) :
-                new ObjectParameter("ACTOR_ORIGIN_ID", typeof(string));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LCP_TRANSACTIONS_Result>("API_LCP_TRANSACTIONS", sSCCParameter);
+        }
     
-            var sSCC_STATUS_NEWParameter = sSCC_STATUS_NEW.HasValue ?
-                new ObjectParameter("SSCC_STATUS_NEW", sSCC_STATUS_NEW) :
-                new ObjectParameter("SSCC_STATUS_NEW", typeof(bool));
-    
-            var sSCC_STATUS_PROCESSEDParameter = sSCC_STATUS_PROCESSED.HasValue ?
-                new ObjectParameter("SSCC_STATUS_PROCESSED", sSCC_STATUS_PROCESSED) :
-                new ObjectParameter("SSCC_STATUS_PROCESSED", typeof(bool));
-    
-            var sSCC_STATUS_VALIDATEDParameter = sSCC_STATUS_VALIDATED.HasValue ?
-                new ObjectParameter("SSCC_STATUS_VALIDATED", sSCC_STATUS_VALIDATED) :
-                new ObjectParameter("SSCC_STATUS_VALIDATED", typeof(bool));
-    
-            var fIRST_SSCC_USAGE_FROMParameter = fIRST_SSCC_USAGE_FROM.HasValue ?
-                new ObjectParameter("FIRST_SSCC_USAGE_FROM", fIRST_SSCC_USAGE_FROM) :
-                new ObjectParameter("FIRST_SSCC_USAGE_FROM", typeof(System.DateTime));
-    
-            var fIRST_SSCC_USAGE_TOParameter = fIRST_SSCC_USAGE_TO.HasValue ?
-                new ObjectParameter("FIRST_SSCC_USAGE_TO", fIRST_SSCC_USAGE_TO) :
-                new ObjectParameter("FIRST_SSCC_USAGE_TO", typeof(System.DateTime));
-    
-            var cI_DATETIME_FROMParameter = cI_DATETIME_FROM.HasValue ?
-                new ObjectParameter("CI_DATETIME_FROM", cI_DATETIME_FROM) :
-                new ObjectParameter("CI_DATETIME_FROM", typeof(System.DateTime));
-    
-            var cI_DATETIME_TOParameter = cI_DATETIME_TO.HasValue ?
-                new ObjectParameter("CI_DATETIME_TO", cI_DATETIME_TO) :
-                new ObjectParameter("CI_DATETIME_TO", typeof(System.DateTime));
-    
-            var vALIDATION_DEADLINE_OPENParameter = vALIDATION_DEADLINE_OPEN.HasValue ?
-                new ObjectParameter("VALIDATION_DEADLINE_OPEN", vALIDATION_DEADLINE_OPEN) :
-                new ObjectParameter("VALIDATION_DEADLINE_OPEN", typeof(bool));
-    
-            var vALIDATION_DEADLINE_EXCEEDEDParameter = vALIDATION_DEADLINE_EXCEEDED.HasValue ?
-                new ObjectParameter("VALIDATION_DEADLINE_EXCEEDED", vALIDATION_DEADLINE_EXCEEDED) :
-                new ObjectParameter("VALIDATION_DEADLINE_EXCEEDED", typeof(bool));
-    
-            var vALIDATION_DEADLINE_PASSEDParameter = vALIDATION_DEADLINE_PASSED.HasValue ?
-                new ObjectParameter("VALIDATION_DEADLINE_PASSED", vALIDATION_DEADLINE_PASSED) :
-                new ObjectParameter("VALIDATION_DEADLINE_PASSED", typeof(bool));
-    
+        public virtual ObjectResult<Nullable<int>> API_INSERT_CHANGE(string sSCC, Nullable<decimal> oRDER_NUMBER, Nullable<decimal> nEW_ORDER_NUMBER, Nullable<decimal> oLD_ACTOR, Nullable<decimal> nEW_ACTOR, Nullable<int> lOAD_MESSAGE_STATUS_ID, Nullable<System.DateTime> uPDATE_DATE, string uPDATE_USER, string oLD_LOAD_UNIT_CONDITION_CODE, string nEW_LOAD_UNIT_CONDITION_CODE, Nullable<int> oLD_QTY_RTI, Nullable<decimal> eSOFT_PACKING_ID, Nullable<int> nEW_QTY_RTI, string dELETE_SSCC, string oLD_SSCC, string nEW_SSCC, Nullable<long> tRA_ITEM_IN_ID, string sLA_CODE, string tIME, string vALIDATION, string oLD_LOAD_UNIT_CONDITION_SUB_CODE, string nEW_LOAD_UNIT_CONDITION_SUB_CODE, string vOID_SSCC, string oLD_LOAD_CARRIER_EAN, string nEW_LOAD_CARRIER_EAN)
+        {
             var sSCCParameter = sSCC != null ?
                 new ObjectParameter("SSCC", sSCC) :
                 new ObjectParameter("SSCC", typeof(string));
@@ -372,36 +414,104 @@ namespace SRL.Data_Access.Entity
                 new ObjectParameter("ORDER_NUMBER", oRDER_NUMBER) :
                 new ObjectParameter("ORDER_NUMBER", typeof(decimal));
     
-            var cOUNTING_OKParameter = cOUNTING_OK.HasValue ?
-                new ObjectParameter("COUNTING_OK", cOUNTING_OK) :
-                new ObjectParameter("COUNTING_OK", typeof(bool));
+            var nEW_ORDER_NUMBERParameter = nEW_ORDER_NUMBER.HasValue ?
+                new ObjectParameter("NEW_ORDER_NUMBER", nEW_ORDER_NUMBER) :
+                new ObjectParameter("NEW_ORDER_NUMBER", typeof(decimal));
     
-            var cOUNTING_NOKParameter = cOUNTING_NOK.HasValue ?
-                new ObjectParameter("COUNTING_NOK", cOUNTING_NOK) :
-                new ObjectParameter("COUNTING_NOK", typeof(bool));
+            var oLD_ACTORParameter = oLD_ACTOR.HasValue ?
+                new ObjectParameter("OLD_ACTOR", oLD_ACTOR) :
+                new ObjectParameter("OLD_ACTOR", typeof(decimal));
     
-            var sLA_OKParameter = sLA_OK.HasValue ?
-                new ObjectParameter("SLA_OK", sLA_OK) :
-                new ObjectParameter("SLA_OK", typeof(bool));
+            var nEW_ACTORParameter = nEW_ACTOR.HasValue ?
+                new ObjectParameter("NEW_ACTOR", nEW_ACTOR) :
+                new ObjectParameter("NEW_ACTOR", typeof(decimal));
     
-            var sLA_NOKParameter = sLA_NOK.HasValue ?
-                new ObjectParameter("SLA_NOK", sLA_NOK) :
-                new ObjectParameter("SLA_NOK", typeof(bool));
+            var lOAD_MESSAGE_STATUS_IDParameter = lOAD_MESSAGE_STATUS_ID.HasValue ?
+                new ObjectParameter("LOAD_MESSAGE_STATUS_ID", lOAD_MESSAGE_STATUS_ID) :
+                new ObjectParameter("LOAD_MESSAGE_STATUS_ID", typeof(int));
     
-            var rETAILER_CHAIN_IDParameter = rETAILER_CHAIN_ID.HasValue ?
-                new ObjectParameter("RETAILER_CHAIN_ID", rETAILER_CHAIN_ID) :
-                new ObjectParameter("RETAILER_CHAIN_ID", typeof(int));
+            var uPDATE_DATEParameter = uPDATE_DATE.HasValue ?
+                new ObjectParameter("UPDATE_DATE", uPDATE_DATE) :
+                new ObjectParameter("UPDATE_DATE", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("API_SSCC_OVERVIEW", aCTOR_IDParameter, aCTOR_ORIGIN_IDParameter, sSCC_STATUS_NEWParameter, sSCC_STATUS_PROCESSEDParameter, sSCC_STATUS_VALIDATEDParameter, fIRST_SSCC_USAGE_FROMParameter, fIRST_SSCC_USAGE_TOParameter, cI_DATETIME_FROMParameter, cI_DATETIME_TOParameter, vALIDATION_DEADLINE_OPENParameter, vALIDATION_DEADLINE_EXCEEDEDParameter, vALIDATION_DEADLINE_PASSEDParameter, sSCCParameter, oRDER_NUMBERParameter, cOUNTING_OKParameter, cOUNTING_NOKParameter, sLA_OKParameter, sLA_NOKParameter, rETAILER_CHAIN_IDParameter);
+            var uPDATE_USERParameter = uPDATE_USER != null ?
+                new ObjectParameter("UPDATE_USER", uPDATE_USER) :
+                new ObjectParameter("UPDATE_USER", typeof(string));
+    
+            var oLD_LOAD_UNIT_CONDITION_CODEParameter = oLD_LOAD_UNIT_CONDITION_CODE != null ?
+                new ObjectParameter("OLD_LOAD_UNIT_CONDITION_CODE", oLD_LOAD_UNIT_CONDITION_CODE) :
+                new ObjectParameter("OLD_LOAD_UNIT_CONDITION_CODE", typeof(string));
+    
+            var nEW_LOAD_UNIT_CONDITION_CODEParameter = nEW_LOAD_UNIT_CONDITION_CODE != null ?
+                new ObjectParameter("NEW_LOAD_UNIT_CONDITION_CODE", nEW_LOAD_UNIT_CONDITION_CODE) :
+                new ObjectParameter("NEW_LOAD_UNIT_CONDITION_CODE", typeof(string));
+    
+            var oLD_QTY_RTIParameter = oLD_QTY_RTI.HasValue ?
+                new ObjectParameter("OLD_QTY_RTI", oLD_QTY_RTI) :
+                new ObjectParameter("OLD_QTY_RTI", typeof(int));
+    
+            var eSOFT_PACKING_IDParameter = eSOFT_PACKING_ID.HasValue ?
+                new ObjectParameter("ESOFT_PACKING_ID", eSOFT_PACKING_ID) :
+                new ObjectParameter("ESOFT_PACKING_ID", typeof(decimal));
+    
+            var nEW_QTY_RTIParameter = nEW_QTY_RTI.HasValue ?
+                new ObjectParameter("NEW_QTY_RTI", nEW_QTY_RTI) :
+                new ObjectParameter("NEW_QTY_RTI", typeof(int));
+    
+            var dELETE_SSCCParameter = dELETE_SSCC != null ?
+                new ObjectParameter("DELETE_SSCC", dELETE_SSCC) :
+                new ObjectParameter("DELETE_SSCC", typeof(string));
+    
+            var oLD_SSCCParameter = oLD_SSCC != null ?
+                new ObjectParameter("OLD_SSCC", oLD_SSCC) :
+                new ObjectParameter("OLD_SSCC", typeof(string));
+    
+            var nEW_SSCCParameter = nEW_SSCC != null ?
+                new ObjectParameter("NEW_SSCC", nEW_SSCC) :
+                new ObjectParameter("NEW_SSCC", typeof(string));
+    
+            var tRA_ITEM_IN_IDParameter = tRA_ITEM_IN_ID.HasValue ?
+                new ObjectParameter("TRA_ITEM_IN_ID", tRA_ITEM_IN_ID) :
+                new ObjectParameter("TRA_ITEM_IN_ID", typeof(long));
+    
+            var sLA_CODEParameter = sLA_CODE != null ?
+                new ObjectParameter("SLA_CODE", sLA_CODE) :
+                new ObjectParameter("SLA_CODE", typeof(string));
+    
+            var tIMEParameter = tIME != null ?
+                new ObjectParameter("TIME", tIME) :
+                new ObjectParameter("TIME", typeof(string));
+    
+            var vALIDATIONParameter = vALIDATION != null ?
+                new ObjectParameter("VALIDATION", vALIDATION) :
+                new ObjectParameter("VALIDATION", typeof(string));
+    
+            var oLD_LOAD_UNIT_CONDITION_SUB_CODEParameter = oLD_LOAD_UNIT_CONDITION_SUB_CODE != null ?
+                new ObjectParameter("OLD_LOAD_UNIT_CONDITION_SUB_CODE", oLD_LOAD_UNIT_CONDITION_SUB_CODE) :
+                new ObjectParameter("OLD_LOAD_UNIT_CONDITION_SUB_CODE", typeof(string));
+    
+            var nEW_LOAD_UNIT_CONDITION_SUB_CODEParameter = nEW_LOAD_UNIT_CONDITION_SUB_CODE != null ?
+                new ObjectParameter("NEW_LOAD_UNIT_CONDITION_SUB_CODE", nEW_LOAD_UNIT_CONDITION_SUB_CODE) :
+                new ObjectParameter("NEW_LOAD_UNIT_CONDITION_SUB_CODE", typeof(string));
+    
+            var vOID_SSCCParameter = vOID_SSCC != null ?
+                new ObjectParameter("VOID_SSCC", vOID_SSCC) :
+                new ObjectParameter("VOID_SSCC", typeof(string));
+    
+            var oLD_LOAD_CARRIER_EANParameter = oLD_LOAD_CARRIER_EAN != null ?
+                new ObjectParameter("OLD_LOAD_CARRIER_EAN", oLD_LOAD_CARRIER_EAN) :
+                new ObjectParameter("OLD_LOAD_CARRIER_EAN", typeof(string));
+    
+            var nEW_LOAD_CARRIER_EANParameter = nEW_LOAD_CARRIER_EAN != null ?
+                new ObjectParameter("NEW_LOAD_CARRIER_EAN", nEW_LOAD_CARRIER_EAN) :
+                new ObjectParameter("NEW_LOAD_CARRIER_EAN", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("API_INSERT_CHANGE", sSCCParameter, oRDER_NUMBERParameter, nEW_ORDER_NUMBERParameter, oLD_ACTORParameter, nEW_ACTORParameter, lOAD_MESSAGE_STATUS_IDParameter, uPDATE_DATEParameter, uPDATE_USERParameter, oLD_LOAD_UNIT_CONDITION_CODEParameter, nEW_LOAD_UNIT_CONDITION_CODEParameter, oLD_QTY_RTIParameter, eSOFT_PACKING_IDParameter, nEW_QTY_RTIParameter, dELETE_SSCCParameter, oLD_SSCCParameter, nEW_SSCCParameter, tRA_ITEM_IN_IDParameter, sLA_CODEParameter, tIMEParameter, vALIDATIONParameter, oLD_LOAD_UNIT_CONDITION_SUB_CODEParameter, nEW_LOAD_UNIT_CONDITION_SUB_CODEParameter, vOID_SSCCParameter, oLD_LOAD_CARRIER_EANParameter, nEW_LOAD_CARRIER_EANParameter);
         }
     
-        public virtual ObjectResult<API_SSCC_PALLET_COUNTING_Result> API_SSCC_PALLET_COUNTING(string sSCC)
+        public virtual ObjectResult<API_LIST_RETAILERS_Result> API_LIST_RETAILERS()
         {
-            var sSCCParameter = sSCC != null ?
-                new ObjectParameter("SSCC", sSCC) :
-                new ObjectParameter("SSCC", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SSCC_PALLET_COUNTING_Result>("API_SSCC_PALLET_COUNTING", sSCCParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_RETAILERS_Result>("API_LIST_RETAILERS");
         }
     }
 }

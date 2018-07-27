@@ -32,10 +32,47 @@ namespace SRL.Data_Access.Entity
         public virtual DbSet<Screens> Screens { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<Template> Templates { get; set; }
-        public virtual DbSet<UserActor> UserActors { get; set; }
-        public virtual DbSet<UserRetailerChain> UserRetailerChains { get; set; }
-        public virtual DbSet<UserTemplate> UserTemplates { get; set; }
+    
+        [DbFunction("SRLManagementEntities", "API_FN_SPLIT")]
+        public virtual IQueryable<API_FN_SPLIT_Result> API_FN_SPLIT(string tEXT, string dELIMITER)
+        {
+            var tEXTParameter = tEXT != null ?
+                new ObjectParameter("TEXT", tEXT) :
+                new ObjectParameter("TEXT", typeof(string));
+    
+            var dELIMITERParameter = dELIMITER != null ?
+                new ObjectParameter("DELIMITER", dELIMITER) :
+                new ObjectParameter("DELIMITER", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<API_FN_SPLIT_Result>("[SRLManagementEntities].[API_FN_SPLIT](@TEXT, @DELIMITER)", tEXTParameter, dELIMITERParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetScreensForUser_Result> sp_GetScreensForUser(string userEmail)
+        {
+            var userEmailParameter = userEmail != null ?
+                new ObjectParameter("UserEmail", userEmail) :
+                new ObjectParameter("UserEmail", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetScreensForUser_Result>("sp_GetScreensForUser", userEmailParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetUserRoles_Result> sp_GetUserRoles(string userEmail)
+        {
+            var userEmailParameter = userEmail != null ?
+                new ObjectParameter("UserEmail", userEmail) :
+                new ObjectParameter("UserEmail", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUserRoles_Result>("sp_GetUserRoles", userEmailParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetUserScreens_Result> sp_GetUserScreens(string userEmail)
+        {
+            var userEmailParameter = userEmail != null ?
+                new ObjectParameter("UserEmail", userEmail) :
+                new ObjectParameter("UserEmail", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUserScreens_Result>("sp_GetUserScreens", userEmailParameter);
+        }
     
         public virtual ObjectResult<GetAllUsers_Result> GetAllUsers(string viewingUserEmail, string firstName, string lastName, string email, Nullable<bool> isAssigned, Nullable<bool> isActive, Nullable<bool> hasTemplate, Nullable<bool> isAdmin, string retailerChainCode, Nullable<bool> isInternal)
         {
@@ -80,163 +117,6 @@ namespace SRL.Data_Access.Entity
                 new ObjectParameter("IsInternal", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllUsers_Result>("GetAllUsers", viewingUserEmailParameter, firstNameParameter, lastNameParameter, emailParameter, isAssignedParameter, isActiveParameter, hasTemplateParameter, isAdminParameter, retailerChainCodeParameter, isInternalParameter);
-        }
-    
-        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var versionParameter = version.HasValue ?
-                new ObjectParameter("version", version) :
-                new ObjectParameter("version", typeof(int));
-    
-            var definitionParameter = definition != null ?
-                new ObjectParameter("definition", definition) :
-                new ObjectParameter("definition", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
-        }
-    
-        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var versionParameter = version.HasValue ?
-                new ObjectParameter("version", version) :
-                new ObjectParameter("version", typeof(int));
-    
-            var definitionParameter = definition != null ?
-                new ObjectParameter("definition", definition) :
-                new ObjectParameter("definition", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
-        }
-    
-        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var new_diagramnameParameter = new_diagramname != null ?
-                new ObjectParameter("new_diagramname", new_diagramname) :
-                new ObjectParameter("new_diagramname", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
-        }
-    
-        public virtual int sp_upgraddiagrams()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
-        }
-    
-        public virtual int sp_GetUserProfile(string userEmail)
-        {
-            var userEmailParameter = userEmail != null ?
-                new ObjectParameter("UserEmail", userEmail) :
-                new ObjectParameter("UserEmail", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_GetUserProfile", userEmailParameter);
-        }
-    
-        public virtual ObjectResult<sp_GetUserRoles_Result> sp_GetUserRoles(string userEmail)
-        {
-            var userEmailParameter = userEmail != null ?
-                new ObjectParameter("UserEmail", userEmail) :
-                new ObjectParameter("UserEmail", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUserRoles_Result>("sp_GetUserRoles", userEmailParameter);
-        }
-    
-        public virtual ObjectResult<sp_GetUserScreens_Result> sp_GetUserScreens(string userEmail)
-        {
-            var userEmailParameter = userEmail != null ?
-                new ObjectParameter("UserEmail", userEmail) :
-                new ObjectParameter("UserEmail", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUserScreens_Result>("sp_GetUserScreens", userEmailParameter);
-        }
-    
-        public virtual ObjectResult<sp_GetUserScreens1_Result> sp_GetUserScreens1(string userEmail)
-        {
-            var userEmailParameter = userEmail != null ?
-                new ObjectParameter("UserEmail", userEmail) :
-                new ObjectParameter("UserEmail", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUserScreens1_Result>("sp_GetUserScreens1", userEmailParameter);
-        }
-    
-        public virtual ObjectResult<sp_GetUserScreens2_Result> sp_GetUserScreens2(string userEmail)
-        {
-            var userEmailParameter = userEmail != null ?
-                new ObjectParameter("UserEmail", userEmail) :
-                new ObjectParameter("UserEmail", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUserScreens2_Result>("sp_GetUserScreens2", userEmailParameter);
-        }
-    
-        public virtual ObjectResult<sp_GetScreensForUser_Result> sp_GetScreensForUser(string userEmail)
-        {
-            var userEmailParameter = userEmail != null ?
-                new ObjectParameter("UserEmail", userEmail) :
-                new ObjectParameter("UserEmail", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetScreensForUser_Result>("sp_GetScreensForUser", userEmailParameter);
         }
     }
 }

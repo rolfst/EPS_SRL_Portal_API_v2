@@ -11,15 +11,13 @@ namespace SRL.Data_Access.Entity
 {
     using System;
     
-    public partial class sp_GetUserScreens_Result
+    public partial class API_LCP_ORDER_DETAILS_Result
     {
-        public int UserId { get; set; }
-        public int RoleId { get; set; }
-        public int ScreenId { get; set; }
-        public string ScreenName { get; set; }
-        public string RouterLink { get; set; }
-        public int Level { get; set; }
-        public Nullable<int> ParentScreenId { get; set; }
-        public bool IsMenuItem { get; set; }
+        public string SSCC { get; set; }
+        public string ORDER_NUMBER { get; set; }
+        public string PHYSICAL_FROM { get; set; }
+        public string PHYSICAL_TO { get; set; }
+        public string TRANSPORTED_BY { get; set; }
+        public Nullable<System.DateTime> VALIDATION_DEADLINE { get; set; }
     }
 }
