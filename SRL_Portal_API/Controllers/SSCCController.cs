@@ -27,7 +27,7 @@ namespace SRL_Portal_API.Controllers
         /// Get the list of SSCC's, based on the given parameters
         /// </summary>
         /// <returns></returns>
-        [CustomAuthorizationFilter(Roles = UserRoles.Customer + "," + UserRoles.CustomerServiceAgent)]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer })]
         [HttpPost]
         public IList<SSCCListModel> Index(
             [FromBody] SSCCListRequest request
@@ -85,7 +85,7 @@ namespace SRL_Portal_API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
-        [CustomAuthorizationFilter(Roles = UserRoles.Customer + "," + UserRoles.CustomerServiceAgent)]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer })]
         public SSCCDetailsModel GetSsccDetails(string id)
         {
             if (id == null)
@@ -103,7 +103,7 @@ namespace SRL_Portal_API.Controllers
         }
 
         [HttpGet]
-        [CustomAuthorizationFilter(Roles = UserRoles.Customer + "," + UserRoles.CustomerServiceAgent)]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer })]
         public IList<string> GetSsccNumbers(int retailerChainId = -1)
         {
             var request = new SSCCListRequest
