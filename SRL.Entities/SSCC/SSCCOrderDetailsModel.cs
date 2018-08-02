@@ -12,6 +12,6 @@ namespace SRL.Models.SSCC
         public string PhysicalTo { get; set; }
         public string TransportedBy { get; set; }
         public int AnomaliesCount { get; set; }
-        public Nullable<System.DateTime> ValidationDeadline { get; set; }
+        public double ValidationDeadline { get; set; }
     }
 }

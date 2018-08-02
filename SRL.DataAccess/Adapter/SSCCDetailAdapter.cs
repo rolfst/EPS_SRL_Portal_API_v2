@@ -17,6 +17,8 @@ namespace SRL.Data_Access.Adapter
             IEnumerable<API_LCP_IMAGES_Result> imagesResult,
             IEnumerable<API_LCP_DEVIATIONS_Result> deviationsResult)
         {
+            var now = DateTime.Now;
+
             // Create new SSCCDetailsViewModel
             SSCCDetailsModel sdModel = new SSCCDetailsModel();
 
@@ -29,7 +31,10 @@ namespace SRL.Data_Access.Adapter
             odm.PhysicalTo = orderDetailResult.PHYSICAL_TO;
             odm.TransportedBy = orderDetailResult.TRANSPORTED_BY;
             odm.AnomaliesCount = deviationsResult.Count();
-            odm.ValidationDeadline = orderDetailResult.VALIDATION_DEADLINE;
+            if (orderDetailResult.VALIDATION_DEADLINE.HasValue)
+            {
+                odm.ValidationDeadline = Math.Round((orderDetailResult.VALIDATION_DEADLINE.Value - now).TotalHours, 0);
+            }
             sdModel.OrderDetails = odm;
             #endregion
 
