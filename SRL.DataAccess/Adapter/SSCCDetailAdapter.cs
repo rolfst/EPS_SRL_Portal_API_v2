@@ -115,6 +115,7 @@ namespace SRL.Data_Access.Adapter
                         pcm.Actor = t.ACTOR_ORIGIN;
                     }
                     pcm.CountingResult = pcm.HContainerCount + pcm.MContainerCount + pcm.LContainerCount + pcm.UnsortedCount;
+                    pcm.Esoft_Packing_Id = t.ESOFT_PACKING_ID;
                     counter++;
                 }
                 pcList.Add(pcm);
