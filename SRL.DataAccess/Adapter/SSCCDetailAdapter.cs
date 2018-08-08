@@ -10,6 +10,9 @@ namespace SRL.Data_Access.Adapter
 {
     public static class SSCCDetailAdapter
     {
+        private const string CUSTOMERCOUNTING = "Customer Counting";
+        private const string CICOUNTING = "C&I Counting";
+        private const string REALLOCATIONCOUNTING = "Reallocation";
         public static SSCCDetailsModel ConvertSSCCDetails(
             API_LCP_ORDER_DETAILS_Result orderDetailResult,
             IEnumerable<API_LCP_TRANSACTIONS_Result> transactionsResult,
@@ -60,67 +63,115 @@ namespace SRL.Data_Access.Adapter
             // The queryresult returns duplicate information on records with different RTI_NAMES per COUNTING_TYPE
             List<SSCCPalletCountingModel> pcList = new List<SSCCPalletCountingModel>();
 
-            //Get a list of the different COUNTING_TYPES and loop through them
-            List<string> types = countingResult.Select(o => o.COUNTING_TYPE).Distinct().ToList();
-            foreach (string type in types)
+            //Get a list of containers used and loop through them
+            List<string> containers = countingResult.Select(o => o.RTI_NAME).Distinct().ToList();
+
+            foreach (string container in containers)
             {
-                int counter = 1;
-                SSCCPalletCountingModel pcm = new SSCCPalletCountingModel();
-
-                // Select the rows from the queryresult on COUNTING_TYPE
-                List<API_LCP_COUNTING_Result> tList = countingResult.Where(o => o.COUNTING_TYPE == type).ToList();
-                foreach (var t in tList)
+                List<API_LCP_COUNTING_Result> tList = countingResult.Where(o => o.RTI_NAME == container).ToList();
+                API_LCP_COUNTING_Result item = tList.First();
+                SSCCPalletCountingModel pcm = new SSCCPalletCountingModel()
                 {
-                    switch (t.RTI_NAME)
+                    ContainerName = item.RTI_NAME,
+                    Esoft_Packing_Id = item.ESOFT_PACKING_ID ?? 0,
+                    LoadCarrierName = item.LOAD_CARRIER_NAME,
+                    ReturnedValue = item.RETURNED_VALUE,
+                    Actor = item.ACTOR_ORIGIN,
+                    ExpectedValueMinMax = item.EXPECTED_VALUE_MIN == item.EXPECTED_VALUE_MAX ? item.EXPECTED_VALUE_MIN.Value.ToString() : item.EXPECTED_VALUE_MIN + " - " + item.EXPECTED_VALUE_MAX,
+                    Unit = item.UNIT,
+                    Deviation = item.RETURNED_VALUE <= item.EXPECTED_VALUE_MIN ? item.RETURNED_VALUE - item.EXPECTED_VALUE_MIN :
+                    item.RETURNED_VALUE >= item.EXPECTED_VALUE_MAX ? item.RETURNED_VALUE - item.EXPECTED_VALUE_MAX : 0,
+                };
+
+                foreach (var qtyItem in tList)
+                {
+                    switch (qtyItem.COUNTING_TYPE)
                     {
-                        case "H-Container":
-                            pcm.HContainerCount = t.QTY_RTI;
+                        case CUSTOMERCOUNTING:
+                            pcm.CustomerCountingQty = qtyItem.QTY_RTI;
                             break;
-                        case "M-Container":
-                            pcm.MContainerCount = t.QTY_RTI;
+                        case CICOUNTING:
+                            pcm.CICountingQty = qtyItem.QTY_RTI;
                             break;
-                        case "L-Container":
-                            pcm.LContainerCount = t.QTY_RTI;
-                            break;
-                        default:
-                            pcm.UnsortedCount = t.QTY_RTI;
+                        case REALLOCATIONCOUNTING:
+                            pcm.ReallocationQty = qtyItem.QTY_RTI;
                             break;
                     }
 
-                    // Avoid the duplicate information in the query result
-                    if (counter == 1)
-                    {
-                        pcm.CountingType = type;
-                        pcm.LoadCarrierName = t.LOAD_CARRIER_NAME;
-                        pcm.ReturnedValue = t.RETURNED_VALUE;
-                        //pcm.ExpectedValueMin = t.EXPECTED_VALUE_MIN;
-                        //pcm.ExpectedValueMax = t.EXPECTED_VALUE_MAX;
-                        if (t.EXPECTED_VALUE_MIN == t.EXPECTED_VALUE_MAX)
-                            pcm.ExpectedValueMinMax = t.EXPECTED_VALUE_MIN.Value.ToString();
-                        else
-                            pcm.ExpectedValueMinMax = t.EXPECTED_VALUE_MIN + " - " + t.EXPECTED_VALUE_MAX;
-                        pcm.Unit = t.UNIT;
-                        if (pcm.ReturnedValue <= t.EXPECTED_VALUE_MIN)
-                        {
-                            pcm.Deviation = pcm.ReturnedValue - t.EXPECTED_VALUE_MIN;
-                        }
-                        else if (pcm.ReturnedValue >= t.EXPECTED_VALUE_MAX)
-                        {
-                            pcm.Deviation = pcm.ReturnedValue - t.EXPECTED_VALUE_MAX;
-                        }
-                        else
-                        {
-                            pcm.Deviation = 0;
-                        }
-                        pcm.Actor = t.ACTOR_ORIGIN;
-                    }
-                    pcm.CountingResult = pcm.HContainerCount + pcm.MContainerCount + pcm.LContainerCount + pcm.UnsortedCount;
-                    pcm.Esoft_Packing_Id = t.ESOFT_PACKING_ID;
-                    counter++;
                 }
+
                 pcList.Add(pcm);
             }
             sdModel.PalletCountingList = pcList;
+
+            //To get the total quantity counts
+            sdModel.TotalCustomerCounting = sdModel.PalletCountingList.Select(p => p.CustomerCountingQty).Sum();
+            sdModel.TotalCICounting = sdModel.PalletCountingList.Select(p => p.CICountingQty).Sum();
+            sdModel.TotalReallocationCounting = sdModel.PalletCountingList.Select(p => p.ReallocationQty).Sum();
+
+            #region oldCode
+            ////Get a list of the different COUNTING_TYPES and loop through them
+            //List<string> types = countingResult.Select(o => o.COUNTING_TYPE).Distinct().ToList();
+            //    foreach (string type in types)
+            //    {
+            //        int counter = 1;
+            //SSCCPalletCountingModel pcm = new SSCCPalletCountingModel();
+
+            //// Select the rows from the queryresult on COUNTING_TYPE
+            //List<API_LCP_COUNTING_Result> tList = countingResult.Where(o => o.COUNTING_TYPE == type).ToList();
+            //        foreach (var t in tList)
+            //        {
+            //            switch (t.RTI_NAME)
+            //            {
+            //                case "H-Container":
+            //                    pcm.HContainerCount = t.QTY_RTI;
+            //                    break;
+            //                case "M-Container":
+            //                    pcm.MContainerCount = t.QTY_RTI;
+            //                    break;
+            //                case "L-Container":
+            //                    pcm.LContainerCount = t.QTY_RTI;
+            //                    break;
+            //                default:
+            //                    pcm.UnsortedCount = t.QTY_RTI;
+            //                    break;
+            //            }
+
+            //            // Avoid the duplicate information in the query result
+            //            if (counter == 1)
+            //            {
+            //                pcm.CountingType = type;
+            //                pcm.LoadCarrierName = t.LOAD_CARRIER_NAME;
+            //                pcm.ReturnedValue = t.RETURNED_VALUE;
+            //                //pcm.ExpectedValueMin = t.EXPECTED_VALUE_MIN;
+            //                //pcm.ExpectedValueMax = t.EXPECTED_VALUE_MAX;
+            //                if (t.EXPECTED_VALUE_MIN == t.EXPECTED_VALUE_MAX)
+            //                    pcm.ExpectedValueMinMax = t.EXPECTED_VALUE_MIN.Value.ToString();
+            //                else
+            //                    pcm.ExpectedValueMinMax = t.EXPECTED_VALUE_MIN + " - " + t.EXPECTED_VALUE_MAX;
+            //                pcm.Unit = t.UNIT;
+            //                if (pcm.ReturnedValue <= t.EXPECTED_VALUE_MIN)
+            //                {
+            //                    pcm.Deviation = pcm.ReturnedValue - t.EXPECTED_VALUE_MIN;
+            //                }
+            //                else if (pcm.ReturnedValue >= t.EXPECTED_VALUE_MAX)
+            //                {
+            //                    pcm.Deviation = pcm.ReturnedValue - t.EXPECTED_VALUE_MAX;
+            //                }
+            //                else
+            //                {
+            //                    pcm.Deviation = 0;
+            //                }
+            //                pcm.Actor = t.ACTOR_ORIGIN;
+            //            }
+            //            pcm.CountingResult = pcm.HContainerCount + pcm.MContainerCount + pcm.LContainerCount + pcm.UnsortedCount;
+            //            counter++;
+            //        }
+            //  pcList.Add(pcm);
+            //   }
+            //sdModel.PalletCountingList = pcList;
+            #endregion
+
             #endregion
 
             #region SSCC Images
