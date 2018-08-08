@@ -7,26 +7,16 @@ namespace SRL.Data_Access.Repository
 {
     class LoadCarrierRepository
     {
-        public List<LoadCarrier> GetCarriersList(LoadCarrier userFilter)
+        public IEnumerable<API_LIST_LOAD_CARRIER_Result> GetCarriersList()
         {
-            List<LoadCarrier> loadcarriers = new List<LoadCarrier>();
-            if (userFilter != null)
-            {
-                using (var ctx = new SRLManagementEntities())
+                using (var dbEntity = new BACKUP_SRL_20180613Entities())
                 {
-                    loadcarriers = (ctx.GetAllUsers(userFilter.ViewingUserEmail, 
-                                                    userFilter.FirstName, 
-                                                    userFilter.LastName, 
-                                                    userFilter.Email, 
-                                                    userFilter.IsAssigned, 
-                                                    userFilter.IsActive, 
-                                                    userFilter.HasTemplate, 
-                                                    userFilter.IsAdmin, 
-                                                    userFilter.RetailerChainCode, 
-                                                    userFilter.IsInternal ).ToList<Data_Access.Entity.GetAllUsers_Result>()).ToEntityUserList();
+                    dbEntity.Configuration.ProxyCreationEnabled = false;
+
+                    IEnumerable<API_LIST_LOAD_CARRIER_Result> result = dbEntity.API_LIST_LOAD_CARRIER();
+
+                    return result;
                 };
-            }
-            return loadcarriers;
         }
     }
 }

@@ -519,9 +519,6 @@ namespace SRL.Data_Access.Entity
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_LOAD_CARRIER_Result>("API_LIST_LOAD_CARRIER");
         }
     
-        public virtual ObjectResult<API_LIST_RTI_Result> API_LIST_RTI()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_RTI_Result>("API_LIST_RTI");
-        }
+       
     }
 }

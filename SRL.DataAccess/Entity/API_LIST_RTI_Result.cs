@@ -10,11 +10,17 @@
 namespace SRL.Data_Access.Entity
 {
     using System;
-    
-    public partial class API_LIST_RTI_Result
+    using System.Data.Entity.Core.Objects;
+
+    public partial class API_LIST_LOAD_CARRIER_Result
     {
         public int RTI_ID { get; set; }
         public decimal RTI_CODE { get; set; }
         public string RTI_NAME { get; set; }
+
+        public static explicit operator API_LIST_LOAD_CARRIER_Result(ObjectResult<API_LIST_LOAD_CARRIER_Result> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
