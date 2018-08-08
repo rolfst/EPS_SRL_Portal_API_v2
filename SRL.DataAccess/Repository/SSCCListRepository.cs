@@ -1,10 +1,7 @@
 using SRL.Data_Access.Entity;
 using SRL.Models.SSCC;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SRL.Data_Access.Repository
 {
@@ -15,17 +12,31 @@ namespace SRL.Data_Access.Repository
             using (var dbEntity = new BACKUP_SRL_20180613Entities())
             {
                 dbEntity.Configuration.ProxyCreationEnabled = false;
-                List< API_SSCC_OVERVIEW_Result> result = dbEntity.API_SSCC_OVERVIEW(request.ActorID, request.ActorOriginId,
-                request.SsccStatusNew, request.SsccStatusProcessed, request.SsccStatusValidated, request.SsccDateFrom, request.SsccDateTo,
-                request.CiDateFrom, request.CiDateTo, request.ValidationOpen, request.ValidationExceeded, request.ValidationPassed, 
-                request.SsccNr, request.OrderNr, request.CountingOK, request.CountingNOK, request.SlaOK, request.SlaNOK,
-                request.RetailerChainId)
-                .Take(1000)
-                .ToList<API_SSCC_OVERVIEW_Result>();
+                List< API_SSCC_OVERVIEW_Result> result = dbEntity.API_SSCC_OVERVIEW(
+                    request.ActorID, 
+                    request.ActorOriginId,
+                    request.SsccStatusNew, 
+                    request.SsccStatusProcessed, 
+                    request.SsccStatusValidated, 
+                    request.SsccDateFrom, 
+                    request.SsccDateTo,
+                    request.CiDateFrom, 
+                    request.CiDateTo, 
+                    request.ValidationOpen,
+                    request.ValidationExceeded, 
+                    request.ValidationPassed, 
+                    request.SsccNr, 
+                    request.OrderNr, 
+                    request.CountingOK, 
+                    request.CountingNOK, 
+                    request.SlaOK, 
+                    request.SlaNOK,
+                    request.RetailerChainId )
+                    .Take(1000)
+                    .ToList<API_SSCC_OVERVIEW_Result>();
 
                 return result;
-            }
-                
+            }    
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SRL.Models
+﻿namespace SRL.Models
 {
     public class Actor
     {

@@ -77,6 +77,7 @@ namespace SRL.Data_Access.Adapter
             {
                 screens.ForEach(screen => screenList.Add(screen.ToEntityScreen()));
             }
+
             //to get the sub menus
             if(screenList.Count > 0)
             {
@@ -85,7 +86,7 @@ namespace SRL.Data_Access.Adapter
                 {
                     if(item.Level> 0 && item.ParentScreenId > 0)
                     {
-                        //to add the element as child
+                     //to add the element as child
                      var parent = screenList.Find(s => s.ScreenId == item.ParentScreenId);
 
                         if (parent != null)
@@ -97,7 +98,6 @@ namespace SRL.Data_Access.Adapter
                             itemsToBeRemovedFromMain.Add(item);
                         }
                     }
-
                 }
 
                 if(itemsToBeRemovedFromMain.Count > 0)

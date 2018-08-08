@@ -1,14 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using SRL.Models;
 using SRL.Data_Access.Entity;
 using SRL.Data_Access.Adapter;
-using System.Runtime.Serialization.Json;
-using System.Data.Entity.Core.Objects;
 
 namespace SRL.Data_Access
 {
@@ -22,12 +16,22 @@ namespace SRL.Data_Access
             {
                 using (var ctx = new SRLManagementEntities())
                 {
-                    users = (ctx.GetAllUsers(userFilter.ViewingUserEmail,userFilter.FirstName,userFilter.LastName,userFilter.Email,userFilter.IsAssigned, userFilter.IsActive,userFilter.HasTemplate
-                        , userFilter.IsAdmin,userFilter.RetailerChainCode,userFilter.IsInternal).ToList<Data_Access.Entity.GetAllUsers_Result>()).ToEntityUserList();
+                    users = (ctx.GetAllUsers(
+                        userFilter.ViewingUserEmail,
+                        userFilter.FirstName,
+                        userFilter.LastName,
+                        userFilter.Email,
+                        userFilter.IsAssigned, 
+                        userFilter.IsActive,
+                        userFilter.HasTemplate, 
+                        userFilter.IsAdmin,
+                        userFilter.RetailerChainCode,
+                        userFilter.IsInternal)
+                        .ToList<Data_Access.Entity.GetAllUsers_Result>())
+                        .ToEntityUserList();
                 };
             }
-                return users;
-            
+            return users;
         }
 
         public UserProfile GetUserProfile(string userEmail)
@@ -39,9 +43,7 @@ namespace SRL.Data_Access
                 using (var ctx = new SRLManagementEntities())
                 {
                   //  userProfile.UserDetail= ctx.sp_GetUserProfile(userEmail);                 
-
                 }
-
             }
             return userProfile;
 

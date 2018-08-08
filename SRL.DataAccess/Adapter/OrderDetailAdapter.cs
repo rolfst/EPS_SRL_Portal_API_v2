@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using SRL.Data_Access.Entity;
+﻿using SRL.Data_Access.Entity;
 using SRL.Models.Enums;
 using SRL.Models.Order;
 
@@ -16,6 +14,7 @@ namespace SRL.Data_Access.Adapter
             {
                 return new OrderDetail();
             }
+
             return new OrderDetail
             {
                 OrderNumber = orderDetail.ORD_ORDER_NUMBER,
@@ -38,8 +37,6 @@ namespace SRL.Data_Access.Adapter
                 OpenSSCCs = orderDetail.NUMBER_SSCC_ON_ORDER_OPEN ?? 0,
                 ApprovedSSCCs = orderDetail.NUMBER_SSCC_ON_ORDER_VALIDATED ?? 0,
                 ToApprovedPercentage = orderDetail.OUTBOUND_SSCC_ON_ORDER.HasValue?(orderDetail.NUMBER_SSCC_ON_ORDER_OPEN ?? 0 / orderDetail.OUTBOUND_SSCC_ON_ORDER.Value) * 100: 0
-
-               
             };
         }
     }
