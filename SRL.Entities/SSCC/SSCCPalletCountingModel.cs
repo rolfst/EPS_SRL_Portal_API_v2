@@ -21,5 +21,9 @@ namespace SRL.Models.SSCC
         public Nullable<decimal> Deviation { get; set; }
         public string Actor { get; set; }
         public decimal Esoft_Packing_Id { get; set; }
+        public string ContainerName { get; set; }
+        public int CustomerCountingQty { get; set; }
+        public int CICountingQty { get; set; }
+        public int ReallocationQty { get; set; }
     }
 }

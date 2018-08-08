@@ -85,7 +85,7 @@ namespace SRL_Portal_API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
-        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer })]
+      //  [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer })]
         public SSCCDetailsModel GetSsccDetails(string id)
         {
             if (id == null)
