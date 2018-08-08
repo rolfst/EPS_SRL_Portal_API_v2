@@ -73,7 +73,7 @@ namespace SRL.Data_Access.Adapter
                 SSCCPalletCountingModel pcm = new SSCCPalletCountingModel()
                 {
                     ContainerName = item.RTI_NAME,
-                    Esoft_Packing_Id = item.ESOFT_PACKING_ID ?? 0,
+                    Esoft_Packing_Id = item.ESOFT_PACKING_ID,
                     LoadCarrierName = item.LOAD_CARRIER_NAME,
                     ReturnedValue = item.RETURNED_VALUE,
                     Actor = item.ACTOR_ORIGIN,
