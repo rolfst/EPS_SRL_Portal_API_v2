@@ -58,6 +58,7 @@
     <Compile Include="Adapter\SSCCDetailAdapter.cs" />
     <Compile Include="Adapter\SSCCListAdapter.cs" />
     <Compile Include="Adapter\UserAdapter.cs" />
+    <Compile Include="Common\SSCCEditIntermediate.cs" />
     <Compile Include="Entity\ACTION.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
@@ -313,6 +314,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SRL.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Entity\SRLEdit.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SRLEdit.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SRLEdit.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SRLEdit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SRLEdit.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SRLEdit.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Entity\SSCC.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
@@ -565,6 +581,13 @@
     <None Include="Entity\SRL.edmx.diagram">
       <DependentUpon>SRL.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="Entity\SRLEdit.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SRLEdit.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Entity\SRLEdit.edmx.diagram">
+      <DependentUpon>SRLEdit.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Entity\SRLUser.edmx.diagram">
       <DependentUpon>SRLUser.edmx</DependentUpon>
@@ -580,6 +603,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SRL.edmx</DependentUpon>
       <LastGenOutput>SRL.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entity\SRLEdit.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SRLEdit.edmx</DependentUpon>
+      <LastGenOutput>SRLEdit.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entity\SRLEdit.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SRLEdit.edmx</DependentUpon>
+      <LastGenOutput>SRLEdit.cs</LastGenOutput>
     </Content>
     <Content Include="Entity\SRLUser.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
