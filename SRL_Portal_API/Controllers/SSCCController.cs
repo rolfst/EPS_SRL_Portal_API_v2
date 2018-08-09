@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web.Http;
 using SRL.Models.Constants;
 using SRL_Portal_API.Common;
+using SRL.Data_Access.Common;
 
 namespace SRL_Portal_API.Controllers
 {
@@ -21,6 +22,8 @@ namespace SRL_Portal_API.Controllers
         private readonly SSCCPalletCountingRepository _ssccPalletCountingRepository = new SSCCPalletCountingRepository();
         private readonly SSCCImagesRepository _ssccImagesRepository = new SSCCImagesRepository();
         private readonly SSCCDeviationDetailsRepository _ssccDeviationDetailsRepository = new SSCCDeviationDetailsRepository();
+
+        private const string YES = "YES";
 
         // Parameters default values for dev purposes
         /// <summary>
@@ -123,5 +126,67 @@ namespace SRL_Portal_API.Controllers
 
             return _ssccListRepository.GetSSCCList(request).Select(x => x.SSCC).Distinct().ToList();
         }
+
+        [HttpPost]
+        [Route("SaveSSCC")]
+        public string SaveSSCCDetail([FromBody] SSCCEditRequest request)
+        {
+            return SaveSSCCData(request);
+        }
+
+        [HttpPost]
+        [Route("ValidateSSCC")]
+        public string ValidateSSCC([FromBody] SSCCEditRequest request)
+        {
+            return ValidateSSCCData(request);
+        }
+
+        [HttpPost]
+        [Route("SaveValidateSSCC")]
+        public string SaveValidateSSCC([FromBody] SSCCEditRequest request)
+        {
+            string response = string.Empty;
+            response = SaveSSCCData(request);
+            if (string.IsNullOrEmpty(response))
+                response = ValidateSSCCData(request);
+            return response;
+        }
+
+        private string SaveSSCCData(SSCCEditRequest request)
+        {
+            if (request == null || string.IsNullOrEmpty(request.SSCC))
+                return "SSCC not provided";
+            else
+            {
+                SSCCOrderDetailsRepository repository = new SSCCOrderDetailsRepository();
+                request.UpdateDate = DateTime.Now;
+                request.UpdateUser = string.IsNullOrEmpty(request.UpdateUser) ? RequestContext.Principal.Identity.Name : request.UpdateUser;
+                request.Time = DateTime.Now.ToString("HH:mm:ss");
+                request.LoadMessageStatusId = 0;
+                return repository.EditSSCC(request);
+            }
+        }
+
+        private string ValidateSSCCData(SSCCEditRequest request)
+        {
+            int result = 0;
+            if (request != null && !string.IsNullOrEmpty(request.SSCC))
+            {
+                SSCCEditIntermediate validateSSCC = new SSCCEditIntermediate()
+                {
+                    SSCC = request.SSCC,
+                    UpdateDate = DateTime.Now,
+                    UpdateUser = string.IsNullOrEmpty(request.UpdateUser) ? RequestContext.Principal.Identity.Name : request.UpdateUser,
+                    Time = DateTime.Now.ToString("HH:mm:ss"),
+                    LoadMessageStatusId = 0,
+                    Validation = YES
+                };
+                SSCCOrderDetailsRepository repository = new SSCCOrderDetailsRepository();
+                result = repository.SaveSSCC(validateSSCC);
+            }
+            return result == 1 ? "Validated" : "Error occured in Validation";
+        }
+
+
     }
 }
