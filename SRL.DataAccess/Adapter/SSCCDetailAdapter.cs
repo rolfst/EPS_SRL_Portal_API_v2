@@ -75,6 +75,7 @@ namespace SRL.Data_Access.Adapter
                     ContainerName = item.RTI_NAME,
                     Esoft_Packing_Id = item.ESOFT_PACKING_ID?? 0,
                     LoadCarrierName = item.LOAD_CARRIER_NAME,
+                    LoadCarrierEAN = item.LOAD_CARRIER_EAN,
                     ReturnedValue = item.RETURNED_VALUE,
                     Actor = item.ACTOR_ORIGIN,
                     ExpectedValueMinMax = item.EXPECTED_VALUE_MIN == item.EXPECTED_VALUE_MAX ? item.EXPECTED_VALUE_MIN.Value.ToString() : item.EXPECTED_VALUE_MIN + " - " + item.EXPECTED_VALUE_MAX,
