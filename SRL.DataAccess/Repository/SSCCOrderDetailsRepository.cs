@@ -60,6 +60,19 @@ namespace SRL.Data_Access.Repository
                 requestObj.OldSSCC = null;
             }
 
+            //To save Actor Origin
+            if(request.NewActor.HasValue)
+            {
+                requestObj.NewActor = request.NewActor;
+                requestObj.OldActor = request.OldActor;
+                if (SaveSSCC(requestObj) == 0)
+                {
+                    message.Append("Insert failed for the new actor origin");
+                }
+                requestObj.NewActor = null;
+                requestObj.OldActor = null;
+            }
+
             //To save Order number
             if (request.NewOrderNumber.HasValue)
             {
