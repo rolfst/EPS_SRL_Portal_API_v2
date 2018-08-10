@@ -23,5 +23,7 @@ namespace SRL.Data_Access.Entity
         public Nullable<decimal> EXPECTED_VALUE_MIN { get; set; }
         public Nullable<decimal> EXPECTED_VALUE_MAX { get; set; }
         public string ACTOR_ORIGIN { get; set; }
+        public Nullable<decimal> ESOFT_PACKING_ID { get; set; }
+        public Nullable<decimal> LOAD_CARRIER_EAN { get; set; }
     }
 }
