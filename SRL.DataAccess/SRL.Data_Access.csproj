@@ -565,6 +565,7 @@
     <Compile Include="Repository\LoadCarrierRepository.cs" />
     <Compile Include="Repository\OrderDetailRepository.cs" />
     <Compile Include="Repository\OrderListRepository.cs" />
+    <Compile Include="Repository\RtiRepository.cs" />
     <Compile Include="Repository\SSCCDeviationDetailsRepository.cs" />
     <Compile Include="Repository\SSCCImagesRepository.cs" />
     <Compile Include="Repository\SSCCListRepository.cs" />
