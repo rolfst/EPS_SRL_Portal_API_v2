@@ -8980,6 +8980,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="String" Name="ACTOR_ORIGIN" Nullable="true" MaxLength="400" />
           <Property Type="Decimal" Name="ESOFT_PACKING_ID" Nullable="true" Precision="10" Scale="0" />
           <Property Type="Decimal" Name="LOAD_CARRIER_EAN" Nullable="true" Precision="13" Scale="0" />
+          <Property Type="Int32" Name="ACTOR_ID" Nullable="false" />
         </ComplexType>
         <ComplexType Name="API_LCP_DEVIATIONS_Result">
           <Property Type="String" Name="SSCC" Nullable="false" MaxLength="20" />
@@ -11888,6 +11889,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
                 <ScalarProperty Name="ACTOR_ORIGIN" ColumnName="ACTOR_ORIGIN" />
                 <ScalarProperty Name="ESOFT_PACKING_ID" ColumnName="ESOFT_PACKING_ID" />
                 <ScalarProperty Name="LOAD_CARRIER_EAN" ColumnName="LOAD_CARRIER_EAN" />
+                <ScalarProperty Name="ACTOR_ID" ColumnName="ACTOR_ID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
