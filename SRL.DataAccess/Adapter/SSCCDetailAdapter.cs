@@ -77,6 +77,7 @@ namespace SRL.Data_Access.Adapter
                     LoadCarrierEAN = item.LOAD_CARRIER_EAN,
                     ReturnedValue = item.RETURNED_VALUE,
                     Actor = item.ACTOR_ORIGIN,
+                    ActorId = item.ACTOR_ID,
                     ExpectedValueMinMax = item.EXPECTED_VALUE_MIN == item.EXPECTED_VALUE_MAX ? item.EXPECTED_VALUE_MIN.Value.ToString() : item.EXPECTED_VALUE_MIN + " - " + item.EXPECTED_VALUE_MAX,
                     Unit = item.UNIT,
                     Deviation = item.RETURNED_VALUE <= item.EXPECTED_VALUE_MIN ? item.RETURNED_VALUE - item.EXPECTED_VALUE_MIN :

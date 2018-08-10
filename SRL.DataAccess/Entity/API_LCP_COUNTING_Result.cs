@@ -25,5 +25,6 @@ namespace SRL.Data_Access.Entity
         public string ACTOR_ORIGIN { get; set; }
         public Nullable<decimal> ESOFT_PACKING_ID { get; set; }
         public Nullable<decimal> LOAD_CARRIER_EAN { get; set; }
+        public int ACTOR_ID { get; set; }
     }
 }
