@@ -3,8 +3,6 @@ using SRL.Models.SSCC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SRL.Data_Access.Adapter
 {
@@ -22,6 +20,7 @@ namespace SRL.Data_Access.Adapter
                 slm.SSCC = item.SSCC;
                 slm.ActorFrom = GetActorName(item.ACTOR_ORIGIN_ID);
                 slm.ActorTo = item.ACTOR_ID.HasValue ? GetActorName(item.ACTOR_ID.Value) : "";
+
                 switch (item.SSCC_STATUS)
                 {
                     case 1:
@@ -37,10 +36,12 @@ namespace SRL.Data_Access.Adapter
                         slm.SsccStatus = "New";
                         break;
                 }
+
                 if (item.VALIDATION_DEADLINE.HasValue)
                 {
                     slm.ValidationDeadline = Math.Round((item.VALIDATION_DEADLINE.Value - now).TotalHours, 0);
                 }
+
                 slm.SlaOK = item.SLA_VALUE == item.SLA_MIN_VALUE;
                 slm.CountingOK = item.SHOP_COUNT == item.CI_COUNT;
                 slm.CIDate = item.CI_DATETIME;

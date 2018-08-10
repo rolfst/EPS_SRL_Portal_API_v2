@@ -269,8 +269,10 @@
     <Compile Include="Common\CustomAuthorizationFilterAttribute.cs" />
     <Compile Include="Common\HandleExceptionAttribute.cs" />
     <Compile Include="Common\RegexUtilities.cs" />
+    <Compile Include="Controllers\CarrierController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderDetailController.cs" />
+    <Compile Include="Controllers\RtiController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -337,6 +339,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Carrier\" />
+    <Folder Include="Views\Rti\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

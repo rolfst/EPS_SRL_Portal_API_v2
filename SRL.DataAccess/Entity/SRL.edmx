@@ -3512,7 +3512,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
         <Function Name="API_LIST_ACTORS_TRANSACTION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="API_LIST_LOAD_CARRIER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="API_LIST_RETAILERS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="API_LIST_RTI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="API_ORDER_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ORDER_ID" Type="int" Mode="In" />
           <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
@@ -8876,6 +8878,8 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             <Parameter Name="NEW_LOAD_CARRIER_EAN" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="API_LIST_RETAILERS" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_RETAILERS_Result)" />
+          <FunctionImport Name="API_LIST_LOAD_CARRIER" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_LOAD_CARRIER_Result)" />
+          <FunctionImport Name="API_LIST_RTI" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_RTI_Result)" />
         </EntityContainer>
         <ComplexType Name="GetOrderDetail_Result">
           <Property Type="String" Name="ORD_ORDER_NUMBER" Nullable="false" MaxLength="60" />
@@ -9012,6 +9016,15 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
         <ComplexType Name="API_LIST_RETAILERS_Result">
           <Property Type="Int32" Name="RETAILER_CHAIN_ID" Nullable="false" />
           <Property Type="String" Name="RETAILER_CHAIN" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="API_LIST_LOAD_CARRIER_Result">
+          <Property Type="Decimal" Name="RTI_EAN" Nullable="true" Precision="13" Scale="0" />
+          <Property Type="String" Name="LOAD_CARRIER_NAME" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="API_LIST_RTI_Result">
+          <Property Type="Int32" Name="RTI_ID" Nullable="false" />
+          <Property Type="Decimal" Name="RTI_CODE" Nullable="false" Precision="10" Scale="0" />
+          <Property Type="String" Name="RTI_NAME" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -11931,6 +11944,23 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
               <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_LIST_RETAILERS_Result">
                 <ScalarProperty Name="RETAILER_CHAIN_ID" ColumnName="RETAILER_CHAIN_ID" />
                 <ScalarProperty Name="RETAILER_CHAIN" ColumnName="RETAILER_CHAIN" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_LIST_LOAD_CARRIER" FunctionName="BACKUP_SRL_20180613Model.Store.API_LIST_LOAD_CARRIER">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_LIST_LOAD_CARRIER_Result">
+                <ScalarProperty Name="RTI_EAN" ColumnName="RTI_EAN" />
+                <ScalarProperty Name="LOAD_CARRIER_NAME" ColumnName="LOAD_CARRIER_NAME" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_LIST_RTI" FunctionName="BACKUP_SRL_20180613Model.Store.API_LIST_RTI">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_LIST_RTI_Result">
+                <ScalarProperty Name="RTI_ID" ColumnName="RTI_ID" />
+                <ScalarProperty Name="RTI_CODE" ColumnName="RTI_CODE" />
+                <ScalarProperty Name="RTI_NAME" ColumnName="RTI_NAME" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

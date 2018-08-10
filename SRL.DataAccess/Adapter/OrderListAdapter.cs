@@ -26,6 +26,7 @@ namespace SRL.Data_Access.Adapter
                     ActorFrom = item.FROM_NAME,
                     ActorTo = item.TO_NAME
                 };
+
                 switch (item.ORDER_STATUS)
                 {
                     case 1:
@@ -41,10 +42,12 @@ namespace SRL.Data_Access.Adapter
                         vm.OrderStatus = "New";
                         break;
                 }
+
                 if (item.VALIDATION_DEADLINE.HasValue)
                 {
                     vm.ValidationDeadline = Math.Round((item.VALIDATION_DEADLINE.Value - now).TotalHours, 0);
                 }
+
                 vm.CountingOK = item.SHOP_OK == 1;
                 vm.CIDate = item.CI_DATE;
                 vm.IsValidated = item.VALIDATED == 1;
