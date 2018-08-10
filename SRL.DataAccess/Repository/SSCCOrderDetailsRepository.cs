@@ -46,8 +46,34 @@ namespace SRL.Data_Access.Repository
                 LoadMessageStatusId = request.LoadMessageStatusId,
                 OrderNumber = request.OrderNumber
             };
+
+            //To save SSCC number
+            if(!string.IsNullOrEmpty(request.NewSSCC))
+            {
+                requestObj.NewSSCC = request.NewSSCC;
+                requestObj.OldSSCC = request.OldSSCC;
+                if (SaveSSCC(requestObj) == 0)
+                {
+                    message.Append(string.Format("Insert failed for new SSCC number {0}", requestObj.NewSSCC));
+                }
+                requestObj.NewSSCC = null;
+                requestObj.OldSSCC = null;
+            }
+
+            //To save Order number
+            if (request.NewOrderNumber.HasValue)
+            {
+                requestObj.NewOrderNumber = request.NewOrderNumber;
+                requestObj.OrderNumber = request.OrderNumber;
+                if (SaveSSCC(requestObj) == 0)
+                {
+                    message.Append(string.Format("Insert failed for new Order number {0}", requestObj.NewOrderNumber.Value));
+                }
+                requestObj.NewOrderNumber = null;
+            }
+
             ///To save ITR quantities
-            if (request.RTIQuantities.Any())
+            if (request.RTIQuantities!= null && request.RTIQuantities.Any())
             {
                 foreach (SSCCEditRTIQty item in request.RTIQuantities)
                 {
