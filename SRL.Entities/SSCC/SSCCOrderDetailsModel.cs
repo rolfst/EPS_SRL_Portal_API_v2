@@ -13,5 +13,6 @@ namespace SRL.Models.SSCC
         public string TransportedBy { get; set; }
         public int AnomaliesCount { get; set; }
         public double ValidationDeadline { get; set; }
+        public bool Validated { get; set; }
     }
 }

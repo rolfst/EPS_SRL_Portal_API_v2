@@ -19,5 +19,6 @@ namespace SRL.Data_Access.Entity
         public string PHYSICAL_TO { get; set; }
         public string TRANSPORTED_BY { get; set; }
         public Nullable<System.DateTime> VALIDATION_DEADLINE { get; set; }
+        public bool VALIDATED { get; set; }
     }
 }
