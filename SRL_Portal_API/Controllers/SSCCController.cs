@@ -8,12 +8,14 @@ using System.Web.Http;
 using SRL.Models.Constants;
 using SRL_Portal_API.Common;
 using SRL.Data_Access.Common;
+using System.Web.Http.Cors;
 
 namespace SRL_Portal_API.Controllers
 {
     /// <summary>
     /// Controller for all SSCC related actions
     /// </summary>
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class SSCCController : ApiController
     {
         private readonly SSCCListRepository _ssccListRepository = new SSCCListRepository();
@@ -88,7 +90,7 @@ namespace SRL_Portal_API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
-      //  [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer })]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer })]
         public SSCCDetailsModel GetSsccDetails(string id)
         {
             if (id == null)
@@ -155,7 +157,7 @@ namespace SRL_Portal_API.Controllers
         private string SaveSSCCData(SSCCEditRequest request)
         {
             if (request == null || string.IsNullOrEmpty(request.SSCC))
-                return "SSCC not provided";
+                return "No changes provided";
             else
             {
                 SSCCOrderDetailsRepository repository = new SSCCOrderDetailsRepository();

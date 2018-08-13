@@ -31,12 +31,30 @@ namespace SRL.Data_Access.Adapter
             odm.PhysicalFrom = orderDetailResult.PHYSICAL_FROM;
             odm.PhysicalTo = orderDetailResult.PHYSICAL_TO;
             odm.TransportedBy = orderDetailResult.TRANSPORTED_BY;
+
+            switch (orderDetailResult.SSCC_STATUS)
+            {
+                case 1:
+                    odm.SsccStatus = "New";
+                    break;
+                case 2:
+                    odm.SsccStatus = "Processed";
+                    break;
+                case 3:
+                    odm.SsccStatus = "Validated";
+                    break;
+                default:
+                    odm.SsccStatus = "New";
+                    break;
+            }
+
             odm.AnomaliesCount = deviationsResult.Count();
             if (orderDetailResult.VALIDATION_DEADLINE.HasValue)
             {
                 odm.ValidationDeadline = Math.Round((orderDetailResult.VALIDATION_DEADLINE.Value - now).TotalHours, 0);
             }
             odm.Validated = orderDetailResult.VALIDATED;
+
             sdModel.OrderDetails = odm;
             #endregion
 
