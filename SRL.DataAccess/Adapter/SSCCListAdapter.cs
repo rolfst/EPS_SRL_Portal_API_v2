@@ -3,6 +3,7 @@ using SRL.Models.SSCC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SRL.Data_Access.Adapter
 {
@@ -13,13 +14,16 @@ namespace SRL.Data_Access.Adapter
             DateTime now = DateTime.Now;
             var slmList = new List<SSCCListModel>();
 
-            foreach (var item in input)
+            //Fetch list of all actors in order to populate the actor names
+            Dictionary<int, string> actorsList = GetAllActors();
+
+            Parallel.ForEach(input, (item) =>
             {
                 SSCCListModel slm = new SSCCListModel();
                 slm.OrderDate = item.FIRST_SSCC_USAGE;
                 slm.SSCC = item.SSCC;
-                slm.ActorFrom = GetActorName(item.ACTOR_ORIGIN_ID);
-                slm.ActorTo = item.ACTOR_ID.HasValue ? GetActorName(item.ACTOR_ID.Value) : "";
+                slm.ActorFrom = actorsList.ContainsKey(item.ACTOR_ORIGIN_ID) ? actorsList[item.ACTOR_ORIGIN_ID] : string.Empty;
+                slm.ActorTo = item.ACTOR_ID.HasValue && actorsList.ContainsKey(item.ACTOR_ID.Value) ? actorsList[item.ACTOR_ID.Value] : string.Empty;
 
                 switch (item.SSCC_STATUS)
                 {
@@ -48,7 +52,9 @@ namespace SRL.Data_Access.Adapter
                 slm.IsValidated = item.VALIDATED;
                 slm.ValidationStatus = SetValidationStatus(item.VALIDATED, item.VALIDATION_DEADLINE);
                 slmList.Add(slm);
-            }
+
+            });
+
             return slmList;
         }
 
@@ -62,7 +68,20 @@ namespace SRL.Data_Access.Adapter
 
                 return actorName;
             }
-                
+
+        }
+
+        private static Dictionary<int, string> GetAllActors()
+        {
+            Dictionary<int, string> actorsList = new Dictionary<int, string>();
+            using (var dbEntity = new BACKUP_SRL_20180613Entities())
+            {
+                foreach (var actor in dbEntity.ACTOR_REFERENCE)
+                {
+                    actorsList.Add(actor.ACTOR_ID, actor.ACTOR_LABEL);
+                }
+            }
+            return actorsList;
         }
 
         private static string SetValidationStatus(bool isValidated, DateTime? valDeadline)
