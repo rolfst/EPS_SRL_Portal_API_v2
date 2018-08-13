@@ -20,5 +20,6 @@ namespace SRL.Data_Access.Entity
         public string TRANSPORTED_BY { get; set; }
         public Nullable<System.DateTime> VALIDATION_DEADLINE { get; set; }
         public bool VALIDATED { get; set; }
+        public int SSCC_STATUS { get; set; }
     }
 }

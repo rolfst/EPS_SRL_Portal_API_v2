@@ -14,5 +14,7 @@ namespace SRL.Models.SSCC
         public int AnomaliesCount { get; set; }
         public double ValidationDeadline { get; set; }
         public bool Validated { get; set; }
+        public string SsccStatus { get; set; }
+
     }
 }

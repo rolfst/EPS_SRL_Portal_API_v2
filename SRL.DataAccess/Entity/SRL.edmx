@@ -9005,6 +9005,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="String" Name="TRANSPORTED_BY" Nullable="true" MaxLength="400" />
           <Property Type="DateTime" Name="VALIDATION_DEADLINE" Nullable="true" Precision="23" />
           <Property Type="Boolean" Name="VALIDATED" Nullable="false" />
+          <Property Type="Int32" Name="SSCC_STATUS" Nullable="false" />
         </ComplexType>
         <ComplexType Name="API_LCP_TRANSACTIONS_Result">
           <Property Type="String" Name="SSCC" Nullable="false" MaxLength="20" />
@@ -11926,6 +11927,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
                 <ScalarProperty Name="TRANSPORTED_BY" ColumnName="TRANSPORTED_BY" />
                 <ScalarProperty Name="VALIDATION_DEADLINE" ColumnName="VALIDATION_DEADLINE" />
                 <ScalarProperty Name="VALIDATED" ColumnName="VALIDATED" />
+                <ScalarProperty Name="SSCC_STATUS" ColumnName="SSCC_STATUS" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
