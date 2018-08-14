@@ -90,16 +90,16 @@ namespace SRL.Data_Access.Adapter
                 SSCCPalletCountingModel pcm = new SSCCPalletCountingModel()
                 {
                     ContainerName = item.RTI_NAME,
-                    Esoft_Packing_Id = item.ESOFT_PACKING_ID?? 0,
-                    LoadCarrierName = item.LOAD_CARRIER_NAME,
-                    LoadCarrierEAN = item.LOAD_CARRIER_EAN,
-                    ReturnedValue = item.RETURNED_VALUE,
-                    Actor = item.ACTOR_ORIGIN,
-                    ActorId = item.ACTOR_ID,
-                    ExpectedValueMinMax = item.EXPECTED_VALUE_MIN == item.EXPECTED_VALUE_MAX ? item.EXPECTED_VALUE_MIN.Value.ToString() : item.EXPECTED_VALUE_MIN + " - " + item.EXPECTED_VALUE_MAX,
-                    Unit = item.UNIT,
-                    Deviation = item.RETURNED_VALUE <= item.EXPECTED_VALUE_MIN ? item.RETURNED_VALUE - item.EXPECTED_VALUE_MIN :
-                    item.RETURNED_VALUE >= item.EXPECTED_VALUE_MAX ? item.RETURNED_VALUE - item.EXPECTED_VALUE_MAX : 0,
+                    Esoft_Packing_Id = item.ESOFT_PACKING_ID ?? 0,
+                  //  LoadCarrierName = item.LOAD_CARRIER_NAME,
+                  //  LoadCarrierEAN = item.LOAD_CARRIER_EAN,
+                   // ReturnedValue = item.RETURNED_VALUE,
+                   //// Actor = item.ACTOR_ORIGIN,
+                  //  ActorId = item.ACTOR_ID,
+                   //// ExpectedValueMinMax = item.EXPECTED_VALUE_MIN == item.EXPECTED_VALUE_MAX ? item.EXPECTED_VALUE_MIN.Value.ToString() : item.EXPECTED_VALUE_MIN + " - " + item.EXPECTED_VALUE_MAX,
+                   //// Unit = item.UNIT,
+                  //  Deviation = item.RETURNED_VALUE <= item.EXPECTED_VALUE_MIN ? item.RETURNED_VALUE - item.EXPECTED_VALUE_MIN :
+                  //  item.RETURNED_VALUE >= item.EXPECTED_VALUE_MAX ? item.RETURNED_VALUE - item.EXPECTED_VALUE_MAX : 0,
                 };
 
                 foreach (var qtyItem in tList)
@@ -122,6 +122,34 @@ namespace SRL.Data_Access.Adapter
                 pcList.Add(pcm);
             }
             sdModel.PalletCountingList = pcList;
+
+            //To fill in load carrier details based on counting type
+            List<LoadCarrierDetail> loadCarrierDetails = new List<LoadCarrierDetail>();
+            List<string> countingTypes = countingResult.Select(o => o.COUNTING_TYPE).Distinct().ToList();
+            foreach (string countingType in countingTypes)
+            {
+                List<API_LCP_COUNTING_Result> tList = countingResult.Where(o => o.COUNTING_TYPE == countingType).ToList();
+                LoadCarrierDetail loadCarrierDetail = new LoadCarrierDetail();
+                loadCarrierDetail.CountingType = countingType;
+                foreach (var item in tList)
+                {
+                    loadCarrierDetail.ReturnedValue = +item.RETURNED_VALUE;
+                    loadCarrierDetail.ExpectedValueMinMax = item.EXPECTED_VALUE_MIN == item.EXPECTED_VALUE_MAX ? item.EXPECTED_VALUE_MIN.Value.ToString() : item.EXPECTED_VALUE_MIN + " - " + item.EXPECTED_VALUE_MAX;
+                    loadCarrierDetail.Actor = item.ACTOR_ORIGIN;
+                    loadCarrierDetail.ActorId = item.ACTOR_ID;
+                    loadCarrierDetail.LoadCarrierName = item.LOAD_CARRIER_NAME;
+                    loadCarrierDetail.LoadCarrierEAN = item.LOAD_CARRIER_EAN;
+                    loadCarrierDetail.ExpectedValueMin = item.EXPECTED_VALUE_MIN ?? 0;
+                    loadCarrierDetail.ExpectedValuemax = item.EXPECTED_VALUE_MAX ?? 0;
+                    loadCarrierDetail.Unit = item.UNIT;
+                }
+                loadCarrierDetail.Deviation = loadCarrierDetail.ReturnedValue <= loadCarrierDetail.ExpectedValueMin ? loadCarrierDetail.ReturnedValue - loadCarrierDetail.ExpectedValueMin :
+                     loadCarrierDetail.ReturnedValue >= loadCarrierDetail.ExpectedValuemax ? loadCarrierDetail.ReturnedValue - loadCarrierDetail.ExpectedValuemax : 0;
+
+                loadCarrierDetails.Add(loadCarrierDetail);
+            }
+            sdModel.LoadCarrierDetails = loadCarrierDetails;
+
 
             //To get the total quantity counts
             sdModel.TotalCustomerCounting = sdModel.PalletCountingList.Select(p => p.CustomerCountingQty).Sum();
