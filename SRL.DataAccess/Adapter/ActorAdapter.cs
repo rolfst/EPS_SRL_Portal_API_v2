@@ -1,5 +1,6 @@
 ﻿using SRL.Data_Access.Entity;
 using SRL.Models;
+using SRL.Models.ActorMasterData;
 using System.Collections.Generic;
 
 namespace SRL.Data_Access.Adapter
@@ -19,6 +20,24 @@ namespace SRL.Data_Access.Adapter
                 actorList.Add(actor);
             }
             return actorList;
+        }
+
+        public static List<ActorMasterListResponse>ConvertActorMasterList(this IEnumerable<API_LIST_ACTOR_MASTERDATA_Result> result)
+        {
+            List<ActorMasterListResponse> actorsList = new List<ActorMasterListResponse>();
+            foreach(var actor in result)
+            {
+                actorsList.Add(new ActorMasterListResponse {
+                     ActorCode = actor.ACTOR_CODE,
+                     ActorId = actor.ACTOR_ID,
+                      ActorName =actor.ACTOR_NAME,
+                      ActorLocation = actor.ACTOR_LOCATION,
+                      ActorType=actor.ACTOR_TYPE,
+                      RetailerChain = actor.RETAILER_CHAIN
+                });
+            }
+
+            return actorsList;
         }
     }
 }

@@ -523,5 +523,26 @@ namespace SRL.Data_Access.Entity
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_RTI_Result>("API_LIST_RTI");
         }
+    
+        public virtual ObjectResult<API_LIST_ACTOR_MASTERDATA_Result> API_LIST_ACTOR_MASTERDATA(string aCTOR_NAME, Nullable<decimal> aCTOR_CODE, string rETAILER_CHAIN_ID, string lOCATION)
+        {
+            var aCTOR_NAMEParameter = aCTOR_NAME != null ?
+                new ObjectParameter("ACTOR_NAME", aCTOR_NAME) :
+                new ObjectParameter("ACTOR_NAME", typeof(string));
+    
+            var aCTOR_CODEParameter = aCTOR_CODE.HasValue ?
+                new ObjectParameter("ACTOR_CODE", aCTOR_CODE) :
+                new ObjectParameter("ACTOR_CODE", typeof(decimal));
+    
+            var rETAILER_CHAIN_IDParameter = rETAILER_CHAIN_ID != null ?
+                new ObjectParameter("RETAILER_CHAIN_ID", rETAILER_CHAIN_ID) :
+                new ObjectParameter("RETAILER_CHAIN_ID", typeof(string));
+    
+            var lOCATIONParameter = lOCATION != null ?
+                new ObjectParameter("LOCATION", lOCATION) :
+                new ObjectParameter("LOCATION", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_ACTOR_MASTERDATA_Result>("API_LIST_ACTOR_MASTERDATA", aCTOR_NAMEParameter, aCTOR_CODEParameter, rETAILER_CHAIN_IDParameter, lOCATIONParameter);
+        }
     }
 }
