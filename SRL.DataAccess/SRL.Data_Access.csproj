@@ -92,6 +92,9 @@
     <Compile Include="Entity\API_LIST_ACTORS_TRANSACTION_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\API_LIST_ACTOR_MASTERDATA_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\API_LIST_LOAD_CARRIER_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>

@@ -3509,6 +3509,12 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
         <Function Name="API_LCP_TRANSACTIONS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="API_LIST_ACTOR_MASTERDATA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ACTOR_NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="ACTOR_CODE" Type="numeric" Mode="In" />
+          <Parameter Name="RETAILER_CHAIN_ID" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="LOCATION" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="API_LIST_ACTORS_TRANSACTION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
         </Function>
@@ -8880,6 +8886,12 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <FunctionImport Name="API_LIST_RETAILERS" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_RETAILERS_Result)" />
           <FunctionImport Name="API_LIST_LOAD_CARRIER" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_LOAD_CARRIER_Result)" />
           <FunctionImport Name="API_LIST_RTI" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_RTI_Result)" />
+          <FunctionImport Name="API_LIST_ACTOR_MASTERDATA" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_ACTOR_MASTERDATA_Result)">
+            <Parameter Name="ACTOR_NAME" Mode="In" Type="String" />
+            <Parameter Name="ACTOR_CODE" Mode="In" Type="Decimal" />
+            <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="String" />
+            <Parameter Name="LOCATION" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetOrderDetail_Result">
           <Property Type="String" Name="ORD_ORDER_NUMBER" Nullable="false" MaxLength="60" />
@@ -9028,6 +9040,14 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="Int32" Name="RTI_ID" Nullable="false" />
           <Property Type="Decimal" Name="RTI_CODE" Nullable="false" Precision="10" Scale="0" />
           <Property Type="String" Name="RTI_NAME" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="API_LIST_ACTOR_MASTERDATA_Result" >
+          <Property Type="Int32" Name="ACTOR_ID" Nullable="false" />
+          <Property Type="Decimal" Name="ACTOR_CODE" Nullable="false" />
+          <Property Type="String" Name="ACTOR_NAME" Nullable="false" />
+          <Property Type="String" Name="ACTOR_LOCATION" Nullable="false" />
+          <Property Type="String" Name="RETAILER_CHAIN" Nullable="false" />
+          <Property Type="String" Name="ACTOR_TYPE" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -11967,6 +11987,18 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
                 <ScalarProperty Name="RTI_ID" ColumnName="RTI_ID" />
                 <ScalarProperty Name="RTI_CODE" ColumnName="RTI_CODE" />
                 <ScalarProperty Name="RTI_NAME" ColumnName="RTI_NAME" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_LIST_ACTOR_MASTERDATA" FunctionName="BACKUP_SRL_20180613Model.Store.API_LIST_ACTOR_MASTERDATA">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_LIST_ACTOR_MASTERDATA_Result" >
+                <ScalarProperty Name="ACTOR_ID" ColumnName="ACTOR_ID" />
+                <ScalarProperty Name="ACTOR_CODE" ColumnName="ACTOR_CODE" />
+                <ScalarProperty Name="ACTOR_NAME" ColumnName="ACTOR_NAME" />
+                <ScalarProperty Name="ACTOR_LOCATION" ColumnName="ACTOR_LOCATION" />
+                <ScalarProperty Name="RETAILER_CHAIN" ColumnName="RETAILER_CHAIN" />
+                <ScalarProperty Name="ACTOR_TYPE" ColumnName="ACTOR_TYPE" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

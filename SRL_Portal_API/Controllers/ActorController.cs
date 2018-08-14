@@ -2,9 +2,13 @@
 using System.Linq;
 using System.Web.Http;
 using SRL.Data_Access.Entity;
+using SRL.Models.ActorMasterData;
+using SRL.Data_Access.Repository;
+using System.Web.Http.Cors;
 
 namespace SRL_Portal_API.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ActorController : ApiController
     {
         [System.Web.Http.AcceptVerbs("GET")]
@@ -17,6 +21,14 @@ namespace SRL_Portal_API.Controllers
                 .ToList<API_LIST_ACTORS_TRANSACTION_Result>();
 
             return result;
+        }
+
+        [HttpPost]
+        [Route("ActorMasterList")]
+        public List<ActorMasterListResponse> GetActorMasterLists(ActorMasterListRequest request)
+        {
+            ActorRepository actorRepository = new ActorRepository();
+            return actorRepository.GetActorMasterDataList(request);
         }
     }
 }
