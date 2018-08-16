@@ -15,7 +15,7 @@ namespace SRL_Portal_API.Controllers
     /// <summary>
     /// Controller for all SSCC related actions
     /// </summary>
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
     public class SSCCController : ApiController
     {
         private readonly SSCCListRepository _ssccListRepository = new SSCCListRepository();
@@ -32,7 +32,7 @@ namespace SRL_Portal_API.Controllers
         /// Get the list of SSCC's, based on the given parameters
         /// </summary>
         /// <returns></returns>
-        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer })]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer,UserRoles.SuperUser,UserRoles.UltraUser,UserRoles.WebPortalAdministrator })]
         [HttpPost]
         public IList<SSCCListModel> Index(
             [FromBody] SSCCListRequest request
@@ -90,7 +90,7 @@ namespace SRL_Portal_API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
-        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer })]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public SSCCDetailsModel GetSsccDetails(string id)
         {
             if (id == null)
@@ -108,7 +108,7 @@ namespace SRL_Portal_API.Controllers
         }
 
         [HttpGet]
-        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer })]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public IList<string> GetSsccNumbers(int retailerChainId = -1)
         {
             var request = new SSCCListRequest
@@ -131,6 +131,7 @@ namespace SRL_Portal_API.Controllers
 
         [HttpPost]
         [Route("SaveSSCC")]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public string SaveSSCCDetail([FromBody] SSCCEditRequest request)
         {
             return SaveSSCCData(request);
@@ -138,6 +139,7 @@ namespace SRL_Portal_API.Controllers
 
         [HttpPost]
         [Route("ValidateSSCC")]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public string ValidateSSCC([FromBody] SSCCEditRequest request)
         {
             return ValidateSSCCData(request);
@@ -145,6 +147,7 @@ namespace SRL_Portal_API.Controllers
 
         [HttpPost]
         [Route("SaveValidateSSCC")]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public string SaveValidateSSCC([FromBody] SSCCEditRequest request)
         {
             string response = string.Empty;

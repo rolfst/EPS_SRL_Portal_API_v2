@@ -13,6 +13,7 @@ using SRL.Models.Constants;
 namespace SRL_Portal_API.Controllers
 {
     [RoutePrefix("api")]
+    [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
     public class UserController : ApiController
     {
         [Route("roles/{userEmail}/")]

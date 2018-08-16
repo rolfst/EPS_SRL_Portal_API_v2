@@ -11,6 +11,7 @@ namespace SRL_Portal_API.Controllers
     /// <summary>
     /// To handle order detail actions
     /// </summary>
+    [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
     public class OrderDetailController : ApiController
     {
         [CustomAuthorizationFilter(UserRoles.SuperUser)]

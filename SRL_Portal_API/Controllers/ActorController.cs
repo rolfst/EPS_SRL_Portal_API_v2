@@ -8,7 +8,7 @@ using System.Web.Http.Cors;
 
 namespace SRL_Portal_API.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
     public class ActorController : ApiController
     {
         [System.Web.Http.AcceptVerbs("GET")]
