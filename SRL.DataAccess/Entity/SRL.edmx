@@ -3521,6 +3521,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
         <Function Name="API_LIST_LOAD_CARRIER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="API_LIST_RETAILERS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="API_LIST_RTI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="API_LIST_SSCC_ON_ORDER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ORDER_NUMBER" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="API_ORDER_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ORDER_ID" Type="int" Mode="In" />
           <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
@@ -8892,6 +8895,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="String" />
             <Parameter Name="LOCATION" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="API_LIST_SSCC_ON_ORDER" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_SSCC_ON_ORDER_Result)">
+          <Parameter Name="ORDER_NUMBER" Mode="In" Type="Int64" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetOrderDetail_Result">
           <Property Type="String" Name="ORD_ORDER_NUMBER" Nullable="false" MaxLength="60" />
@@ -9048,6 +9054,21 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="String" Name="ACTOR_LOCATION" Nullable="false" />
           <Property Type="String" Name="RETAILER_CHAIN" Nullable="false" />
           <Property Type="String" Name="ACTOR_TYPE" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="API_LIST_SSCC_ON_ORDER_Result">
+          <Property Type="String" Name="SSCC" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="COUNTING_TYPE" Nullable="false" MaxLength="17" />
+          <Property Type="Decimal" Name="ESOFT_PACKING_ID" Nullable="true" Precision="10" Scale="0" />
+          <Property Type="String" Name="RTI_NAME" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="QTY_RTI" Nullable="false" />
+          <Property Type="String" Name="LOAD_CARRIER_NAME" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="UNIT" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="RETURNED_VALUE" Nullable="true" Precision="20" Scale="3" />
+          <Property Type="Decimal" Name="EXPECTED_VALUE_MIN" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="EXPECTED_VALUE_MAX" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="ACTOR_ORIGIN" Nullable="true" MaxLength="400" />
+          <Property Type="Decimal" Name="DEVIATION" Nullable="true" Precision="21" Scale="3" />
+          <Property Type="Int32" Name="SSCC_STATUS" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -11999,6 +12020,25 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
                 <ScalarProperty Name="ACTOR_LOCATION" ColumnName="ACTOR_LOCATION" />
                 <ScalarProperty Name="RETAILER_CHAIN" ColumnName="RETAILER_CHAIN" />
                 <ScalarProperty Name="ACTOR_TYPE" ColumnName="ACTOR_TYPE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_LIST_SSCC_ON_ORDER" FunctionName="BACKUP_SRL_20180613Model.Store.API_LIST_SSCC_ON_ORDER">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_LIST_SSCC_ON_ORDER_Result">
+                <ScalarProperty Name="SSCC" ColumnName="SSCC" />
+                <ScalarProperty Name="COUNTING_TYPE" ColumnName="COUNTING_TYPE" />
+                <ScalarProperty Name="ESOFT_PACKING_ID" ColumnName="ESOFT_PACKING_ID" />
+                <ScalarProperty Name="RTI_NAME" ColumnName="RTI_NAME" />
+                <ScalarProperty Name="QTY_RTI" ColumnName="QTY_RTI" />
+                <ScalarProperty Name="LOAD_CARRIER_NAME" ColumnName="LOAD_CARRIER_NAME" />
+                <ScalarProperty Name="UNIT" ColumnName="UNIT" />
+                <ScalarProperty Name="RETURNED_VALUE" ColumnName="RETURNED_VALUE" />
+                <ScalarProperty Name="EXPECTED_VALUE_MIN" ColumnName="EXPECTED_VALUE_MIN" />
+                <ScalarProperty Name="EXPECTED_VALUE_MAX" ColumnName="EXPECTED_VALUE_MAX" />
+                <ScalarProperty Name="ACTOR_ORIGIN" ColumnName="ACTOR_ORIGIN" />
+                <ScalarProperty Name="DEVIATION" ColumnName="DEVIATION" />
+                <ScalarProperty Name="SSCC_STATUS" ColumnName="SSCC_STATUS" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

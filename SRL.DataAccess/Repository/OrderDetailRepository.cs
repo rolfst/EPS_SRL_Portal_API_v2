@@ -2,6 +2,8 @@
 using SRL.Data_Access.Entity;
 using SRL.Data_Access.Adapter;
 using SRL.Models.Order;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SRL.Data_Access.Repository
 {
@@ -15,6 +17,16 @@ namespace SRL.Data_Access.Repository
                 orderDetail = ((GetOrderDetail_Result)cntx.GetOrderDetail( orderId, retailChainId ).FirstOrDefault()).ConvertOrderDetailResult();
             };
             return orderDetail;
+        }
+
+        public List<SSCCDetailForOrder> GetSSCCListForOrder(long orderid)
+        {
+            List<SSCCDetailForOrder> ssccList = new List<SSCCDetailForOrder>();
+            using (var cntx = new SRL.Data_Access.Entity.BACKUP_SRL_20180613Entities())
+            {
+                ssccList =  cntx.API_LIST_SSCC_ON_ORDER(orderid).ToList().ConvertSSCCListForOrder();
+            }
+            return ssccList;
         }
     }
 }
