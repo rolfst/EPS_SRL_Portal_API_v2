@@ -4,6 +4,7 @@ using SRL.Data_Access.Repository;
 using System.Web.Http.Cors;
 using SRL.Models.Constants;
 using SRL_Portal_API.Common;
+using System.Collections.Generic;
 
 namespace SRL_Portal_API.Controllers
 {
@@ -27,6 +28,14 @@ namespace SRL_Portal_API.Controllers
             OrderDetailRepository repository = new OrderDetailRepository();
 
             return repository.GetOrderDetail(orderId, retailerChainId);
+        }
+
+        [HttpGet]
+        [Route("SSCCListForOrder")]
+        public List<SSCCDetailForOrder> GetSSCCListForOrder(int orderId)
+        {
+            OrderDetailRepository repository = new OrderDetailRepository();
+            return repository.GetSSCCListForOrder(orderId);
         }
     }
 }

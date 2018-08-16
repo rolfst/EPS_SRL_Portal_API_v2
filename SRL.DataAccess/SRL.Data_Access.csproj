@@ -104,6 +104,9 @@
     <Compile Include="Entity\API_LIST_RTI_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\API_LIST_SSCC_ON_ORDER_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\API_SSCC_OVERVIEW_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>

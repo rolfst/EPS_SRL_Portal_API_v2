@@ -544,5 +544,14 @@ namespace SRL.Data_Access.Entity
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_ACTOR_MASTERDATA_Result>("API_LIST_ACTOR_MASTERDATA", aCTOR_NAMEParameter, aCTOR_CODEParameter, rETAILER_CHAIN_IDParameter, lOCATIONParameter);
         }
+    
+        public virtual ObjectResult<API_LIST_SSCC_ON_ORDER_Result> API_LIST_SSCC_ON_ORDER(Nullable<long> oRDER_NUMBER)
+        {
+            var oRDER_NUMBERParameter = oRDER_NUMBER.HasValue ?
+                new ObjectParameter("ORDER_NUMBER", oRDER_NUMBER) :
+                new ObjectParameter("ORDER_NUMBER", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_SSCC_ON_ORDER_Result>("API_LIST_SSCC_ON_ORDER", oRDER_NUMBERParameter);
+        }
     }
 }
