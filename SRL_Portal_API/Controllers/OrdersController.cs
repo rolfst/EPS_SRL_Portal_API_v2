@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Microsoft.Ajax.Utilities;
 using SRL.Data_Access.Adapter;
 using SRL.Data_Access.Repository;
@@ -13,6 +14,7 @@ namespace SRL_Portal_API.Controllers
     /// <summary>
     /// Controller which handles GET requests for filtering orders.
     /// </summary>
+    [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
     public class OrdersController : ApiController
     {
         private readonly OrderListRepository _repo = new OrderListRepository();

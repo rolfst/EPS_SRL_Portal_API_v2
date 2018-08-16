@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using SRL.Data_Access.Entity;
 
 namespace SRL_Portal_API.Controllers
@@ -10,6 +11,7 @@ namespace SRL_Portal_API.Controllers
 
         [System.Web.Http.AcceptVerbs("GET")]
         [System.Web.Http.HttpGet]
+        [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
         public IList<API_LIST_RTI_Result> Index()
         {
             BACKUP_SRL_20180613Entities dbEntities = new BACKUP_SRL_20180613Entities();
