@@ -9,7 +9,7 @@ namespace SRL.Data_Access.Adapter
 {
     public static class OrderDetailAdapter
     {
-        const string NoReference = "No reference";
+        const string NOREFERENCE = "No reference";
         const string REALLOCATION = "Reallocation";
         internal static OrderDetail ConvertOrderDetailResult(this GetOrderDetail_Result orderDetail)
         {
@@ -33,7 +33,7 @@ namespace SRL.Data_Access.Adapter
                 Transport = string.Empty, //Not known yet
                 CIDate = orderDetail.CI_DATE,
                 ShipmentNumber = orderDetail.TOUR_NUMBER ?? string.Empty,
-                Reference = orderDetail.ORD_CUSTOMER_REFERENCE ?? NoReference,
+                Reference = orderDetail.ORD_CUSTOMER_REFERENCE ?? NOREFERENCE,
                 Transporter = orderDetail.SHIPMENT_COMPANY_NAME ?? string.Empty,
                 LicensePlate = orderDetail.LICENSE_PLATE ?? string.Empty,
                 TotalSSCCs = orderDetail.OUTBOUND_SSCC_ON_ORDER,
