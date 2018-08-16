@@ -37,5 +37,13 @@ namespace SRL_Portal_API.Controllers
             OrderDetailRepository repository = new OrderDetailRepository();
             return repository.GetSSCCListForOrder(orderId);
         }
+
+        [HttpGet]
+        [Route("OpenSSCCListForOrder")]
+        public List<SSCCDetailForOrder>GetOpenSSCCListForOrder(int orderId)
+        {
+            OrderDetailRepository repository = new OrderDetailRepository();
+            return repository.GetOpenSSCCListForOrder(orderId);
+        }
     }
 }
