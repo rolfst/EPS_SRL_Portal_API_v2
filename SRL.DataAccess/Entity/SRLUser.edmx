@@ -207,6 +207,9 @@
         <Function Name="sp_CheckIfUserExternal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserEmail" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_GetActorsForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserEmail" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_GetRetailerChainForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserEmail" Type="nvarchar" Mode="In" />
         </Function>
@@ -561,9 +564,12 @@
             <Parameter Name="IsInternal" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="sp_CheckIfUserExternal" ReturnType="Collection(Int32)">
-            <Parameter Name="UserEmail" Mode="In" Type="String" />
+          <Parameter Name="UserEmail" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetRetailerChainForUser" ReturnType="Collection(Int32)">
+          <Parameter Name="UserEmail" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetActorsForUser" ReturnType="Collection(Int32)">
             <Parameter Name="UserEmail" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
@@ -763,6 +769,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_CheckIfUserExternal" FunctionName="SRLManagementModel.Store.sp_CheckIfUserExternal" />
           <FunctionImportMapping FunctionImportName="sp_GetRetailerChainForUser" FunctionName="SRLManagementModel.Store.sp_GetRetailerChainForUser" />
+          <FunctionImportMapping FunctionImportName="sp_GetActorsForUser" FunctionName="SRLManagementModel.Store.sp_GetActorsForUser" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

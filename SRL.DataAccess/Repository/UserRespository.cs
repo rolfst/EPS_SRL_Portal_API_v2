@@ -95,5 +95,13 @@ namespace SRL.Data_Access.Repository
                 return ctx.sp_GetRetailerChainForUser(userEmail).ToList();
             }
         }
+
+        public List<int?>GetActorIdList(string userEmail)
+        {
+            using (var ctx = new SRLManagementEntities())
+            {
+                return ctx.sp_GetActorsForUser(userEmail).ToList();
+            }
+        }
     }
 }
