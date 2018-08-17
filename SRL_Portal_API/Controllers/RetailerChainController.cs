@@ -20,9 +20,28 @@ namespace SRL_Portal_API.Controllers
         [HttpGet]
         public List<RetailerChain> GetRetailerChains()
         {
-                        
             RetailerChainRepository retailerChainRepository = new RetailerChainRepository();
-            return retailerChainRepository.GetRetailerChains();
+            List<RetailerChain> retailerChains =  retailerChainRepository.GetRetailerChains();
+            //Check whether logged in user is external
+            string userEmail = RequestContext.Principal.Identity.Name;
+
+            UserRespository userRespository = new UserRespository();
+            if (userRespository.IsExternalUser(userEmail))
+            {
+                List<RetailerChain> retailerChainsForUser = new List<RetailerChain>();
+              List<int?> retailerChainIds = userRespository.GetRetailerChainIdList(userEmail);
+                if (retailerChainIds.Any())
+                {
+                    foreach (var retailerChainId in retailerChainIds)
+                    {
+                        if (retailerChainId != null)
+                            retailerChainsForUser.Add(retailerChains.Where(r => r.RetailerChainId == retailerChainId).FirstOrDefault());
+                    }
+                }
+                return retailerChainsForUser;
+            }
+            else
+                return retailerChains;
         }
     }
 }

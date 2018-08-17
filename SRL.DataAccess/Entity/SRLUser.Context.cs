@@ -118,5 +118,23 @@ namespace SRL.Data_Access.Entity
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllUsers_Result>("GetAllUsers", viewingUserEmailParameter, firstNameParameter, lastNameParameter, emailParameter, isAssignedParameter, isActiveParameter, hasTemplateParameter, isAdminParameter, retailerChainCodeParameter, isInternalParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> sp_CheckIfUserExternal(string userEmail)
+        {
+            var userEmailParameter = userEmail != null ?
+                new ObjectParameter("UserEmail", userEmail) :
+                new ObjectParameter("UserEmail", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_CheckIfUserExternal", userEmailParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_GetRetailerChainForUser(string userEmail)
+        {
+            var userEmailParameter = userEmail != null ?
+                new ObjectParameter("UserEmail", userEmail) :
+                new ObjectParameter("UserEmail", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_GetRetailerChainForUser", userEmailParameter);
+        }
     }
 }

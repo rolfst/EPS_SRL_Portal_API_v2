@@ -9,6 +9,7 @@ using SRL.Data_Access;
 using SRL.Models;
 using SRL_Portal_API.Common;
 using SRL.Models.Constants;
+using SRL.Data_Access.Repository;
 
 namespace SRL_Portal_API.Controllers
 {
