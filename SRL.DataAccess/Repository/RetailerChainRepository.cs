@@ -10,14 +10,33 @@ namespace SRL.Data_Access.Repository
     /// </summary>
     public class RetailerChainRepository
     {
-        public List<RetailerChain> GetRetailerChains()
+        public List<RetailerChain> GetRetailerChains(string userEmail)
         {
             List<RetailerChain> retailerChains = new List<RetailerChain>();
             using (var cntx = new SRL.Data_Access.Entity.BACKUP_SRL_20180613Entities())
             {
                 retailerChains = cntx.API_LIST_RETAILERS().ToList().ToEntityRetailerChainList();
             }
-            return retailerChains;
+
+            //Check whether logged in user is external
+            UserRespository userRespository = new UserRespository();
+            if (userRespository.IsExternalUser(userEmail))
+            {
+                List<RetailerChain> retailerChainsForUser = new List<RetailerChain>();
+                List<int?> retailerChainIds = userRespository.GetRetailerChainIdList(userEmail);
+                if (retailerChainIds.Any())
+                {
+                    foreach (var retailerChainId in retailerChainIds)
+                    {
+                        if (retailerChainId != null)
+                            retailerChainsForUser.Add(retailerChains.Where(r => r.RetailerChainId == retailerChainId).FirstOrDefault());
+                    }
+                }
+                return retailerChainsForUser;
+            }
+            else
+                return retailerChains;
         }
+
     }
 }

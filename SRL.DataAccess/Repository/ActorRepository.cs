@@ -2,6 +2,8 @@
 using SRL.Data_Access.Entity;
 using SRL.Models.ActorMasterData;
 using SRL.Data_Access.Adapter;
+using SRL.Models;
+using System.Linq;
 
 namespace SRL.Data_Access.Repository
 {
@@ -15,6 +17,37 @@ namespace SRL.Data_Access.Repository
                 IEnumerable<API_LIST_ACTORS_TRANSACTION_Result> result = dbEntity.API_LIST_ACTORS_TRANSACTION(retailerChainId);
                 return result;
             }
+        }
+
+        public List<Actor> GetActorsList(string userEmail)
+        {
+            List<Actor> actors = new List<Actor>();
+            using (var dbEntity = new BACKUP_SRL_20180613Entities())
+            {
+                dbEntity.Configuration.ProxyCreationEnabled = false;
+                actors = dbEntity.API_LIST_ACTORS_TRANSACTION(-1).ConvertActorList();
+            }
+            //Check if logged in user is external
+            UserRespository userRespository = new UserRespository();
+            if (userRespository.IsExternalUser(userEmail))
+            {
+                //Fetch actors assigned to the user
+                List<int?> actorIdList = userRespository.GetActorIdList(userEmail);
+                List<Actor> actorsList = new List<Actor>();
+                foreach (var actorId in actorIdList)
+                {
+                    if (actorId.HasValue)
+                    {
+                        Actor actor = actors.FirstOrDefault(a => a.ActorId == actorId);
+                        if (actor != null)
+                            actorsList.Add(actor);
+                    }
+                }
+                return actorsList;
+            }
+            else
+                return actors;
+
         }
 
         public List<ActorMasterListResponse> GetActorMasterDataList(ActorMasterListRequest request)

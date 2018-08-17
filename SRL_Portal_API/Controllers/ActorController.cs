@@ -5,6 +5,7 @@ using SRL.Data_Access.Entity;
 using SRL.Models.ActorMasterData;
 using SRL.Data_Access.Repository;
 using System.Web.Http.Cors;
+using SRL.Models;
 
 namespace SRL_Portal_API.Controllers
 {
@@ -29,6 +30,15 @@ namespace SRL_Portal_API.Controllers
         {
             ActorRepository actorRepository = new ActorRepository();
             return actorRepository.GetActorMasterDataList(request);
+        }
+
+        [HttpGet]
+        [Route("ActorsList")]
+        public List<Actor> GetActorsList()
+        {
+            ActorRepository actorRepository = new ActorRepository();
+          return actorRepository.GetActorsList(RequestContext.Principal.Identity.Name);
+            
         }
     }
 }
