@@ -55,6 +55,7 @@
     <Compile Include="Adapter\ActorAdapter.cs" />
     <Compile Include="Adapter\OrderDetailAdapter.cs" />
     <Compile Include="Adapter\OrderListAdapter.cs" />
+    <Compile Include="Adapter\RetailerChainAdapter.cs" />
     <Compile Include="Adapter\SSCCDetailAdapter.cs" />
     <Compile Include="Adapter\SSCCListAdapter.cs" />
     <Compile Include="Adapter\UserAdapter.cs" />
@@ -571,6 +572,7 @@
     <Compile Include="Repository\LoadCarrierRepository.cs" />
     <Compile Include="Repository\OrderDetailRepository.cs" />
     <Compile Include="Repository\OrderListRepository.cs" />
+    <Compile Include="Repository\RetailerChainRepository.cs" />
     <Compile Include="Repository\RtiRepository.cs" />
     <Compile Include="Repository\SSCCDeviationDetailsRepository.cs" />
     <Compile Include="Repository\SSCCImagesRepository.cs" />
