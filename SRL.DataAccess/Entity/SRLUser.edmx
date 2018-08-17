@@ -204,6 +204,12 @@
             </CollectionType>
           </ReturnType>
         </Function>
+        <Function Name="sp_CheckIfUserExternal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserEmail" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_GetRetailerChainForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserEmail" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_GetScreensForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserEmail" Type="nvarchar" Mode="In" />
         </Function>
@@ -534,13 +540,13 @@
             <Parameter Name="DELIMITER" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetScreensForUser" ReturnType="Collection(SRLManagementModel.sp_GetScreensForUser_Result)">
-            <Parameter Name="UserEmail" Mode="In" Type="String" />
+          <Parameter Name="UserEmail" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetUserRoles" ReturnType="Collection(SRLManagementModel.sp_GetUserRoles_Result)">
-            <Parameter Name="UserEmail" Mode="In" Type="String" />
+          <Parameter Name="UserEmail" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetUserScreens" ReturnType="Collection(SRLManagementModel.sp_GetUserScreens_Result)">
-            <Parameter Name="UserEmail" Mode="In" Type="String" />
+          <Parameter Name="UserEmail" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllUsers" ReturnType="Collection(SRLManagementModel.GetAllUsers_Result)">
             <Parameter Name="ViewingUserEmail" Mode="In" Type="String" />
@@ -553,6 +559,12 @@
             <Parameter Name="IsAdmin" Mode="In" Type="Boolean" />
             <Parameter Name="RetailerChainCode" Mode="In" Type="String" />
             <Parameter Name="IsInternal" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_CheckIfUserExternal" ReturnType="Collection(Int32)">
+            <Parameter Name="UserEmail" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetRetailerChainForUser" ReturnType="Collection(Int32)">
+            <Parameter Name="UserEmail" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_GetUsers_Result">
@@ -749,6 +761,8 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_CheckIfUserExternal" FunctionName="SRLManagementModel.Store.sp_CheckIfUserExternal" />
+          <FunctionImportMapping FunctionImportName="sp_GetRetailerChainForUser" FunctionName="SRLManagementModel.Store.sp_GetRetailerChainForUser" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -73,7 +73,7 @@
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\API_FN_SPLIT_Result.cs">
-      <DependentUpon>SRL.tt</DependentUpon>
+      <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\API_LCP_COUNTING_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>

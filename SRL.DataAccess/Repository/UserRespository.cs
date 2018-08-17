@@ -4,7 +4,7 @@ using SRL.Models;
 using SRL.Data_Access.Entity;
 using SRL.Data_Access.Adapter;
 
-namespace SRL.Data_Access
+namespace SRL.Data_Access.Repository
 {
     public class UserRespository
     {
@@ -74,6 +74,26 @@ namespace SRL.Data_Access
             List<Role> roleList = GetUserRoles(userEmail);
 
             return roleList.Any(r => roles.Contains(r.RoleName));
+        }
+
+        public bool IsExternalUser(string userEmail)
+        {
+            bool isExternal = false;
+            using (var ctx = new SRLManagementEntities())
+            {
+                var result = ctx.sp_CheckIfUserExternal(userEmail).FirstOrDefault();
+                isExternal = (result??0) != 0 ? true : false;
+            }
+            return isExternal;
+            
+        }
+
+        public List<int?>GetRetailerChainIdList(string userEmail)
+        {
+            using (var ctx = new SRLManagementEntities())
+            {
+                return ctx.sp_GetRetailerChainForUser(userEmail).ToList();
+            }
         }
     }
 }
