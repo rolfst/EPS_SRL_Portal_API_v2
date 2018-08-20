@@ -126,7 +126,7 @@ namespace SRL_Portal_API.Controllers
                 RetailerChainId = retailerChainId
             };
 
-            return _ssccListRepository.GetSSCCNumberList(request).Select(x => x.SSCC).Distinct().ToList();
+            return _ssccListRepository.GetSSCCNumberList(request, RequestContext.Principal.Identity.Name).Select(x => x.SSCC).Distinct().ToList();
         }
 
         [HttpPost]

@@ -45,9 +45,17 @@ namespace SRL.Data_Access.Repository
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-            public IEnumerable<API_SSCC_OVERVIEW_Result> GetSSCCNumberList(SSCCListRequest request)
+            public IEnumerable<API_SSCC_OVERVIEW_Result> GetSSCCNumberList(SSCCListRequest request, string userEmail)
             {
-                using (var dbEntity = new BACKUP_SRL_20180613Entities())
+            //Check if logged in user is external
+            UserRespository userRespository = new UserRespository();
+            if (userRespository.IsExternalUser(userEmail))
+            {
+                //Fetch actors assigned to the user
+                List<int?> actorIdList = userRespository.GetActorIdList(userEmail);
+                request.ActorOriginId = string.Join(",", actorIdList.Select(n => n.Value).ToArray());
+            }
+            using (var dbEntity = new BACKUP_SRL_20180613Entities())
                 {
                     dbEntity.Configuration.ProxyCreationEnabled = false;
                     List<API_SSCC_OVERVIEW_Result> result = dbEntity.API_SSCC_OVERVIEW(
@@ -71,6 +79,7 @@ namespace SRL.Data_Access.Repository
                         request.SlaNOK,
                         request.RetailerChainId)
                         .ToList<API_SSCC_OVERVIEW_Result>();
+               
 
                     return result;
                 }
