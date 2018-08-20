@@ -88,6 +88,9 @@ namespace SRL.Data_Access.Adapter
                     case 3:
                         ssccObj.SSCCStatus = "Validated";
                         break;
+                    case 4:
+                        ssccObj.SSCCStatus = "Processing";
+                        break;
                     default:
                         ssccObj.SSCCStatus = "New";
                         break;

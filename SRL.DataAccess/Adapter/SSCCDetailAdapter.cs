@@ -43,6 +43,9 @@ namespace SRL.Data_Access.Adapter
                 case 3:
                     odm.SsccStatus = "Validated";
                     break;
+                case 4:
+                    odm.SsccStatus = "Processing";
+                    break;
                 default:
                     odm.SsccStatus = "New";
                     break;
