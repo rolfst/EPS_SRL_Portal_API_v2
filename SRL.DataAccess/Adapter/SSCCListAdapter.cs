@@ -34,6 +34,9 @@ namespace SRL.Data_Access.Adapter
                     case 3:
                         slm.SsccStatus = "Validated";
                         break;
+                    case 4:
+                        slm.SsccStatus = "Processing";
+                        break;
                     default:
                         slm.SsccStatus = "New";
                         break;
