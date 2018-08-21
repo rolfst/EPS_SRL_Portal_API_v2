@@ -14,12 +14,13 @@ namespace SRL_Portal_API.Controllers
     /// Controller to fetch Retailer Chains list
     /// </summary>
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class RetailerChainController : ApiController
+    public class RetailerChainController : BaseController
     {
         [Route("RetailerChains")]
         [HttpGet]
         public List<RetailerChain> GetRetailerChains()
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"retailerChain\\RetailerChains"));
             RetailerChainRepository retailerChainRepository = new RetailerChainRepository();
             return retailerChainRepository.GetRetailerChains(RequestContext.Principal.Identity.Name);
         }

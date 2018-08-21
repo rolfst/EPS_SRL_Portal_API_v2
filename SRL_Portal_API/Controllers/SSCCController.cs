@@ -16,7 +16,7 @@ namespace SRL_Portal_API.Controllers
     /// Controller for all SSCC related actions
     /// </summary>
     [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
-    public class SSCCController : ApiController
+    public class SSCCController : BaseController
     {
         private readonly SSCCListRepository _ssccListRepository = new SSCCListRepository();
         private readonly SSCCOrderDetailsRepository _ssccOrderDetailsRepository = new SSCCOrderDetailsRepository();
@@ -32,12 +32,13 @@ namespace SRL_Portal_API.Controllers
         /// Get the list of SSCC's, based on the given parameters
         /// </summary>
         /// <returns></returns>
-        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer,UserRoles.SuperUser,UserRoles.UltraUser,UserRoles.WebPortalAdministrator })]
+        // [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer,UserRoles.SuperUser,UserRoles.UltraUser,UserRoles.WebPortalAdministrator })]
         [HttpPost]
         public IList<SSCCListModel> Index(
             [FromBody] SSCCListRequest request
         )
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "sscc\\filter"));
             if (request == null)
             {
                 throw new ArgumentNullException(nameof(SSCCListRequest), "Request is not valid.");
@@ -93,6 +94,7 @@ namespace SRL_Portal_API.Controllers
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public SSCCDetailsModel GetSsccDetails(string id)
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "sscc\\details"));
             if (id == null)
             {
                 throw new ArgumentNullException(id, "Request is not valid.");
@@ -111,6 +113,8 @@ namespace SRL_Portal_API.Controllers
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public IList<string> GetSsccNumbers(int retailerChainId = -1)
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"sscc\\Get?retailerchainId={retailerChainId}"));
+
             var request = new SSCCListRequest
             {
                 SsccStatusNew = true,
@@ -134,6 +138,7 @@ namespace SRL_Portal_API.Controllers
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public string SaveSSCCDetail([FromBody] SSCCEditRequest request)
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "sscc\\SaveSSCC"));
             return SaveSSCCData(request);
         }
 
@@ -142,6 +147,7 @@ namespace SRL_Portal_API.Controllers
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public string ValidateSSCC([FromBody] SSCCEditRequest request)
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "sscc\\ValidateSSCC"));
             return ValidateSSCCData(request);
         }
 
@@ -150,6 +156,7 @@ namespace SRL_Portal_API.Controllers
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public string SaveValidateSSCC([FromBody] SSCCEditRequest request)
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "sscc\\SaveValidateSSCC"));
             string response = string.Empty;
             response = SaveSSCCData(request);
             if (string.IsNullOrEmpty(response))

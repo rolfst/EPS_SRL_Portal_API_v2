@@ -12,12 +12,13 @@ namespace SRL_Portal_API.Controllers
     /// To handle order detail actions
     /// </summary>
     [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
-    public class OrderDetailController : ApiController
+    public class OrderDetailController : BaseController
     {
         [CustomAuthorizationFilter(UserRoles.SuperUser)]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public OrderDetail Get(int orderId)
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\get?orderId={orderId}"));
             OrderDetailRepository repository = new OrderDetailRepository();
             return repository.GetOrderDetail(orderId);
         }
@@ -26,6 +27,7 @@ namespace SRL_Portal_API.Controllers
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public OrderDetail Get(int orderId, int retailerChainId)
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\get?orderId={orderId}&retailerChainId={retailerChainId}"));
             OrderDetailRepository repository = new OrderDetailRepository();
 
             return repository.GetOrderDetail(orderId, retailerChainId);
@@ -35,6 +37,7 @@ namespace SRL_Portal_API.Controllers
         [Route("SSCCListForOrder")]
         public List<SSCCDetailForOrder> GetSSCCListForOrder(int orderId)
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\SSCCListForOrder?orderId={orderId}"));
             OrderDetailRepository repository = new OrderDetailRepository();
             return repository.GetSSCCListForOrder(orderId);
         }
@@ -43,6 +46,7 @@ namespace SRL_Portal_API.Controllers
         [Route("OpenSSCCListForOrder")]
         public List<SSCCDetailForOrder>GetOpenSSCCListForOrder(int orderId)
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\get?orderId{orderId}"));
             OrderDetailRepository repository = new OrderDetailRepository();
             return repository.GetOpenSSCCListForOrder(orderId);
         }
