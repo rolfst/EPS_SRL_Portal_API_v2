@@ -17,8 +17,15 @@ namespace SRL_Portal_API.Common
                     ReasonPhrase = exception.Message
                 };
                 actionExecutedContext.Response = response;
-
+                AddLogEntry(actionExecutedContext.Request, exception, actionExecutedContext.ActionContext.RequestContext.Principal.Identity.Name);
             }
+        }
+
+        private void AddLogEntry(HttpRequestMessage message, System.Exception exception, string currentUser)
+        {
+            log4net.ILog log = log4net.LogManager.GetLogger("ErrorLogger");
+
+            log.ErrorFormat(string.Format("Exception: {0} occurred during the request {1}{2} made by user {3}: Stack trace:{4}", exception.Message, message.Method, message.RequestUri, currentUser, exception.StackTrace));
         }
     }
 }
