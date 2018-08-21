@@ -8,8 +8,21 @@ namespace SRL.Data_Access.Repository
     public class SSCCListRepository
     {
         //to get search result
-        public IEnumerable<API_SSCC_OVERVIEW_Result> GetSSCCList(SSCCListRequest request)
+        public IEnumerable<API_SSCC_OVERVIEW_Result> GetSSCCList(SSCCListRequest request, string userEmail)
         {
+            if(string.IsNullOrEmpty(request.ActorID) && string.IsNullOrEmpty(request.ActorOriginId))
+            {
+                //check if logged in user is external
+                UserRespository userRespository = new UserRespository();
+               if(userRespository.IsExternalUser(userEmail))
+                {
+                    //Fetch actors assigned to the user
+                    List<int?> actorIdList = userRespository.GetActorIdList(userEmail);
+                    request.ActorOriginId = string.Join(",", actorIdList.Select(n => n.Value).ToArray());
+                }
+
+            }
+
             using (var dbEntity = new BACKUP_SRL_20180613Entities())
             {
                 dbEntity.Configuration.ProxyCreationEnabled = false;

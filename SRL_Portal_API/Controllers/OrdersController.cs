@@ -41,7 +41,7 @@ namespace SRL_Portal_API.Controllers
         public object GetOrderNumber(int retailerChainId = -1)
         {
             var request = new OrderRequest(retailerChainId: retailerChainId);
-            dynamic response = _repo.GetOrders(request).DistinctBy(x => x.ID_ORDER).Select(x => new { x.ID_ORDER, x.ORD_ORDER_NUMBER });
+            dynamic response = _repo.GetOrderNumbers(request, RequestContext.Principal.Identity.Name).DistinctBy(x => x.ID_ORDER).Select(x => new { x.ID_ORDER, x.ORD_ORDER_NUMBER });
             return response;
         }
 
