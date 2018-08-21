@@ -44,7 +44,7 @@ namespace SRL_Portal_API.Controllers
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"order\\get?retailerchainid={retailerChainId}"));
 
             var request = new OrderRequest(retailerChainId: retailerChainId);
-            dynamic response = _repo.GetOrders(request).DistinctBy(x => x.ID_ORDER).Select(x => new { x.ID_ORDER, x.ORD_ORDER_NUMBER });
+            dynamic response = _repo.GetOrderNumbers(request, RequestContext.Principal.Identity.Name).DistinctBy(x => x.ID_ORDER).Select(x => new { x.ID_ORDER, x.ORD_ORDER_NUMBER });
             return response;
         }
 

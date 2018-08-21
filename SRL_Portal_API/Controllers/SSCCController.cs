@@ -81,7 +81,7 @@ namespace SRL_Portal_API.Controllers
             {
                 request.CiDateTo = request.CiDateFrom.Value.AddDays(1);
             }
-            return SSCCListAdapter.ConvertSsccList(_ssccListRepository.GetSSCCList(request));
+            return SSCCListAdapter.ConvertSsccList(_ssccListRepository.GetSSCCList(request, RequestContext.Principal.Identity.Name));
         }
 
         /// <summary>
