@@ -271,6 +271,7 @@
     <Compile Include="Common\CustomAuthorizationFilterAttribute.cs" />
     <Compile Include="Common\HandleExceptionAttribute.cs" />
     <Compile Include="Common\RegexUtilities.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CarrierController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderDetailController.cs" />
@@ -281,6 +282,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="LogMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LogMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\SSCCController.cs" />
     <Compile Include="Startup.cs" />
@@ -344,6 +350,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Base\" />
     <Folder Include="Views\Carrier\" />
     <Folder Include="Views\Rti\" />
   </ItemGroup>
@@ -385,6 +392,12 @@
       <Project>{e92c802d-bedc-478f-8e08-380b00c171d2}</Project>
       <Name>SRL.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="LogMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LogMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

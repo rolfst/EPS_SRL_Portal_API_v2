@@ -15,12 +15,13 @@ namespace SRL_Portal_API.Controllers
 {
     [RoutePrefix("api")]
     [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
-    public class UserController : ApiController
+    public class UserController : BaseController
     {
         [Route("roles/{userEmail}/")]
         [HttpGet]
         public List<Role> GetRoles(string userEmail)
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "roles"));
             if (!string.IsNullOrEmpty(userEmail))
             {
                 if (ValidateUserEmail(userEmail))
@@ -47,6 +48,7 @@ namespace SRL_Portal_API.Controllers
         // [CustomAuthorizationFilter(new string[] { UserRoles.SRLModuleAdministrator, UserRoles.SuperUser, UserRoles.UltraUser})]
         public List<User> GetUsers(UserListRequest userListRequest)
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "User\\users"));
             if (userListRequest == null)
                 userListRequest = new UserListRequest();
 
@@ -75,6 +77,7 @@ namespace SRL_Portal_API.Controllers
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<Screen> GetScreens()
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "User\\Screens"));
             string  userEmail = RequestContext.Principal.Identity.Name;
 
             if (!string.IsNullOrEmpty(userEmail))

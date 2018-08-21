@@ -6,7 +6,7 @@ using SRL.Data_Access.Entity;
 
 namespace SRL_Portal_API.Controllers
 {
-    public class RtiController : ApiController
+    public class RtiController : BaseController
     {
 
         [System.Web.Http.AcceptVerbs("GET")]
@@ -14,6 +14,7 @@ namespace SRL_Portal_API.Controllers
         [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
         public IList<API_LIST_RTI_Result> Index()
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"rti\\get"));
             BACKUP_SRL_20180613Entities dbEntities = new BACKUP_SRL_20180613Entities();
 
             var result = dbEntities.API_LIST_RTI()

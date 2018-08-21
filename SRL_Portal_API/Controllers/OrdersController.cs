@@ -15,7 +15,7 @@ namespace SRL_Portal_API.Controllers
     /// Controller which handles GET requests for filtering orders.
     /// </summary>
     [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
-    public class OrdersController : ApiController
+    public class OrdersController : BaseController
     {
         private readonly OrderListRepository _repo = new OrderListRepository();
 
@@ -28,6 +28,7 @@ namespace SRL_Portal_API.Controllers
         public IList<OrderResponse> FilterOrder(
             [FromBody] OrderRequest request)
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orders\\filter"));
             request = EditRequest(request);
             return OrderListAdapter.ConvertOrderList(_repo.GetOrders(request));
         }
@@ -40,6 +41,8 @@ namespace SRL_Portal_API.Controllers
         [HttpGet]
         public object GetOrderNumber(int retailerChainId = -1)
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"order\\get?retailerchainid={retailerChainId}"));
+
             var request = new OrderRequest(retailerChainId: retailerChainId);
             dynamic response = _repo.GetOrders(request).DistinctBy(x => x.ID_ORDER).Select(x => new { x.ID_ORDER, x.ORD_ORDER_NUMBER });
             return response;
