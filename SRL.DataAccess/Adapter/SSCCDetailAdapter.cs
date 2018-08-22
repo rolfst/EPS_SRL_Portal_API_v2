@@ -56,7 +56,7 @@ namespace SRL.Data_Access.Adapter
             {
                 odm.ValidationDeadline = Math.Round((orderDetailResult.VALIDATION_DEADLINE.Value - now).TotalHours, 0);
             }
-            odm.Validated = orderDetailResult.VALIDATED;
+            odm.Validated = orderDetailResult.VALIDATED? orderDetailResult.VALIDATED : odm.SsccStatus == "Validated"?true:false;
 
             sdModel.OrderDetails = odm;
             #endregion
