@@ -13,7 +13,6 @@ namespace SRL_Portal_API.Controllers
     /// <summary>
     /// Controller to fetch Retailer Chains list
     /// </summary>
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RetailerChainController : BaseController
     {
         [Route("RetailerChains")]

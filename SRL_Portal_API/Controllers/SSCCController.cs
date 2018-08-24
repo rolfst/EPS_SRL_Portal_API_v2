@@ -15,7 +15,6 @@ namespace SRL_Portal_API.Controllers
     /// <summary>
     /// Controller for all SSCC related actions
     /// </summary>
-    [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
     public class SSCCController : BaseController
     {
         private readonly SSCCListRepository _ssccListRepository = new SSCCListRepository();

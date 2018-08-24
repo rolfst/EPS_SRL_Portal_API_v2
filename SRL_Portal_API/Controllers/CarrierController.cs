@@ -6,7 +6,6 @@ using SRL.Data_Access.Entity;
 
 namespace SRL_Portal_API.Controllers
 {
-    [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
     public class CarrierController : BaseController
     {
         [AcceptVerbs("GET")]

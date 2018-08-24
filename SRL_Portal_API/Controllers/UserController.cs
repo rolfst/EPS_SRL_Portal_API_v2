@@ -14,7 +14,6 @@ using SRL.Data_Access.Repository;
 namespace SRL_Portal_API.Controllers
 {
     [RoutePrefix("api")]
-    [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
     public class UserController : BaseController
     {
         [Route("roles/{userEmail}/")]
@@ -44,8 +43,7 @@ namespace SRL_Portal_API.Controllers
 
         [Route("users")]
         [HttpPost]
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        // [CustomAuthorizationFilter(new string[] { UserRoles.SRLModuleAdministrator, UserRoles.SuperUser, UserRoles.UltraUser})]
+        [CustomAuthorizationFilter(new string[] { UserRoles.SRLModuleAdministrator, UserRoles.SuperUser, UserRoles.UltraUser})]
         public List<User> GetUsers(UserListRequest userListRequest)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "User\\users"));
@@ -74,7 +72,6 @@ namespace SRL_Portal_API.Controllers
         [Route("screens")]
         [HttpGet]
         [Authorize]
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<Screen> GetScreens()
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "User\\Screens"));

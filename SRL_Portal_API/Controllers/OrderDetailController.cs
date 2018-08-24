@@ -11,11 +11,9 @@ namespace SRL_Portal_API.Controllers
     /// <summary>
     /// To handle order detail actions
     /// </summary>
-    [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
     public class OrderDetailController : BaseController
     {
         [CustomAuthorizationFilter(UserRoles.SuperUser)]
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public OrderDetail Get(int orderId)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\get?orderId={orderId}"));
@@ -24,7 +22,6 @@ namespace SRL_Portal_API.Controllers
         }
 
         [CustomAuthorizationFilter(UserRoles.Customer)]
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public OrderDetail Get(int orderId, int retailerChainId)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\get?orderId={orderId}&retailerChainId={retailerChainId}"));

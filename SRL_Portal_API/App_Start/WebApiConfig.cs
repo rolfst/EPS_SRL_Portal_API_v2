@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Cors;
 using Newtonsoft.Json.Serialization;
 using SRL_Portal_API.Common;
 
@@ -10,7 +11,8 @@ namespace SRL_Portal_API
         {
             // Web API configuration and services
             config.Filters.Add(new HandleExceptionAttribute());
-            config.EnableCors();
+            var cors = new EnableCorsAttribute(System.Configuration.ConfigurationManager.AppSettings["ida:CORSOrigin"].ToString(), "*", "*");
+            config.EnableCors(cors);
 
             // Web API routes
             config.MapHttpAttributeRoutes();
