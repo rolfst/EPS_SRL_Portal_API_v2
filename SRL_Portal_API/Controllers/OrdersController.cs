@@ -14,7 +14,6 @@ namespace SRL_Portal_API.Controllers
     /// <summary>
     /// Controller which handles GET requests for filtering orders.
     /// </summary>
-    [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
     public class OrdersController : BaseController
     {
         private readonly OrderListRepository _repo = new OrderListRepository();

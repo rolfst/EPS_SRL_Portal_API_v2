@@ -9,7 +9,6 @@ using SRL.Models;
 
 namespace SRL_Portal_API.Controllers
 {
-    [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
     public class ActorController : BaseController
     {
         [AcceptVerbs("GET")]

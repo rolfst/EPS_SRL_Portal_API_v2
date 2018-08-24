@@ -7,7 +7,6 @@ using System.Web.Mvc;
 
 namespace SRL_Portal_API.Controllers
 {
-    [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
     public class HomeController : Controller
     {
         public ActionResult Index()
