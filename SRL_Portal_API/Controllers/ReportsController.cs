@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Net;
 using System.Net.Mail;
 using System.Web.Http;
@@ -28,7 +27,7 @@ namespace SRL_Portal_API.Controllers
             var controller = new OrderDetailController();
             var orderDetail = controller.Get(requestOrderNumber);
 
-            var mail = new MailMessage("noreply@srlEuropoolsystems.com", mailAddress.Address)
+            var mail = new MailMessage(ConfigurationManager.AppSettings["smtpFrom"], mailAddress.Address)
             {
                 Subject = $"Report for order {orderDetail.OrderNumber}",
                 Body = orderDetail.ToString()
