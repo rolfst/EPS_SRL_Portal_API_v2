@@ -11,7 +11,6 @@ namespace SRL_Portal_API.Controllers
 
         [System.Web.Http.AcceptVerbs("GET")]
         [System.Web.Http.HttpGet]
-        [EnableCors(origins: "http://localhost:9005", headers: "*", methods: "*")]
         public IList<API_LIST_RTI_Result> Index()
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"rti\\get"));
