@@ -570,7 +570,7 @@
           <Parameter Name="UserEmail" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetActorsForUser" ReturnType="Collection(Int32)">
-            <Parameter Name="UserEmail" Mode="In" Type="String" />
+          <Parameter Name="UserEmail" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_GetUsers_Result">
