@@ -18,24 +18,25 @@ namespace SRL.Data_Access.Repository
                 retailerChains = cntx.API_LIST_RETAILERS().ToList().ToEntityRetailerChainList();
             }
 
-            //Check whether logged in user is external
+            //Get retailer chain for logged in user
             UserRespository userRespository = new UserRespository();
-            if (userRespository.IsExternalUser(userEmail))
+            
+            List<RetailerChain> retailerChainsForUser = new List<RetailerChain>();
+            List<int?> retailerChainIds = userRespository.GetRetailerChainIdList(userEmail);
+            if (retailerChainIds.Any())
             {
-                List<RetailerChain> retailerChainsForUser = new List<RetailerChain>();
-                List<int?> retailerChainIds = userRespository.GetRetailerChainIdList(userEmail);
-                if (retailerChainIds.Any())
+                foreach (var retailerChainId in retailerChainIds)
                 {
-                    foreach (var retailerChainId in retailerChainIds)
-                    {
-                        if (retailerChainId != null)
-                            retailerChainsForUser.Add(retailerChains.Where(r => r.RetailerChainId == retailerChainId).FirstOrDefault());
-                    }
+                    if (retailerChainId != null)
+                        retailerChainsForUser.Add(retailerChains.Where(r => r.RetailerChainId == retailerChainId).FirstOrDefault());
                 }
+
                 return retailerChainsForUser;
             }
             else
                 return retailerChains;
+            //}
+            //
         }
 
     }

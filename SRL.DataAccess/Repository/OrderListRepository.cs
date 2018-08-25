@@ -41,15 +41,16 @@ namespace SRL.Data_Access.Repository
 
         public IEnumerable<ORDER_LIST_Result> GetOrderNumbers(OrderRequest request,string userEmail)
         {
+            #region User Management
+            //To fetch order numbers for the assigned actors of the logged in user
             UserRespository userRespository = new UserRespository();
-            if(userRespository.IsExternalUser(userEmail))
-            {
-                List<int?> actorIds = userRespository.GetActorIdList(userEmail);
+                List<int> actorIds = userRespository.GetActorIdList(userEmail);
                 if(actorIds.Any())
                 {
-                    request.ActorIdFrom = string.Join(",", actorIds.Select(a => a.Value).ToArray());
+                    request.ActorIdFrom = string.Join(",", actorIds.Select(a => a).ToArray());
                 }
-            }
+
+            #endregion
             using (var dbEntity = new BACKUP_SRL_20180613Entities())
             {
                 dbEntity.Configuration.ProxyCreationEnabled = false;

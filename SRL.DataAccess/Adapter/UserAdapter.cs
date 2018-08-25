@@ -105,5 +105,15 @@ namespace SRL.Data_Access.Adapter
             }
             return screenList;
         }
+
+        internal static List<Common.ActorRetailerChain> ToEntityActorRetailerChain(this List<Data_Access.Entity.API_LIST_ACTORID_FOR_RETAILERCHAIN_Result> result )
+        {
+            List<Common.ActorRetailerChain> actorList = new List<Common.ActorRetailerChain>(); 
+            foreach (var item in result)
+            {
+                actorList.Add(new Common.ActorRetailerChain {  ActorId = item.ACTOR_ID, RetailerChainId = item.RETAILER_CHAIN_ID});
+            }
+            return actorList;
+        }
     }
 }

@@ -3515,6 +3515,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="RETAILER_CHAIN_ID" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="LOCATION" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="API_LIST_ACTORID_FOR_RETAILERCHAIN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RETAILERCHAIN_ID" Type="nvarchar(max)" Mode="In" />
+        </Function>
         <Function Name="API_LIST_ACTORS_TRANSACTION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
         </Function>
@@ -8898,6 +8901,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <FunctionImport Name="API_LIST_SSCC_ON_ORDER" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_SSCC_ON_ORDER_Result)">
           <Parameter Name="ORDER_NUMBER" Mode="In" Type="Int64" />
           </FunctionImport>
+          <FunctionImport Name="API_LIST_ACTORID_FOR_RETAILERCHAIN" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_ACTORID_FOR_RETAILERCHAIN_Result)">
+          <Parameter Name="RETAILERCHAIN_ID" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetOrderDetail_Result">
           <Property Type="String" Name="ORD_ORDER_NUMBER" Nullable="false" MaxLength="60" />
@@ -9069,6 +9075,10 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="String" Name="ACTOR_ORIGIN" Nullable="true" MaxLength="400" />
           <Property Type="Decimal" Name="DEVIATION" Nullable="true" Precision="21" Scale="3" />
           <Property Type="Int32" Name="SSCC_STATUS" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="API_LIST_ACTORID_FOR_RETAILERCHAIN_Result" >
+          <Property Type="Int32" Name="ACTOR_ID" Nullable="false" />
+          <Property Type="Int32" Name="RETAILER_CHAIN_ID" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -12039,6 +12049,14 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
                 <ScalarProperty Name="ACTOR_ORIGIN" ColumnName="ACTOR_ORIGIN" />
                 <ScalarProperty Name="DEVIATION" ColumnName="DEVIATION" />
                 <ScalarProperty Name="SSCC_STATUS" ColumnName="SSCC_STATUS" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_LIST_ACTORID_FOR_RETAILERCHAIN" FunctionName="BACKUP_SRL_20180613Model.Store.API_LIST_ACTORID_FOR_RETAILERCHAIN" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_LIST_ACTORID_FOR_RETAILERCHAIN_Result">
+                <ScalarProperty Name="ACTOR_ID" ColumnName="ACTOR_ID" />
+                <ScalarProperty Name="RETAILER_CHAIN_ID" ColumnName="RETAILER_CHAIN_ID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
