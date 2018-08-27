@@ -90,5 +90,25 @@ namespace SRL.Data_Access.Repository
                 return result;
             }
         }
+
+        public int GetApprovedSSCCsCount(string userEmail,int retailerChainId)
+        {
+            var request = new SSCCListRequest
+            {
+                SsccStatusNew = true,
+                SsccStatusProcessed = true,
+                SsccStatusValidated = true,
+                ValidationOpen = true,
+                ValidationExceeded = true,
+                ValidationPassed = true,
+                CountingOK = true,
+                CountingNOK = true,
+                SlaOK = true,
+                SlaNOK = true,
+                RetailerChainId = retailerChainId
+            };
+            //Return count of validated SSCCs
+            return GetSSCCNumberList(request, userEmail).Where(s=>s.SSCC_STATUS ==3).Count();
+        }
     }
 }
