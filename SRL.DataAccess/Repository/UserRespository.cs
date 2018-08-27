@@ -8,7 +8,7 @@ namespace SRL.Data_Access.Repository
 {
     public class UserRespository
     {
-        
+
         public List<User> GetUsersList(UserListRequest userFilter)
         {
             List<User> users = new List<User>();
@@ -129,18 +129,19 @@ namespace SRL.Data_Access.Repository
                 using (var ctx = new BACKUP_SRL_20180613Entities())
                 {
                     actorRetailerChainlist = ctx.API_LIST_ACTORID_FOR_RETAILERCHAIN(retailerChainList).ToList().ToEntityActorRetailerChain();
-                    if (actorRetailerChainlist.Any())
-                    {
-                        //remove retailer chains whose actors are assigned to the user, so as to get retailer chains for whom no actors are assigned directly to the user
-                        List<Common.ActorRetailerChain> toBeRemoved = actorRetailerChainlist.Where(a => actorIds.Contains(a.ActorId)).ToList();
-                        if (toBeRemoved.Any())
-                        {
-                            List<int> toBeRemovedRetailerChain = toBeRemoved.Select(a => a.RetailerChainId).Distinct().ToList();
-                            toBeRemovedRetailerChain.ForEach(r => { actorRetailerChainlist.RemoveAll(a => a.RetailerChainId == r); });
-                            actorRetailerChainlist.ForEach(a => actorIds.Add(a.ActorId));
-                        }
-                    }
                 }
+                if (actorRetailerChainlist.Any())
+                {
+                    //remove retailer chains whose actors are assigned to the user, so as to get retailer chains for whom no actors are assigned directly to the user
+                    List<Common.ActorRetailerChain> toBeRemoved = actorRetailerChainlist.Where(a => actorIds.Contains(a.ActorId)).ToList();
+                    if (toBeRemoved.Any())
+                    {
+                        List<int> toBeRemovedRetailerChain = toBeRemoved.Select(a => a.RetailerChainId).Distinct().ToList();
+                        toBeRemovedRetailerChain.ForEach(r => { actorRetailerChainlist.RemoveAll(a => a.RetailerChainId == r); });
+                    }
+                    actorRetailerChainlist.ForEach(a => actorIds.Add(a.ActorId));
+                }
+
             }
             return actorIds;
 
