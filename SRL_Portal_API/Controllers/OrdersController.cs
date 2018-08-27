@@ -6,7 +6,9 @@ using System.Web.Http.Cors;
 using Microsoft.Ajax.Utilities;
 using SRL.Data_Access.Adapter;
 using SRL.Data_Access.Repository;
+using SRL.Models.Constants;
 using SRL.Models.Order;
+using SRL_Portal_API.Common;
 
 namespace SRL_Portal_API.Controllers
 {
@@ -28,7 +30,7 @@ namespace SRL_Portal_API.Controllers
             [FromBody] OrderRequest request)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orders\\filter"));
-            request = EditRequest(request);
+            request = _repo.EditRequest(request);
             return OrderListAdapter.ConvertOrderList(_repo.GetOrders(request));
         }
 
@@ -47,37 +49,15 @@ namespace SRL_Portal_API.Controllers
             return response;
         }
 
-        private OrderRequest EditRequest(OrderRequest request)
+        [HttpGet]
+        [Route("GetApprovedOrders")]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
+        public int GetApprovedOrdersCount(int retailerChainId = -1)
         {
-            if (request == null)
-            {
-                throw new ArgumentNullException(nameof(OrderRequest), "Request is not valid.");
-            }
-
-            // Filterfunctionality checkboxgroups: Select none = See all
-            if (!request.OrderNew && !request.OrderOpen && !request.OrderValidated)
-            {
-                request.OrderNew = true; request.OrderOpen = true; request.OrderValidated = true;
-            }
-            if (!request.ShopCountOk && !request.ShopCountNok)
-            {
-                request.ShopCountOk = true; request.ShopCountNok = true;
-            }
-            if (!request.ValidationOpen && !request.ValidationExceeded && !request.ValidationPassed)
-            {
-                request.ValidationOpen = true; request.ValidationExceeded = true; request.ValidationPassed = true;
-            }
-            // Filterfunctionality Dates: If date from is not null and date to is null, get only selected date.
-            if (request.OrderDateFrom != null && request.OrderDateTo == null)
-            {
-                request.OrderDateTo = request.OrderDateFrom;
-            }
-            if (request.CiDateFrom != null && request.CiDateTo == null)
-            {
-                request.CiDateTo = request.CiDateFrom;
-            }
-
-            return request;
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"sscc\\GetApprovedOrders?retailerchainId={retailerChainId}"));
+            return _repo.GetApprovedOrdersCount(RequestContext.Principal.Identity.Name, retailerChainId);
         }
+
+
     }
 }

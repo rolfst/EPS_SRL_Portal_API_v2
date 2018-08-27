@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SRL.Data_Access.Entity;
 using SRL.Models.Order;
@@ -7,6 +8,7 @@ namespace SRL.Data_Access.Repository
 {
     public class OrderListRepository
     {
+        const int VALIDATED_ORDER_STATUS_ID = 14;
         public IEnumerable<ORDER_LIST_Result> GetOrders(OrderRequest request)
         {
             using (var dbEntity = new BACKUP_SRL_20180613Entities())
@@ -37,6 +39,46 @@ namespace SRL.Data_Access.Repository
                     .ToList();
                 return result;
             };
+        }
+
+        public OrderRequest EditRequest(OrderRequest request)
+        {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(OrderRequest), "Request is not valid.");
+            }
+
+            // Filterfunctionality checkboxgroups: Select none = See all
+            if (!request.OrderNew && !request.OrderOpen && !request.OrderValidated)
+            {
+                request.OrderNew = true; request.OrderOpen = true; request.OrderValidated = true;
+            }
+            if (!request.ShopCountOk && !request.ShopCountNok)
+            {
+                request.ShopCountOk = true; request.ShopCountNok = true;
+            }
+            if (!request.ValidationOpen && !request.ValidationExceeded && !request.ValidationPassed)
+            {
+                request.ValidationOpen = true; request.ValidationExceeded = true; request.ValidationPassed = true;
+            }
+            // Filterfunctionality Dates: If date from is not null and date to is null, get only selected date.
+            if (request.OrderDateFrom != null && request.OrderDateTo == null)
+            {
+                request.OrderDateTo = request.OrderDateFrom;
+            }
+            if (request.CiDateFrom != null && request.CiDateTo == null)
+            {
+                request.CiDateTo = request.CiDateFrom;
+            }
+
+            return request;
+        }
+
+        public int GetApprovedOrdersCount(string userEmail, int retailerChainId =-1)
+        {
+            var request = new OrderRequest(retailerChainId: retailerChainId);
+            //Return count of validated Orders
+            return GetOrderNumbers(request, userEmail).Where(o => o.ORDER_STATUS == VALIDATED_ORDER_STATUS_ID).Count();
         }
 
         public IEnumerable<ORDER_LIST_Result> GetOrderNumbers(OrderRequest request,string userEmail)
