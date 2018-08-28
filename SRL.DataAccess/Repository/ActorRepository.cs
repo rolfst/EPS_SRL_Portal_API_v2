@@ -27,21 +27,18 @@ namespace SRL.Data_Access.Repository
                 dbEntity.Configuration.ProxyCreationEnabled = false;
                 actors = dbEntity.API_LIST_ACTORS_TRANSACTION(-1).ConvertActorList();
             }
-            //Check if logged in user is external
+            //Fetch actors for logged in user
             UserRespository userRespository = new UserRespository();
-            if (userRespository.IsExternalUser(userEmail))
+            //Fetch actors assigned to the user
+            List<int> actorIdList = userRespository.GetActorIdList(userEmail);
+            List<Actor> actorsList = new List<Actor>();
+            if (actorIdList.Any())
             {
-                //Fetch actors assigned to the user
-                List<int?> actorIdList = userRespository.GetActorIdList(userEmail);
-                List<Actor> actorsList = new List<Actor>();
                 foreach (var actorId in actorIdList)
                 {
-                    if (actorId.HasValue)
-                    {
                         Actor actor = actors.FirstOrDefault(a => a.ActorId == actorId);
                         if (actor != null)
                             actorsList.Add(actor);
-                    }
                 }
                 return actorsList;
             }
@@ -49,6 +46,7 @@ namespace SRL.Data_Access.Repository
                 return actors;
 
         }
+
 
         public List<ActorMasterListResponse> GetActorMasterDataList(ActorMasterListRequest request)
         {

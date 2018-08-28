@@ -10,17 +10,12 @@ namespace SRL.Data_Access.Repository
         //to get search result
         public IEnumerable<API_SSCC_OVERVIEW_Result> GetSSCCList(SSCCListRequest request, string userEmail)
         {
-            if(string.IsNullOrEmpty(request.ActorID) && string.IsNullOrEmpty(request.ActorOriginId))
+            if (string.IsNullOrEmpty(request.ActorID) && string.IsNullOrEmpty(request.ActorOriginId))
             {
-                //check if logged in user is external
                 UserRespository userRespository = new UserRespository();
-               if(userRespository.IsExternalUser(userEmail))
-                {
-                    //Fetch actors assigned to the user
-                    List<int?> actorIdList = userRespository.GetActorIdList(userEmail);
-                    request.ActorOriginId = string.Join(",", actorIdList.Select(n => n.Value).ToArray());
-                }
-
+                //Fetch actors assigned to the user
+                List<int> actorIdList = userRespository.GetActorIdList(userEmail);
+                request.ActorOriginId = string.Join(",", actorIdList.Select(n => n).ToArray());
             }
 
             using (var dbEntity = new BACKUP_SRL_20180613Entities())
@@ -58,44 +53,62 @@ namespace SRL.Data_Access.Repository
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-            public IEnumerable<API_SSCC_OVERVIEW_Result> GetSSCCNumberList(SSCCListRequest request, string userEmail)
-            {
-            //Check if logged in user is external
+        public IEnumerable<API_SSCC_OVERVIEW_Result> GetSSCCNumberList(SSCCListRequest request, string userEmail)
+        {
+            
             UserRespository userRespository = new UserRespository();
-            if (userRespository.IsExternalUser(userEmail))
-            {
-                //Fetch actors assigned to the user
-                List<int?> actorIdList = userRespository.GetActorIdList(userEmail);
-                request.ActorOriginId = string.Join(",", actorIdList.Select(n => n.Value).ToArray());
-            }
-            using (var dbEntity = new BACKUP_SRL_20180613Entities())
-                {
-                    dbEntity.Configuration.ProxyCreationEnabled = false;
-                    List<API_SSCC_OVERVIEW_Result> result = dbEntity.API_SSCC_OVERVIEW(
-                        request.ActorID,
-                        request.ActorOriginId,
-                        request.SsccStatusNew,
-                        request.SsccStatusProcessed,
-                        request.SsccStatusValidated,
-                        request.SsccDateFrom,
-                        request.SsccDateTo,
-                        request.CiDateFrom,
-                        request.CiDateTo,
-                        request.ValidationOpen,
-                        request.ValidationExceeded,
-                        request.ValidationPassed,
-                        request.SsccNr,
-                        request.OrderNr,
-                        request.CountingOK,
-                        request.CountingNOK,
-                        request.SlaOK,
-                        request.SlaNOK,
-                        request.RetailerChainId)
-                        .ToList<API_SSCC_OVERVIEW_Result>();
-               
+            //Fetch actors assigned to the user
+            List<int> actorIdList = userRespository.GetActorIdList(userEmail);
+            request.ActorOriginId = string.Join(",", actorIdList.Select(n => n).ToArray());
 
-                    return result;
-                }
+            using (var dbEntity = new BACKUP_SRL_20180613Entities())
+            {
+                dbEntity.Configuration.ProxyCreationEnabled = false;
+                List<API_SSCC_OVERVIEW_Result> result = dbEntity.API_SSCC_OVERVIEW(
+                    request.ActorID,
+                    request.ActorOriginId,
+                    request.SsccStatusNew,
+                    request.SsccStatusProcessed,
+                    request.SsccStatusValidated,
+                    request.SsccDateFrom,
+                    request.SsccDateTo,
+                    request.CiDateFrom,
+                    request.CiDateTo,
+                    request.ValidationOpen,
+                    request.ValidationExceeded,
+                    request.ValidationPassed,
+                    request.SsccNr,
+                    request.OrderNr,
+                    request.CountingOK,
+                    request.CountingNOK,
+                    request.SlaOK,
+                    request.SlaNOK,
+                    request.RetailerChainId)
+                    .ToList<API_SSCC_OVERVIEW_Result>();
+
+
+                return result;
             }
+        }
+
+        public int GetApprovedSSCCsCount(string userEmail,int retailerChainId)
+        {
+            var request = new SSCCListRequest
+            {
+                SsccStatusNew = true,
+                SsccStatusProcessed = true,
+                SsccStatusValidated = true,
+                ValidationOpen = true,
+                ValidationExceeded = true,
+                ValidationPassed = true,
+                CountingOK = true,
+                CountingNOK = true,
+                SlaOK = true,
+                SlaNOK = true,
+                RetailerChainId = retailerChainId
+            };
+            //Return count of validated SSCCs
+            return GetSSCCNumberList(request, userEmail).Where(s=>s.SSCC_STATUS ==3).Count();
+        }
     }
 }

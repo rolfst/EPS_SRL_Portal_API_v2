@@ -59,6 +59,7 @@
     <Compile Include="Adapter\SSCCDetailAdapter.cs" />
     <Compile Include="Adapter\SSCCListAdapter.cs" />
     <Compile Include="Adapter\UserAdapter.cs" />
+    <Compile Include="Common\ActorRetailerChain.cs" />
     <Compile Include="Common\SSCCEditIntermediate.cs" />
     <Compile Include="Entity\ACTION.cs">
       <DependentUpon>SRL.tt</DependentUpon>
@@ -73,7 +74,7 @@
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\API_FN_SPLIT_Result.cs">
-      <DependentUpon>SRLUser.tt</DependentUpon>
+      <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\API_LCP_COUNTING_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
@@ -88,6 +89,9 @@
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\API_LCP_TRANSACTIONS_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LIST_ACTORID_FOR_RETAILERCHAIN_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\API_LIST_ACTORS_TRANSACTION_Result.cs">

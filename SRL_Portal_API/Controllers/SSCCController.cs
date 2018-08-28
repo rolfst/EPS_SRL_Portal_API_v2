@@ -132,6 +132,15 @@ namespace SRL_Portal_API.Controllers
             return _ssccListRepository.GetSSCCNumberList(request, RequestContext.Principal.Identity.Name).Select(x => x.SSCC).Distinct().ToList();
         }
 
+        [HttpGet]
+        [Route("GetApprovedSSCCs")]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
+        public int GetApprovedSSCCsCount(int retailerChainId = -1)
+        {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"sscc\\GetApprovedSSCCs?retailerchainId={retailerChainId}"));
+            return _ssccListRepository.GetApprovedSSCCsCount(RequestContext.Principal.Identity.Name, retailerChainId);
+        }
+
         [HttpPost]
         [Route("SaveSSCC")]
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]

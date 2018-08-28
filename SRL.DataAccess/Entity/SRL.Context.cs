@@ -553,5 +553,14 @@ namespace SRL.Data_Access.Entity
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_SSCC_ON_ORDER_Result>("API_LIST_SSCC_ON_ORDER", oRDER_NUMBERParameter);
         }
+    
+        public virtual ObjectResult<API_LIST_ACTORID_FOR_RETAILERCHAIN_Result> API_LIST_ACTORID_FOR_RETAILERCHAIN(string rETAILERCHAIN_ID)
+        {
+            var rETAILERCHAIN_IDParameter = rETAILERCHAIN_ID != null ?
+                new ObjectParameter("RETAILERCHAIN_ID", rETAILERCHAIN_ID) :
+                new ObjectParameter("RETAILERCHAIN_ID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_ACTORID_FOR_RETAILERCHAIN_Result>("API_LIST_ACTORID_FOR_RETAILERCHAIN", rETAILERCHAIN_IDParameter);
+        }
     }
 }
