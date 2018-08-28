@@ -8,7 +8,6 @@ using System.Web.Http;
 using SRL.Models.Constants;
 using SRL_Portal_API.Common;
 using SRL.Data_Access.Common;
-using System.Web.Http.Cors;
 
 namespace SRL_Portal_API.Controllers
 {
@@ -31,7 +30,7 @@ namespace SRL_Portal_API.Controllers
         /// Get the list of SSCC's, based on the given parameters
         /// </summary>
         /// <returns></returns>
-        // [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer,UserRoles.SuperUser,UserRoles.UltraUser,UserRoles.WebPortalAdministrator })]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         [HttpPost]
         public IList<SSCCListModel> Index(
             [FromBody] SSCCListRequest request

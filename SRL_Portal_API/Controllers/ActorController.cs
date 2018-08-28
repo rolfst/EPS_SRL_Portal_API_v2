@@ -4,8 +4,9 @@ using System.Web.Http;
 using SRL.Data_Access.Entity;
 using SRL.Models.ActorMasterData;
 using SRL.Data_Access.Repository;
-using System.Web.Http.Cors;
 using SRL.Models;
+using SRL_Portal_API.Common;
+using SRL.Models.Constants;
 
 namespace SRL_Portal_API.Controllers
 {
@@ -13,6 +14,7 @@ namespace SRL_Portal_API.Controllers
     {
         [AcceptVerbs("GET")]
         [HttpGet]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator, UserRoles.Customer })]
         public IList<API_LIST_ACTORS_TRANSACTION_Result> Index()
         {
             // Todo: Get current User.
@@ -27,6 +29,7 @@ namespace SRL_Portal_API.Controllers
 
         [HttpPost]
         [Route("ActorMasterList")]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public List<ActorMasterListResponse> GetActorMasterLists(ActorMasterListRequest request)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "Actor\\GetActorMasterList"));
@@ -36,6 +39,7 @@ namespace SRL_Portal_API.Controllers
 
         [HttpGet]
         [Route("ActorsList")]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator, UserRoles.Customer })]
         public List<Actor> GetActorsList()
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "Actor\\Actorslist"));

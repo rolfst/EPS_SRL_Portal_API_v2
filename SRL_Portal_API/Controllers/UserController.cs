@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Cors;
-using SRL.Data_Access;
 using SRL.Models;
 using SRL_Portal_API.Common;
 using SRL.Models.Constants;
@@ -18,6 +15,7 @@ namespace SRL_Portal_API.Controllers
     {
         [Route("roles/{userEmail}/")]
         [HttpGet]
+        [Authorize]
         public List<Role> GetRoles(string userEmail)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "roles"));
@@ -43,7 +41,7 @@ namespace SRL_Portal_API.Controllers
 
         [Route("users")]
         [HttpPost]
-        [CustomAuthorizationFilter(new string[] { UserRoles.SRLModuleAdministrator, UserRoles.SuperUser, UserRoles.UltraUser})]
+        [CustomAuthorizationFilter(new string[] { UserRoles.SRLModuleAdministrator, UserRoles.SuperUser, UserRoles.UltraUser })]
         public List<User> GetUsers(UserListRequest userListRequest)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "User\\users"));
@@ -75,7 +73,7 @@ namespace SRL_Portal_API.Controllers
         public List<Screen> GetScreens()
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "User\\Screens"));
-            string  userEmail = RequestContext.Principal.Identity.Name;
+            string userEmail = RequestContext.Principal.Identity.Name;
 
             if (!string.IsNullOrEmpty(userEmail))
             {
@@ -115,7 +113,6 @@ namespace SRL_Portal_API.Controllers
             }
 
         }
-
 
 
     }

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using System.Web.Http.Cors;
 using SRL.Data_Access.Entity;
+using SRL.Models.Constants;
+using SRL_Portal_API.Common;
 
 namespace SRL_Portal_API.Controllers
 {
@@ -10,6 +11,7 @@ namespace SRL_Portal_API.Controllers
     {
         [AcceptVerbs("GET")]
         [HttpGet]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator, UserRoles.Customer })]
         public IList<API_LIST_LOAD_CARRIER_Result> Index()
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "carrier\\get"));
