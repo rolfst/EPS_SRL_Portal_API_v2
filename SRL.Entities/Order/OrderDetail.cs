@@ -12,7 +12,7 @@ namespace SRL.Models.Order
         public string ToActorName { get; set; }
         public string ToActorAddressLine1 { get; set; }
         public string ToActorAddressLine2 { get; set; }
-        public OrderStatus Status { get; set; }
+        public string Status { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime? UnloadingDate { get; set; }
         public string Transport { get; set; }

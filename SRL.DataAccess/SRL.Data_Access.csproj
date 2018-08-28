@@ -60,6 +60,7 @@
     <Compile Include="Adapter\SSCCListAdapter.cs" />
     <Compile Include="Adapter\UserAdapter.cs" />
     <Compile Include="Common\ActorRetailerChain.cs" />
+    <Compile Include="Common\OrderStatusConvertor.cs" />
     <Compile Include="Common\SSCCEditIntermediate.cs" />
     <Compile Include="Entity\ACTION.cs">
       <DependentUpon>SRL.tt</DependentUpon>
@@ -585,6 +586,11 @@
     <Compile Include="Repository\SSCCOrderDetailsRepository.cs" />
     <Compile Include="Repository\SSCCPalletCountingRepository.cs" />
     <Compile Include="Repository\UserRespository.cs" />
+    <Compile Include="Resources\OrderStatuses.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderStatuses.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Entity\SRLUser.edmx">
@@ -654,6 +660,11 @@
       <Name>SRL.Models</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\OrderStatuses.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OrderStatuses.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
