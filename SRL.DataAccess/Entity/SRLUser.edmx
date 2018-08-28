@@ -216,6 +216,10 @@
         <Function Name="sp_GetScreensForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserEmail" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_GetUserForActor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ActorId" Type="int" Mode="In" />
+          <Parameter Name="RetailerChainId" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_GetUserRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserEmail" Type="nvarchar" Mode="In" />
         </Function>
@@ -570,7 +574,11 @@
           <Parameter Name="UserEmail" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetActorsForUser" ReturnType="Collection(Int32)">
-            <Parameter Name="UserEmail" Mode="In" Type="String" />
+          <Parameter Name="UserEmail" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetUserForActor" ReturnType="Collection(SRLManagementModel.sp_GetUserForActor_Result)">
+            <Parameter Name="ActorId" Mode="In" Type="Int32" />
+            <Parameter Name="RetailerChainId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_GetUsers_Result">
@@ -625,6 +633,11 @@
           <Property Type="String" Name="RetailerChain" Nullable="false" MaxLength="1" />
           <Property Type="Boolean" Name="Active" Nullable="false" />
           <Property Type="Int32" Name="IsEnabled" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_GetUserForActor_Result">
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="100" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -770,6 +783,15 @@
           <FunctionImportMapping FunctionImportName="sp_CheckIfUserExternal" FunctionName="SRLManagementModel.Store.sp_CheckIfUserExternal" />
           <FunctionImportMapping FunctionImportName="sp_GetRetailerChainForUser" FunctionName="SRLManagementModel.Store.sp_GetRetailerChainForUser" />
           <FunctionImportMapping FunctionImportName="sp_GetActorsForUser" FunctionName="SRLManagementModel.Store.sp_GetActorsForUser" />
+          <FunctionImportMapping FunctionImportName="sp_GetUserForActor" FunctionName="SRLManagementModel.Store.sp_GetUserForActor">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SRLManagementModel.sp_GetUserForActor_Result">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

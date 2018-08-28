@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Mail;
 using System.Web.Http;
+using SRL.Data_Access.Repository;
 using SRL.Models;
 
 namespace SRL_Portal_API.Controllers
@@ -11,13 +12,24 @@ namespace SRL_Portal_API.Controllers
         [HttpPost]
         public void SendReportsToActors(SendReportRequestList sendReportRequest)
         {
+            var repo = new UserRespository();
             // Send report to every request
             foreach (var request in sendReportRequest.Requests)
             {
-                // Validate mailAddresses
-                var mailAddress = new MailAddress(request.MailAddress);
+                if (request.RetailerChainId == 0)
+                {
 
-                SendReportToActor(mailAddress, request.OrderNumber);
+                }
+                var users = repo.GetUsersFromActor(request.ActorId, request.RetailerChainId);
+
+                // Validate mailAddresses
+                foreach (var user in users)
+                {
+                    var mailAddress = new MailAddress(user.Email, $"{user.FirstName} {user.LastName}");
+
+                    SendReportToActor(mailAddress, request.OrderNumber);
+                }
+                
             }
         }
 
@@ -30,7 +42,7 @@ namespace SRL_Portal_API.Controllers
             var mail = new MailMessage(ConfigurationManager.AppSettings["smtpFrom"], mailAddress.Address)
             {
                 Subject = $"Report for order {orderDetail.OrderNumber}",
-                Body = orderDetail.ToString()
+                Body = $"Dear {mailAddress.DisplayName}, \n Your report for order {orderDetail.OrderNumber} is finished. \n\n{orderDetail}"
             };
 
             var client = new SmtpClient

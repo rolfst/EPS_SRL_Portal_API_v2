@@ -4,7 +4,8 @@ namespace SRL.Models
 {
     public class SendReportRequest
     {
-        public string MailAddress { get; set; }
+        public int ActorId { get; set; }
+        public int RetailerChainId { get; set; }
         public int OrderNumber { get; set; }
     }
 
