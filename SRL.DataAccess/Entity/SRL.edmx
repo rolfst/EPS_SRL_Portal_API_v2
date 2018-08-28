@@ -8972,6 +8972,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="DateTime" Name="VALIDATION_DEADLINE" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="VALIDATED" Nullable="true" />
           <Property Type="DateTime" Name="VALIDATED_DATE" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="RETAILER_CHAIN_ID" Nullable="false" />
         </ComplexType>
         <ComplexType Name="API_SSCC_OVERVIEW_Result">
           <Property Type="Decimal" Name="ORDER_NUMBER" Nullable="true" Precision="10" Scale="0" />

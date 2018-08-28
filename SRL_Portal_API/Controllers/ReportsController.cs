@@ -1,16 +1,51 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Text;
 using System.Web.Http;
 using SRL.Data_Access.Repository;
 using SRL.Models;
+using SRL.Models.Order;
 
 namespace SRL_Portal_API.Controllers
 {
     public class ReportsController : BaseController
     {
         [HttpPost]
-        public void SendReportsToActors(SendReportRequestList sendReportRequest)
+        public void SendReportsToActors(IdList ids)
+        {
+            var sb = new StringBuilder();
+            for (var i = 0; i < ids.Ids.Count; i++)
+            {
+                sb.Append(ids.Ids[i]);
+                if (i + 1 < ids.Ids.Count)
+                {
+                    sb.Append(",");
+                }
+            }
+            var reportRequest = new SendReportRequestList
+            {
+                Requests = new List<SendReportRequest>()
+            };
+
+            var repo = new OrderListRepository();
+            var result = repo.GetOrders(new OrderRequest {OrderNumber = sb.ToString()});
+            foreach (var order in result)
+            {
+                var actorId = Convert.ToInt32(order.FROM_CODE);
+                var retailChain = order.RETAILER_CHAIN_ID;
+                var orderNumber = Convert.ToInt32(order.ID_ORDER);
+
+                reportRequest.Requests.Add(new SendReportRequest{ActorId = actorId, OrderNumber = orderNumber, RetailerChainId = retailChain});
+            }
+
+            SendReportsToActors(reportRequest);
+        }
+
+        private void SendReportsToActors(SendReportRequestList sendReportRequest)
         {
             var repo = new UserRespository();
             // Send report to every request
@@ -18,7 +53,8 @@ namespace SRL_Portal_API.Controllers
             {
                 if (request.RetailerChainId == 0)
                 {
-
+                    var orderRepo = new OrderListRepository();
+                    request.RetailerChainId = orderRepo.GetOrders(new OrderRequest { ActorIdFrom = request.ActorId.ToString()}).First().RETAILER_CHAIN_ID;
                 }
                 var users = repo.GetUsersFromActor(request.ActorId, request.RetailerChainId);
 

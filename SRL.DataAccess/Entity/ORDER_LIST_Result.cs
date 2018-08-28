@@ -43,5 +43,6 @@ namespace SRL.Data_Access.Entity
         public Nullable<System.DateTime> VALIDATION_DEADLINE { get; set; }
         public Nullable<int> VALIDATED { get; set; }
         public Nullable<System.DateTime> VALIDATED_DATE { get; set; }
+        public int RETAILER_CHAIN_ID { get; set; }
     }
 }
