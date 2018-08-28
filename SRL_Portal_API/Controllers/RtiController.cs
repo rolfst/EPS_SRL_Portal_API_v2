@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http;
-using System.Web.Http.Cors;
 using SRL.Data_Access.Entity;
+using SRL.Models.Constants;
+using SRL_Portal_API.Common;
 
 namespace SRL_Portal_API.Controllers
 {
     public class RtiController : BaseController
     {
 
-        [System.Web.Http.AcceptVerbs("GET")]
         [System.Web.Http.HttpGet]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator, UserRoles.Customer })]
         public IList<API_LIST_RTI_Result> Index()
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"rti\\get"));

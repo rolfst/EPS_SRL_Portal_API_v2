@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using System.Web.Http.Cors;
 using Microsoft.Ajax.Utilities;
 using SRL.Data_Access.Adapter;
 using SRL.Data_Access.Repository;
@@ -26,6 +24,7 @@ namespace SRL_Portal_API.Controllers
         /// <param name="request"></param>
         /// <returns>A collection of orders which corresponds to the request.</returns>
         [HttpPost]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator, UserRoles.Customer })]
         public IList<OrderResponse> FilterOrder(
             [FromBody] OrderRequest request)
         {
@@ -40,6 +39,7 @@ namespace SRL_Portal_API.Controllers
         /// <param name="retailerChainId">specific customer related id. Returns all orders if value is -1</param>
         /// <returns>a <see cref="List{T}"/> containing the orderid and ordernumber.</returns>
         [HttpGet]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator, UserRoles.Customer })]
         public object GetOrderNumber(int retailerChainId = -1)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"order\\get?retailerchainid={retailerChainId}"));
