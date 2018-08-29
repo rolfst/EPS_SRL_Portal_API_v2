@@ -275,6 +275,7 @@
     <Compile Include="Controllers\CarrierController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderDetailController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\RetailerChainController.cs" />
     <Compile Include="Controllers\RtiController.cs" />
     <Compile Include="Controllers\UserController.cs" />

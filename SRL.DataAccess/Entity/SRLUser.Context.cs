@@ -145,5 +145,18 @@ namespace SRL.Data_Access.Entity
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_GetActorsForUser", userEmailParameter);
         }
+    
+        public virtual ObjectResult<sp_GetUserForActor_Result> sp_GetUserForActor(Nullable<int> actorId, Nullable<int> retailerChainId)
+        {
+            var actorIdParameter = actorId.HasValue ?
+                new ObjectParameter("ActorId", actorId) :
+                new ObjectParameter("ActorId", typeof(int));
+    
+            var retailerChainIdParameter = retailerChainId.HasValue ?
+                new ObjectParameter("RetailerChainId", retailerChainId) :
+                new ObjectParameter("RetailerChainId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUserForActor_Result>("sp_GetUserForActor", actorIdParameter, retailerChainIdParameter);
+        }
     }
 }

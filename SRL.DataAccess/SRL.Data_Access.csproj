@@ -308,6 +308,9 @@
     <Compile Include="Entity\sp_GetScreensForUser_Result.cs">
       <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\sp_GetUserForActor_Result.cs">
+      <DependentUpon>SRLUser.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\sp_GetUserRoles_Result.cs">
       <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>

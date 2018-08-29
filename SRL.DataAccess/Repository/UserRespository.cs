@@ -8,6 +8,20 @@ namespace SRL.Data_Access.Repository
 {
     public class UserRespository
     {
+        public List<User> GetUsersFromActor(int actorId, int retailerChainId)
+        {
+            var users = new List<User>();
+            using (var ctx = new SRLManagementEntities())
+            {
+                var result = ctx.sp_GetUserForActor(actorId, retailerChainId);
+                foreach (var userdata in result)
+                {
+                    var user = new User { Email = userdata.Email, FirstName = userdata.FirstName, LastName = userdata.LastName};
+                    users.Add(user);
+                }
+            };
+            return users;
+        }
 
         public List<User> GetUsersList(UserListRequest userFilter)
         {
