@@ -36,7 +36,7 @@ namespace SRL_Portal_API.Controllers
             var result = repo.GetOrders(new OrderRequest {OrderNumber = sb.ToString()});
             foreach (var order in result)
             {
-                var actorId = Convert.ToInt32(order.FROM_CODE);
+                var actorId = Convert.ToInt32(order.FROM_ACTOR_ID);
                 var retailChain = order.RETAILER_CHAIN_ID;
                 var orderNumber = Convert.ToInt32(order.ID_ORDER);
 
