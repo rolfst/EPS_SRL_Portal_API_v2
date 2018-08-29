@@ -96,6 +96,13 @@ namespace SRL_Portal_API.Controllers
             }
         }
 
+        [Route("IsUserExternal")]
+        [HttpGet]
+        [Authorize]
+        public bool CheckIfExternalUser()
+        {
+            return new UserRespository().IsExternalUser(RequestContext.Principal.Identity.Name);
+        }
 
         private bool ValidateUserEmail(string userEmail)
         {
