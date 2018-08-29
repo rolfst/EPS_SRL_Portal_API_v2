@@ -3,7 +3,7 @@ using SRL.Models.Enums;
 using SRL.Models.Order;
 using System.Collections.Generic;
 using System.Linq;
-
+using SRL.Data_Access.Common;
 
 namespace SRL.Data_Access.Adapter
 {
@@ -27,7 +27,7 @@ namespace SRL.Data_Access.Adapter
                 ToActorName = orderDetail.TO_NAME,
                 ToActorAddressLine1 = orderDetail.TO_ADDRESSLINE1,
                 ToActorAddressLine2 = orderDetail.TO_ADDRESSLINE2,
-                Status = (OrderStatus)orderDetail.ORDER_STATUS,
+                Status = ((OrderStatus)orderDetail.ORDER_STATUS).GetOrderStatusDescription(),
                 OrderDate = orderDetail.ORDER_DATE,
                 UnloadingDate = orderDetail.UNLOADING_DATE,
                 Transport = string.Empty, //Not known yet
