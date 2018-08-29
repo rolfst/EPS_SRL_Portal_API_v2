@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -15,8 +14,10 @@ namespace SRL_Portal_API.Controllers
     public class ReportsController : BaseController
     {
         [HttpPost]
+        [Route("Send")]
         public void SendReportsToActors(IdList ids)
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"Reports\\send"));
             var sb = new StringBuilder();
             for (var i = 0; i < ids.Ids.Count; i++)
             {
@@ -51,11 +52,6 @@ namespace SRL_Portal_API.Controllers
             // Send report to every request
             foreach (var request in sendReportRequest.Requests)
             {
-                if (request.RetailerChainId == 0)
-                {
-                    var orderRepo = new OrderListRepository();
-                    request.RetailerChainId = orderRepo.GetOrders(new OrderRequest { ActorIdFrom = request.ActorId.ToString()}).First().RETAILER_CHAIN_ID;
-                }
                 var users = repo.GetUsersFromActor(request.ActorId, request.RetailerChainId);
 
                 // Validate mailAddresses
@@ -73,7 +69,8 @@ namespace SRL_Portal_API.Controllers
         {
             // Retrieve order
             var controller = new OrderDetailController();
-            var orderDetail = controller.Get(requestOrderNumber);
+            var repository = new OrderDetailRepository();
+            var orderDetail = repository.GetOrderDetail(requestOrderNumber);
 
             var mail = new MailMessage(ConfigurationManager.AppSettings["smtpFrom"], mailAddress.Address)
             {
