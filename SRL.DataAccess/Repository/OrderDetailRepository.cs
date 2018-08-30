@@ -19,25 +19,42 @@ namespace SRL.Data_Access.Repository
             return orderDetail;
         }
 
-        public List<SSCCDetailForOrder> GetSSCCListForOrder(long orderId)
+        public SSCCsForOrder GetSSCCListForOrder(long orderId)
         {
-            List<SSCCDetailForOrder> ssccList = new List<SSCCDetailForOrder>();
+            SSCCsForOrder result = new SSCCsForOrder();
+            List<string> containerNames = new List<string>();
+            
             using (var cntx = new SRL.Data_Access.Entity.BACKUP_SRL_20180613Entities())
             {
-                ssccList = cntx.API_LIST_SSCC_ON_ORDER(orderId).ToList().ConvertSSCCListForOrder();
+                result.SSCCs = cntx.API_LIST_SSCC_ON_ORDER(orderId).ToList().ConvertSSCCListForOrder();
             }
-            return ssccList;
+            //To get the list of possible container names
+            result.SSCCs.ForEach(s => s.RTIQuantities.ForEach(q =>
+            {
+                if (!containerNames.Contains(q.ContainerName))
+                    containerNames.Add(q.ContainerName);
+            }));
+            result.ContainerNames = containerNames;
+            return result;
         }
 
-        public List<SSCCDetailForOrder> GetOpenSSCCListForOrder(long orderId)
+        public SSCCsForOrder GetOpenSSCCListForOrder(long orderId)
         {
-            List<SSCCDetailForOrder> ssccList = new List<SSCCDetailForOrder>();
+            SSCCsForOrder result = new SSCCsForOrder();
+            List<string> containerNames = new List<string>();
             using (var cntx = new SRL.Data_Access.Entity.BACKUP_SRL_20180613Entities())
             {
                 //Filter SSCC list based on sscc status, where 3 stands for validated SSCC
-                ssccList = cntx.API_LIST_SSCC_ON_ORDER(orderId).Where(s => s.SSCC_STATUS != 3).ToList().ConvertSSCCListForOrder();
+                result.SSCCs = cntx.API_LIST_SSCC_ON_ORDER(orderId).Where(s => s.SSCC_STATUS != 3).ToList().ConvertSSCCListForOrder();
             }
-            return ssccList;
+            //To get the list of possible container names
+            result.SSCCs.ForEach(s => s.RTIQuantities.ForEach(q =>
+            {
+                if (!containerNames.Contains(q.ContainerName))
+                    containerNames.Add(q.ContainerName);
+            }));
+            result.ContainerNames = containerNames;
+            return result;
         }
     }
 }
