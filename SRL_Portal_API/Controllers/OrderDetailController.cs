@@ -32,7 +32,7 @@ namespace SRL_Portal_API.Controllers
         [HttpGet]
         [Route("SSCCListForOrder")]
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
-        public List<SSCCDetailForOrder> GetSSCCListForOrder(int orderId)
+        public SSCCsForOrder GetSSCCListForOrder(int orderId)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\SSCCListForOrder?orderId={orderId}"));
             OrderDetailRepository repository = new OrderDetailRepository();
@@ -42,7 +42,7 @@ namespace SRL_Portal_API.Controllers
         [HttpGet]
         [Route("OpenSSCCListForOrder")]
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator, UserRoles.Customer })]
-        public List<SSCCDetailForOrder> GetOpenSSCCListForOrder(int orderId)
+        public SSCCsForOrder GetOpenSSCCListForOrder(int orderId)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\get?orderId{orderId}"));
             OrderDetailRepository repository = new OrderDetailRepository();

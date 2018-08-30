@@ -8,7 +8,7 @@ namespace SRL.Models.Order
     {
         public string SSCC { get; set; }
         public string SSCCStatus { get; set; }
-        public List<RTIQty> RTIQuatities { get; set; }
+        public List<RTIQty> RTIQuantities { get; set; }
         public int TotalCounting { get; set; }
         public string LoadCarrierName { get; set; }
         public string Unit { get; set; }

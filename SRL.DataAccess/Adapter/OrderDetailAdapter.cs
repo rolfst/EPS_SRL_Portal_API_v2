@@ -74,7 +74,7 @@ namespace SRL.Data_Access.Adapter
                         RTIQuantity = item.QTY_RTI
                     });
                 }
-                ssccObj.RTIQuatities = rTIQties;
+                ssccObj.RTIQuantities = rTIQties;
                 ssccObj.TotalCounting = rTIQties.Sum(s => s.RTIQuantity);
                 //Set the status
                 switch (obj.SSCC_STATUS)
