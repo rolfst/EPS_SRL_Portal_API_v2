@@ -3539,6 +3539,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="ORDER_NEW" Type="bit" Mode="In" />
           <Parameter Name="ORDER_OPEN" Type="bit" Mode="In" />
           <Parameter Name="ORDER_VALIDATED" Type="bit" Mode="In" />
+          <Parameter Name="ORDER_ID" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="CI_DATE_FROM" Type="date" Mode="In" />
           <Parameter Name="CI_DATE_TO" Type="date" Mode="In" />
           <Parameter Name="VALIDATION_DEADLINE" Type="datetime" Mode="In" />
@@ -8829,6 +8830,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             <Parameter Name="ORDER_NEW" Mode="In" Type="Boolean" />
             <Parameter Name="ORDER_OPEN" Mode="In" Type="Boolean" />
             <Parameter Name="ORDER_VALIDATED" Mode="In" Type="Boolean" />
+            <Parameter Name="ORDER_ID" Mode="In" Type="String" />
             <Parameter Name="CI_DATE_FROM" Mode="In" Type="DateTime" />
             <Parameter Name="CI_DATE_TO" Mode="In" Type="DateTime" />
             <Parameter Name="VALIDATION_DEADLINE" Mode="In" Type="DateTime" />

@@ -11,6 +11,7 @@ namespace SRL.Models.Order
         public bool OrderNew { get; set; }
         public bool OrderOpen { get; set; }
         public bool OrderValidated { get; set; }
+        public string OrderId { get; set; }
         public DateTime? CiDateFrom { get; set; }
         public DateTime? CiDateTo { get; set; }
         public DateTime? ValidationDeadline { get; set; }
@@ -25,7 +26,7 @@ namespace SRL.Models.Order
         public bool ValidationPassed { get; set; }
         public string ActorId { get; set; }
 
-        public OrderRequest(string ordOrderNumber = null, int retailerChainId = -1, DateTime? orderDateFrom = null, DateTime? orderDateTo = null, bool orderNew = true, bool orderOpen = true, bool orderValidated = true, DateTime? ciDateFrom = null, DateTime? ciDateTo = null, DateTime? validationDeadline = null, string user = null, string actorIdFrom = null, string actorIdTo = null, string orderNumber = null, bool shopCountOk = true, bool shopCountNok = true, bool validationOpen = true, bool validationExceeded = true, bool validationPassed = true, string actorId = null)
+        public OrderRequest(string ordOrderNumber = null, int retailerChainId = -1, DateTime? orderDateFrom = null, DateTime? orderDateTo = null, bool orderNew = true, bool orderOpen = true, bool orderValidated = true, string orderId = null, DateTime? ciDateFrom = null, DateTime? ciDateTo = null, DateTime? validationDeadline = null, string user = null, string actorIdFrom = null, string actorIdTo = null, string orderNumber = null, bool shopCountOk = true, bool shopCountNok = true, bool validationOpen = true, bool validationExceeded = true, bool validationPassed = true, string actorId = null)
         {
             OrdOrderNumber = ordOrderNumber;
             RetailerChainId = retailerChainId;
@@ -34,6 +35,7 @@ namespace SRL.Models.Order
             OrderNew = orderNew;
             OrderOpen = orderOpen;
             OrderValidated = orderValidated;
+            OrderId = orderId;
             CiDateFrom = ciDateFrom;
             CiDateTo = ciDateTo;
             ValidationDeadline = validationDeadline;
