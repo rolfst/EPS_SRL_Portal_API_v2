@@ -29,7 +29,7 @@ namespace SRL_Portal_API.Controllers
             [FromBody] OrderRequest request)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orders\\filter"));
-            request = _repo.EditRequest(request);
+            request = _repo.EditRequest(request, RequestContext.Principal.Identity.Name);
             return OrderListAdapter.ConvertOrderList(_repo.GetOrders(request));
         }
 
@@ -51,7 +51,7 @@ namespace SRL_Portal_API.Controllers
 
         [HttpGet]
         [Route("GetApprovedOrders")]
-        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator,UserRoles.Customer })]
         public int GetApprovedOrdersCount(int retailerChainId = -1)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"sscc\\GetApprovedOrders?retailerchainId={retailerChainId}"));

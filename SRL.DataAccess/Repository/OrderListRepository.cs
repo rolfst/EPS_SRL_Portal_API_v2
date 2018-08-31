@@ -42,7 +42,7 @@ namespace SRL.Data_Access.Repository
             };
         }
 
-        public OrderRequest EditRequest(OrderRequest request)
+        public OrderRequest EditRequest(OrderRequest request,string userEmail)
         {
             if (request == null)
             {
@@ -72,14 +72,35 @@ namespace SRL.Data_Access.Repository
                 request.CiDateTo = request.CiDateFrom;
             }
 
+            #region User Management
+            if (string.IsNullOrEmpty(request.ActorIdFrom) && string.IsNullOrEmpty(request.ActorId))
+            {
+                //To fetch order numbers for the assigned actors of the logged in user
+                UserRespository userRespository = new UserRespository();
+                List<int> actorIds = userRespository.GetActorIdList(userEmail);
+                if (actorIds.Any())
+                {
+                    request.ActorIdFrom = string.Join(",", actorIds.Select(a => a).ToArray());
+                }
+            }
+
+            #endregion
+
             return request;
         }
 
         public int GetApprovedOrdersCount(string userEmail, int retailerChainId =-1)
         {
-            var request = new OrderRequest(retailerChainId: retailerChainId);
+
+            var request = new OrderRequest()
+            {
+                RetailerChainId = retailerChainId,
+                OrderValidated = true,
+                OrderNew = false,
+                OrderOpen = false
+            };
             //Return count of validated Orders
-            return GetOrderNumbers(request, userEmail).Where(o => o.ORDER_STATUS == VALIDATED_ORDER_STATUS_ID).Count();
+            return GetOrderNumbers(request, userEmail).Select(o=>o.ID_ORDER).Distinct().Count();
         }
 
         public IEnumerable<ORDER_LIST_Result> GetOrderNumbers(OrderRequest request,string userEmail)
