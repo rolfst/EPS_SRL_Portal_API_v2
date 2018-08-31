@@ -261,7 +261,7 @@ namespace SRL.Data_Access.Entity
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SSCC_OVERVIEW_Result>("API_SSCC_OVERVIEW", aCTOR_IDParameter, aCTOR_ORIGIN_IDParameter, sSCC_STATUS_NEWParameter, sSCC_STATUS_PROCESSEDParameter, sSCC_STATUS_VALIDATEDParameter, fIRST_SSCC_USAGE_FROMParameter, fIRST_SSCC_USAGE_TOParameter, cI_DATETIME_FROMParameter, cI_DATETIME_TOParameter, vALIDATION_DEADLINE_OPENParameter, vALIDATION_DEADLINE_EXCEEDEDParameter, vALIDATION_DEADLINE_PASSEDParameter, sSCCParameter, oRDER_NUMBERParameter, cOUNTING_OKParameter, cOUNTING_NOKParameter, sLA_OKParameter, sLA_NOKParameter, rETAILER_CHAIN_IDParameter);
         }
     
-        public virtual ObjectResult<ORDER_LIST_Result> API_ORDER_LIST(string oRD_ORDER_NUMBER, Nullable<int> rETAILER_CHAIN_ID, Nullable<System.DateTime> oRDER_DATE_FROM, Nullable<System.DateTime> oRDER_DATE_TO, Nullable<bool> oRDER_NEW, Nullable<bool> oRDER_OPEN, Nullable<bool> oRDER_VALIDATED, Nullable<System.DateTime> cI_DATE_FROM, Nullable<System.DateTime> cI_DATE_TO, Nullable<System.DateTime> vALIDATION_DEADLINE, string uSER, string aCTOR_ID_FROM, string aCTOR_ID_TO, string oRDER_NUMBER, Nullable<bool> sHOP_COUNT_OK, Nullable<bool> sHOP_COUNT_NOK, Nullable<bool> vALIDATION_DEADLINE_OPEN, Nullable<bool> vALIDATION_DEADLINE_EXCEEDED, Nullable<bool> vALIDATION_DEADLINE_PASSED, string aCTOR_ID)
+        public virtual ObjectResult<ORDER_LIST_Result> API_ORDER_LIST(string oRD_ORDER_NUMBER, Nullable<int> rETAILER_CHAIN_ID, Nullable<System.DateTime> oRDER_DATE_FROM, Nullable<System.DateTime> oRDER_DATE_TO, Nullable<bool> oRDER_NEW, Nullable<bool> oRDER_OPEN, Nullable<bool> oRDER_VALIDATED, string oRDER_ID, Nullable<System.DateTime> cI_DATE_FROM, Nullable<System.DateTime> cI_DATE_TO, Nullable<System.DateTime> vALIDATION_DEADLINE, string uSER, string aCTOR_ID_FROM, string aCTOR_ID_TO, string oRDER_NUMBER, Nullable<bool> sHOP_COUNT_OK, Nullable<bool> sHOP_COUNT_NOK, Nullable<bool> vALIDATION_DEADLINE_OPEN, Nullable<bool> vALIDATION_DEADLINE_EXCEEDED, Nullable<bool> vALIDATION_DEADLINE_PASSED, string aCTOR_ID)
         {
             var oRD_ORDER_NUMBERParameter = oRD_ORDER_NUMBER != null ?
                 new ObjectParameter("ORD_ORDER_NUMBER", oRD_ORDER_NUMBER) :
@@ -290,6 +290,10 @@ namespace SRL.Data_Access.Entity
             var oRDER_VALIDATEDParameter = oRDER_VALIDATED.HasValue ?
                 new ObjectParameter("ORDER_VALIDATED", oRDER_VALIDATED) :
                 new ObjectParameter("ORDER_VALIDATED", typeof(bool));
+    
+            var oRDER_IDParameter = oRDER_ID != null ?
+                new ObjectParameter("ORDER_ID", oRDER_ID) :
+                new ObjectParameter("ORDER_ID", typeof(string));
     
             var cI_DATE_FROMParameter = cI_DATE_FROM.HasValue ?
                 new ObjectParameter("CI_DATE_FROM", cI_DATE_FROM) :
@@ -343,7 +347,7 @@ namespace SRL.Data_Access.Entity
                 new ObjectParameter("ACTOR_ID", aCTOR_ID) :
                 new ObjectParameter("ACTOR_ID", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ORDER_LIST_Result>("API_ORDER_LIST", oRD_ORDER_NUMBERParameter, rETAILER_CHAIN_IDParameter, oRDER_DATE_FROMParameter, oRDER_DATE_TOParameter, oRDER_NEWParameter, oRDER_OPENParameter, oRDER_VALIDATEDParameter, cI_DATE_FROMParameter, cI_DATE_TOParameter, vALIDATION_DEADLINEParameter, uSERParameter, aCTOR_ID_FROMParameter, aCTOR_ID_TOParameter, oRDER_NUMBERParameter, sHOP_COUNT_OKParameter, sHOP_COUNT_NOKParameter, vALIDATION_DEADLINE_OPENParameter, vALIDATION_DEADLINE_EXCEEDEDParameter, vALIDATION_DEADLINE_PASSEDParameter, aCTOR_IDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ORDER_LIST_Result>("API_ORDER_LIST", oRD_ORDER_NUMBERParameter, rETAILER_CHAIN_IDParameter, oRDER_DATE_FROMParameter, oRDER_DATE_TOParameter, oRDER_NEWParameter, oRDER_OPENParameter, oRDER_VALIDATEDParameter, oRDER_IDParameter, cI_DATE_FROMParameter, cI_DATE_TOParameter, vALIDATION_DEADLINEParameter, uSERParameter, aCTOR_ID_FROMParameter, aCTOR_ID_TOParameter, oRDER_NUMBERParameter, sHOP_COUNT_OKParameter, sHOP_COUNT_NOKParameter, vALIDATION_DEADLINE_OPENParameter, vALIDATION_DEADLINE_EXCEEDEDParameter, vALIDATION_DEADLINE_PASSEDParameter, aCTOR_IDParameter);
         }
     
         public virtual ObjectResult<GetOrderDetail_Result> GetOrderDetail(Nullable<int> oRDER_ID, Nullable<int> rETAILER_CHAIN_ID)

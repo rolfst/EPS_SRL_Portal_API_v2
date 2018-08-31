@@ -33,7 +33,7 @@ namespace SRL_Portal_API.Controllers
             };
 
             var repo = new OrderListRepository();
-            var result = repo.GetOrders(new OrderRequest {OrderNumber = sb.ToString()});
+            var result = repo.GetOrders(new OrderRequest {OrderId = sb.ToString()});
             foreach (var order in result)
             {
                 var actorId = Convert.ToInt32(order.FROM_ACTOR_ID);
