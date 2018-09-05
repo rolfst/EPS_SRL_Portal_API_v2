@@ -74,6 +74,12 @@
     <Compile Include="Entity\ACTOR_TYPE.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\API_ACTOR_MASTERDATA_DETAILS_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_ADD_ACTOR_MASTERDATA_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\API_FN_SPLIT_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
@@ -110,7 +116,13 @@
     <Compile Include="Entity\API_LIST_RTI_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\API_LIST_SLA_FOR_ACTOR_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\API_LIST_SSCC_ON_ORDER_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_SLA_LIST_PER_RETAILER_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\API_SSCC_OVERVIEW_Result.cs">
@@ -589,6 +601,11 @@
     <Compile Include="Repository\SSCCOrderDetailsRepository.cs" />
     <Compile Include="Repository\SSCCPalletCountingRepository.cs" />
     <Compile Include="Repository\UserRespository.cs" />
+    <Compile Include="Resources\ActorLabelType.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ActorLabelType.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\OrderStatuses.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -664,6 +681,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\ActorLabelType.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ActorLabelType.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\OrderStatuses.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>OrderStatuses.Designer.cs</LastGenOutput>
