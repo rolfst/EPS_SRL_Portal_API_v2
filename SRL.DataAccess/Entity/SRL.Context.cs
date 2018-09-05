@@ -567,6 +567,205 @@ namespace SRL.Data_Access.Entity
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_ACTORID_FOR_RETAILERCHAIN_Result>("API_LIST_ACTORID_FOR_RETAILERCHAIN", rETAILERCHAIN_IDParameter);
         }
     
+        public virtual ObjectResult<API_ACTOR_MASTERDATA_DETAILS_Result> API_ACTOR_MASTERDATA_DETAILS(Nullable<int> aCTOR_ID)
+        {
+            var aCTOR_IDParameter = aCTOR_ID.HasValue ?
+                new ObjectParameter("ACTOR_ID", aCTOR_ID) :
+                new ObjectParameter("ACTOR_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_ACTOR_MASTERDATA_DETAILS_Result>("API_ACTOR_MASTERDATA_DETAILS", aCTOR_IDParameter);
+        }
+    
+        public virtual int API_EDIT_ACTOR_MASTERDATA(Nullable<int> aCTOR_ID, Nullable<int> aCTOR_TYPE_ID, Nullable<int> rETAILER_CHAIN_ID, Nullable<int> dEFAULT_LANGUAGE_CODE_ID, string dEFAULT_LANGUAGE_CODE, string aCTOR_IP_ADRESS, Nullable<int> qTY_EMERGENCY_STOCK, Nullable<int> dUMMY_ACTOR_REFERENCE_ID, string lABEL_TYPE, Nullable<decimal> nOVEXX_CLIENT_CODE, Nullable<int> nUMBER_OF_LABEL, Nullable<int> cARDBORD_BOX, Nullable<int> aCTOR_DELIVERY, string uPDATE_USER)
+        {
+            var aCTOR_IDParameter = aCTOR_ID.HasValue ?
+                new ObjectParameter("ACTOR_ID", aCTOR_ID) :
+                new ObjectParameter("ACTOR_ID", typeof(int));
+    
+            var aCTOR_TYPE_IDParameter = aCTOR_TYPE_ID.HasValue ?
+                new ObjectParameter("ACTOR_TYPE_ID", aCTOR_TYPE_ID) :
+                new ObjectParameter("ACTOR_TYPE_ID", typeof(int));
+    
+            var rETAILER_CHAIN_IDParameter = rETAILER_CHAIN_ID.HasValue ?
+                new ObjectParameter("RETAILER_CHAIN_ID", rETAILER_CHAIN_ID) :
+                new ObjectParameter("RETAILER_CHAIN_ID", typeof(int));
+    
+            var dEFAULT_LANGUAGE_CODE_IDParameter = dEFAULT_LANGUAGE_CODE_ID.HasValue ?
+                new ObjectParameter("DEFAULT_LANGUAGE_CODE_ID", dEFAULT_LANGUAGE_CODE_ID) :
+                new ObjectParameter("DEFAULT_LANGUAGE_CODE_ID", typeof(int));
+    
+            var dEFAULT_LANGUAGE_CODEParameter = dEFAULT_LANGUAGE_CODE != null ?
+                new ObjectParameter("DEFAULT_LANGUAGE_CODE", dEFAULT_LANGUAGE_CODE) :
+                new ObjectParameter("DEFAULT_LANGUAGE_CODE", typeof(string));
+    
+            var aCTOR_IP_ADRESSParameter = aCTOR_IP_ADRESS != null ?
+                new ObjectParameter("ACTOR_IP_ADRESS", aCTOR_IP_ADRESS) :
+                new ObjectParameter("ACTOR_IP_ADRESS", typeof(string));
+    
+            var qTY_EMERGENCY_STOCKParameter = qTY_EMERGENCY_STOCK.HasValue ?
+                new ObjectParameter("QTY_EMERGENCY_STOCK", qTY_EMERGENCY_STOCK) :
+                new ObjectParameter("QTY_EMERGENCY_STOCK", typeof(int));
+    
+            var dUMMY_ACTOR_REFERENCE_IDParameter = dUMMY_ACTOR_REFERENCE_ID.HasValue ?
+                new ObjectParameter("DUMMY_ACTOR_REFERENCE_ID", dUMMY_ACTOR_REFERENCE_ID) :
+                new ObjectParameter("DUMMY_ACTOR_REFERENCE_ID", typeof(int));
+    
+            var lABEL_TYPEParameter = lABEL_TYPE != null ?
+                new ObjectParameter("LABEL_TYPE", lABEL_TYPE) :
+                new ObjectParameter("LABEL_TYPE", typeof(string));
+    
+            var nOVEXX_CLIENT_CODEParameter = nOVEXX_CLIENT_CODE.HasValue ?
+                new ObjectParameter("NOVEXX_CLIENT_CODE", nOVEXX_CLIENT_CODE) :
+                new ObjectParameter("NOVEXX_CLIENT_CODE", typeof(decimal));
+    
+            var nUMBER_OF_LABELParameter = nUMBER_OF_LABEL.HasValue ?
+                new ObjectParameter("NUMBER_OF_LABEL", nUMBER_OF_LABEL) :
+                new ObjectParameter("NUMBER_OF_LABEL", typeof(int));
+    
+            var cARDBORD_BOXParameter = cARDBORD_BOX.HasValue ?
+                new ObjectParameter("CARDBORD_BOX", cARDBORD_BOX) :
+                new ObjectParameter("CARDBORD_BOX", typeof(int));
+    
+            var aCTOR_DELIVERYParameter = aCTOR_DELIVERY.HasValue ?
+                new ObjectParameter("ACTOR_DELIVERY", aCTOR_DELIVERY) :
+                new ObjectParameter("ACTOR_DELIVERY", typeof(int));
+    
+            var uPDATE_USERParameter = uPDATE_USER != null ?
+                new ObjectParameter("UPDATE_USER", uPDATE_USER) :
+                new ObjectParameter("UPDATE_USER", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("API_EDIT_ACTOR_MASTERDATA", aCTOR_IDParameter, aCTOR_TYPE_IDParameter, rETAILER_CHAIN_IDParameter, dEFAULT_LANGUAGE_CODE_IDParameter, dEFAULT_LANGUAGE_CODEParameter, aCTOR_IP_ADRESSParameter, qTY_EMERGENCY_STOCKParameter, dUMMY_ACTOR_REFERENCE_IDParameter, lABEL_TYPEParameter, nOVEXX_CLIENT_CODEParameter, nUMBER_OF_LABELParameter, cARDBORD_BOXParameter, aCTOR_DELIVERYParameter, uPDATE_USERParameter);
+        }
+    
+        public virtual ObjectResult<API_LIST_SLA_FOR_ACTOR_Result> API_LIST_SLA_FOR_ACTOR(Nullable<int> aCTOR_ID)
+        {
+            var aCTOR_IDParameter = aCTOR_ID.HasValue ?
+                new ObjectParameter("ACTOR_ID", aCTOR_ID) :
+                new ObjectParameter("ACTOR_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_SLA_FOR_ACTOR_Result>("API_LIST_SLA_FOR_ACTOR", aCTOR_IDParameter);
+        }
+    
+        public virtual ObjectResult<API_SLA_LIST_PER_RETAILER_Result> API_SLA_LIST_PER_RETAILER(Nullable<int> rETAILER_CHAIN_ID, Nullable<int> aCTOR_ID)
+        {
+            var rETAILER_CHAIN_IDParameter = rETAILER_CHAIN_ID.HasValue ?
+                new ObjectParameter("RETAILER_CHAIN_ID", rETAILER_CHAIN_ID) :
+                new ObjectParameter("RETAILER_CHAIN_ID", typeof(int));
+    
+            var aCTOR_IDParameter = aCTOR_ID.HasValue ?
+                new ObjectParameter("ACTOR_ID", aCTOR_ID) :
+                new ObjectParameter("ACTOR_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SLA_LIST_PER_RETAILER_Result>("API_SLA_LIST_PER_RETAILER", rETAILER_CHAIN_IDParameter, aCTOR_IDParameter);
+        }
+    
+        public virtual ObjectResult<API_ADD_ACTOR_MASTERDATA_Result> API_ADD_ACTOR_MASTERDATA(Nullable<int> aCTOR_ID, Nullable<int> aCTOR_TYPE_ID, Nullable<decimal> aCTOR_CODE, Nullable<int> rETAILER_CHAIN_ID, Nullable<int> dEFAULT_LANGUAGE_CODE_ID, string dEFAULT_LANGUAGE_CODE, string aCTOR_IP_ADRESS, Nullable<int> qTY_EMERGENCY_STOCK, Nullable<int> dUMMY_ACTOR_REFERENCE_ID, string lABEL_TYPE, Nullable<decimal> nOVEXX_CLIENT_CODE, Nullable<int> nUMBER_OF_LABEL, Nullable<int> cARDBORD_BOX, Nullable<int> aCTOR_DELIVERY, string uSER)
+        {
+            var aCTOR_IDParameter = aCTOR_ID.HasValue ?
+                new ObjectParameter("ACTOR_ID", aCTOR_ID) :
+                new ObjectParameter("ACTOR_ID", typeof(int));
+    
+            var aCTOR_TYPE_IDParameter = aCTOR_TYPE_ID.HasValue ?
+                new ObjectParameter("ACTOR_TYPE_ID", aCTOR_TYPE_ID) :
+                new ObjectParameter("ACTOR_TYPE_ID", typeof(int));
+    
+            var aCTOR_CODEParameter = aCTOR_CODE.HasValue ?
+                new ObjectParameter("ACTOR_CODE", aCTOR_CODE) :
+                new ObjectParameter("ACTOR_CODE", typeof(decimal));
+    
+            var rETAILER_CHAIN_IDParameter = rETAILER_CHAIN_ID.HasValue ?
+                new ObjectParameter("RETAILER_CHAIN_ID", rETAILER_CHAIN_ID) :
+                new ObjectParameter("RETAILER_CHAIN_ID", typeof(int));
+    
+            var dEFAULT_LANGUAGE_CODE_IDParameter = dEFAULT_LANGUAGE_CODE_ID.HasValue ?
+                new ObjectParameter("DEFAULT_LANGUAGE_CODE_ID", dEFAULT_LANGUAGE_CODE_ID) :
+                new ObjectParameter("DEFAULT_LANGUAGE_CODE_ID", typeof(int));
+    
+            var dEFAULT_LANGUAGE_CODEParameter = dEFAULT_LANGUAGE_CODE != null ?
+                new ObjectParameter("DEFAULT_LANGUAGE_CODE", dEFAULT_LANGUAGE_CODE) :
+                new ObjectParameter("DEFAULT_LANGUAGE_CODE", typeof(string));
+    
+            var aCTOR_IP_ADRESSParameter = aCTOR_IP_ADRESS != null ?
+                new ObjectParameter("ACTOR_IP_ADRESS", aCTOR_IP_ADRESS) :
+                new ObjectParameter("ACTOR_IP_ADRESS", typeof(string));
+    
+            var qTY_EMERGENCY_STOCKParameter = qTY_EMERGENCY_STOCK.HasValue ?
+                new ObjectParameter("QTY_EMERGENCY_STOCK", qTY_EMERGENCY_STOCK) :
+                new ObjectParameter("QTY_EMERGENCY_STOCK", typeof(int));
+    
+            var dUMMY_ACTOR_REFERENCE_IDParameter = dUMMY_ACTOR_REFERENCE_ID.HasValue ?
+                new ObjectParameter("DUMMY_ACTOR_REFERENCE_ID", dUMMY_ACTOR_REFERENCE_ID) :
+                new ObjectParameter("DUMMY_ACTOR_REFERENCE_ID", typeof(int));
+    
+            var lABEL_TYPEParameter = lABEL_TYPE != null ?
+                new ObjectParameter("LABEL_TYPE", lABEL_TYPE) :
+                new ObjectParameter("LABEL_TYPE", typeof(string));
+    
+            var nOVEXX_CLIENT_CODEParameter = nOVEXX_CLIENT_CODE.HasValue ?
+                new ObjectParameter("NOVEXX_CLIENT_CODE", nOVEXX_CLIENT_CODE) :
+                new ObjectParameter("NOVEXX_CLIENT_CODE", typeof(decimal));
+    
+            var nUMBER_OF_LABELParameter = nUMBER_OF_LABEL.HasValue ?
+                new ObjectParameter("NUMBER_OF_LABEL", nUMBER_OF_LABEL) :
+                new ObjectParameter("NUMBER_OF_LABEL", typeof(int));
+    
+            var cARDBORD_BOXParameter = cARDBORD_BOX.HasValue ?
+                new ObjectParameter("CARDBORD_BOX", cARDBORD_BOX) :
+                new ObjectParameter("CARDBORD_BOX", typeof(int));
+    
+            var aCTOR_DELIVERYParameter = aCTOR_DELIVERY.HasValue ?
+                new ObjectParameter("ACTOR_DELIVERY", aCTOR_DELIVERY) :
+                new ObjectParameter("ACTOR_DELIVERY", typeof(int));
+    
+            var uSERParameter = uSER != null ?
+                new ObjectParameter("USER", uSER) :
+                new ObjectParameter("USER", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_ADD_ACTOR_MASTERDATA_Result>("API_ADD_ACTOR_MASTERDATA", aCTOR_IDParameter, aCTOR_TYPE_IDParameter, aCTOR_CODEParameter, rETAILER_CHAIN_IDParameter, dEFAULT_LANGUAGE_CODE_IDParameter, dEFAULT_LANGUAGE_CODEParameter, aCTOR_IP_ADRESSParameter, qTY_EMERGENCY_STOCKParameter, dUMMY_ACTOR_REFERENCE_IDParameter, lABEL_TYPEParameter, nOVEXX_CLIENT_CODEParameter, nUMBER_OF_LABELParameter, cARDBORD_BOXParameter, aCTOR_DELIVERYParameter, uSERParameter);
+        }
+    
+        public virtual int API_INSERT_ACTOR_SLA_FROM_SRC_ACTOR(Nullable<int> aCTOR_ID, Nullable<int> sOURCE_ACTOR_ID, string uSER)
+        {
+            var aCTOR_IDParameter = aCTOR_ID.HasValue ?
+                new ObjectParameter("ACTOR_ID", aCTOR_ID) :
+                new ObjectParameter("ACTOR_ID", typeof(int));
+    
+            var sOURCE_ACTOR_IDParameter = sOURCE_ACTOR_ID.HasValue ?
+                new ObjectParameter("SOURCE_ACTOR_ID", sOURCE_ACTOR_ID) :
+                new ObjectParameter("SOURCE_ACTOR_ID", typeof(int));
+    
+            var uSERParameter = uSER != null ?
+                new ObjectParameter("USER", uSER) :
+                new ObjectParameter("USER", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("API_INSERT_ACTOR_SLA_FROM_SRC_ACTOR", aCTOR_IDParameter, sOURCE_ACTOR_IDParameter, uSERParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> API_SLA_INSERT(Nullable<int> lOAD_UNIT_ID, Nullable<int> aCTOR_ID, Nullable<int> rTI_ACCEPTANCE, string uSER, Nullable<bool> sTANDARD_SLA)
+        {
+            var lOAD_UNIT_IDParameter = lOAD_UNIT_ID.HasValue ?
+                new ObjectParameter("LOAD_UNIT_ID", lOAD_UNIT_ID) :
+                new ObjectParameter("LOAD_UNIT_ID", typeof(int));
+    
+            var aCTOR_IDParameter = aCTOR_ID.HasValue ?
+                new ObjectParameter("ACTOR_ID", aCTOR_ID) :
+                new ObjectParameter("ACTOR_ID", typeof(int));
+    
+            var rTI_ACCEPTANCEParameter = rTI_ACCEPTANCE.HasValue ?
+                new ObjectParameter("RTI_ACCEPTANCE", rTI_ACCEPTANCE) :
+                new ObjectParameter("RTI_ACCEPTANCE", typeof(int));
+    
+            var uSERParameter = uSER != null ?
+                new ObjectParameter("USER", uSER) :
+                new ObjectParameter("USER", typeof(string));
+    
+            var sTANDARD_SLAParameter = sTANDARD_SLA.HasValue ?
+                new ObjectParameter("STANDARD_SLA", sTANDARD_SLA) :
+                new ObjectParameter("STANDARD_SLA", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("API_SLA_INSERT", lOAD_UNIT_IDParameter, aCTOR_IDParameter, rTI_ACCEPTANCEParameter, uSERParameter, sTANDARD_SLAParameter);
+        }
+    
         public virtual ObjectResult<API_LIST_LOAD_UNIT_CONDITIONS_Result> API_LIST_LOAD_UNIT_CONDITIONS(Nullable<int> rETAILER_CHAIN_ID)
         {
             var rETAILER_CHAIN_IDParameter = rETAILER_CHAIN_ID.HasValue ?
@@ -575,5 +774,6 @@ namespace SRL.Data_Access.Entity
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_LOAD_UNIT_CONDITIONS_Result>("API_LIST_LOAD_UNIT_CONDITIONS", rETAILER_CHAIN_IDParameter);
         }
+
     }
 }

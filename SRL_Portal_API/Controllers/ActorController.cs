@@ -47,5 +47,35 @@ namespace SRL_Portal_API.Controllers
             return actorRepository.GetActorsList(RequestContext.Principal.Identity.Name);
 
         }
+
+        [HttpGet]
+        [Route("ActorMasterDetail")]
+       [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator})]
+        public ActorDetailResponse GetActorMasterDetail(int actorId)
+        {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "Actor\\ActorMasterDetail"));
+            ActorRepository actorRepository = new ActorRepository();
+            return actorRepository.GetActorDetail(actorId);
+        }
+
+        [HttpGet]
+        [Route("LabelTypesForActor")]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
+        public Dictionary<string,string> GetLabelTypesForActor()
+        {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "Actor\\LabelTypesForActor"));
+            ActorRepository actorRepository = new ActorRepository();
+            return actorRepository.GetLabelTypes();
+        }
+
+        [HttpPost]
+        [Route("SaveActor")]
+        [CustomAuthorizationFilter(new string[] {UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
+        public bool SaveActorDetail(AddActorDetailRequest request)
+        {
+            ActorRepository actorRepository = new ActorRepository();
+            return actorRepository.SaveActorMaster(request);
+
+        }
     }
 }

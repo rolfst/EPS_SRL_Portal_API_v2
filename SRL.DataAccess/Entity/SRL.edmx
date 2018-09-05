@@ -3455,6 +3455,42 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="API_ACTOR_MASTERDATA_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ACTOR_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="API_ADD_ACTOR_MASTERDATA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ACTOR_ID" Type="int" Mode="In" />
+          <Parameter Name="ACTOR_TYPE_ID" Type="int" Mode="In" />
+          <Parameter Name="ACTOR_CODE" Type="numeric" Mode="In" />
+          <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
+          <Parameter Name="DEFAULT_LANGUAGE_CODE_ID" Type="int" Mode="In" />
+          <Parameter Name="DEFAULT_LANGUAGE_CODE" Type="nchar" Mode="In" />
+          <Parameter Name="ACTOR_IP_ADRESS" Type="nchar" Mode="In" />
+          <Parameter Name="QTY_EMERGENCY_STOCK" Type="int" Mode="In" />
+          <Parameter Name="DUMMY_ACTOR_REFERENCE_ID" Type="int" Mode="In" />
+          <Parameter Name="LABEL_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="NOVEXX_CLIENT_CODE" Type="numeric" Mode="In" />
+          <Parameter Name="NUMBER_OF_LABEL" Type="int" Mode="In" />
+          <Parameter Name="CARDBORD_BOX" Type="int" Mode="In" />
+          <Parameter Name="ACTOR_DELIVERY" Type="int" Mode="In" />
+          <Parameter Name="USER" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="API_EDIT_ACTOR_MASTERDATA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ACTOR_ID" Type="int" Mode="In" />
+          <Parameter Name="ACTOR_TYPE_ID" Type="int" Mode="In" />
+          <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
+          <Parameter Name="DEFAULT_LANGUAGE_CODE_ID" Type="int" Mode="In" />
+          <Parameter Name="DEFAULT_LANGUAGE_CODE" Type="nchar" Mode="In" />
+          <Parameter Name="ACTOR_IP_ADRESS" Type="nchar" Mode="In" />
+          <Parameter Name="QTY_EMERGENCY_STOCK" Type="int" Mode="In" />
+          <Parameter Name="DUMMY_ACTOR_REFERENCE_ID" Type="int" Mode="In" />
+          <Parameter Name="LABEL_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="NOVEXX_CLIENT_CODE" Type="numeric" Mode="In" />
+          <Parameter Name="NUMBER_OF_LABEL" Type="int" Mode="In" />
+          <Parameter Name="CARDBORD_BOX" Type="int" Mode="In" />
+          <Parameter Name="ACTOR_DELIVERY" Type="int" Mode="In" />
+          <Parameter Name="UPDATE_USER" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="API_FN_SPLIT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TEXT" Type="varchar" Mode="In" />
           <Parameter Name="DELIMITER" Type="varchar" Mode="In" />
@@ -3466,6 +3502,11 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
               </RowType>
             </CollectionType>
           </ReturnType>
+        </Function>
+        <Function Name="API_INSERT_ACTOR_SLA_FROM_SRC_ACTOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ACTOR_ID" Type="int" Mode="In" />
+          <Parameter Name="SOURCE_ACTOR_ID" Type="int" Mode="In" />
+          <Parameter Name="USER" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="API_INSERT_CHANGE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
@@ -3527,6 +3568,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
         </Function>
         <Function Name="API_LIST_RETAILERS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="API_LIST_RTI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="API_LIST_SLA_FOR_ACTOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ACTOR_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="API_LIST_SSCC_ON_ORDER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ORDER_NUMBER" Type="bigint" Mode="In" />
         </Function>
@@ -3556,6 +3600,17 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="VALIDATION_DEADLINE_EXCEEDED" Type="bit" Mode="In" />
           <Parameter Name="VALIDATION_DEADLINE_PASSED" Type="bit" Mode="In" />
           <Parameter Name="ACTOR_ID" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="API_SLA_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LOAD_UNIT_ID" Type="int" Mode="In" />
+          <Parameter Name="ACTOR_ID" Type="int" Mode="In" />
+          <Parameter Name="RTI_ACCEPTANCE" Type="int" Mode="In" />
+          <Parameter Name="USER" Type="nvarchar" Mode="In" />
+          <Parameter Name="STANDARD_SLA" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="API_SLA_LIST_PER_RETAILER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
+          <Parameter Name="ACTOR_ID" Type="int" Mode="In" />
         </Function>
         <Function Name="API_SSCC_OVERVIEW" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ACTOR_ID" Type="nvarchar(max)" Mode="In" />
@@ -8909,9 +8964,65 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <FunctionImport Name="API_LIST_ACTORID_FOR_RETAILERCHAIN" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_ACTORID_FOR_RETAILERCHAIN_Result)">
           <Parameter Name="RETAILERCHAIN_ID" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="API_ACTOR_MASTERDATA_DETAILS" ReturnType="Collection(BACKUP_SRL_20180613Model.API_ACTOR_MASTERDATA_DETAILS_Result)">
+          <Parameter Name="ACTOR_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="API_EDIT_ACTOR_MASTERDATA">
+            <Parameter Name="ACTOR_ID" Mode="In" Type="Int32" />
+            <Parameter Name="ACTOR_TYPE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="Int32" />
+            <Parameter Name="DEFAULT_LANGUAGE_CODE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="DEFAULT_LANGUAGE_CODE" Mode="In" Type="String" />
+            <Parameter Name="ACTOR_IP_ADRESS" Mode="In" Type="String" />
+            <Parameter Name="QTY_EMERGENCY_STOCK" Mode="In" Type="Int32" />
+            <Parameter Name="DUMMY_ACTOR_REFERENCE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="LABEL_TYPE" Mode="In" Type="String" />
+            <Parameter Name="NOVEXX_CLIENT_CODE" Mode="In" Type="Decimal" />
+            <Parameter Name="NUMBER_OF_LABEL" Mode="In" Type="Int32" />
+            <Parameter Name="CARDBORD_BOX" Mode="In" Type="Int32" />
+            <Parameter Name="ACTOR_DELIVERY" Mode="In" Type="Int32" />
+            <Parameter Name="UPDATE_USER" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="API_LIST_SLA_FOR_ACTOR" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_SLA_FOR_ACTOR_Result)">
+          <Parameter Name="ACTOR_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="API_SLA_LIST_PER_RETAILER" ReturnType="Collection(BACKUP_SRL_20180613Model.API_SLA_LIST_PER_RETAILER_Result)">
+            <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="Int32" />
+            <Parameter Name="ACTOR_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="API_ADD_ACTOR_MASTERDATA" ReturnType="Collection(BACKUP_SRL_20180613Model.API_ADD_ACTOR_MASTERDATA_Result)">
+            <Parameter Name="ACTOR_ID" Mode="In" Type="Int32" />
+            <Parameter Name="ACTOR_TYPE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="ACTOR_CODE" Mode="In" Type="Decimal" />
+            <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="Int32" />
+            <Parameter Name="DEFAULT_LANGUAGE_CODE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="DEFAULT_LANGUAGE_CODE" Mode="In" Type="String" />
+            <Parameter Name="ACTOR_IP_ADRESS" Mode="In" Type="String" />
+            <Parameter Name="QTY_EMERGENCY_STOCK" Mode="In" Type="Int32" />
+            <Parameter Name="DUMMY_ACTOR_REFERENCE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="LABEL_TYPE" Mode="In" Type="String" />
+            <Parameter Name="NOVEXX_CLIENT_CODE" Mode="In" Type="Decimal" />
+            <Parameter Name="NUMBER_OF_LABEL" Mode="In" Type="Int32" />
+            <Parameter Name="CARDBORD_BOX" Mode="In" Type="Int32" />
+            <Parameter Name="ACTOR_DELIVERY" Mode="In" Type="Int32" />
+            <Parameter Name="USER" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="API_INSERT_ACTOR_SLA_FROM_SRC_ACTOR">
+            <Parameter Name="ACTOR_ID" Mode="In" Type="Int32" />
+            <Parameter Name="SOURCE_ACTOR_ID" Mode="In" Type="Int32" />
+            <Parameter Name="USER" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="API_SLA_INSERT" ReturnType="Collection(Int32)">
+            <Parameter Name="LOAD_UNIT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="ACTOR_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RTI_ACCEPTANCE" Mode="In" Type="Int32" />
+            <Parameter Name="USER" Mode="In" Type="String" />
+            <Parameter Name="STANDARD_SLA" Mode="In" Type="Boolean" />
+          </FunctionImport>
           <FunctionImport Name="API_LIST_LOAD_UNIT_CONDITIONS" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_LOAD_UNIT_CONDITIONS_Result)">
             <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="Int32" />
           </FunctionImport>
+
         </EntityContainer>
         <ComplexType Name="GetOrderDetail_Result">
           <Property Type="String" Name="ORD_ORDER_NUMBER" Nullable="false" MaxLength="60" />
@@ -9092,10 +9203,45 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="Int32" Name="ACTOR_ID" Nullable="false" />
           <Property Type="Int32" Name="RETAILER_CHAIN_ID" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="API_ACTOR_MASTERDATA_DETAILS_Result">
+          <Property Type="Int32" Name="ACTOR_ID" Nullable="false" />
+          <Property Type="Decimal" Name="ACTOR_CODE" Nullable="false" Precision="10" Scale="0" />
+          <Property Type="String" Name="ACTOR_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ACTOR_TYPE_ID" Nullable="false" />
+          <Property Type="String" Name="ACTOR_TYPE_NAME" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="RETAILER_CHAIN_ID" Nullable="true" />
+          <Property Type="Int32" Name="DEFAULT_LANGUAGE_CODE_ID" Nullable="true" />
+          <Property Type="String" Name="LANGUAGE" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ACTOR_IP_ADRESS" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="QTY_EMERGENCY" Nullable="true" />
+          <Property Type="Int32" Name="DUMMY_ACTOR_REFERENCE_ID" Nullable="true" />
+          <Property Type="String" Name="DUMMY_ACTOR" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LABEL_TYPE" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="NOVEXX_CLIENT_CODE" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="NUMBER_OF_LABELS" Nullable="true" />
+          <Property Type="Int32" Name="CARDBOARD_BOX" Nullable="true" />
+          <Property Type="Int32" Name="ACTOR_DELIVERY" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="API_LIST_SLA_FOR_ACTOR_Result">
+          <Property Type="Int32" Name="LOAD_UNIT_SLA_ID" Nullable="false" />
+          <Property Type="String" Name="SLA" Nullable="false" MaxLength="103" />
+          <Property Type="Int32" Name="STANDARD_SLA" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="API_SLA_LIST_PER_RETAILER_Result" >
+          <Property Type="Int32" Name="LOAD_UNIT_SLA_ID" Nullable="false" />
+          <Property Type="Int32" Name="LOAD_UNIT_ID" Nullable="false" />
+          <Property Type="String" Name="LOAD_UNIT_CODE" Nullable="false" />
+          <Property Type="Decimal" Name="RTI_ACCEPTANCE" Nullable="true" />
+          <Property Type="Int32" Name="LINKED" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="API_ADD_ACTOR_MASTERDATA_Result">
+          <Property Type="Int32" Name="ACTOR_ID" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="API_LIST_LOAD_UNIT_CONDITIONS_Result">
           <Property Type="String" Name="LOAD_UNIT_CONDITION_CODE" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="LOAD_UNIT_CONDITION_LABEL" Nullable="false" MaxLength="203" />
         </ComplexType>
+
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12076,6 +12222,59 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_ACTOR_MASTERDATA_DETAILS" FunctionName="BACKUP_SRL_20180613Model.Store.API_ACTOR_MASTERDATA_DETAILS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_ACTOR_MASTERDATA_DETAILS_Result">
+                <ScalarProperty Name="ACTOR_ID" ColumnName="ACTOR_ID" />
+                <ScalarProperty Name="ACTOR_CODE" ColumnName="ACTOR_CODE" />
+                <ScalarProperty Name="ACTOR_NAME" ColumnName="ACTOR_NAME" />
+                <ScalarProperty Name="ACTOR_TYPE_ID" ColumnName="ACTOR_TYPE_ID" />
+                <ScalarProperty Name="ACTOR_TYPE_NAME" ColumnName="ACTOR_TYPE_NAME" />
+                <ScalarProperty Name="RETAILER_CHAIN_ID" ColumnName="RETAILER_CHAIN_ID" />
+                <ScalarProperty Name="DEFAULT_LANGUAGE_CODE_ID" ColumnName="DEFAULT_LANGUAGE_CODE_ID" />
+                <ScalarProperty Name="LANGUAGE" ColumnName="LANGUAGE" />
+                <ScalarProperty Name="ACTOR_IP_ADRESS" ColumnName="ACTOR_IP_ADRESS" />
+                <ScalarProperty Name="QTY_EMERGENCY" ColumnName="QTY_EMERGENCY" />
+                <ScalarProperty Name="DUMMY_ACTOR_REFERENCE_ID" ColumnName="DUMMY_ACTOR_REFERENCE_ID" />
+                <ScalarProperty Name="DUMMY_ACTOR" ColumnName="DUMMY_ACTOR" />
+                <ScalarProperty Name="LABEL_TYPE" ColumnName="LABEL_TYPE" />
+                <ScalarProperty Name="NOVEXX_CLIENT_CODE" ColumnName="NOVEXX_CLIENT_CODE" />
+                <ScalarProperty Name="NUMBER_OF_LABELS" ColumnName="NUMBER_OF_LABELS" />
+                <ScalarProperty Name="CARDBOARD_BOX" ColumnName="CARDBOARD_BOX" />
+                <ScalarProperty Name="ACTOR_DELIVERY" ColumnName="ACTOR_DELIVERY" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_EDIT_ACTOR_MASTERDATA" FunctionName="BACKUP_SRL_20180613Model.Store.API_EDIT_ACTOR_MASTERDATA" />
+          <FunctionImportMapping FunctionImportName="API_LIST_SLA_FOR_ACTOR" FunctionName="BACKUP_SRL_20180613Model.Store.API_LIST_SLA_FOR_ACTOR">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_LIST_SLA_FOR_ACTOR_Result">
+                <ScalarProperty Name="LOAD_UNIT_SLA_ID" ColumnName="LOAD_UNIT_SLA_ID" />
+                <ScalarProperty Name="SLA" ColumnName="SLA" />
+                <ScalarProperty Name="STANDARD_SLA" ColumnName="STANDARD_SLA" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_SLA_LIST_PER_RETAILER" FunctionName="BACKUP_SRL_20180613Model.Store.API_SLA_LIST_PER_RETAILER" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_SLA_LIST_PER_RETAILER_Result">
+                <ScalarProperty Name="LOAD_UNIT_SLA_ID" ColumnName="LOAD_UNIT_SLA_ID" />
+                <ScalarProperty Name="LOAD_UNIT_ID" ColumnName="LOAD_UNIT_ID" />
+                <ScalarProperty Name="LOAD_UNIT_CODE" ColumnName="LOAD_UNIT_CODE" />
+                <ScalarProperty Name="RTI_ACCEPTANCE" ColumnName="RTI_ACCEPTANCE" />
+                <ScalarProperty Name="LINKED" ColumnName="LINKED" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_ADD_ACTOR_MASTERDATA" FunctionName="BACKUP_SRL_20180613Model.Store.API_ADD_ACTOR_MASTERDATA" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_ADD_ACTOR_MASTERDATA_Result">
+                <ScalarProperty Name="ACTOR_ID" ColumnName="ACTOR_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_INSERT_ACTOR_SLA_FROM_SRC_ACTOR" FunctionName="BACKUP_SRL_20180613Model.Store.API_INSERT_ACTOR_SLA_FROM_SRC_ACTOR" />
+          <FunctionImportMapping FunctionImportName="API_SLA_INSERT" FunctionName="BACKUP_SRL_20180613Model.Store.API_SLA_INSERT" />
           <FunctionImportMapping FunctionImportName="API_LIST_LOAD_UNIT_CONDITIONS" FunctionName="BACKUP_SRL_20180613Model.Store.API_LIST_LOAD_UNIT_CONDITIONS">
             <ResultMapping>
               <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_LIST_LOAD_UNIT_CONDITIONS_Result">
@@ -12084,6 +12283,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
