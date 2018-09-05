@@ -12,7 +12,6 @@ namespace SRL_Portal_API.Controllers
 {
     public class AnomalyController : BaseController
     {
-        [AcceptVerbs("GET")]
         [HttpGet]
         [CustomAuthorizationFilter(new string[]
         {
