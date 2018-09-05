@@ -3563,6 +3563,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
         </Function>
         <Function Name="API_LIST_LOAD_CARRIER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="API_LIST_LOAD_UNIT_CONDITIONS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="API_LIST_RETAILERS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="API_LIST_RTI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="API_LIST_SLA_FOR_ACTOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -9016,6 +9019,10 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             <Parameter Name="USER" Mode="In" Type="String" />
             <Parameter Name="STANDARD_SLA" Mode="In" Type="Boolean" />
           </FunctionImport>
+          <FunctionImport Name="API_LIST_LOAD_UNIT_CONDITIONS" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_LOAD_UNIT_CONDITIONS_Result)">
+            <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+
         </EntityContainer>
         <ComplexType Name="GetOrderDetail_Result">
           <Property Type="String" Name="ORD_ORDER_NUMBER" Nullable="false" MaxLength="60" />
@@ -9230,6 +9237,11 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
         <ComplexType Name="API_ADD_ACTOR_MASTERDATA_Result">
           <Property Type="Int32" Name="ACTOR_ID" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="API_LIST_LOAD_UNIT_CONDITIONS_Result">
+          <Property Type="String" Name="LOAD_UNIT_CONDITION_CODE" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="LOAD_UNIT_CONDITION_LABEL" Nullable="false" MaxLength="203" />
+        </ComplexType>
+
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12263,6 +12275,15 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="API_INSERT_ACTOR_SLA_FROM_SRC_ACTOR" FunctionName="BACKUP_SRL_20180613Model.Store.API_INSERT_ACTOR_SLA_FROM_SRC_ACTOR" />
           <FunctionImportMapping FunctionImportName="API_SLA_INSERT" FunctionName="BACKUP_SRL_20180613Model.Store.API_SLA_INSERT" />
+          <FunctionImportMapping FunctionImportName="API_LIST_LOAD_UNIT_CONDITIONS" FunctionName="BACKUP_SRL_20180613Model.Store.API_LIST_LOAD_UNIT_CONDITIONS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_LIST_LOAD_UNIT_CONDITIONS_Result">
+                <ScalarProperty Name="LOAD_UNIT_CONDITION_CODE" ColumnName="LOAD_UNIT_CONDITION_CODE" />
+                <ScalarProperty Name="LOAD_UNIT_CONDITION_LABEL" ColumnName="LOAD_UNIT_CONDITION_LABEL" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

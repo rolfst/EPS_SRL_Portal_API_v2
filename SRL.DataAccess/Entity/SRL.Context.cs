@@ -765,5 +765,15 @@ namespace SRL.Data_Access.Entity
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("API_SLA_INSERT", lOAD_UNIT_IDParameter, aCTOR_IDParameter, rTI_ACCEPTANCEParameter, uSERParameter, sTANDARD_SLAParameter);
         }
+    
+        public virtual ObjectResult<API_LIST_LOAD_UNIT_CONDITIONS_Result> API_LIST_LOAD_UNIT_CONDITIONS(Nullable<int> rETAILER_CHAIN_ID)
+        {
+            var rETAILER_CHAIN_IDParameter = rETAILER_CHAIN_ID.HasValue ?
+                new ObjectParameter("RETAILER_CHAIN_ID", rETAILER_CHAIN_ID) :
+                new ObjectParameter("RETAILER_CHAIN_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_LOAD_UNIT_CONDITIONS_Result>("API_LIST_LOAD_UNIT_CONDITIONS", rETAILER_CHAIN_IDParameter);
+        }
+
     }
 }
