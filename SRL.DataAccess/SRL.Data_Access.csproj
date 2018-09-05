@@ -104,6 +104,9 @@
     <Compile Include="Entity\API_LIST_LOAD_CARRIER_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\API_LIST_LOAD_UNIT_CONDITIONS_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\API_LIST_RETAILERS_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
@@ -577,6 +580,7 @@
       <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\ActorRepository.cs" />
+    <Compile Include="Repository\AnomalyRepository.cs" />
     <Compile Include="Repository\LoadCarrierRepository.cs" />
     <Compile Include="Repository\OrderDetailRepository.cs" />
     <Compile Include="Repository\OrderListRepository.cs" />
