@@ -73,6 +73,7 @@ namespace SRL_Portal_API.Controllers
         [CustomAuthorizationFilter(new string[] {UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public bool SaveActorDetail(AddActorDetailRequest request)
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "Actor\\SaveActor"));
             ActorRepository actorRepository = new ActorRepository();
             return actorRepository.SaveActorMaster(request);
 
