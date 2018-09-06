@@ -38,6 +38,7 @@
           <Property Name="Level" Type="int" Nullable="false" />
           <Property Name="ParentScreenId" Type="int" />
           <Property Name="IsMenuItem" Type="bit" Nullable="false" />
+          <Property Name="Order" Type="int" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -329,6 +330,7 @@
           <Property Name="Level" Type="Int32" Nullable="false" />
           <Property Name="ParentScreenId" Type="Int32" />
           <Property Name="IsMenuItem" Type="Boolean" Nullable="false" />
+          <Property Name="Order" Type="Int32" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -602,6 +604,7 @@
           <Property Type="Int32" Name="Level" Nullable="false" />
           <Property Type="Int32" Name="ParentScreenId" Nullable="true" />
           <Property Type="Boolean" Name="IsMenuItem" Nullable="false" />
+          <Property Type="Int32" Name="Order" Nullable="false" />
         </ComplexType>
         <ComplexType Name="sp_GetUserRoles_Result">
           <Property Type="Int32" Name="UserId" Nullable="false" />
@@ -671,6 +674,7 @@
           <EntitySetMapping Name="Screens">
             <EntityTypeMapping TypeName="SRLManagementModel.Screens">
               <MappingFragment StoreEntitySet="Screens">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="IsMenuItem" ColumnName="IsMenuItem" />
                 <ScalarProperty Name="ParentScreenId" ColumnName="ParentScreenId" />
                 <ScalarProperty Name="Level" ColumnName="Level" />
@@ -734,6 +738,7 @@
                 <ScalarProperty Name="Level" ColumnName="Level" />
                 <ScalarProperty Name="ParentScreenId" ColumnName="ParentScreenId" />
                 <ScalarProperty Name="IsMenuItem" ColumnName="IsMenuItem" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

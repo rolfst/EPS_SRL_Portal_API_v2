@@ -66,7 +66,8 @@ namespace SRL.Data_Access.Adapter
                 RouterLink = screen.RouterLink,
                 Level = screen.Level,
                 ParentScreenId = screen.ParentScreenId?? 0,
-                IsMenuItem = screen.IsMenuItem
+                IsMenuItem = screen.IsMenuItem,
+                Order = screen.Order
             };
         }
 
