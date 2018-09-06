@@ -24,6 +24,7 @@ namespace SRL_Portal_API.Controllers
         private readonly SSCCDeviationDetailsRepository _ssccDeviationDetailsRepository = new SSCCDeviationDetailsRepository();
 
         private const string YES = "YES";
+        private const string VALIDATED = "Validated";
 
         // Parameters default values for dev purposes
         /// <summary>
@@ -159,6 +160,31 @@ namespace SRL_Portal_API.Controllers
         }
 
         [HttpPost]
+        [Route("ValidateMultipleSSCC")]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
+        public List<string> ValidateMultipleSSCCs(MultipleSSCCValidateRequest request)
+        {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "sscc\\ValidateMultipleSSCCs"));
+            if (request.SSCCList.Any())
+            {
+                List<string> nonValidatedSSCCList = new List<string>();
+                SSCCEditRequest requestSSCC = new SSCCEditRequest();
+                request.SSCCList.ForEach(s =>
+                {
+                    requestSSCC.SSCC = s;
+                    if (string.Compare(ValidateSSCCData(requestSSCC), VALIDATED, true) != 0)
+                        nonValidatedSSCCList.Add(s);
+                });
+                return nonValidatedSSCCList;
+            }
+            else
+            {
+                return new List<string>();
+            }
+        }
+
+
+        [HttpPost]
         [Route("SaveValidateSSCC")]
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public string SaveValidateSSCC([FromBody] SSCCEditRequest request)
@@ -203,7 +229,7 @@ namespace SRL_Portal_API.Controllers
                 SSCCOrderDetailsRepository repository = new SSCCOrderDetailsRepository();
                 result = repository.SaveSSCC(validateSSCC);
             }
-            return result == 1 ? "Validated" : "Error occured in Validation";
+            return result == 1 ? VALIDATED : String.Format("Error occured in Validation of SSCC - {0}", request.SSCC);
         }
 
 
