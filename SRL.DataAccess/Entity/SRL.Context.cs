@@ -774,6 +774,14 @@ namespace SRL.Data_Access.Entity
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_LOAD_UNIT_CONDITIONS_Result>("API_LIST_LOAD_UNIT_CONDITIONS", rETAILER_CHAIN_IDParameter);
         }
-
+    
+        public virtual ObjectResult<Nullable<int>> API_GET_SSCC_STATUS(string sSCC)
+        {
+            var sSCCParameter = sSCC != null ?
+                new ObjectParameter("SSCC", sSCC) :
+                new ObjectParameter("SSCC", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("API_GET_SSCC_STATUS", sSCCParameter);
+        }
     }
 }
