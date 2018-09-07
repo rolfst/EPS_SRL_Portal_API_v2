@@ -31,29 +31,29 @@ namespace SRL.Models.Exceptions
         /// <param name="response">The original response, in Json</param>
         /// <param name="addition">The addition to the message. </param>
         /// <returns>a throwable <see cref="HttpMessageException"/></returns>
-        public static HttpMessageException Build(HttpStatusCode status, string response, string addition)
+        public static HttpMessageException Build(HttpStatusCode status, HttpMessageType type, string response, string addition = "")
         {
-            HttpMessage message;
             string statusMessage; 
             switch (status)
             {
                 case HttpStatusCode.Ambiguous:
                     statusMessage = string.Format(WarningMessages.Ambiguous, addition);
-                    message = BuildResponseString(HttpMessageType.Warn, statusMessage, response);
                     break;
                 case HttpStatusCode.NoContent:
                     statusMessage = string.Format(WarningMessages.NoContent, addition);
-                    message = BuildResponseString(HttpMessageType.Warn, statusMessage, response);
                     break;
                 case HttpStatusCode.NotFound:
                     statusMessage = string.Format(WarningMessages.NotFound, addition);
-                    message = BuildResponseString(HttpMessageType.Warn, statusMessage, response);
+                    break;
+                case HttpStatusCode.OK:
+                    statusMessage = "OK";
                     break;
                 default:
                     statusMessage = string.Format(WarningMessages.Generic, addition);
-                    message = BuildResponseString(HttpMessageType.Warn, statusMessage, response);
                     break;
             }
+
+            var message = BuildResponseString(type, statusMessage, response);
             return new HttpMessageException(status, message, statusMessage);
         }
 

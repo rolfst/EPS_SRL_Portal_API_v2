@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
-using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using SRL.Models.Constants;
 using SRL_Portal_API.Common;
@@ -36,7 +34,7 @@ namespace SRL_Portal_API.Controllers
         /// Get the list of SSCC's, based on the given parameters
         /// </summary>
         /// <returns></returns>
-        // [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         [System.Web.Http.HttpPost]
         public IList<SSCCListModel> Index(
             [FromBody] SSCCListRequest request
