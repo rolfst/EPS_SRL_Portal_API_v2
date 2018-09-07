@@ -19,6 +19,8 @@ namespace SRL.Models
 
         public bool IsMenuItem { get; set; }
 
+        public int Order { get; set; }
+
         public List<Screen> Children { get; set; }
     }
 }

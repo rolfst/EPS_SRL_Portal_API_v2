@@ -21,5 +21,6 @@ namespace SRL.Data_Access.Entity
         public int Level { get; set; }
         public Nullable<int> ParentScreenId { get; set; }
         public bool IsMenuItem { get; set; }
+        public int Order { get; set; }
     }
 }
