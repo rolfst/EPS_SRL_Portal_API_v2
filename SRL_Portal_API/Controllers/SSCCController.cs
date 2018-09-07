@@ -4,10 +4,15 @@ using SRL.Models.SSCC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Http;
+using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
 using SRL.Models.Constants;
 using SRL_Portal_API.Common;
 using SRL.Data_Access.Common;
+using SRL.Models.Exceptions;
 
 namespace SRL_Portal_API.Controllers
 {
@@ -31,8 +36,8 @@ namespace SRL_Portal_API.Controllers
         /// Get the list of SSCC's, based on the given parameters
         /// </summary>
         /// <returns></returns>
-        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
-        [HttpPost]
+        // [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
+        [System.Web.Http.HttpPost]
         public IList<SSCCListModel> Index(
             [FromBody] SSCCListRequest request
         )
@@ -43,7 +48,7 @@ namespace SRL_Portal_API.Controllers
                 throw new ArgumentNullException(nameof(SSCCListRequest), "Request is not valid.");
             }
 
-            // Filterfunctionality checkboxgroups: Select none = See all
+            // Filter functionality checkbox groups: Select none = See all
             if (!request.SsccStatusNew && !request.SsccStatusProcessed && !request.SsccStatusValidated)
             {
                 request.SsccStatusNew = true;
@@ -70,7 +75,7 @@ namespace SRL_Portal_API.Controllers
                 request.SlaNOK = true;
             }
 
-            // Filterfunctionality Dates: If date from is not null and date to is null, get only selected date.
+            // Filter functionality Dates: If date from is not null and date to is null, get only selected date.
             if (request.SsccDateFrom != null && request.SsccDateTo == null)
             {
                 // request.SsccDateFrom = new DateTime(request.SsccDateFrom.Value.Day, request.SsccDateFrom.Value.Month, request.SsccDateFrom.Value.Year);
@@ -80,7 +85,16 @@ namespace SRL_Portal_API.Controllers
             {
                 request.CiDateTo = request.CiDateFrom.Value.AddDays(1);
             }
-            return SSCCListAdapter.ConvertSsccList(_ssccListRepository.GetSSCCList(request, RequestContext.Principal.Identity.Name));
+
+            var response = SSCCListAdapter.ConvertSsccList(_ssccListRepository.GetSSCCList(request, RequestContext.Principal.Identity.Name));
+
+            if (response.Count == 0)
+            {
+                throw HttpMessageExceptionBuilder.Build(HttpStatusCode.NotFound, JsonConvert.SerializeObject(response),
+                    "a list of SSCC's");
+            }
+
+            return response;
         }
 
         /// <summary>
@@ -89,7 +103,7 @@ namespace SRL_Portal_API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public SSCCDetailsModel GetSsccDetails(string id)
         {
@@ -108,7 +122,7 @@ namespace SRL_Portal_API.Controllers
             return SSCCDetailAdapter.ConvertSSCCDetails(orderDetails, loadCarrierDetailsList, palletCountingList, imageList, deviationDetailsList);
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public IList<string> GetSsccNumbers(int retailerChainId = -1)
         {
@@ -132,8 +146,8 @@ namespace SRL_Portal_API.Controllers
             return _ssccListRepository.GetSSCCNumberList(request, RequestContext.Principal.Identity.Name).Select(x => x.SSCC).Distinct().ToList();
         }
 
-        [HttpGet]
-        [Route("GetApprovedSSCCs")]
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("GetApprovedSSCCs")]
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public int GetApprovedSSCCsCount(int retailerChainId = -1)
         {
@@ -141,8 +155,8 @@ namespace SRL_Portal_API.Controllers
             return _ssccListRepository.GetApprovedSSCCsCount(RequestContext.Principal.Identity.Name, retailerChainId);
         }
 
-        [HttpPost]
-        [Route("SaveSSCC")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("SaveSSCC")]
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public string SaveSSCCDetail([FromBody] SSCCEditRequest request)
         {
@@ -150,8 +164,8 @@ namespace SRL_Portal_API.Controllers
             return SaveSSCCData(request);
         }
 
-        [HttpPost]
-        [Route("ValidateSSCC")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("ValidateSSCC")]
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public string ValidateSSCC([FromBody] SSCCEditRequest request)
         {
@@ -159,8 +173,8 @@ namespace SRL_Portal_API.Controllers
             return ValidateSSCCData(request);
         }
 
-        [HttpPost]
-        [Route("ValidateMultipleSSCC")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("ValidateMultipleSSCC")]
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public List<string> ValidateMultipleSSCCs(MultipleSSCCValidateRequest request)
         {
@@ -183,9 +197,8 @@ namespace SRL_Portal_API.Controllers
             }
         }
 
-
-        [HttpPost]
-        [Route("SaveValidateSSCC")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("SaveValidateSSCC")]
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public string SaveValidateSSCC([FromBody] SSCCEditRequest request)
         {
