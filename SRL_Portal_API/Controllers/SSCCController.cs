@@ -174,24 +174,19 @@ namespace SRL_Portal_API.Controllers
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("ValidateMultipleSSCC")]
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
-        public List<string> ValidateMultipleSSCCs(MultipleSSCCValidateRequest request)
+        public void ValidateMultipleSSCCs(MultipleSSCCValidateRequest request)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "sscc\\ValidateMultipleSSCCs"));
             if (request.SSCCList.Any())
             {
                 List<string> nonValidatedSSCCList = new List<string>();
-                SSCCEditRequest requestSSCC = new SSCCEditRequest();
-                request.SSCCList.ForEach(s =>
+                SSCCListRepository repository = new SSCCListRepository();
+                nonValidatedSSCCList = repository.ValidateMultipleSSCC(request.SSCCList, RequestContext.Principal.Identity.Name);
+
+                if (nonValidatedSSCCList.Any())
                 {
-                    requestSSCC.SSCC = s;
-                    if (string.Compare(ValidateSSCCData(requestSSCC), VALIDATED, true) != 0)
-                        nonValidatedSSCCList.Add(s);
-                });
-                return nonValidatedSSCCList;
-            }
-            else
-            {
-                return new List<string>();
+                    throw HttpMessageExceptionBuilder.Build(HttpStatusCode.OK, HttpMessageType.Info, JsonConvert.SerializeObject(nonValidatedSSCCList));
+                }
             }
         }
 

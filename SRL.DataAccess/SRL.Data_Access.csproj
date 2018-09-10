@@ -131,6 +131,9 @@
     <Compile Include="Entity\API_SSCC_OVERVIEW_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\API_VALIDATE_MULTIPLE_SSCC_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\AUDIT.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>

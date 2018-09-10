@@ -783,5 +783,18 @@ namespace SRL.Data_Access.Entity
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("API_GET_SSCC_STATUS", sSCCParameter);
         }
+    
+        public virtual ObjectResult<API_VALIDATE_MULTIPLE_SSCC_Result> API_VALIDATE_MULTIPLE_SSCC(string sSCC_LIST, string uPDATE_USER)
+        {
+            var sSCC_LISTParameter = sSCC_LIST != null ?
+                new ObjectParameter("SSCC_LIST", sSCC_LIST) :
+                new ObjectParameter("SSCC_LIST", typeof(string));
+    
+            var uPDATE_USERParameter = uPDATE_USER != null ?
+                new ObjectParameter("UPDATE_USER", uPDATE_USER) :
+                new ObjectParameter("UPDATE_USER", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_VALIDATE_MULTIPLE_SSCC_Result>("API_VALIDATE_MULTIPLE_SSCC", sSCC_LISTParameter, uPDATE_USERParameter);
+        }
     }
 }
