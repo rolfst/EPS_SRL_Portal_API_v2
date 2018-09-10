@@ -59,6 +59,19 @@ namespace SRL.Data_Access.Adapter
             return slmList.ToList();
         }
 
+        public static List<string> ConvertNonValidatedSSCC(this List<API_VALIDATE_MULTIPLE_SSCC_Result> result)
+        {
+            List<string> nonValidatedSSCCs = new List<string>();
+            result.ForEach(s => {
+                if (s.INSERTED == 0)
+                {
+                    nonValidatedSSCCs.Add(s.SSCC);
+                }
+            });
+
+            return nonValidatedSSCCs;
+        }
+
         private static string GetActorName(int actorId)
         {
             using (var dbEntity = new BACKUP_SRL_20180613Entities())

@@ -3636,6 +3636,10 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="SLA_NOK" Type="bit" Mode="In" />
           <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="API_VALIDATE_MULTIPLE_SSCC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SSCC_LIST" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="UPDATE_USER" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="CHANGE_REQUESTS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
           <Parameter Name="ORDER_NUMBER" Type="numeric" Mode="In" />
@@ -9026,7 +9030,11 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="API_GET_SSCC_STATUS" ReturnType="Collection(Int32)">
-            <Parameter Name="SSCC" Mode="In" Type="String" />
+          <Parameter Name="SSCC" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="API_VALIDATE_MULTIPLE_SSCC" ReturnType="Collection(BACKUP_SRL_20180613Model.API_VALIDATE_MULTIPLE_SSCC_Result)">
+            <Parameter Name="SSCC_LIST" Mode="In" Type="String" />
+            <Parameter Name="UPDATE_USER" Mode="In" Type="String" />
           </FunctionImport>
 
         </EntityContainer>
@@ -9246,6 +9254,10 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
         <ComplexType Name="API_LIST_LOAD_UNIT_CONDITIONS_Result">
           <Property Type="String" Name="LOAD_UNIT_CONDITION_CODE" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="LOAD_UNIT_CONDITION_LABEL" Nullable="false" MaxLength="203" />
+        </ComplexType>
+        <ComplexType Name="API_VALIDATE_MULTIPLE_SSCC_Result" >
+          <Property Type="String" Name="SSCC" Nullable="false" />
+          <Property Type="Int32" Name="INSERTED" Nullable="false" />
         </ComplexType>
 
       </Schema>
@@ -12290,6 +12302,14 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="API_GET_SSCC_STATUS" FunctionName="BACKUP_SRL_20180613Model.Store.API_GET_SSCC_STATUS" />
+          <FunctionImportMapping FunctionImportName="API_VALIDATE_MULTIPLE_SSCC" FunctionName="BACKUP_SRL_20180613Model.Store.API_VALIDATE_MULTIPLE_SSCC" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_VALIDATE_MULTIPLE_SSCC_Result">
+                <ScalarProperty Name="SSCC" ColumnName="SSCC" />
+                <ScalarProperty Name="INSERTED" ColumnName="INSERTED" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
 
         </EntityContainerMapping>
       </Mapping>

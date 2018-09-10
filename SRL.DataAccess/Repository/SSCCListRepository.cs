@@ -1,3 +1,4 @@
+using SRL.Data_Access.Adapter;
 using SRL.Data_Access.Entity;
 using SRL.Models.SSCC;
 using System.Collections.Generic;
@@ -109,6 +110,26 @@ namespace SRL.Data_Access.Repository
             };
             //Return count of validated SSCCs
             return GetSSCCNumberList(request, userEmail).Where(s=>s.SSCC_STATUS ==3).Count();
+        }
+
+        /// <summary>
+        /// Validate multiple SSCC 
+        /// </summary>
+        /// <param name="SSCCs">SSCC list</param>
+        /// <param name="currentUserEmail">logged in user email</param>
+        /// <returns>Non validated SSCC list</returns>
+        public List<string> ValidateMultipleSSCC(List<string> SSCCs, string currentUserEmail)
+        {
+
+            List<string> failedSSCCs = new List<string>();
+            if (SSCCs.Any())
+            {
+                using (var dbEntity = new BACKUP_SRL_20180613Entities())
+                {
+                    failedSSCCs = dbEntity.API_VALIDATE_MULTIPLE_SSCC(string.Join(",", SSCCs), currentUserEmail).ToList().ConvertNonValidatedSSCC();
+                }
+            }
+            return failedSSCCs;
         }
     }
 }
