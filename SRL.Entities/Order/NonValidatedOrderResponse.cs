@@ -6,6 +6,6 @@ namespace SRL.Models.Order
 {
     public class NonValidatedOrderResponse
     {
-        List<NonValidatedOrder> NonValidatedOrderList { get; set; }
+       public List<NonValidatedOrder> NonValidatedOrderList { get; set; }
     }
 }

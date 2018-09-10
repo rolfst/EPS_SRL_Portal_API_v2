@@ -4,6 +4,7 @@ using SRL.Data_Access.Entity;
 using SRL.Models.Enums;
 using SRL.Models.Order;
 using SRL.Data_Access.Common;
+using System.Linq;
 
 namespace SRL.Data_Access.Adapter
 {
@@ -43,6 +44,26 @@ namespace SRL.Data_Access.Adapter
             }
 
             return results;
+        }
+
+        public static NonValidatedOrderResponse ConvertNonValidatedOrder(this List<API_LIST_ORDERS_SSCC_FOR_APPROVAL_Result> result)
+        {
+            NonValidatedOrderResponse response = new NonValidatedOrderResponse();
+            if(result.Any())
+            {
+                //Get SSCC list for each non validated order
+                List<string> orderNumbers = result.Select(r => r.ORD_ORDER_NUMBER).Distinct().ToList();
+                foreach(string ordNumber in orderNumbers)
+                {
+                    NonValidatedOrder nonValidatedOrder = new NonValidatedOrder
+                    {
+                        OrderNumber = ordNumber,
+                        SSCCs = result.Where(r => r.ORD_ORDER_NUMBER == ordNumber).Select(r => r.SSCC).ToList()
+                    };
+                    response.NonValidatedOrderList.Add(nonValidatedOrder);
+                }
+            }
+            return response;
         }
 
         /// <summary>

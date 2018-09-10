@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SRL.Data_Access.Adapter;
 using SRL.Data_Access.Entity;
 using SRL.Models.Order;
 
@@ -145,12 +146,33 @@ namespace SRL.Data_Access.Repository
             };
         }
 
-        public NonValidatedOrderResponse ValidateMultipleOrders(List<int> OrderIdList, string userEmail)
+        public NonValidatedOrderResponse ValidateMultipleOrders(List<int> orderIdList, string userEmail)
         {
             NonValidatedOrderResponse response = new NonValidatedOrderResponse();
+            List<API_LIST_ORDERS_SSCC_FOR_APPROVAL_Result> result = new List<API_LIST_ORDERS_SSCC_FOR_APPROVAL_Result>();
+            //Fetch the non-validated SSCC list for the order ids
+            using (var dbEntity = new BACKUP_SRL_20180613Entities())
+            {
+                result = dbEntity.API_LIST_ORDERS_SSCC_FOR_APPROVAL(string.Join(",", orderIdList)).ToList();
+            }
+            if(result.Any())
+            {
+                //Validate the SSCCs found
+                SSCCListRepository repository = new SSCCListRepository();
+                List<string> output = repository.ValidateMultipleSSCC(result.Select(item => item.SSCC).ToList(), userEmail);
+                if(output != null && output.Any())
+                {
+                    //In case some SSCC are not validated, then fetch the order numbers and SSCC numbers of these SSCCs.
 
-
-            return response;
+                    List<API_LIST_ORDERS_SSCC_FOR_APPROVAL_Result> nonValidatedList = new List<API_LIST_ORDERS_SSCC_FOR_APPROVAL_Result>();
+                    output.ForEach(s => 
+                    {
+                        nonValidatedList.AddRange(result.Where(item => item.SSCC == s));
+                    });
+                    response = nonValidatedList.ConvertNonValidatedOrder();
+                }
+            }
+                return response;
         }
     }
 }

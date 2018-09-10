@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Http;
 using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
 using SRL.Data_Access.Adapter;
 using SRL.Data_Access.Repository;
 using SRL.Models.Constants;
+using SRL.Models.Exceptions;
 using SRL.Models.Order;
 using SRL_Portal_API.Common;
 
@@ -51,13 +54,20 @@ namespace SRL_Portal_API.Controllers
 
         [HttpGet]
         [Route("GetApprovedOrders")]
-        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator,UserRoles.Customer })]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator, UserRoles.Customer })]
         public int GetApprovedOrdersCount(int retailerChainId = -1)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"sscc\\GetApprovedOrders?retailerchainId={retailerChainId}"));
             return _repo.GetApprovedOrdersCount(RequestContext.Principal.Identity.Name, retailerChainId);
         }
 
+        [HttpPost]
+        [Route("ApproveOrders")]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent })]
+        public NonValidatedOrderResponse ValidateMultipleOrders(List<int> orderIdList)
+        {
+            return _repo.ValidateMultipleOrders(orderIdList, RequestContext.Principal.Identity.Name);
+        }
 
     }
 }
