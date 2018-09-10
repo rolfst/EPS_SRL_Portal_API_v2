@@ -88,7 +88,7 @@ namespace SRL_Portal_API.Controllers
 
             if (response.Count == 0)
             {
-                throw HttpMessageExceptionBuilder.Build(HttpStatusCode.NotFound, JsonConvert.SerializeObject(response),
+                throw HttpMessageExceptionBuilder.Build(HttpStatusCode.NotFound, HttpMessageType.Info, JsonConvert.SerializeObject(response),
                     "a list of SSCC's");
             }
 
