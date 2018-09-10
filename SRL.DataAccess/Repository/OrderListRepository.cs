@@ -144,5 +144,13 @@ namespace SRL.Data_Access.Repository
                 return result;
             };
         }
+
+        public NonValidatedOrderResponse ValidateMultipleOrders(List<int> OrderIdList, string userEmail)
+        {
+            NonValidatedOrderResponse response = new NonValidatedOrderResponse();
+
+
+            return response;
+        }
     }
 }

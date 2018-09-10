@@ -138,7 +138,7 @@ namespace SRL.Data_Access.Repository
             SSCCStatusResponse response = new SSCCStatusResponse();
             using (var dbEntity = new BACKUP_SRL_20180613Entities())
             {
-                var result = dbEntity.API_GET_SSCC_STATUS(SSCCNumber);
+                var result = dbEntity.API_GET_SSCC_STATUS(SSCCNumber).ToList();
                 if (result != null && result.Any())
                 {
                     response.Status = Enum.GetName(typeof(Models.Enums.SSCCStatus), result.FirstOrDefault().Value);
