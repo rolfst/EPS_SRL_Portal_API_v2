@@ -86,8 +86,8 @@ namespace SRL.Data_Access.Repository
                 requestObj.NewOrderNumber = null;
             }
 
-            ///To save ITR quantities
-            if (request.RTIQuantities != null && request.RTIQuantities.Any())
+            ///To save RTI quantities
+            if (request.RTIQuantities!= null && request.RTIQuantities.Any())
             {
                 foreach (SSCCEditRTIQty item in request.RTIQuantities)
                 {
@@ -114,6 +114,19 @@ namespace SRL.Data_Access.Repository
                 }
                 requestObj.OldLoadCarrierEAN = null;
                 requestObj.NewLoadCarrierEAN = null;
+            }
+            //To save anomalies/deviation/Load unit condition code
+            if(request.Anomalies != null && request.Anomalies.Any())
+            {
+                foreach(SSCCEditAnomaly item in request.Anomalies)
+                {
+                    requestObj.OldLoadUnitConditionCode = item.OldAnomalyCode;
+                    requestObj.NewLoadUnitConditionCode = item.NewAnomalyCode;
+                    if(SaveSSCC(requestObj) == 0)
+                    {
+                        message.Append(string.Format("Insert failed for anomaly with code {0}",requestObj.NewLoadUnitConditionCode ?? requestObj.OldLoadUnitConditionCode ));
+                    }
+                }
             }
 
             return message.ToString();
