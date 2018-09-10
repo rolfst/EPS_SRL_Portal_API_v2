@@ -10,6 +10,7 @@ namespace SRL.Data_Access.Repository
 {
     public class SSCCOrderDetailsRepository
     {
+        
         public API_LCP_ORDER_DETAILS_Result GetSSCCOrderDetails(string id)
         {
             using (var dbEntity = new BACKUP_SRL_20180613Entities())
@@ -48,7 +49,7 @@ namespace SRL.Data_Access.Repository
             };
 
             //To save SSCC number
-            if(!string.IsNullOrEmpty(request.NewSSCC))
+            if (!string.IsNullOrEmpty(request.NewSSCC))
             {
                 requestObj.NewSSCC = request.NewSSCC;
                 requestObj.OldSSCC = request.OldSSCC;
@@ -61,7 +62,7 @@ namespace SRL.Data_Access.Repository
             }
 
             //To save Actor Origin
-            if(request.NewActor.HasValue)
+            if (request.NewActor.HasValue)
             {
                 requestObj.NewActor = request.NewActor;
                 requestObj.OldActor = request.OldActor;
@@ -130,6 +131,24 @@ namespace SRL.Data_Access.Repository
 
             return message.ToString();
 
+        }
+
+        public SSCCStatusResponse GetSSCCStatus(string SSCCNumber)
+        {
+            SSCCStatusResponse response = new SSCCStatusResponse();
+            using (var dbEntity = new BACKUP_SRL_20180613Entities())
+            {
+                var result = dbEntity.API_GET_SSCC_STATUS(SSCCNumber);
+                if (result != null && result.Any())
+                {
+                    response.Status = Enum.GetName(typeof(Models.Enums.SSCCStatus), result.FirstOrDefault().Value);
+                    if (string.Compare(response.Status, Resources.SSCCStatus.VALIDATED, true) == 0)
+                        response.Validated = true;
+                    else
+                        response.Validated = false;
+                }
+            }
+            return response;
         }
     }
 }

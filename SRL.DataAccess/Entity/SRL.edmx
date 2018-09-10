@@ -3503,6 +3503,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             </CollectionType>
           </ReturnType>
         </Function>
+        <Function Name="API_GET_SSCC_STATUS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="API_INSERT_ACTOR_SLA_FROM_SRC_ACTOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ACTOR_ID" Type="int" Mode="In" />
           <Parameter Name="SOURCE_ACTOR_ID" Type="int" Mode="In" />
@@ -9020,7 +9023,10 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             <Parameter Name="STANDARD_SLA" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="API_LIST_LOAD_UNIT_CONDITIONS" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_LOAD_UNIT_CONDITIONS_Result)">
-            <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="Int32" />
+          <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="API_GET_SSCC_STATUS" ReturnType="Collection(Int32)">
+            <Parameter Name="SSCC" Mode="In" Type="String" />
           </FunctionImport>
 
         </EntityContainer>
@@ -12283,6 +12289,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_GET_SSCC_STATUS" FunctionName="BACKUP_SRL_20180613Model.Store.API_GET_SSCC_STATUS" />
 
         </EntityContainerMapping>
       </Mapping>

@@ -208,6 +208,15 @@ namespace SRL_Portal_API.Controllers
             return response;
         }
 
+        [HttpGet]
+        [Route("GetStatusForSSCC")]
+        public SSCCStatusResponse GetSSCCStatus(string SSCCNumber)
+        {
+            SSCCOrderDetailsRepository repository = new SSCCOrderDetailsRepository();
+            return repository.GetSSCCStatus(SSCCNumber);
+
+        }
+
         private string SaveSSCCData(SSCCEditRequest request)
         {
             if (request == null || string.IsNullOrEmpty(request.SSCC))
