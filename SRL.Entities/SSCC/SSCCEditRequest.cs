@@ -14,8 +14,6 @@ namespace SRL.Models.SSCC
         public int LoadMessageStatusId { get; set; }
         public DateTime UpdateDate { get; set; }
         public string UpdateUser { get; set; }
-        public string OldLoadUnitConditionCode { get; set; }
-        public string NewLoadUnitConditionCode { get; set; }
         public List<SSCCEditRTIQty> RTIQuantities { get; set; }
         public string DeleteSSCC { get; set; }
         public string OldSSCC { get; set; }
@@ -29,6 +27,7 @@ namespace SRL.Models.SSCC
         public string VoidSSCC { get; set; }
         public string OldLoadCarrierEAN { get; set; }
         public string NewLoadCarrierEAN { get; set; }
+        public List<SSCCEditAnomaly> Anomalies { get; set; }
 
     }
 
