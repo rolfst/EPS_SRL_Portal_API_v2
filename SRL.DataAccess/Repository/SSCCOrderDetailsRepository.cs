@@ -142,7 +142,7 @@ namespace SRL.Data_Access.Repository
                 if (result != null && result.Any())
                 {
                     response.Status = Enum.GetName(typeof(Models.Enums.SSCCStatus), result.FirstOrDefault().Value);
-                    if (string.Compare(response.Status, VALIDATED, true) == 0)
+                    if (string.Compare(response.Status, Resources.SSCCStatus.VALIDATED, true) == 0)
                         response.Validated = true;
                     else
                         response.Validated = false;

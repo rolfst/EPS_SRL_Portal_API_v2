@@ -615,6 +615,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OrderStatuses.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\SSCCStatus.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SSCCStatus.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Entity\SRLUser.edmx">
@@ -692,6 +697,10 @@
     <EmbeddedResource Include="Resources\OrderStatuses.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>OrderStatuses.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SSCCStatus.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SSCCStatus.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
