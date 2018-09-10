@@ -10,7 +10,7 @@ namespace SRL.Data_Access.Repository
 {
     public class SSCCOrderDetailsRepository
     {
-        private const string VALIDATED = "Validated";
+        
         public API_LCP_ORDER_DETAILS_Result GetSSCCOrderDetails(string id)
         {
             using (var dbEntity = new BACKUP_SRL_20180613Entities())
