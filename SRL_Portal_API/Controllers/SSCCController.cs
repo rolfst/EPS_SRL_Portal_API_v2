@@ -17,6 +17,7 @@ namespace SRL_Portal_API.Controllers
     /// <summary>
     /// Controller for all SSCC related actions
     /// </summary>
+    [RoutePrefix("api")]
     public class SSCCController : BaseController
     {
         private readonly SSCCListRepository _ssccListRepository = new SSCCListRepository();
@@ -207,6 +208,15 @@ namespace SRL_Portal_API.Controllers
             SSCCOrderDetailsRepository repository = new SSCCOrderDetailsRepository();
             return repository.GetSSCCStatus(SSCCNumber);
 
+        }
+
+        [HttpGet]
+        [Route("GetSSCCPendingChange")]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
+        public SSCCPendingChangeResponse GetSSCCPendingChanges(string SSCCNumber)
+        {
+            SSCCOrderDetailsRepository repository = new SSCCOrderDetailsRepository();
+            return repository.GetPendingChangesForSSCC(SSCCNumber);
         }
 
         private string SaveSSCCData(SSCCEditRequest request)

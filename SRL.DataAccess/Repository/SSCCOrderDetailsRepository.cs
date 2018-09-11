@@ -1,3 +1,4 @@
+using SRL.Data_Access.Adapter;
 using SRL.Data_Access.Common;
 using SRL.Data_Access.Entity;
 using SRL.Models.SSCC;
@@ -150,5 +151,14 @@ namespace SRL.Data_Access.Repository
             }
             return response;
         }
+
+        public SSCCPendingChangeResponse GetPendingChangesForSSCC(string SSCCNumber)
+        {
+            using (var dbEntity = new BACKUP_SRL_20180613Entities())
+            {
+               return new SSCCPendingChangeResponse() { SSCCPendingChanges = dbEntity.API_PENDING_SSCC_CHANGE(SSCCNumber).ToList().ConvertSSCCPendingChange() };
+            }
+        }
+
     }
 }
