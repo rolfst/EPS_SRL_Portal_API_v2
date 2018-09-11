@@ -66,5 +66,11 @@ namespace SRL.Models.Exceptions
 
             return new HttpMessage { Body = body, Message = message, Type = typeString };
         }
+
+        public static Exception Build(HttpStatusCode oK, HttpMessageType info, object p)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

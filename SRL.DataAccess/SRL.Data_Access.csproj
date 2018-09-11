@@ -113,6 +113,9 @@
     <Compile Include="Entity\API_LIST_LOAD_UNIT_CONDITIONS_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\API_LIST_ORDERS_SSCC_FOR_APPROVAL_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\API_LIST_RETAILERS_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>

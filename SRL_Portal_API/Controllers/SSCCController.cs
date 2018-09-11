@@ -205,7 +205,7 @@ namespace SRL_Portal_API.Controllers
 
         [HttpGet]
         [Route("GetStatusForSSCC")]
-        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
+       // [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public SSCCStatusResponse GetSSCCStatus(string SSCCNumber)
         {
             SSCCOrderDetailsRepository repository = new SSCCOrderDetailsRepository();

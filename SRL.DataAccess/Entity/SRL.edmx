@@ -3569,6 +3569,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
         <Function Name="API_LIST_LOAD_UNIT_CONDITIONS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="API_LIST_ORDERS_SSCC_FOR_APPROVAL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ORDER_ID" Type="nvarchar(max)" Mode="In" />
+        </Function>
         <Function Name="API_LIST_RETAILERS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="API_LIST_RTI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="API_LIST_SLA_FOR_ACTOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -9036,6 +9039,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             <Parameter Name="SSCC_LIST" Mode="In" Type="String" />
             <Parameter Name="UPDATE_USER" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="API_LIST_ORDERS_SSCC_FOR_APPROVAL" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_ORDERS_SSCC_FOR_APPROVAL_Result)">
+          <Parameter Name="ORDER_ID" Mode="In" Type="String" />
+          </FunctionImport>
 
         </EntityContainer>
         <ComplexType Name="GetOrderDetail_Result">
@@ -9258,6 +9264,12 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
         <ComplexType Name="API_VALIDATE_MULTIPLE_SSCC_Result" >
           <Property Type="String" Name="SSCC" Nullable="false" />
           <Property Type="Int32" Name="INSERTED" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="API_LIST_ORDERS_SSCC_FOR_APPROVAL_Result" >
+          <Property Type="Int64" Name="SSCC_ID" Nullable="false" />
+          <Property Type="String" Name="SSCC" Nullable="false" />
+          <Property Type="Decimal" Name="ORDER_ID" Nullable="false" />
+          <Property Type="String" Name="ORD_ORDER_NUMBER" Nullable="false" />
         </ComplexType>
 
       </Schema>
@@ -12308,6 +12320,11 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
                 <ScalarProperty Name="SSCC" ColumnName="SSCC" />
                 <ScalarProperty Name="INSERTED" ColumnName="INSERTED" />
               </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_LIST_ORDERS_SSCC_FOR_APPROVAL" FunctionName="BACKUP_SRL_20180613Model.Store.API_LIST_ORDERS_SSCC_FOR_APPROVAL" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_LIST_ORDERS_SSCC_FOR_APPROVAL_Result" />
             </ResultMapping>
           </FunctionImportMapping>
 
