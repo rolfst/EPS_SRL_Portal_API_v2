@@ -86,12 +86,6 @@ namespace SRL_Portal_API.Controllers
 
             var response = SSCCListAdapter.ConvertSsccList(_ssccListRepository.GetSSCCList(request, RequestContext.Principal.Identity.Name));
 
-            if (response.Count == 0)
-            {
-                throw HttpMessageExceptionBuilder.Build(HttpStatusCode.NotFound, HttpMessageType.Info, JsonConvert.SerializeObject(response),
-                    "a list of SSCC's");
-            }
-
             return response;
         }
 
@@ -174,7 +168,7 @@ namespace SRL_Portal_API.Controllers
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("ValidateMultipleSSCC")]
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
-        public void ValidateMultipleSSCCs(MultipleSSCCValidateRequest request)
+        public List<string> ValidateMultipleSSCCs(MultipleSSCCValidateRequest request)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "sscc\\ValidateMultipleSSCCs"));
             if (request.SSCCList.Any())
@@ -185,9 +179,11 @@ namespace SRL_Portal_API.Controllers
 
                 if (nonValidatedSSCCList.Any())
                 {
-                    throw HttpMessageExceptionBuilder.Build(HttpStatusCode.OK, HttpMessageType.Info, JsonConvert.SerializeObject(nonValidatedSSCCList), "validate sscc");
+                    throw HttpMessageExceptionBuilder.Build(HttpStatusCode.Accepted, HttpMessageType.Warn, JsonConvert.SerializeObject(string.Join(",", nonValidatedSSCCList)), "Validate SSCC(s)", "Following SSCC(s) could not be validated-");
                 }
+                return nonValidatedSSCCList;
             }
+            return null;
         }
 
         [System.Web.Http.HttpPost]
@@ -205,7 +201,7 @@ namespace SRL_Portal_API.Controllers
 
         [HttpGet]
         [Route("GetStatusForSSCC")]
-       // [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public SSCCStatusResponse GetSSCCStatus(string SSCCNumber)
         {
             SSCCOrderDetailsRepository repository = new SSCCOrderDetailsRepository();
