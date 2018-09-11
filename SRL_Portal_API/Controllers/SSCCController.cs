@@ -185,7 +185,7 @@ namespace SRL_Portal_API.Controllers
 
                 if (nonValidatedSSCCList.Any())
                 {
-                    throw HttpMessageExceptionBuilder.Build(HttpStatusCode.OK, HttpMessageType.Info, JsonConvert.SerializeObject(nonValidatedSSCCList));
+                    throw HttpMessageExceptionBuilder.Build(HttpStatusCode.OK, HttpMessageType.Info, JsonConvert.SerializeObject(nonValidatedSSCCList), "validate sscc");
                 }
             }
         }
