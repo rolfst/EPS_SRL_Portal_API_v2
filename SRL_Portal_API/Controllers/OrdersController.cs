@@ -57,7 +57,7 @@ namespace SRL_Portal_API.Controllers
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator, UserRoles.Customer })]
         public int GetApprovedOrdersCount(int retailerChainId = -1)
         {
-            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"sscc\\GetApprovedOrders?retailerchainId={retailerChainId}"));
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"Order\\GetApprovedOrders?retailerchainId={retailerChainId}"));
             return _repo.GetApprovedOrdersCount(RequestContext.Principal.Identity.Name, retailerChainId);
         }
 
@@ -66,7 +66,14 @@ namespace SRL_Portal_API.Controllers
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent })]
         public NonValidatedOrderResponse ValidateMultipleOrders(List<int> orderIdList)
         {
-            return _repo.ValidateMultipleOrders(orderIdList, RequestContext.Principal.Identity.Name);
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"Order\\ApproveOrders?orderIdList={string.Join(",", orderIdList) }"));
+            NonValidatedOrderResponse response = new NonValidatedOrderResponse();
+            response = _repo.ValidateMultipleOrders(orderIdList, RequestContext.Principal.Identity.Name);
+            if (response.NonValidatedOrderList != null && response.NonValidatedOrderList.Any())
+            {
+                throw HttpMessageExceptionBuilder.Build(HttpStatusCode.Accepted, HttpMessageType.Warn, JsonConvert.SerializeObject(string.Join(",", response.NonValidatedOrderList.Select(item => item.OrderNumber))), "Validate Order(s)", "Following order(s) could not be validated-");
+            }
+            return response;
         }
 
     }
