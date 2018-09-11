@@ -61,11 +61,29 @@ namespace SRL.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request for {0} is accepted but has some issues that demand your attention..
+        /// </summary>
+        internal static string Accepted {
+            get {
+                return ResourceManager.GetString("Accepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Requested information for {0} has multiple representations..
         /// </summary>
         internal static string Ambiguous {
             get {
                 return ResourceManager.GetString("Ambiguous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request for {0} results in a conflict.
+        /// </summary>
+        internal static string Conflict {
+            get {
+                return ResourceManager.GetString("Conflict", resourceCulture);
             }
         }
         

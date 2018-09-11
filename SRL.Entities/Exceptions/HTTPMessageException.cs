@@ -45,8 +45,11 @@ namespace SRL.Models.Exceptions
                 case HttpStatusCode.NotFound:
                     statusMessage = string.Format(WarningMessages.NotFound, addition);
                     break;
-                case HttpStatusCode.OK:
-                    statusMessage = "OK";
+                case HttpStatusCode.Accepted:
+                    statusMessage = string.Format(WarningMessages.Accepted, addition);
+                    break;
+                case HttpStatusCode.Conflict:
+                    statusMessage = string.Format(WarningMessages.Conflict, addition);
                     break;
                 default:
                     statusMessage = string.Format(WarningMessages.Generic, addition);
