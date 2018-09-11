@@ -117,19 +117,27 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accepted" xml:space="preserve">
+    <value>Request for {0} is accepted but has some issues that demand your attention. {1}</value>
+    <comment>Equivalent to HTTP 202</comment>
+  </data>
   <data name="Ambiguous" xml:space="preserve">
-    <value>Requested information for {0} has multiple representations.</value>
+    <value>Requested information for {0} has multiple representations. {1}</value>
     <comment>Equivalent to HTTP 300</comment>
   </data>
+  <data name="Conflict" xml:space="preserve">
+    <value>Request for {0} results in a conflict {1}</value>
+    <comment>Equivalent to HTTP 409</comment>
+  </data>
   <data name="Generic" xml:space="preserve">
-    <value>Something happened while requesting {0} that demands your attention.  </value>
+    <value>Something happened while requesting {0} that demands your attention.  {1}</value>
   </data>
   <data name="NoContent" xml:space="preserve">
-    <value>Requested information for {0} yielded no results.</value>
+    <value>Requested information for {0} yielded no results. {1}</value>
     <comment>Equivalent to HTTP 204</comment>
   </data>
   <data name="NotFound" xml:space="preserve">
-    <value>Request for {0} could not be found</value>
+    <value>Request for {0} could not be found {1}</value>
     <comment>Equivalent to HTTP 404</comment>
   </data>
 </root>

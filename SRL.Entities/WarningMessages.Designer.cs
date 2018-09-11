@@ -61,7 +61,16 @@ namespace SRL.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Requested information for {0} has multiple representations..
+        ///   Looks up a localized string similar to Request for {0} is accepted but has some issues that demand your attention. {1}.
+        /// </summary>
+        internal static string Accepted {
+            get {
+                return ResourceManager.GetString("Accepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requested information for {0} has multiple representations. {1}.
         /// </summary>
         internal static string Ambiguous {
             get {
@@ -70,7 +79,16 @@ namespace SRL.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Something happened while requesting {0} that demands your attention.  .
+        ///   Looks up a localized string similar to Request for {0} results in a conflict {1}.
+        /// </summary>
+        internal static string Conflict {
+            get {
+                return ResourceManager.GetString("Conflict", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something happened while requesting {0} that demands your attention.  {1}.
         /// </summary>
         internal static string Generic {
             get {
@@ -79,7 +97,7 @@ namespace SRL.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Requested information for {0} yielded no results..
+        ///   Looks up a localized string similar to Requested information for {0} yielded no results. {1}.
         /// </summary>
         internal static string NoContent {
             get {
@@ -88,7 +106,7 @@ namespace SRL.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Request for {0} could not be found.
+        ///   Looks up a localized string similar to Request for {0} could not be found {1}.
         /// </summary>
         internal static string NotFound {
             get {

@@ -31,25 +31,28 @@ namespace SRL.Models.Exceptions
         /// <param name="response">The original response, in Json</param>
         /// <param name="addition">The addition to the message. </param>
         /// <returns>a throwable <see cref="HttpMessageException"/></returns>
-        public static HttpMessageException Build(HttpStatusCode status, HttpMessageType type, string response, string addition = "")
+        public static HttpMessageException Build(HttpStatusCode status, HttpMessageType type, string response, string responseLocation, string addition = "")
         {
             string statusMessage; 
             switch (status)
             {
                 case HttpStatusCode.Ambiguous:
-                    statusMessage = string.Format(WarningMessages.Ambiguous, addition);
+                    statusMessage = string.Format(WarningMessages.Ambiguous, responseLocation, addition);
                     break;
                 case HttpStatusCode.NoContent:
-                    statusMessage = string.Format(WarningMessages.NoContent, addition);
+                    statusMessage = string.Format(WarningMessages.NoContent, responseLocation, addition);
                     break;
                 case HttpStatusCode.NotFound:
-                    statusMessage = string.Format(WarningMessages.NotFound, addition);
+                    statusMessage = string.Format(WarningMessages.NotFound, responseLocation, addition);
                     break;
-                case HttpStatusCode.OK:
-                    statusMessage = "OK";
+                case HttpStatusCode.Accepted:
+                    statusMessage = string.Format(WarningMessages.Accepted, responseLocation, addition);
+                    break;
+                case HttpStatusCode.Conflict:
+                    statusMessage = string.Format(WarningMessages.Conflict, responseLocation, addition);
                     break;
                 default:
-                    statusMessage = string.Format(WarningMessages.Generic, addition);
+                    statusMessage = string.Format(WarningMessages.Generic, responseLocation, addition);
                     break;
             }
 
