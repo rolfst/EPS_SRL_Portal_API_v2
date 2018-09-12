@@ -48,11 +48,20 @@ namespace SRL_Portal_API.Controllers
                 throw new ArgumentNullException(nameof(SSCCListRequest), "Request is not valid.");
             }
 
+            UserRespository userRespository = new UserRespository();
             // Filter functionality checkbox groups: Select none = See all
             if (!request.SsccStatusNew && !request.SsccStatusProcessed && !request.SsccStatusValidated)
             {
                 request.SsccStatusNew = true;
                 request.SsccStatusProcessed = true;
+                request.SsccStatusValidated = true;
+            }
+
+            //For customer show only validated SSCCs
+            if (userRespository.IsExternalUser(RequestContext.Principal.Identity.Name))
+            {
+                request.SsccStatusNew = false;
+                request.SsccStatusProcessed = false;
                 request.SsccStatusValidated = true;
             }
 
@@ -121,7 +130,7 @@ namespace SRL_Portal_API.Controllers
         public IList<string> GetSsccNumbers(int retailerChainId = -1)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"sscc\\Get?retailerchainId={retailerChainId}"));
-
+            UserRespository userRespository = new UserRespository();
             var request = new SSCCListRequest
             {
                 SsccStatusNew = true,
@@ -136,7 +145,13 @@ namespace SRL_Portal_API.Controllers
                 SlaNOK = true,
                 RetailerChainId = retailerChainId
             };
-
+            //For customer show only validated SSCCs
+            if (userRespository.IsExternalUser(RequestContext.Principal.Identity.Name))
+            {
+                request.SsccStatusNew = false;
+                request.SsccStatusProcessed = false;
+                request.SsccStatusValidated = true;
+            }
             return _ssccListRepository.GetSSCCNumberList(request, RequestContext.Principal.Identity.Name).Select(x => x.SSCC).Distinct().ToList();
         }
 
