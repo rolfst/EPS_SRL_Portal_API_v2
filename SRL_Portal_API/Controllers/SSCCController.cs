@@ -11,6 +11,7 @@ using SRL.Models.Constants;
 using SRL_Portal_API.Common;
 using SRL.Data_Access.Common;
 using SRL.Models.Exceptions;
+using SRL_Portal_API.Resources;
 
 namespace SRL_Portal_API.Controllers
 {
@@ -180,7 +181,7 @@ namespace SRL_Portal_API.Controllers
 
                 if (nonValidatedSSCCList.Any())
                 {
-                    throw HttpMessageExceptionBuilder.Build(HttpStatusCode.Accepted, HttpMessageType.Warn, JsonConvert.SerializeObject(string.Join(",", nonValidatedSSCCList)), "Validate SSCC(s)", "Following SSCC(s) could not be validated-");
+                    throw HttpMessageExceptionBuilder.Build(HttpStatusCode.Accepted, HttpMessageType.Warn, JsonConvert.SerializeObject(string.Join(",", nonValidatedSSCCList)), Messages.ValidateMultipleSSCC, Messages.ValidateMultipleSSCCHeader);
                 }
                 return nonValidatedSSCCList;
             }

@@ -10,6 +10,7 @@ using SRL.Models.Constants;
 using SRL.Models.Exceptions;
 using SRL.Models.Order;
 using SRL_Portal_API.Common;
+using SRL_Portal_API.Resources;
 
 namespace SRL_Portal_API.Controllers
 {
@@ -17,6 +18,7 @@ namespace SRL_Portal_API.Controllers
     /// <summary>
     /// Controller which handles GET requests for filtering orders.
     /// </summary>
+    [RoutePrefix("api")]
     public class OrdersController : BaseController
     {
         private readonly OrderListRepository _repo = new OrderListRepository();
@@ -71,7 +73,7 @@ namespace SRL_Portal_API.Controllers
             response = _repo.ValidateMultipleOrders(orderIdList, RequestContext.Principal.Identity.Name);
             if (response.NonValidatedOrderList != null && response.NonValidatedOrderList.Any())
             {
-                throw HttpMessageExceptionBuilder.Build(HttpStatusCode.Accepted, HttpMessageType.Warn, JsonConvert.SerializeObject(string.Join(",", response.NonValidatedOrderList.Select(item => item.OrderNumber))), "Validate Order(s)", "Following order(s) could not be validated-");
+                throw HttpMessageExceptionBuilder.Build(HttpStatusCode.Accepted, HttpMessageType.Warn, JsonConvert.SerializeObject(string.Join(",", response.NonValidatedOrderList.Select(item => item.OrderNumber))), Messages.ValidateMultipleOrder, Messages.ValidateMultipleOrderHeader);
             }
             return response;
         }
