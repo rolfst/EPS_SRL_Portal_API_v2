@@ -11,6 +11,7 @@ using SRL.Models.Order;
 
 namespace SRL_Portal_API.Controllers
 {
+    [RoutePrefix("api")]
     public class ReportsController : BaseController
     {
         [HttpPost]
