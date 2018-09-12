@@ -19,10 +19,10 @@ namespace SRL.Data_Access.Repository
             }
 
             //Get retailer chain for logged in user
-            UserRespository userRespository = new UserRespository();
+            UserRepository userRepository = new UserRepository();
             
             List<RetailerChain> retailerChainsForUser = new List<RetailerChain>();
-            List<int?> retailerChainIds = userRespository.GetRetailerChainIdList(userEmail);
+            List<int?> retailerChainIds = userRepository.GetRetailerChainIdList(userEmail);
             if (retailerChainIds.Any())
             {
                 foreach (var retailerChainId in retailerChainIds)

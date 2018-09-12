@@ -48,7 +48,7 @@ namespace SRL_Portal_API.Controllers
                 throw new ArgumentNullException(nameof(SSCCListRequest), "Request is not valid.");
             }
 
-            UserRespository userRespository = new UserRespository();
+            UserRepository userRepository = new UserRepository();
             // Filter functionality checkbox groups: Select none = See all
             if (!request.SsccStatusNew && !request.SsccStatusProcessed && !request.SsccStatusValidated)
             {
@@ -58,7 +58,7 @@ namespace SRL_Portal_API.Controllers
             }
 
             //For customer show only validated SSCCs
-            if (userRespository.IsExternalUser(RequestContext.Principal.Identity.Name))
+            if (userRepository.IsExternalUser(RequestContext.Principal.Identity.Name))
             {
                 request.SsccStatusNew = false;
                 request.SsccStatusProcessed = false;
@@ -130,7 +130,7 @@ namespace SRL_Portal_API.Controllers
         public IList<string> GetSsccNumbers(int retailerChainId = -1)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"sscc\\Get?retailerchainId={retailerChainId}"));
-            UserRespository userRespository = new UserRespository();
+            UserRepository userRepository = new UserRepository();
             var request = new SSCCListRequest
             {
                 SsccStatusNew = true,
@@ -146,7 +146,7 @@ namespace SRL_Portal_API.Controllers
                 RetailerChainId = retailerChainId
             };
             //For customer show only validated SSCCs
-            if (userRespository.IsExternalUser(RequestContext.Principal.Identity.Name))
+            if (userRepository.IsExternalUser(RequestContext.Principal.Identity.Name))
             {
                 request.SsccStatusNew = false;
                 request.SsccStatusProcessed = false;

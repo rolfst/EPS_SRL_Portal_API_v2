@@ -77,8 +77,8 @@ namespace SRL.Data_Access.Repository
             if (string.IsNullOrEmpty(request.ActorIdFrom) && string.IsNullOrEmpty(request.ActorId))
             {
                 //To fetch order numbers for the assigned actors of the logged in user
-                UserRespository userRespository = new UserRespository();
-                List<int> actorIds = userRespository.GetActorIdList(userEmail);
+                UserRepository userRepository = new UserRepository();
+                List<int> actorIds = userRepository.GetActorIdList(userEmail);
                 if (actorIds.Any())
                 {
                     request.ActorIdFrom = string.Join(",", actorIds.Select(a => a).ToArray());
@@ -108,8 +108,8 @@ namespace SRL.Data_Access.Repository
         {
             #region User Management
             //To fetch order numbers for the assigned actors of the logged in user
-            UserRespository userRespository = new UserRespository();
-                List<int> actorIds = userRespository.GetActorIdList(userEmail);
+            UserRepository userRepository = new UserRepository();
+                List<int> actorIds = userRepository.GetActorIdList(userEmail);
                 if(actorIds.Any())
                 {
                     request.ActorIdFrom = string.Join(",", actorIds.Select(a => a).ToArray());

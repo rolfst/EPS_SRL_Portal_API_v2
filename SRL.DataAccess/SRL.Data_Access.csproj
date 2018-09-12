@@ -613,7 +613,7 @@
     <Compile Include="Repository\SSCCLoadCarrierRepository.cs" />
     <Compile Include="Repository\SSCCOrderDetailsRepository.cs" />
     <Compile Include="Repository\SSCCPalletCountingRepository.cs" />
-    <Compile Include="Repository\UserRespository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Resources\ActorLabelType.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
