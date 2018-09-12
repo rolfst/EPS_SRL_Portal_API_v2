@@ -154,10 +154,12 @@ namespace SRL.Data_Access.Repository
 
         public SSCCPendingChangeResponse GetPendingChangesForSSCC(string SSCCNumber)
         {
+            SSCCPendingChangeResponse response = new SSCCPendingChangeResponse();
             using (var dbEntity = new BACKUP_SRL_20180613Entities())
             {
-               return new SSCCPendingChangeResponse() { SSCCPendingChanges = dbEntity.API_PENDING_SSCC_CHANGE(SSCCNumber).ToList().ConvertSSCCPendingChange() };
+                response.SSCCPendingChanges = dbEntity.API_PENDING_SSCC_CHANGE(SSCCNumber).ToList().ConvertSSCCPendingChange();
             }
+            return response;
         }
 
     }
