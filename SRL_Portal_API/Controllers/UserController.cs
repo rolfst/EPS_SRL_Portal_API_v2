@@ -41,12 +41,11 @@ namespace SRL_Portal_API.Controllers
 
         [Route("user/me")]
         [HttpGet]
-       // [Authorize]
+        [Authorize]
         public UserProfile GetCurrentUserDetail()
         {
             UserRespository userRepository = new UserRespository();
-            //  return userRepository.GetUserProfile(RequestContext.Principal.Identity.Name);
-            return userRepository.GetUserProfile("Wietse.Pot@epswebportal.onmicrosoft.com");
+            return userRepository.GetUserProfile(RequestContext.Principal.Identity.Name);
         }
 
         [Route("users")]
