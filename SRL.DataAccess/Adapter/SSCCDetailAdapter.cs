@@ -3,6 +3,7 @@ using SRL.Models.SSCC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SRL.Data_Access.Adapter
 {
@@ -230,7 +231,7 @@ namespace SRL.Data_Access.Adapter
             foreach (var item in imagesResult)
             {
                 SSCCImagesModel imageVm = new SSCCImagesModel();
-                imageVm.ImagePath = item.PICTURE_EVIDENCE_PATH;
+                imageVm.EncodedImage = ConvertUrlToEncodedString(item.PICTURE_EVIDENCE_PATH);
                 imageVm.PicturePosition = item.PICTURE_POSITION;
                 imageVm.PalletPosition = item.PALLET_POSITION;
                 imageList.Add(imageVm);
@@ -256,6 +257,13 @@ namespace SRL.Data_Access.Adapter
             #endregion
 
             return sdModel;
+        }
+
+        private static string ConvertUrlToEncodedString(string itemPictureEvidencePath)
+        {
+            var fileBytes = Encoding.UTF8.GetBytes(itemPictureEvidencePath);
+            var fileEncoded = Convert.ToBase64String(fileBytes);
+            return $"data: image/png;base64 {fileEncoded}";
         }
 
         public static List<SSCCPendingChange> ConvertSSCCPendingChange(this List<API_PENDING_SSCC_CHANGE_Result> result)
