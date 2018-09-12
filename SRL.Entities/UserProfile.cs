@@ -4,11 +4,10 @@ namespace SRL.Models
 {
    public class UserProfile
     {
-        public User UserDetail { get; set; }
-
-        public List<Role> Roles { get; set; }
-
-        public List<Screen> Screens { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string EmailAddress { get; set; }
+        public List<string> Roles { get; set; }
 
     }
 }

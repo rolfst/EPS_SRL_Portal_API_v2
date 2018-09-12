@@ -51,16 +51,26 @@ namespace SRL.Data_Access.Repository
         public UserProfile GetUserProfile(string userEmail)
         {
             UserProfile userProfile = new UserProfile();
+            Users user = new Users();
             if (!string.IsNullOrEmpty(userEmail))
             {
 
                 using (var ctx = new SRLManagementEntities())
                 {
-                    //  userProfile.UserDetail= ctx.sp_GetUserProfile(userEmail);                 
+                    user = ctx.Users.Where(u => u.Email == userEmail).FirstOrDefault();
+                }
+                if (!string.IsNullOrEmpty(user.Email))
+                {
+                    userProfile.FirstName = user.FirstName;
+                    userProfile.LastName = user.LastName;
+                    userProfile.EmailAddress = user.Email;
+                    using (var ctx = new SRLManagementEntities())
+                    {
+                        userProfile.Roles = ctx.sp_GetUserRoles(userEmail).Select(r=>r.RoleName).ToList();
+                    }
                 }
             }
             return userProfile;
-
         }
 
         public List<Role> GetUserRoles(string userEmail)

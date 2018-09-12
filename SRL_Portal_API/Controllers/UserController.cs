@@ -39,6 +39,16 @@ namespace SRL_Portal_API.Controllers
             }
         }
 
+        [Route("user/me")]
+        [HttpGet]
+       // [Authorize]
+        public UserProfile GetCurrentUserDetail()
+        {
+            UserRespository userRepository = new UserRespository();
+            //  return userRepository.GetUserProfile(RequestContext.Principal.Identity.Name);
+            return userRepository.GetUserProfile("Wietse.Pot@epswebportal.onmicrosoft.com");
+        }
+
         [Route("users")]
         [HttpPost]
         [CustomAuthorizationFilter(new string[] { UserRoles.SRLModuleAdministrator, UserRoles.SuperUser, UserRoles.UltraUser })]
