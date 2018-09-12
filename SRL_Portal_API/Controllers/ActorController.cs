@@ -10,6 +10,7 @@ using SRL.Models.Constants;
 
 namespace SRL_Portal_API.Controllers
 {
+    [RoutePrefix("api")]
     public class ActorController : BaseController
     {
         [AcceptVerbs("GET")]
