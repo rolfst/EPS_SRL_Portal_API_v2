@@ -805,5 +805,14 @@ namespace SRL.Data_Access.Entity
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_ORDERS_SSCC_FOR_APPROVAL_Result>("API_LIST_ORDERS_SSCC_FOR_APPROVAL", oRDER_IDParameter);
         }
+    
+        public virtual ObjectResult<API_PENDING_SSCC_CHANGE_Result> API_PENDING_SSCC_CHANGE(string sSCC)
+        {
+            var sSCCParameter = sSCC != null ?
+                new ObjectParameter("SSCC", sSCC) :
+                new ObjectParameter("SSCC", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_PENDING_SSCC_CHANGE_Result>("API_PENDING_SSCC_CHANGE", sSCCParameter);
+        }
     }
 }

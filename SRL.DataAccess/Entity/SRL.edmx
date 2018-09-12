@@ -3607,6 +3607,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="VALIDATION_DEADLINE_PASSED" Type="bit" Mode="In" />
           <Parameter Name="ACTOR_ID" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="API_PENDING_SSCC_CHANGE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SSCC" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="API_SLA_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LOAD_UNIT_ID" Type="int" Mode="In" />
           <Parameter Name="ACTOR_ID" Type="int" Mode="In" />
@@ -9042,6 +9045,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <FunctionImport Name="API_LIST_ORDERS_SSCC_FOR_APPROVAL" ReturnType="Collection(BACKUP_SRL_20180613Model.API_LIST_ORDERS_SSCC_FOR_APPROVAL_Result)">
           <Parameter Name="ORDER_ID" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="API_PENDING_SSCC_CHANGE" ReturnType="Collection(BACKUP_SRL_20180613Model.API_PENDING_SSCC_CHANGE_Result)">
+            <Parameter Name="SSCC" Mode="In" Type="String" />
+          </FunctionImport>
 
         </EntityContainer>
         <ComplexType Name="GetOrderDetail_Result">
@@ -9270,6 +9276,11 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="String" Name="SSCC" Nullable="false" />
           <Property Type="Decimal" Name="ORDER_ID" Nullable="false" />
           <Property Type="String" Name="ORD_ORDER_NUMBER" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="API_PENDING_SSCC_CHANGE_Result">
+          <Property Type="String" Name="CHANGE_TYPE" Nullable="false" MaxLength="58" />
+          <Property Type="String" Name="OLD_VALUE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="NEW_VALUE" Nullable="true" MaxLength="100" />
         </ComplexType>
 
       </Schema>
@@ -12325,6 +12336,15 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <FunctionImportMapping FunctionImportName="API_LIST_ORDERS_SSCC_FOR_APPROVAL" FunctionName="BACKUP_SRL_20180613Model.Store.API_LIST_ORDERS_SSCC_FOR_APPROVAL" >
             <ResultMapping>
               <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_LIST_ORDERS_SSCC_FOR_APPROVAL_Result" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_PENDING_SSCC_CHANGE" FunctionName="BACKUP_SRL_20180613Model.Store.API_PENDING_SSCC_CHANGE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_PENDING_SSCC_CHANGE_Result">
+                <ScalarProperty Name="CHANGE_TYPE" ColumnName="CHANGE_TYPE" />
+                <ScalarProperty Name="OLD_VALUE" ColumnName="OLD_VALUE" />
+                <ScalarProperty Name="NEW_VALUE" ColumnName="NEW_VALUE" />
+              </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
 

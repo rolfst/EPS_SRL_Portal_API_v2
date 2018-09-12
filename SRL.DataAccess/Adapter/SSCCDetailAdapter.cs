@@ -257,5 +257,24 @@ namespace SRL.Data_Access.Adapter
 
             return sdModel;
         }
+
+        public static List<SSCCPendingChange> ConvertSSCCPendingChange(this List<API_PENDING_SSCC_CHANGE_Result> result)
+        {
+            List<SSCCPendingChange> pendingChanges = new List<SSCCPendingChange>();
+            if (result.Any())
+            {
+                result.ForEach(p =>
+                {
+                    pendingChanges.Add(new SSCCPendingChange
+                    {
+                         ChangeType = p.CHANGE_TYPE,
+                         OldValue = p.OLD_VALUE,
+                         NewValue = p.NEW_VALUE
+                    });
+
+                });
+            }
+            return pendingChanges;
+        }
     }
 }
