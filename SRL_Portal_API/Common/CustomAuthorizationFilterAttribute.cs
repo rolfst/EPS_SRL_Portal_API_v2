@@ -36,7 +36,7 @@ namespace SRL_Portal_API.Common
 
                     if (!string.IsNullOrEmpty(authenticationToken))
                     {
-                        UserRespository repository = new UserRespository();
+                        UserRepository repository = new UserRepository();
                         if (repository.IsUserInRole(actionContext.RequestContext.Principal.Identity.Name, this.RequiredUserRoles))
                         {
                             HttpContext.Current.Response.AddHeader("authenticationToken", authenticationToken);

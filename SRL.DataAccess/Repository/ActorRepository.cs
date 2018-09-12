@@ -32,9 +32,9 @@ namespace SRL.Data_Access.Repository
                 actors = dbEntity.API_LIST_ACTORS_TRANSACTION(-1).ConvertActorList();
             }
             //Fetch actors for logged in user
-            UserRespository userRespository = new UserRespository();
+            UserRepository userRepository = new UserRepository();
             //Fetch actors assigned to the user
-            List<int> actorIdList = userRespository.GetActorIdList(userEmail);
+            List<int> actorIdList = userRepository.GetActorIdList(userEmail);
             List<Actor> actorsList = new List<Actor>();
             if (actorIdList.Any())
             {

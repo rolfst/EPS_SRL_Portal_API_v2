@@ -13,9 +13,9 @@ namespace SRL.Data_Access.Repository
         {
             if (string.IsNullOrEmpty(request.ActorID) && string.IsNullOrEmpty(request.ActorOriginId))
             {
-                UserRespository userRespository = new UserRespository();
+                UserRepository userRepository = new UserRepository();
                 //Fetch actors assigned to the user
-                List<int> actorIdList = userRespository.GetActorIdList(userEmail);
+                List<int> actorIdList = userRepository.GetActorIdList(userEmail);
                 request.ActorOriginId = string.Join(",", actorIdList.Select(n => n).ToArray());
             }
 
@@ -57,9 +57,9 @@ namespace SRL.Data_Access.Repository
         public IEnumerable<API_SSCC_OVERVIEW_Result> GetSSCCNumberList(SSCCListRequest request, string userEmail)
         {
             
-            UserRespository userRespository = new UserRespository();
+            UserRepository userRepository = new UserRepository();
             //Fetch actors assigned to the user
-            List<int> actorIdList = userRespository.GetActorIdList(userEmail);
+            List<int> actorIdList = userRepository.GetActorIdList(userEmail);
             request.ActorOriginId = string.Join(",", actorIdList.Select(n => n).ToArray());
 
             using (var dbEntity = new BACKUP_SRL_20180613Entities())

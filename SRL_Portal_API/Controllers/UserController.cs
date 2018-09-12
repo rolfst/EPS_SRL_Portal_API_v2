@@ -23,7 +23,7 @@ namespace SRL_Portal_API.Controllers
             {
                 if (ValidateUserEmail(userEmail))
                 {
-                    UserRespository userRepository = new UserRespository();
+                    UserRepository userRepository = new UserRepository();
                     return userRepository.GetUserRoles(userEmail);
                 }
                 return new List<Role>();
@@ -44,7 +44,7 @@ namespace SRL_Portal_API.Controllers
         [Authorize]
         public UserProfile GetCurrentUserDetail()
         {
-            UserRespository userRepository = new UserRespository();
+            UserRepository userRepository = new UserRepository();
             return userRepository.GetUserProfile(RequestContext.Principal.Identity.Name);
         }
 
@@ -59,10 +59,10 @@ namespace SRL_Portal_API.Controllers
 
             if (userListRequest.ViewingUserEmail == null)
                 userListRequest.ViewingUserEmail = RequestContext.Principal.Identity.Name;
-            UserRespository userRespository = new UserRespository();
+            UserRepository userRepository = new UserRepository();
             try
             {
-                return userRespository.GetUsersList(userListRequest);
+                return userRepository.GetUsersList(userListRequest);
             }
             catch (Exception ex)
             {
@@ -88,7 +88,7 @@ namespace SRL_Portal_API.Controllers
             {
                 if (ValidateUserEmail(userEmail))
                 {
-                    UserRespository userRepository = new UserRespository();
+                    UserRepository userRepository = new UserRepository();
                     return userRepository.GetUserScreens(userEmail);
                 }
 
@@ -110,7 +110,7 @@ namespace SRL_Portal_API.Controllers
         [Authorize]
         public bool CheckIfExternalUser()
         {
-            return new UserRespository().IsExternalUser(RequestContext.Principal.Identity.Name);
+            return new UserRepository().IsExternalUser(RequestContext.Principal.Identity.Name);
         }
 
         private bool ValidateUserEmail(string userEmail)

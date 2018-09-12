@@ -6,7 +6,7 @@ using SRL.Data_Access.Adapter;
 
 namespace SRL.Data_Access.Repository
 {
-    public class UserRespository
+    public class UserRepository
     {
         public List<User> GetUsersFromActor(int actorId, int retailerChainId)
         {
