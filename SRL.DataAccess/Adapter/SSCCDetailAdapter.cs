@@ -2,6 +2,7 @@ using SRL.Data_Access.Entity;
 using SRL.Models.SSCC;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -262,8 +263,17 @@ namespace SRL.Data_Access.Adapter
         private static string ConvertUrlToEncodedString(string itemPictureEvidencePath)
         {
             var fileBytes = Encoding.UTF8.GetBytes(itemPictureEvidencePath);
-            var fileEncoded = Convert.ToBase64String(fileBytes);
+
+            // Temporary usage for testing. Remove after SFTP configuration is done.
+            const string path = "C:/pic/sscc.png";
+            if (!File.Exists(path)) return "INVALID";
+
+            var fileEncoded = Convert.ToBase64String(File.ReadAllBytes(path));
             return $"data: image/png;base64 {fileEncoded}";
+
+            // todo make sure to convert real images from sftp
+            //var fileEncoded = Convert.ToBase64String(fileBytes);
+            //return $"data: image/png;base64 {fileEncoded}";
         }
 
         public static List<SSCCPendingChange> ConvertSSCCPendingChange(this List<API_PENDING_SSCC_CHANGE_Result> result)
