@@ -97,12 +97,13 @@ namespace SRL.Data_Access.Repository
                 return dbEntity.API_ADD_ACTOR_MASTERDATA(request.ActorId, request.ActorTypeId, request.ActorCode, request.RetailerChainId, request.DefaultLanguageCodeId,
                      request.DefaultLanguageCode, request.ActorIPAddress, request.EmergencyStockQty, request.DummyActorReferenceId, request.LabelType,
                      request.NOVEXXClientCode, request.NumberOfLabel, request.CardboardBox, request.ActorDeliveryId, request.CurrentUser).FirstOrDefault().ACTOR_ID ?? 0;
-                
+
             }
         }
 
         private bool SaveActorSLAs(AddActorDetailRequest request)
         {
+            #region Add new SLAs
             Int32 actorId = request.ActorId ?? 0;
             if (actorId > 0)
             {
@@ -114,10 +115,11 @@ namespace SRL.Data_Access.Repository
                         dbEntity.API_INSERT_ACTOR_SLA_FROM_SRC_ACTOR(request.ActorId, request.CopySLAActorId, request.CurrentUser);
                     }
                 }
-                else if (request.SLAs.Any())
+                else if (request.SLAs != null && request.SLAs.Any())
                 {
                     request.SLAs.ForEach(s => { SaveSLA(s, actorId, request.CurrentUser); });
                 }
+                #endregion
 
                 return true;
             }
@@ -127,13 +129,22 @@ namespace SRL.Data_Access.Repository
             }
         }
 
-
-    private int SaveSLA(Actor_SLA_Request actor_SLA, int actorId, string currentUser)
-    {
-        using (var dbEntity = new BACKUP_SRL_20180613Entities())
+        public int DeleteSLA(int SLAId)
         {
-            return dbEntity.API_SLA_INSERT(actor_SLA.LoadUnitId, actorId, actor_SLA.RTIAcceptance, currentUser, actor_SLA.StandardSLA).FirstOrDefault() ?? 0;
+            using (var dbEntity = new BACKUP_SRL_20180613Entities())
+            {
+                return dbEntity.API_SLA_DELETE(SLAId).FirstOrDefault() ?? 0;
+            }
         }
+
+        private int SaveSLA(Actor_SLA_Request actor_SLA, int actorId, string currentUser)
+        {
+            using (var dbEntity = new BACKUP_SRL_20180613Entities())
+            {
+                return dbEntity.API_SLA_INSERT(actor_SLA.LoadUnitId, actorId, actor_SLA.RTIAcceptance, currentUser, actor_SLA.StandardSLA).FirstOrDefault() ?? 0;
+            }
+        }
+
+       
     }
-}
 }

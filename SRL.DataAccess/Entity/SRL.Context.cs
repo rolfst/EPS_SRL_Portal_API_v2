@@ -814,5 +814,14 @@ namespace SRL.Data_Access.Entity
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_PENDING_SSCC_CHANGE_Result>("API_PENDING_SSCC_CHANGE", sSCCParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> API_SLA_DELETE(Nullable<int> lOAD_UNIT_SLA_ID)
+        {
+            var lOAD_UNIT_SLA_IDParameter = lOAD_UNIT_SLA_ID.HasValue ?
+                new ObjectParameter("LOAD_UNIT_SLA_ID", lOAD_UNIT_SLA_ID) :
+                new ObjectParameter("LOAD_UNIT_SLA_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("API_SLA_DELETE", lOAD_UNIT_SLA_IDParameter);
+        }
     }
 }
