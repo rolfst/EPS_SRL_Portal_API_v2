@@ -10,6 +10,7 @@ namespace SRL_Portal_API.Controllers
     /// <summary>
     /// Controller to fetch Retailer Chains list
     /// </summary>
+    [RoutePrefix("api")]
     public class RetailerChainController : BaseController
     {
         [Route("RetailerChains")]

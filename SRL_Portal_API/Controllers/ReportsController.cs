@@ -11,6 +11,7 @@ using SRL.Models.Order;
 
 namespace SRL_Portal_API.Controllers
 {
+    [RoutePrefix("api")]
     public class ReportsController : BaseController
     {
         [HttpPost]
@@ -48,7 +49,7 @@ namespace SRL_Portal_API.Controllers
 
         private void SendReportsToActors(SendReportRequestList sendReportRequest)
         {
-            var repo = new UserRespository();
+            var repo = new UserRepository();
             // Send report to every request
             foreach (var request in sendReportRequest.Requests)
             {

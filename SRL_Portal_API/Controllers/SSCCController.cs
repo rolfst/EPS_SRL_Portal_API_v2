@@ -11,6 +11,7 @@ using SRL.Models.Constants;
 using SRL_Portal_API.Common;
 using SRL.Data_Access.Common;
 using SRL.Models.Exceptions;
+using SRL_Portal_API.Resources;
 
 namespace SRL_Portal_API.Controllers
 {
@@ -47,11 +48,20 @@ namespace SRL_Portal_API.Controllers
                 throw new ArgumentNullException(nameof(SSCCListRequest), "Request is not valid.");
             }
 
+            UserRepository userRepository = new UserRepository();
             // Filter functionality checkbox groups: Select none = See all
             if (!request.SsccStatusNew && !request.SsccStatusProcessed && !request.SsccStatusValidated)
             {
                 request.SsccStatusNew = true;
                 request.SsccStatusProcessed = true;
+                request.SsccStatusValidated = true;
+            }
+
+            //For customer show only validated SSCCs
+            if (userRepository.IsExternalUser(RequestContext.Principal.Identity.Name))
+            {
+                request.SsccStatusNew = false;
+                request.SsccStatusProcessed = false;
                 request.SsccStatusValidated = true;
             }
 
@@ -120,7 +130,7 @@ namespace SRL_Portal_API.Controllers
         public IList<string> GetSsccNumbers(int retailerChainId = -1)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"sscc\\Get?retailerchainId={retailerChainId}"));
-
+            UserRepository userRepository = new UserRepository();
             var request = new SSCCListRequest
             {
                 SsccStatusNew = true,
@@ -135,7 +145,13 @@ namespace SRL_Portal_API.Controllers
                 SlaNOK = true,
                 RetailerChainId = retailerChainId
             };
-
+            //For customer show only validated SSCCs
+            if (userRepository.IsExternalUser(RequestContext.Principal.Identity.Name))
+            {
+                request.SsccStatusNew = false;
+                request.SsccStatusProcessed = false;
+                request.SsccStatusValidated = true;
+            }
             return _ssccListRepository.GetSSCCNumberList(request, RequestContext.Principal.Identity.Name).Select(x => x.SSCC).Distinct().ToList();
         }
 
@@ -180,7 +196,7 @@ namespace SRL_Portal_API.Controllers
 
                 if (nonValidatedSSCCList.Any())
                 {
-                    throw HttpMessageExceptionBuilder.Build(HttpStatusCode.Accepted, HttpMessageType.Warn, JsonConvert.SerializeObject(string.Join(",", nonValidatedSSCCList)), "Validate SSCC(s)", "Following SSCC(s) could not be validated-");
+                    throw HttpMessageExceptionBuilder.Build(HttpStatusCode.Accepted, HttpMessageType.Warn, JsonConvert.SerializeObject(string.Join(",", nonValidatedSSCCList)), Messages.ValidateMultipleSSCC, Messages.ValidateMultipleSSCCHeader);
                 }
                 return nonValidatedSSCCList;
             }

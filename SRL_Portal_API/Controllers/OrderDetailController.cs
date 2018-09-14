@@ -10,6 +10,7 @@ namespace SRL_Portal_API.Controllers
     /// <summary>
     /// To handle order detail actions
     /// </summary>
+    [RoutePrefix("api")]
     public class OrderDetailController : BaseController
     {
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator, UserRoles.Customer })]
@@ -31,7 +32,7 @@ namespace SRL_Portal_API.Controllers
 
         [HttpGet]
         [Route("SSCCListForOrder")]
-        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator, UserRoles.Customer })]
         public SSCCsForOrder GetSSCCListForOrder(int orderId)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\SSCCListForOrder?orderId={orderId}"));
@@ -41,7 +42,7 @@ namespace SRL_Portal_API.Controllers
 
         [HttpGet]
         [Route("OpenSSCCListForOrder")]
-        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator, UserRoles.Customer })]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator})]
         public SSCCsForOrder GetOpenSSCCListForOrder(int orderId)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\get?orderId{orderId}"));
