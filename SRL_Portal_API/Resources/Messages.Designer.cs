@@ -61,6 +61,24 @@ namespace SRL_Portal_API.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete SLA for actor.
+        /// </summary>
+        internal static string DeleteSLAForActor {
+            get {
+                return ResourceManager.GetString("DeleteSLAForActor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The SLA could not be deleted as it is in use.
+        /// </summary>
+        internal static string DeleteSLAForActorHeader {
+            get {
+                return ResourceManager.GetString("DeleteSLAForActorHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Validate Order(&apos;s).
         /// </summary>
         internal static string ValidateMultipleOrder {

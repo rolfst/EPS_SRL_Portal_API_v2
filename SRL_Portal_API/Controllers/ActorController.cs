@@ -7,6 +7,10 @@ using SRL.Data_Access.Repository;
 using SRL.Models;
 using SRL_Portal_API.Common;
 using SRL.Models.Constants;
+using SRL.Models.Exceptions;
+using System.Net;
+using Newtonsoft.Json;
+using SRL_Portal_API.Resources;
 
 namespace SRL_Portal_API.Controllers
 {
@@ -51,7 +55,7 @@ namespace SRL_Portal_API.Controllers
 
         [HttpGet]
         [Route("ActorMasterDetail")]
-       [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator})]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public ActorDetailResponse GetActorMasterDetail(int actorId)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "Actor\\ActorMasterDetail"));
@@ -62,7 +66,7 @@ namespace SRL_Portal_API.Controllers
         [HttpGet]
         [Route("LabelTypesForActor")]
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
-        public Dictionary<string,string> GetLabelTypesForActor()
+        public Dictionary<string, string> GetLabelTypesForActor()
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "Actor\\LabelTypesForActor"));
             ActorRepository actorRepository = new ActorRepository();
@@ -71,13 +75,26 @@ namespace SRL_Portal_API.Controllers
 
         [HttpPost]
         [Route("SaveActor")]
-        [CustomAuthorizationFilter(new string[] {UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
+        [CustomAuthorizationFilter(new string[] { UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public bool SaveActorDetail(AddActorDetailRequest request)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "Actor\\SaveActor"));
             ActorRepository actorRepository = new ActorRepository();
             return actorRepository.SaveActorMaster(request);
 
+        }
+
+        [HttpPost]
+        [Route("DeleteSLAForActor")]
+        [CustomAuthorizationFilter(new string[] { UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
+        public bool DeleteSLAForActor(int SLAId)
+        {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "Actor\\DeleteSLAForActor"));
+            ActorRepository actorRepository = new ActorRepository();
+            if (actorRepository.DeleteSLA(SLAId) > 0)
+                return true;
+            else
+                throw HttpMessageExceptionBuilder.Build(HttpStatusCode.InternalServerError, HttpMessageType.Error, JsonConvert.SerializeObject(string.Empty), Messages.DeleteSLAForActor, Messages.DeleteSLAForActorHeader);
         }
     }
 }

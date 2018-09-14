@@ -3610,6 +3610,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
         <Function Name="API_PENDING_SSCC_CHANGE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SSCC" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="API_SLA_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LOAD_UNIT_SLA_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="API_SLA_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LOAD_UNIT_ID" Type="int" Mode="In" />
           <Parameter Name="ACTOR_ID" Type="int" Mode="In" />
@@ -9046,7 +9049,10 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="ORDER_ID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="API_PENDING_SSCC_CHANGE" ReturnType="Collection(BACKUP_SRL_20180613Model.API_PENDING_SSCC_CHANGE_Result)">
-            <Parameter Name="SSCC" Mode="In" Type="String" />
+          <Parameter Name="SSCC" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="API_SLA_DELETE" ReturnType="Collection(Int32)">
+            <Parameter Name="LOAD_UNIT_SLA_ID" Mode="In" Type="Int32" />
           </FunctionImport>
 
         </EntityContainer>
@@ -12347,6 +12353,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="API_SLA_DELETE" FunctionName="BACKUP_SRL_20180613Model.Store.API_SLA_DELETE" />
 
         </EntityContainerMapping>
       </Mapping>

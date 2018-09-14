@@ -117,6 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DeleteSLAForActor" xml:space="preserve">
+    <value>Delete SLA for actor</value>
+    <comment>Used to identify the location of call</comment>
+  </data>
+  <data name="DeleteSLAForActorHeader" xml:space="preserve">
+    <value>The SLA could not be deleted as it is in use</value>
+    <comment>Used as header message to indicate exception state in deleting a SLA for an Actor</comment>
+  </data>
   <data name="ValidateMultipleOrder" xml:space="preserve">
     <value>Validate Order('s)</value>
     <comment>Used to identify the location of call</comment>
