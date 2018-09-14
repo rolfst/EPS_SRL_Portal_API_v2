@@ -266,10 +266,7 @@ namespace SRL.Data_Access.Adapter
 
             // Temporary usage for testing. Remove after SFTP configuration is done.
             const string path = "C:/pic/sscc.png";
-            if (!File.Exists(path)) return "INVALID";
-
-            var fileEncoded = Convert.ToBase64String(File.ReadAllBytes(path));
-            return $"data: image/png;base64 {fileEncoded}";
+            return !File.Exists(path) ? "INVALID" : Convert.ToBase64String(File.ReadAllBytes(path));
 
             // todo make sure to convert real images from sftp
             //var fileEncoded = Convert.ToBase64String(fileBytes);
