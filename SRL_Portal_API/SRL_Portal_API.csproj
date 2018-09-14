@@ -271,7 +271,7 @@
     <Compile Include="Common\CustomAuthorizationFilterAttribute.cs" />
     <Compile Include="Common\HandleExceptionAttribute.cs" />
     <Compile Include="Common\RegexUtilities.cs" />
-    <Compile Include="Controllers\AnomalyController.cs" />
+    <Compile Include="Controllers\AnomaliesController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CarrierController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

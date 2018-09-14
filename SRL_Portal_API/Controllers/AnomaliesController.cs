@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Http;
 using SRL.Data_Access.Entity;
 using SRL.Data_Access.Repository;
@@ -10,7 +8,7 @@ using SRL_Portal_API.Common;
 
 namespace SRL_Portal_API.Controllers
 {
-    public class AnomalyController : BaseController
+    public class AnomaliesController : BaseController
     {
         [HttpGet]
         [CustomAuthorizationFilter(new string[]
@@ -25,7 +23,15 @@ namespace SRL_Portal_API.Controllers
         {
             var repo = new AnomalyRepository();
 
-            return repo.GetAnomalies(retailerChainId);
+            var result = repo.GetAnomalies(retailerChainId).ToList();
+            foreach (var anomaly in result)
+            {
+                var label = anomaly.LOAD_UNIT_CONDITION_LABEL;
+                label = label.Substring(label.IndexOf('-') + 1).Trim();
+                anomaly.LOAD_UNIT_CONDITION_LABEL = label;
+            }
+
+            return result;
         }
     }
 }
