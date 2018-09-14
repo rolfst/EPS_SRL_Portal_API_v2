@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace SRL.Data_Access.Adapter
 {
@@ -232,7 +231,7 @@ namespace SRL.Data_Access.Adapter
             foreach (var item in imagesResult)
             {
                 SSCCImagesModel imageVm = new SSCCImagesModel();
-                imageVm.EncodedImage = ConvertUrlToEncodedString(item.PICTURE_EVIDENCE_PATH);
+                imageVm.EncodedImage = ConvertImageToEncodedString(item.PICTURE_EVIDENCE_PATH);
                 imageVm.PicturePosition = item.PICTURE_POSITION;
                 imageVm.PalletPosition = item.PALLET_POSITION;
                 imageList.Add(imageVm);
@@ -260,20 +259,18 @@ namespace SRL.Data_Access.Adapter
             return sdModel;
         }
 
-        private static string ConvertUrlToEncodedString(string itemPictureEvidencePath)
+        private static string ConvertImageToEncodedString(string itemPictureEvidencePath)
         {
-            var fileBytes = Encoding.UTF8.GetBytes(itemPictureEvidencePath);
+            // todo: Get file from SFTP server.
 
-            // Temporary usage for testing. Remove after SFTP configuration is done.
-            const string path = "C:/pic/sscc.png";
-            if (!File.Exists(path)) return "INVALID";
+            if (File.Exists(itemPictureEvidencePath))
+            {
+                return Convert.ToBase64String(File.ReadAllBytes(itemPictureEvidencePath));
+            }
 
-            var fileEncoded = Convert.ToBase64String(File.ReadAllBytes(path));
-            return $"data: image/png;base64 {fileEncoded}";
-
-            // todo make sure to convert real images from sftp
-            //var fileEncoded = Convert.ToBase64String(fileBytes);
-            //return $"data: image/png;base64 {fileEncoded}";
+            // Grab image from local directory if requested file doesn't exist.
+            itemPictureEvidencePath = "C:/pic/sscc.png";
+            return File.Exists(itemPictureEvidencePath) ? Convert.ToBase64String(File.ReadAllBytes(itemPictureEvidencePath)) : "INVALID";
         }
 
         public static List<SSCCPendingChange> ConvertSSCCPendingChange(this List<API_PENDING_SSCC_CHANGE_Result> result)
