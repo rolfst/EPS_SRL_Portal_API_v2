@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SRL.Data_Access.Adapter
 {
@@ -231,7 +232,7 @@ namespace SRL.Data_Access.Adapter
             foreach (var item in imagesResult)
             {
                 SSCCImagesModel imageVm = new SSCCImagesModel();
-                imageVm.EncodedImage = ConvertImageToEncodedString(item.PICTURE_EVIDENCE_PATH);
+                imageVm.EncodedImage = ConvertImageToEncodedString(item.PICTURE_EVIDENCE_PATH).Result;
                 imageVm.PicturePosition = item.PICTURE_POSITION;
                 imageVm.PalletPosition = item.PALLET_POSITION;
                 imageList.Add(imageVm);
@@ -259,18 +260,24 @@ namespace SRL.Data_Access.Adapter
             return sdModel;
         }
 
-        private static string ConvertImageToEncodedString(string itemPictureEvidencePath)
+        private static async Task<string> ConvertImageToEncodedString(string itemPictureEvidencePath)
         {
             // todo: Get file from SFTP server.
 
-            if (File.Exists(itemPictureEvidencePath))
+            if (!File.Exists(itemPictureEvidencePath))
             {
-                return Convert.ToBase64String(File.ReadAllBytes(itemPictureEvidencePath));
+                itemPictureEvidencePath = "C:/pic/sscc.png";
             }
 
             // Grab image from local directory if requested file doesn't exist.
-            itemPictureEvidencePath = "C:/pic/sscc.png";
-            return File.Exists(itemPictureEvidencePath) ? Convert.ToBase64String(File.ReadAllBytes(itemPictureEvidencePath)) : "INVALID";
+            if (!File.Exists(itemPictureEvidencePath)) return "INVALID";
+
+            using (var stream = File.OpenRead(itemPictureEvidencePath))
+            {
+                var fileBytes = new byte[stream.Length];
+                await stream.ReadAsync(fileBytes, 0, Convert.ToInt32(stream.Length));
+                return Convert.ToBase64String(fileBytes);
+            }
         }
 
         public static List<SSCCPendingChange> ConvertSSCCPendingChange(this List<API_PENDING_SSCC_CHANGE_Result> result)
