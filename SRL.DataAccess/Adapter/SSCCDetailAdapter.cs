@@ -68,6 +68,7 @@ namespace SRL.Data_Access.Adapter
             foreach (var item in transactionsResult)
             {
                 SSCCLoadCarrierModel lcm = new SSCCLoadCarrierModel();
+                
                 lcm.TransactionDate = item.TRANSACTION_DATETIME;
                 lcm.Actor = item.ACTOR_NAME;
                 lcm.TransactionType = item.TRANSACTION_TYPE_ID;
@@ -95,15 +96,6 @@ namespace SRL.Data_Access.Adapter
                 {
                     ContainerName = item.RTI_NAME,
                     Esoft_Packing_Id = item.ESOFT_PACKING_ID ?? 0,
-                  //  LoadCarrierName = item.LOAD_CARRIER_NAME,
-                  //  LoadCarrierEAN = item.LOAD_CARRIER_EAN,
-                   // ReturnedValue = item.RETURNED_VALUE,
-                   //// Actor = item.ACTOR_ORIGIN,
-                  //  ActorId = item.ACTOR_ID,
-                   //// ExpectedValueMinMax = item.EXPECTED_VALUE_MIN == item.EXPECTED_VALUE_MAX ? item.EXPECTED_VALUE_MIN.Value.ToString() : item.EXPECTED_VALUE_MIN + " - " + item.EXPECTED_VALUE_MAX,
-                   //// Unit = item.UNIT,
-                  //  Deviation = item.RETURNED_VALUE <= item.EXPECTED_VALUE_MIN ? item.RETURNED_VALUE - item.EXPECTED_VALUE_MIN :
-                  //  item.RETURNED_VALUE >= item.EXPECTED_VALUE_MAX ? item.RETURNED_VALUE - item.EXPECTED_VALUE_MAX : 0,
                 };
 
                 foreach (var qtyItem in tList)
@@ -135,12 +127,16 @@ namespace SRL.Data_Access.Adapter
                 List<API_LCP_COUNTING_Result> tList = countingResult.Where(o => o.COUNTING_TYPE == countingType).ToList();
                 LoadCarrierDetail loadCarrierDetail = new LoadCarrierDetail();
                 loadCarrierDetail.CountingType = countingType;
+                //Code changes to show actor origin in general information section instead of load carrier detail section
+                if(tList[0] != null && sdModel.OrderDetails != null)
+                {
+                    sdModel.OrderDetails.ActorOriginId = tList[0].ACTOR_ID;
+                    sdModel.OrderDetails.ActorOriginName = tList[0].ACTOR_ORIGIN;
+                }
                 foreach (var item in tList)
                 {
                     loadCarrierDetail.ReturnedValue = +item.RETURNED_VALUE;
                     loadCarrierDetail.ExpectedValueMinMax = item.EXPECTED_VALUE_MIN == item.EXPECTED_VALUE_MAX ? item.EXPECTED_VALUE_MIN.Value.ToString() : item.EXPECTED_VALUE_MIN + " - " + item.EXPECTED_VALUE_MAX;
-                    loadCarrierDetail.Actor = item.ACTOR_ORIGIN;
-                    loadCarrierDetail.ActorId = item.ACTOR_ID;
                     loadCarrierDetail.LoadCarrierName = item.LOAD_CARRIER_NAME;
                     loadCarrierDetail.LoadCarrierEAN = item.LOAD_CARRIER_EAN;
                     loadCarrierDetail.ExpectedValueMin = item.EXPECTED_VALUE_MIN ?? 0;
