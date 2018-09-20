@@ -23,7 +23,7 @@ namespace SRL.Data_Access.Entity
         public int Assigned { get; set; }
         public bool IsInternal { get; set; }
         public Nullable<int> HasTemplate { get; set; }
-        public string RetailerChain { get; set; }
+        public int RetailerChain { get; set; }
         public bool Active { get; set; }
         public int IsEnabled { get; set; }
     }

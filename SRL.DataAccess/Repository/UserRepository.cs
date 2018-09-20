@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SRL.Models;
 using SRL.Data_Access.Entity;
@@ -16,7 +17,7 @@ namespace SRL.Data_Access.Repository
                 var result = ctx.sp_GetUserForActor(actorId, retailerChainId);
                 foreach (var userdata in result)
                 {
-                    var user = new User { Email = userdata.Email, FirstName = userdata.FirstName, LastName = userdata.LastName};
+                    var user = new User { Email = userdata.Email, FirstName = userdata.FirstName, LastName = userdata.LastName };
                     users.Add(user);
                 }
             };
@@ -66,7 +67,7 @@ namespace SRL.Data_Access.Repository
                     userProfile.EmailAddress = user.Email;
                     using (var ctx = new SRLManagementEntities())
                     {
-                        userProfile.Roles = ctx.sp_GetUserRoles(userEmail).Select(r=>r.RoleName).ToList();
+                        userProfile.Roles = ctx.sp_GetUserRoles(userEmail).Select(r => r.RoleName).ToList();
                     }
                 }
             }
@@ -171,5 +172,32 @@ namespace SRL.Data_Access.Repository
 
         }
 
+        public void AddUsers(IEnumerable<User> users)
+        {
+            var dbUsers = users.Select(user => new Users
+            {
+                CreatedDate = DateTime.Now,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            })
+                .ToList();
+            using (var ctx = new SRLManagementEntities())
+            using (var transaction = ctx.Database.BeginTransaction())
+            {
+                try
+                {
+                    ctx.Users.AddRange(dbUsers);
+                    ctx.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+
+        }
     }
 }

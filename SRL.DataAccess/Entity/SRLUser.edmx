@@ -633,7 +633,7 @@
           <Property Type="Int32" Name="Assigned" Nullable="false" />
           <Property Type="Boolean" Name="IsInternal" Nullable="false" />
           <Property Type="Int32" Name="HasTemplate" Nullable="true" />
-          <Property Type="String" Name="RetailerChain" Nullable="false" MaxLength="1" />
+          <Property Type="Int32" Name="RetailerChain" Nullable="false" />
           <Property Type="Boolean" Name="Active" Nullable="false" />
           <Property Type="Int32" Name="IsEnabled" Nullable="false" />
         </ComplexType>

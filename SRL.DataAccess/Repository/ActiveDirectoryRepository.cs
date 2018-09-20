@@ -40,7 +40,7 @@ namespace SRL.Data_Access.Repository
             credential = new ClientCredential(clientId, clientSecret);
         }
 
-        public IEnumerable<User> SynchronizeUsers()
+        public IEnumerable<User> GetUsers()
         {
             var result = SendGraphGetRequest("/users", null);
 
