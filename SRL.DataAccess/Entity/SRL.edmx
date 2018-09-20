@@ -9052,7 +9052,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="SSCC" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="API_SLA_DELETE" ReturnType="Collection(Int32)">
-            <Parameter Name="LOAD_UNIT_SLA_ID" Mode="In" Type="Int32" />
+          <Parameter Name="LOAD_UNIT_SLA_ID" Mode="In" Type="Int32" />
           </FunctionImport>
 
         </EntityContainer>
@@ -9082,6 +9082,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="Int32" Name="CI_SSCC_ON_ORDER" Nullable="true" />
           <Property Type="Int32" Name="NUMBER_SSCC_ON_ORDER_OPEN" Nullable="true" />
           <Property Type="Int32" Name="NUMBER_SSCC_ON_ORDER_VALIDATED" Nullable="true" />
+          <Property Type="DateTime" Name="FIRST_USAGE_DATE" Nullable="true" />
+          <Property Type="String" Name="USERNAME" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="VALIDATION_DEADLINE" Nullable="true" />
         </ComplexType>
         <ComplexType Name="API_FN_SPLIT_Result">
           <Property Type="Int32" Name="POSITION" Nullable="false" />
@@ -12132,6 +12135,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
                 <ScalarProperty Name="CI_SSCC_ON_ORDER" ColumnName="CI_SSCC_ON_ORDER" />
                 <ScalarProperty Name="NUMBER_SSCC_ON_ORDER_OPEN" ColumnName="NUMBER_SSCC_ON_ORDER_OPEN" />
                 <ScalarProperty Name="NUMBER_SSCC_ON_ORDER_VALIDATED" ColumnName="NUMBER_SSCC_ON_ORDER_VALIDATED" />
+                <ScalarProperty Name="FIRST_USAGE_DATE" ColumnName="FIRST_USAGE_DATE" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="VALIDATION_DEADLINE" ColumnName="VALIDATION_DEADLINE" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

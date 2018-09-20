@@ -38,5 +38,8 @@ namespace SRL.Data_Access.Entity
         public Nullable<int> CI_SSCC_ON_ORDER { get; set; }
         public Nullable<int> NUMBER_SSCC_ON_ORDER_OPEN { get; set; }
         public Nullable<int> NUMBER_SSCC_ON_ORDER_VALIDATED { get; set; }
+        public Nullable<System.DateTime> FIRST_USAGE_DATE { get; set; }
+        public string USERNAME { get; set; }
+        public Nullable<int> VALIDATION_DEADLINE { get; set; }
     }
 }
