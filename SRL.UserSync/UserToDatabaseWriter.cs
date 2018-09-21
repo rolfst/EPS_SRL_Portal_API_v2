@@ -11,7 +11,7 @@ namespace SRL.UserSync
 
         internal void WriteUsersToDatabase(IEnumerable<User> users)
         {
-            var originalUsers = _repository.GetUsersList(new UserListRequest{ViewingUserEmail = "UserSync@SRLPortal"});
+            var originalUsers = _repository.GetAllUsers();
 
             var newUsers = users.Where(x => !originalUsers.Select(y => y.Email).Contains(x.Email) );
             _repository.AddUsers(newUsers);

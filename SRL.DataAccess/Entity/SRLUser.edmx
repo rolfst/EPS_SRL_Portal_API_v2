@@ -582,6 +582,16 @@
             <Parameter Name="ActorId" Mode="In" Type="Int32" />
             <Parameter Name="RetailerChainId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="InsertUser">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsertUser">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_GetUsers_Result">
           <Property Type="Int32" Name="UserId" Nullable="false" />
@@ -797,7 +807,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

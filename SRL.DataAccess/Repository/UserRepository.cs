@@ -17,10 +17,13 @@ namespace SRL.Data_Access.Repository
                 var result = ctx.sp_GetUserForActor(actorId, retailerChainId);
                 foreach (var userdata in result)
                 {
-                    var user = new User { Email = userdata.Email, FirstName = userdata.FirstName, LastName = userdata.LastName };
+                    var user = new User
+                        {Email = userdata.Email, FirstName = userdata.FirstName, LastName = userdata.LastName};
                     users.Add(user);
                 }
-            };
+            }
+
+            ;
             return users;
         }
 
@@ -32,20 +35,23 @@ namespace SRL.Data_Access.Repository
                 using (var ctx = new SRLManagementEntities())
                 {
                     users = (ctx.GetAllUsers(
-                        userFilter.ViewingUserEmail,
-                        userFilter.FirstName,
-                        userFilter.LastName,
-                        userFilter.Email,
-                        userFilter.IsAssigned,
-                        userFilter.IsActive,
-                        userFilter.HasTemplate,
-                        userFilter.IsAdmin,
-                        userFilter.RetailerChainCode,
-                        userFilter.IsInternal)
-                        .ToList<Data_Access.Entity.GetAllUsers_Result>())
+                                userFilter.ViewingUserEmail,
+                                userFilter.FirstName,
+                                userFilter.LastName,
+                                userFilter.Email,
+                                userFilter.IsAssigned,
+                                userFilter.IsActive,
+                                userFilter.HasTemplate,
+                                userFilter.IsAdmin,
+                                userFilter.RetailerChainCode,
+                                userFilter.IsInternal)
+                            .ToList<Data_Access.Entity.GetAllUsers_Result>())
                         .ToEntityUserList();
-                };
+                }
+
+                ;
             }
+
             return users;
         }
 
@@ -60,6 +66,7 @@ namespace SRL.Data_Access.Repository
                 {
                     user = ctx.Users.Where(u => u.Email == userEmail).FirstOrDefault();
                 }
+
                 if (!string.IsNullOrEmpty(user.Email))
                 {
                     userProfile.FirstName = user.FirstName;
@@ -71,6 +78,7 @@ namespace SRL.Data_Access.Repository
                     }
                 }
             }
+
             return userProfile;
         }
 
@@ -81,6 +89,7 @@ namespace SRL.Data_Access.Repository
             {
                 roles = ctx.sp_GetUserRoles(userEmail).ToList().ToEntityRoleList();
             }
+
             return roles;
         }
 
@@ -91,6 +100,7 @@ namespace SRL.Data_Access.Repository
             {
                 screens = ctx.sp_GetScreensForUser(userEmail).ToList().ToEntityScreenList();
             }
+
             return screens;
         }
 
@@ -109,6 +119,7 @@ namespace SRL.Data_Access.Repository
                 var result = ctx.sp_CheckIfUserExternal(userEmail).FirstOrDefault();
                 isExternal = (result ?? 0) != 0 ? true : false;
             }
+
             return isExternal;
 
         }
@@ -133,6 +144,7 @@ namespace SRL.Data_Access.Repository
             {
                 actorIdList = ctx.sp_GetActorsForUser(userEmail).ToList();
             }
+
             if (actorIdList.Any())
             {
                 actorIdList.ForEach(a =>
@@ -141,11 +153,13 @@ namespace SRL.Data_Access.Repository
                         actorIds.Add(a.Value);
                 });
             }
+
             //get all retailer chains assigned to the user
             using (var ctx = new SRLManagementEntities())
             {
                 retailerChainList = string.Join(",", ctx.sp_GetRetailerChainForUser(userEmail).ToArray());
             }
+
             if (!string.IsNullOrEmpty(retailerChainList))
             {
                 List<Common.ActorRetailerChain> actorRetailerChainlist = new List<Common.ActorRetailerChain>();
@@ -153,51 +167,57 @@ namespace SRL.Data_Access.Repository
                 //get list of actors and their assigned retailer chain
                 using (var ctx = new BACKUP_SRL_20180613Entities())
                 {
-                    actorRetailerChainlist = ctx.API_LIST_ACTORID_FOR_RETAILERCHAIN(retailerChainList).ToList().ToEntityActorRetailerChain();
+                    actorRetailerChainlist = ctx.API_LIST_ACTORID_FOR_RETAILERCHAIN(retailerChainList).ToList()
+                        .ToEntityActorRetailerChain();
                 }
+
                 if (actorRetailerChainlist.Any())
                 {
                     //remove retailer chains whose actors are assigned to the user, so as to get retailer chains for whom no actors are assigned directly to the user
-                    List<Common.ActorRetailerChain> toBeRemoved = actorRetailerChainlist.Where(a => actorIds.Contains(a.ActorId)).ToList();
+                    List<Common.ActorRetailerChain> toBeRemoved =
+                        actorRetailerChainlist.Where(a => actorIds.Contains(a.ActorId)).ToList();
                     if (toBeRemoved.Any())
                     {
-                        List<int> toBeRemovedRetailerChain = toBeRemoved.Select(a => a.RetailerChainId).Distinct().ToList();
-                        toBeRemovedRetailerChain.ForEach(r => { actorRetailerChainlist.RemoveAll(a => a.RetailerChainId == r); });
+                        List<int> toBeRemovedRetailerChain =
+                            toBeRemoved.Select(a => a.RetailerChainId).Distinct().ToList();
+                        toBeRemovedRetailerChain.ForEach(r =>
+                        {
+                            actorRetailerChainlist.RemoveAll(a => a.RetailerChainId == r);
+                        });
                     }
+
                     actorRetailerChainlist.ForEach(a => actorIds.Add(a.ActorId));
                 }
 
             }
+
             return actorIds;
 
         }
 
-        public void AddUsers(IEnumerable<User> users)
+        public void AddUsers(IEnumerable<User> insertUsers)
         {
-            var dbUsers = users.Select(user => new Users
-            {
-                CreatedDate = DateTime.Now,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                LastName = user.LastName
-            })
+            var dbUsers = insertUsers.Select(user => new Users
+                {
+                    CreatedDate = DateTime.Now,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
+                })
                 .ToList();
             using (var ctx = new SRLManagementEntities())
-            using (var transaction = ctx.Database.BeginTransaction())
             {
-                try
-                {
-                    ctx.Users.AddRange(dbUsers);
-                    ctx.SaveChanges();
-                    transaction.Commit();
-                }
-                catch (Exception)
-                {
-                    transaction.Rollback();
-                    throw;
-                }
+                ctx.Users.AddRange(dbUsers);
+                ctx.SaveChanges();
             }
+        }
 
+        public List<Users> GetAllUsers()
+        {
+            using (var ctx = new SRLManagementEntities())
+            {
+                return ctx.Database.SqlQuery<Users>("Select * from Users").ToList();
+            }
         }
     }
 }
