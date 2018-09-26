@@ -48,30 +48,38 @@ namespace SRL_Portal_API.Controllers
                 throw new ArgumentNullException(nameof(SSCCListRequest), "Request is not valid.");
             }
 
+            //Block filtering SSCC list based on SSCC status and validation deadline for customer/external user
             UserRepository userRepository = new UserRepository();
-            // Filter functionality checkbox groups: Select none = See all
-            if (!request.SsccStatusNew && !request.SsccStatusProcessed && !request.SsccStatusValidated)
-            {
-                request.SsccStatusNew = true;
-                request.SsccStatusProcessed = true;
-                request.SsccStatusValidated = true;
-            }
-
-            //For customer show only validated SSCCs
             if (userRepository.IsExternalUser(RequestContext.Principal.Identity.Name))
             {
+                //For customer show only validated SSCCs
                 request.SsccStatusNew = false;
                 request.SsccStatusProcessed = false;
                 request.SsccStatusValidated = true;
-            }
 
-            if (!request.ValidationOpen && !request.ValidationExceeded && !request.ValidationPassed)
-            {
+                //For customer do not apply validation deadline filter
                 request.ValidationOpen = true;
                 request.ValidationExceeded = true;
                 request.ValidationPassed = true;
             }
+            else
+            {
+                // Filter functionality checkbox groups: Select none = See all
+                if (!request.SsccStatusNew && !request.SsccStatusProcessed && !request.SsccStatusValidated)
+                {
+                    request.SsccStatusNew = true;
+                    request.SsccStatusProcessed = true;
+                    request.SsccStatusValidated = true;
+                }
 
+                if (!request.ValidationOpen && !request.ValidationExceeded && !request.ValidationPassed)
+                {
+                    request.ValidationOpen = true;
+                    request.ValidationExceeded = true;
+                    request.ValidationPassed = true;
+                }
+            }
+           
             if (!request.CountingOK && !request.CountingNOK)
             {
                 request.CountingOK = true;
