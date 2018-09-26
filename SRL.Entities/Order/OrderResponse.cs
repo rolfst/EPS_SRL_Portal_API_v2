@@ -5,7 +5,7 @@ namespace SRL.Models.Order
     public class OrderResponse
     {
         public decimal OrderId { get; set; }
-        public DateTime OrderDate { get; set; }
+        public DateTime? OrderDate { get; set; }
         public string OrderNumber { get; set; }
         public string ActorFrom { get; set; }
         public string ActorTo { get; set; }

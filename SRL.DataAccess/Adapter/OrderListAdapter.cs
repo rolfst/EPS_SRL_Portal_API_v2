@@ -24,7 +24,7 @@ namespace SRL.Data_Access.Adapter
                 var vm = new OrderResponse
                 {
                     OrderId = item.ID_ORDER,
-                    OrderDate = item.ORDER_DATE,
+                    OrderDate = item.UNLOADING_DATE, //SEPSSP-266 - BACKEND orders list change first usage date to first receipt date
                     OrderNumber = item.ORD_ORDER_NUMBER,
                     ActorFrom = item.FROM_NAME,
                     ActorTo = item.TO_NAME
@@ -49,11 +49,11 @@ namespace SRL.Data_Access.Adapter
         public static NonValidatedOrderResponse ConvertNonValidatedOrder(this List<API_LIST_ORDERS_SSCC_FOR_APPROVAL_Result> result)
         {
             NonValidatedOrderResponse response = new NonValidatedOrderResponse();
-            if(result.Any())
+            if (result.Any())
             {
                 //Get SSCC list for each non validated order
                 List<string> orderNumbers = result.Select(r => r.ORD_ORDER_NUMBER).Distinct().ToList();
-                foreach(string ordNumber in orderNumbers)
+                foreach (string ordNumber in orderNumbers)
                 {
                     NonValidatedOrder nonValidatedOrder = new NonValidatedOrder
                     {
