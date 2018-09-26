@@ -12,6 +12,7 @@ using SRL_Portal_API.Common;
 using SRL.Data_Access.Common;
 using SRL.Models.Exceptions;
 using SRL_Portal_API.Resources;
+using SRL.Models.ActionTile;
 
 namespace SRL_Portal_API.Controllers
 {
@@ -79,7 +80,7 @@ namespace SRL_Portal_API.Controllers
                     request.ValidationPassed = true;
                 }
             }
-           
+
             if (!request.CountingOK && !request.CountingNOK)
             {
                 request.CountingOK = true;
@@ -106,6 +107,34 @@ namespace SRL_Portal_API.Controllers
             var response = SSCCListAdapter.ConvertSsccList(_ssccListRepository.GetSSCCList(request, RequestContext.Principal.Identity.Name));
 
             return response;
+        }
+
+        [HttpGet]
+        [Route("FetchSSCCOrderCounts")]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
+        public CheckYourToday FetchSSCCOrderCounts()
+        {
+            string loggedInUser = RequestContext.Principal.Identity.Name;
+
+            log.Info(string.Format(LogMessages.RequestMethod, loggedInUser, "sscc\\FetchSSCCOrderCounts"));
+
+            SSCCListRequest request = new SSCCListRequest()
+            {
+                RetailerChainId = -1,
+                SsccStatusNew = true,
+                SsccStatusProcessed = true,
+                SsccStatusValidated = false,
+                ValidationOpen = true,
+                ValidationExceeded = true,
+                ValidationPassed = true,
+                SlaOK = true,
+                SlaNOK = true,
+                CountingOK = true,
+                CountingNOK = true,
+                OrderNr = null
+            };
+            return _ssccListRepository.GetSSCCList(request, loggedInUser).ToList().GetCheckYourToday();
+
         }
 
         /// <summary>
@@ -151,7 +180,8 @@ namespace SRL_Portal_API.Controllers
                 CountingNOK = true,
                 SlaOK = true,
                 SlaNOK = true,
-                RetailerChainId = retailerChainId
+                RetailerChainId = retailerChainId,
+                OrderNr = null
             };
             //For customer show only validated SSCCs
             if (userRepository.IsExternalUser(RequestContext.Principal.Identity.Name))

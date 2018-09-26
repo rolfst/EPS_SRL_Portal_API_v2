@@ -106,7 +106,8 @@ namespace SRL.Data_Access.Repository
                 CountingNOK = true,
                 SlaOK = true,
                 SlaNOK = true,
-                RetailerChainId = retailerChainId
+                RetailerChainId = retailerChainId,
+                OrderNr = null
             };
             //Return count of validated SSCCs
             return GetSSCCNumberList(request, userEmail).Where(s=>s.SSCC_STATUS ==3).Count();
