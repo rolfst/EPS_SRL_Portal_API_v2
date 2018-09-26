@@ -1,4 +1,5 @@
 using SRL.Data_Access.Entity;
+using SRL.Models.ActionTile;
 using SRL.Models.SSCC;
 using System;
 using System.Collections.Generic;
@@ -59,6 +60,20 @@ namespace SRL.Data_Access.Adapter
             return slmList.ToList();
         }
 
+        public static CheckYourToday GetCheckYourToday(this List<API_SSCC_OVERVIEW_Result> result)
+        {
+            CheckYourToday checkYourToday = new CheckYourToday();
+            List<API_SSCC_OVERVIEW_Result> list = result.Where(s => s.SSCC_STATUS != 3).ToList();
+
+            if (result.Any())
+            {
+                checkYourToday.SSCCsCount = list.Distinct().Count();
+                checkYourToday.OrdersCount = list.Where(s =>s.ORDER_NUMBER > 0).Select(s => s.ORDER_NUMBER).Distinct().Count();
+            }
+
+            return checkYourToday;
+
+        }
         public static List<string> ConvertNonValidatedSSCC(this List<API_VALIDATE_MULTIPLE_SSCC_Result> result)
         {
             List<string> nonValidatedSSCCs = new List<string>();
