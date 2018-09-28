@@ -53,14 +53,18 @@ namespace SRL.Data_Access.Adapter
             {
                 //Get SSCC list for each non validated order
                 List<string> orderNumbers = result.Select(r => r.ORD_ORDER_NUMBER).Distinct().ToList();
-                foreach (string ordNumber in orderNumbers)
+                if (orderNumbers.Count > 0)
                 {
-                    NonValidatedOrder nonValidatedOrder = new NonValidatedOrder
+                    response.NonValidatedOrderList = new List<NonValidatedOrder>();
+                    foreach (string ordNumber in orderNumbers)
                     {
-                        OrderNumber = ordNumber,
-                        SSCCs = result.Where(r => r.ORD_ORDER_NUMBER == ordNumber).Select(r => r.SSCC).ToList()
-                    };
-                    response.NonValidatedOrderList.Add(nonValidatedOrder);
+                        NonValidatedOrder nonValidatedOrder = new NonValidatedOrder
+                        {
+                            OrderNumber = ordNumber,
+                            SSCCs = result.Where(r => r.ORD_ORDER_NUMBER == ordNumber).Select(r => r.SSCC).ToList()
+                        };
+                        response.NonValidatedOrderList.Add(nonValidatedOrder);
+                    }
                 }
             }
             return response;
