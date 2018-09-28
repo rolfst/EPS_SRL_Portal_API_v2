@@ -3491,6 +3491,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="ACTOR_DELIVERY" Type="int" Mode="In" />
           <Parameter Name="UPDATE_USER" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="API_FN_GET_SSCC_STATUS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="API_FN_SPLIT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TEXT" Type="varchar" Mode="In" />
           <Parameter Name="DELIMITER" Type="varchar" Mode="In" />
@@ -3718,6 +3721,13 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
         <Function Name="ExportAuditXML" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ExportRCM500XML" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="FN_COUNT_NUMBER_OF_SSCC_ON_ORDER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="ORDER_NUMBER" Type="numeric" Mode="In" />
+          <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
+          <Parameter Name="ORIGINAL_SSCC" Type="nvarchar" Mode="In" />
+          <Parameter Name="IS_MONO" Type="bit" Mode="In" />
+          <Parameter Name="IS_VALIDATED" Type="bit" Mode="In" />
         </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="FN_RTI_ACCEPTED_IN_SLA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
@@ -9290,6 +9300,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="String" Name="CHANGE_TYPE" Nullable="false" MaxLength="58" />
           <Property Type="String" Name="OLD_VALUE" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="NEW_VALUE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="UPDATE_USER" Nullable="true" MaxLength="50" />
         </ComplexType>
 
       </Schema>
@@ -12356,6 +12367,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
                 <ScalarProperty Name="CHANGE_TYPE" ColumnName="CHANGE_TYPE" />
                 <ScalarProperty Name="OLD_VALUE" ColumnName="OLD_VALUE" />
                 <ScalarProperty Name="NEW_VALUE" ColumnName="NEW_VALUE" />
+                <ScalarProperty Name="UPDATE_USER" ColumnName="UPDATE_USER" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -7,5 +7,6 @@ namespace SRL.Models.SSCC
     public class SSCCPendingChangeResponse
     {
        public List<SSCCPendingChange> SSCCPendingChanges { get; set; }
+       public string UpdateUser { get; set; }
     }
 }
