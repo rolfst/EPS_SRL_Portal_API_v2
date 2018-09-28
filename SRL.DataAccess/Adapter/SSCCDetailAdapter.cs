@@ -269,11 +269,13 @@ namespace SRL.Data_Access.Adapter
             return File.Exists(itemPictureEvidencePath) ? Convert.ToBase64String(File.ReadAllBytes(itemPictureEvidencePath)) : "INVALID";
         }
 
-        public static List<SSCCPendingChange> ConvertSSCCPendingChange(this List<API_PENDING_SSCC_CHANGE_Result> result)
+        public static SSCCPendingChangeResponse ConvertSSCCPendingChange(this List<API_PENDING_SSCC_CHANGE_Result> result)
         {
+            SSCCPendingChangeResponse response = new SSCCPendingChangeResponse();
             List<SSCCPendingChange> pendingChanges = new List<SSCCPendingChange>();
             if (result.Any())
             {
+                response.UpdateUser = result[0].UPDATE_USER;
                 result.ForEach(p =>
                 {
                     pendingChanges.Add(new SSCCPendingChange
@@ -284,8 +286,9 @@ namespace SRL.Data_Access.Adapter
                     });
 
                 });
+                response.SSCCPendingChanges = pendingChanges;
             }
-            return pendingChanges;
+            return response;
         }
     }
 }
