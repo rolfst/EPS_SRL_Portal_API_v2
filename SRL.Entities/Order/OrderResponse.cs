@@ -15,5 +15,6 @@ namespace SRL.Models.Order
         public DateTime? CIDate { get; set; }
         public bool IsValidated { get; set; }
         public string ValidationStatus { get; set; }
+        public string ShipmentNumber { get; set; }
     }
 }

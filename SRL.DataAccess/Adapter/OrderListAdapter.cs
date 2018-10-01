@@ -40,6 +40,7 @@ namespace SRL.Data_Access.Adapter
                 vm.CIDate = item.CI_DATE;
                 vm.IsValidated = item.VALIDATED == 1;
                 vm.ValidationStatus = SetValidationStatus(item.VALIDATED == 1, item.VALIDATION_DEADLINE);
+                vm.ShipmentNumber = item.TOUR_NUMBER;
                 results.Add(vm);
             }
 
