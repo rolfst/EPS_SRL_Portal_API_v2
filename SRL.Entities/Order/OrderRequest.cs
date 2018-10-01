@@ -26,7 +26,9 @@ namespace SRL.Models.Order
         public bool ValidationPassed { get; set; }
         public string ActorId { get; set; }
 
-        public OrderRequest(string ordOrderNumber = null, int retailerChainId = -1, DateTime? orderDateFrom = null, DateTime? orderDateTo = null, bool orderNew = true, bool orderOpen = true, bool orderValidated = true, string orderId = null, DateTime? ciDateFrom = null, DateTime? ciDateTo = null, DateTime? validationDeadline = null, string user = null, string actorIdFrom = null, string actorIdTo = null, string orderNumber = null, bool shopCountOk = true, bool shopCountNok = true, bool validationOpen = true, bool validationExceeded = true, bool validationPassed = true, string actorId = null)
+        public string ShipmentNumber { get; set; }
+
+        public OrderRequest(string ordOrderNumber = null, int retailerChainId = -1, DateTime? orderDateFrom = null, DateTime? orderDateTo = null, bool orderNew = true, bool orderOpen = true, bool orderValidated = true, string orderId = null, DateTime? ciDateFrom = null, DateTime? ciDateTo = null, DateTime? validationDeadline = null, string user = null, string actorIdFrom = null, string actorIdTo = null, string orderNumber = null, bool shopCountOk = true, bool shopCountNok = true, bool validationOpen = true, bool validationExceeded = true, bool validationPassed = true, string actorId = null, string shipmentNumber = null)
         {
             OrdOrderNumber = ordOrderNumber;
             RetailerChainId = retailerChainId;
@@ -49,6 +51,7 @@ namespace SRL.Models.Order
             ValidationExceeded = validationExceeded;
             ValidationPassed = validationPassed;
             ActorId = actorId;
+            ShipmentNumber = shipmentNumber;
         }
     }
 }

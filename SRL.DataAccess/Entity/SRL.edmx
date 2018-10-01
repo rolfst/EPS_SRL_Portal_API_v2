@@ -3609,6 +3609,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="VALIDATION_DEADLINE_EXCEEDED" Type="bit" Mode="In" />
           <Parameter Name="VALIDATION_DEADLINE_PASSED" Type="bit" Mode="In" />
           <Parameter Name="ACTOR_ID" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SHIPMENT_NUMBER" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="API_PENDING_SSCC_CHANGE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SSCC" Type="varchar" Mode="In" />
@@ -8928,6 +8929,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             <Parameter Name="VALIDATION_DEADLINE_EXCEEDED" Mode="In" Type="Boolean" />
             <Parameter Name="VALIDATION_DEADLINE_PASSED" Mode="In" Type="Boolean" />
             <Parameter Name="ACTOR_ID" Mode="In" Type="String" />
+            <Parameter Name="SHIPMENT_NUMBER" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetOrderDetail" ReturnType="Collection(BACKUP_SRL_20180613Model.GetOrderDetail_Result)">
             <Parameter Name="ORDER_ID" Mode="In" Type="Int32" />
