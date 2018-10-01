@@ -19,7 +19,7 @@ namespace SRL.Data_Access.Adapter
             Parallel.ForEach(input, (item) =>
             {
                 SSCCListModel slm = new SSCCListModel();
-                slm.OrderDate = item.FIRST_SSCC_USAGE;
+                slm.OrderDate = item.FIRST_RECEIPT_DATE;
                 slm.SSCC = item.SSCC;
                 slm.ActorFrom = GetActorName(item.ACTOR_ORIGIN_ID);
                 slm.ActorTo = item.ACTOR_ID.HasValue ? GetActorName(item.ACTOR_ID.Value) : string.Empty;
