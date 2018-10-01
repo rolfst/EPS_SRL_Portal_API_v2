@@ -12,6 +12,6 @@
         public bool HasTemplate { get; set; }
         public bool IsInteranlUser { get; set; }
         public bool Assigned { get; set; }
-        public string RetailerChainCode { get; set; }
+        public int RetailerChainCode { get; set; }
     }
 }

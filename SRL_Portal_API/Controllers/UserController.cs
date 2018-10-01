@@ -50,7 +50,7 @@ namespace SRL_Portal_API.Controllers
 
         [Route("users")]
         [HttpPost]
-        [CustomAuthorizationFilter(new string[] { UserRoles.SRLModuleAdministrator, UserRoles.SuperUser, UserRoles.UltraUser })]
+        // [CustomAuthorizationFilter(new string[] { UserRoles.SRLModuleAdministrator, UserRoles.SuperUser, UserRoles.UltraUser })]
         public List<User> GetUsers(UserListRequest userListRequest)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "User\\users"));
