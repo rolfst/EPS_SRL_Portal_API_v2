@@ -6,6 +6,7 @@ namespace SRL.Models.Order
     public class OrderDetail
     {
         public string OrderNumber { get; set; }
+        public decimal OrderId { get; set; }
         public string FromActorName { get; set; }
         public string FromActorAddressLine1 { get; set; }
         public string FromActorAddressLine2 { get; set; }
@@ -13,17 +14,15 @@ namespace SRL.Models.Order
         public string ToActorAddressLine1 { get; set; }
         public string ToActorAddressLine2 { get; set; }
         public string Status { get; set; }
-        public DateTime OrderDate { get; set; }
-        public DateTime? UnloadingDate { get; set; }
-        public string Transport { get; set; }
+        public DateTime? FirstReceiptDate { get; set; }
         public DateTime? CIDate { get; set; }
-        public string ShipmentNumber { get; set; }
-        public string Reference { get; set; }
-        public string Transporter { get; set; }
-        public string LicensePlate { get; set; }
+        public decimal? OutBound { get; set; }
+        public decimal? InBound { get; set; }
+        public int? CI { get; set; }
+        public int? ValidationDeadline { get; set; }
         public decimal? TotalSSCCs { get; set; }
         public int OpenSSCCs { get; set; }
         public int ApprovedSSCCs { get; set; }
-public decimal ToApprovedPercentage { get; set; }
+        public decimal ToApprovedPercentage { get; set; }
     }
 }
