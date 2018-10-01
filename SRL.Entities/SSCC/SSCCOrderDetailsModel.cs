@@ -15,6 +15,8 @@ namespace SRL.Models.SSCC
         public double ValidationDeadline { get; set; }
         public bool Validated { get; set; }
         public string SsccStatus { get; set; }
+        public string ActorOriginName { get; set; }
+        public int ActorOriginId { get; set; }
 
     }
 }

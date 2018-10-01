@@ -157,9 +157,8 @@ namespace SRL.Data_Access.Repository
             SSCCPendingChangeResponse response = new SSCCPendingChangeResponse();
             using (var dbEntity = new BACKUP_SRL_20180613Entities())
             {
-                response.SSCCPendingChanges = dbEntity.API_PENDING_SSCC_CHANGE(SSCCNumber).ToList().ConvertSSCCPendingChange();
+              return  response = dbEntity.API_PENDING_SSCC_CHANGE(SSCCNumber).ToList().ConvertSSCCPendingChange();
             }
-            return response;
         }
 
     }

@@ -582,6 +582,16 @@
             <Parameter Name="ActorId" Mode="In" Type="Int32" />
             <Parameter Name="RetailerChainId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="InsertUser">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsertUser">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_GetUsers_Result">
           <Property Type="Int32" Name="UserId" Nullable="false" />
@@ -633,7 +643,7 @@
           <Property Type="Int32" Name="Assigned" Nullable="false" />
           <Property Type="Boolean" Name="IsInternal" Nullable="false" />
           <Property Type="Int32" Name="HasTemplate" Nullable="true" />
-          <Property Type="String" Name="RetailerChain" Nullable="false" MaxLength="1" />
+          <Property Type="Int32" Name="RetailerChain" Nullable="false" />
           <Property Type="Boolean" Name="Active" Nullable="false" />
           <Property Type="Int32" Name="IsEnabled" Nullable="false" />
         </ComplexType>
@@ -797,7 +807,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

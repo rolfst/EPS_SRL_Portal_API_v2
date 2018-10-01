@@ -16,5 +16,6 @@ namespace SRL.Data_Access.Entity
         public string CHANGE_TYPE { get; set; }
         public string OLD_VALUE { get; set; }
         public string NEW_VALUE { get; set; }
+        public string UPDATE_USER { get; set; }
     }
 }

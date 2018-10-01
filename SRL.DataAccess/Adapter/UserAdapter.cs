@@ -19,7 +19,7 @@ namespace SRL.Data_Access.Adapter
                 HasTemplate = user.HasTemplate==1? true:false,
                 IsInteranlUser = user.IsInternal,
                 Assigned = user.Assigned == 1? true: false,
-                RetailerChainCode = user.RetailerChain?? string.Empty
+                RetailerChainCode = user.RetailerChain
             };
         }
 
