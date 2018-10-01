@@ -29,5 +29,6 @@ namespace SRL.Data_Access.Entity
         public Nullable<System.DateTime> VALIDATION_DEADLINE { get; set; }
         public bool VALIDATED { get; set; }
         public Nullable<System.DateTime> DATE_VALIDATED { get; set; }
+        public System.DateTime FIRST_RECEIPT_DATE { get; set; }
     }
 }
