@@ -41,7 +41,8 @@ namespace SRL.Data_Access.Repository
                     request.CountingNOK,
                     request.SlaOK,
                     request.SlaNOK,
-                    request.RetailerChainId)
+                    request.RetailerChainId,
+                    request.ShipmentNumber)
                     .Take(1000)
                     .ToList<API_SSCC_OVERVIEW_Result>();
 
@@ -84,7 +85,8 @@ namespace SRL.Data_Access.Repository
                     request.CountingNOK,
                     request.SlaOK,
                     request.SlaNOK,
-                    request.RetailerChainId)
+                    request.RetailerChainId,
+                    request.ShipmentNumber)
                     .ToList<API_SSCC_OVERVIEW_Result>();
 
 

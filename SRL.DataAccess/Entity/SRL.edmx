@@ -3648,6 +3648,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="SLA_OK" Type="bit" Mode="In" />
           <Parameter Name="SLA_NOK" Type="bit" Mode="In" />
           <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
+          <Parameter Name="SHIPMENT_NUMBER" Type="varchar" Mode="In" />
         </Function>
         <Function Name="API_VALIDATE_MULTIPLE_SSCC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SSCC_LIST" Type="nvarchar(max)" Mode="In" />
@@ -8906,6 +8907,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             <Parameter Name="SLA_OK" Mode="In" Type="Boolean" />
             <Parameter Name="SLA_NOK" Mode="In" Type="Boolean" />
             <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="Int32" />
+            <Parameter Name="SHIPMENT_NUMBER" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="API_ORDER_LIST" ReturnType="Collection(BACKUP_SRL_20180613Model.ORDER_LIST_Result)">
             <Parameter Name="ORD_ORDER_NUMBER" Mode="In" Type="String" />
@@ -9161,6 +9163,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="Boolean" Name="VALIDATED" Nullable="false" />
           <Property Type="DateTime" Name="DATE_VALIDATED" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="FIRST_RECEIPT_DATE" Nullable="false" />
+          <Property Type="String" Name="SHIPMENT_NUMBER" Nullable="false" />
         </ComplexType>
         <ComplexType Name="API_LCP_COUNTING_Result">
           <Property Type="String" Name="SSCC" Nullable="false" MaxLength="20" />
