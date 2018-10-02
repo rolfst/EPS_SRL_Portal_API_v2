@@ -17,6 +17,7 @@ namespace SRL.Models.SSCC
         public string SsccStatus { get; set; }
         public string ActorOriginName { get; set; }
         public int ActorOriginId { get; set; }
+        public string ShipmentNumber { get; set; }
 
     }
 }
