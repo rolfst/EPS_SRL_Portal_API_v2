@@ -30,5 +30,6 @@ namespace SRL.Data_Access.Entity
         public bool VALIDATED { get; set; }
         public Nullable<System.DateTime> DATE_VALIDATED { get; set; }
         public System.DateTime FIRST_RECEIPT_DATE { get; set; }
+        public string SHIPMENT_NUMBER { get; set; }
     }
 }
