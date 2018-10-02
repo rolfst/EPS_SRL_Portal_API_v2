@@ -19,7 +19,7 @@ namespace SRL.Data_Access.Repository
             return orderDetail;
         }
 
-        public SSCCsForOrder GetSSCCListForOrder(long orderId)
+        public SSCCsForOrder GetSSCCListForOrder(long orderId, string userEmail)
         {
             SSCCsForOrder result = new SSCCsForOrder();
             List<string> containerNames = new List<string>();
@@ -28,6 +28,15 @@ namespace SRL.Data_Access.Repository
             {
                 result.SSCCs = cntx.API_LIST_SSCC_ON_ORDER(orderId).ToList().ConvertSSCCListForOrder();
             }
+
+            //Show only validated SSCCs for customer
+            UserRepository userRepository = new UserRepository();
+            if(userRepository.IsExternalUser(userEmail))
+            {
+                List<SSCCDetailForOrder> ssccList = result.SSCCs.Where(s => string.Compare(s.SSCCStatus, Resources.SSCCStatus.VALIDATED, true) == 0).ToList();
+                result.SSCCs = ssccList;
+            }
+
             //To get the list of possible container names
             result.SSCCs.ForEach(s => s.RTIQuantities.ForEach(q =>
             {

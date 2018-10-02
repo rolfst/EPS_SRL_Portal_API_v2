@@ -37,7 +37,7 @@ namespace SRL_Portal_API.Controllers
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\SSCCListForOrder?orderId={orderId}"));
             OrderDetailRepository repository = new OrderDetailRepository();
-            return repository.GetSSCCListForOrder(orderId);
+            return repository.GetSSCCListForOrder(orderId, RequestContext.Principal.Identity.Name);
         }
 
         [HttpGet]
