@@ -79,6 +79,24 @@ namespace SRL_Portal_API.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit SSCC.
+        /// </summary>
+        internal static string SaveSSCC {
+            get {
+                return ResourceManager.GetString("SaveSSCC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Following detail(&apos;s) of SSCC could not be saved:.
+        /// </summary>
+        internal static string SaveSSCCHeader {
+            get {
+                return ResourceManager.GetString("SaveSSCCHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Validate Order(&apos;s).
         /// </summary>
         internal static string ValidateMultipleOrder {
