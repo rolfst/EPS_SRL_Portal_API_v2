@@ -9206,6 +9206,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="Int32" Name="SSCC_STATUS" Nullable="false" />
           <Property Type="Int32" Name="RETAILER_CHAIN_ID" Nullable="true" />
           <Property Type="String" Name="SHIPMENT_NUMBER" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="ID_ORDER" Nullable="false" Precision="10" Scale="0" />
         </ComplexType>
         <ComplexType Name="API_LCP_TRANSACTIONS_Result">
           <Property Type="String" Name="SSCC" Nullable="false" MaxLength="20" />
@@ -12215,6 +12216,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
                 <ScalarProperty Name="SSCC_STATUS" ColumnName="SSCC_STATUS" />
                 <ScalarProperty Name="RETAILER_CHAIN_ID" ColumnName="RETAILER_CHAIN_ID" />
                 <ScalarProperty Name="SHIPMENT_NUMBER" ColumnName="SHIPMENT_NUMBER" />
+                <ScalarProperty Name="ID_ORDER" ColumnName="ID_ORDER" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

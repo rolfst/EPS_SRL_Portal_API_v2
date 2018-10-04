@@ -23,5 +23,6 @@ namespace SRL.Data_Access.Entity
         public int SSCC_STATUS { get; set; }
         public Nullable<int> RETAILER_CHAIN_ID { get; set; }
         public string SHIPMENT_NUMBER { get; set; }
+        public decimal ID_ORDER { get; set; }
     }
 }

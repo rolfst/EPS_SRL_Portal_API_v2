@@ -8,6 +8,7 @@ namespace SRL.Models.SSCC
     {
         public string SsccNumber { get; set; }
         public string OrderNumber { get; set; }
+        public decimal? OrderId { get; set; }
         public string PhysicalFrom { get; set; }
         public string PhysicalTo { get; set; }
         public string TransportedBy { get; set; }
