@@ -3642,7 +3642,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="VALIDATION_DEADLINE_EXCEEDED" Type="bit" Mode="In" />
           <Parameter Name="VALIDATION_DEADLINE_PASSED" Type="bit" Mode="In" />
           <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
-          <Parameter Name="ORDER_NUMBER" Type="numeric" Mode="In" />
+          <Parameter Name="ORDER_NUMBER" Type="nvarchar" Mode="In" />
           <Parameter Name="COUNTING_OK" Type="bit" Mode="In" />
           <Parameter Name="COUNTING_NOK" Type="bit" Mode="In" />
           <Parameter Name="SLA_OK" Type="bit" Mode="In" />
@@ -8901,7 +8901,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             <Parameter Name="VALIDATION_DEADLINE_EXCEEDED" Mode="In" Type="Boolean" />
             <Parameter Name="VALIDATION_DEADLINE_PASSED" Mode="In" Type="Boolean" />
             <Parameter Name="SSCC" Mode="In" Type="String" />
-            <Parameter Name="ORDER_NUMBER" Mode="In" Type="Decimal" />
+            <Parameter Name="ORDER_NUMBER" Mode="In" Type="String" />
             <Parameter Name="COUNTING_OK" Mode="In" Type="Boolean" />
             <Parameter Name="COUNTING_NOK" Mode="In" Type="Boolean" />
             <Parameter Name="SLA_OK" Mode="In" Type="Boolean" />
