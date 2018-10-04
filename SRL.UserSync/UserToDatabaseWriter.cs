@@ -9,12 +9,12 @@ namespace SRL.UserSync
     {
         private readonly UserRepository _repository = new UserRepository();
 
-        internal void WriteUsersToDatabase(IEnumerable<User> users)
+        internal void WriteUsersToDatabase(IEnumerable<User> users, int createdUserId)
         {
             var originalUsers = _repository.GetAllUsers();
 
             var newUsers = users.Where(x => !originalUsers.Select(y => y.Email).Contains(x.Email) );
-            _repository.AddUsers(newUsers);
+            _repository.AddUsers(newUsers, createdUserId);
         }
     }
 }

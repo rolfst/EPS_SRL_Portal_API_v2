@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -15,12 +12,10 @@ using SRL.Models;
 
 namespace SRL.Data_Access.Repository
 {
-    public class ActiveDirectoryRepository
+    public class ActiveDirectoryUserRepository
     {
-        private static string aadInstance = "https://login.microsoftonline.com/";
-        private static string aadGraphResourceId = "https://graph.windows.net/";
-        private static string aadGraphEndpoint = "https://graph.windows.net/";
-        private static string aadGraphSuffix = "";
+        private const string AadInstance = "https://login.microsoftonline.com/";
+        private const string AadGraphResourceId = "https://graph.windows.net/";
         private const string AadGraphVersion = "api-version=1.6";
 
         private static readonly string tenant = ConfigurationManager.AppSettings["b2c:Tenant"];
@@ -30,10 +25,10 @@ namespace SRL.Data_Access.Repository
         private readonly AuthenticationContext authContext;
         private readonly ClientCredential credential;
 
-        public ActiveDirectoryRepository()
+        public ActiveDirectoryUserRepository()
         {
             // The AuthenticationContext is ADAL's primary class, in which you indicate the directory to use.
-            authContext = new AuthenticationContext("https://login.microsoftonline.com/" + tenant);
+            authContext = new AuthenticationContext($"{AadInstance}{tenant}");
 
             // The ClientCredential is where you pass in your client_id and client_secret, which are 
             // provided to Azure AD in order to receive an access_token using the app's identity.
@@ -42,20 +37,19 @@ namespace SRL.Data_Access.Repository
 
         public IEnumerable<User> GetUsers()
         {
-            var result = SendGraphGetRequest("/users", null);
-
-            return result;
+            var users = SendGraphGetRequest("/users", null);
+            return FilterUsersFromGraphResult(users);
         }
 
-        public IEnumerable<User> SendGraphGetRequest(string api, string query)
+        public string SendGraphGetRequest(string api, string query)
         {
             // First, use ADAL to acquire a token using the app's identity (the credential)
             // The first parameter is the resource we want an access_token for; in this case, the Graph API.
-            var authResult = authContext.AcquireTokenAsync("https://graph.windows.net", credential).Result;
+            var authResult = authContext.AcquireTokenAsync(AadGraphResourceId, credential).Result;
 
             // For B2C user managment, be sure to use the 1.6 Graph API version.
             var http = new HttpClient();
-            var url = $"https://graph.windows.net/{tenant}{api}?{AadGraphVersion}";
+            var url = $"{AadGraphResourceId}{tenant}{api}?{AadGraphVersion}";
             if (!string.IsNullOrEmpty(query))
             {
                 url += $"&{query}";
@@ -76,28 +70,35 @@ namespace SRL.Data_Access.Repository
 
 
             var result = response.Content.ReadAsStringAsync().Result;
-
-            return FilterUsers(result);
+            return result;
         }
 
-        private static IEnumerable<User> FilterUsers(string result)
+        private IEnumerable<User> FilterUsersFromGraphResult(string result)
         {
             var substring = result.Substring(result.IndexOf("[", StringComparison.Ordinal));
             substring = substring.Substring(0, substring.LastIndexOf('}'));
             var res = (IEnumerable<object>)JsonConvert.DeserializeObject(substring);
 
-            return (from jsonUser in res
-                select JObject.Parse(jsonUser.ToString())
+            return (from jsonUser in res select JObject.Parse(jsonUser.ToString()) 
                 into data
-                let firstName = ((dynamic) data).givenName
-                let lastName = ((dynamic) data).surname
-                let userName = ((dynamic) data).userPrincipalName
-                select new User
-                {
-                    FirstName = firstName,
-                    LastName = lastName,
-                    Email = userName
-                }).ToList();
+                let userId = ((dynamic)data).objectId
+                let firstName = ((dynamic)data).givenName
+                let lastName = ((dynamic)data).surname
+                let userName = ((dynamic)data).userPrincipalName
+                let isInternal = GetUserGroup(userId.ToString()) == ConfigurationManager.AppSettings["b2c:InternalUserGroup"]
+                select new User { FirstName = firstName, LastName = lastName, Email = userName, IsInteranlUser = isInternal }).ToList();
+        }
+
+        private string GetUserGroup(string userId)
+        {
+            var result = SendGraphGetRequest($"/users/{userId}/memberOf", null);
+            var substring = result.Substring(result.IndexOf("[", StringComparison.Ordinal));
+            substring = substring.Substring(0, substring.LastIndexOf('}'));
+
+            var res = (IEnumerable<object>)JsonConvert.DeserializeObject(substring);
+            var data = JObject.Parse(res.First().ToString());
+            var displayName = ((dynamic)data).displayName;
+            return displayName;
         }
     }
 }

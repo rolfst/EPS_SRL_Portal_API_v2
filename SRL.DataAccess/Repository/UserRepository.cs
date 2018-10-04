@@ -195,14 +195,16 @@ namespace SRL.Data_Access.Repository
 
         }
 
-        public void AddUsers(IEnumerable<User> insertUsers)
+        public void AddUsers(IEnumerable<User> insertUsers, int createdUserId)
         {
             var dbUsers = insertUsers.Select(user => new Users
                 {
                     CreatedDate = DateTime.Now,
                     Email = user.Email,
                     FirstName = user.FirstName,
-                    LastName = user.LastName
+                    LastName = user.LastName,
+                    IsInternal = user.IsInteranlUser,
+                    CreatedUserId = createdUserId
                 })
                 .ToList();
             using (var ctx = new SRLManagementEntities())

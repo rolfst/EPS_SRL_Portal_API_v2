@@ -12,7 +12,8 @@ namespace SRL.UserSync
             UserRetriever = new UserRetriever();
 
             var users = UserRetriever.RetrieveUsers();
-            UserToDatabaseWriter.WriteUsersToDatabase(users);
+            var userCreatedId = UserRetriever.RetrieveCreatedUser().UserId;
+            UserToDatabaseWriter.WriteUsersToDatabase(users, userCreatedId);
         }
     }
 }

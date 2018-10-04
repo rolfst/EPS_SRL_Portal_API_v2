@@ -607,7 +607,7 @@
     <Compile Include="Entity\Users.cs">
       <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\ActiveDirectoryRepository.cs" />
+    <Compile Include="Repository\ActiveDirectoryUserRepository.cs" />
     <Compile Include="Repository\ActorRepository.cs" />
     <Compile Include="Repository\AnomalyRepository.cs" />
     <Compile Include="Repository\LoadCarrierRepository.cs" />
