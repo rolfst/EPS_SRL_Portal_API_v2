@@ -35,6 +35,7 @@ namespace SRL.Data_Access.Adapter
                 odm.PhysicalTo = orderDetailResult.PHYSICAL_TO;
                 odm.TransportedBy = orderDetailResult.TRANSPORTED_BY;
                 odm.ShipmentNumber = orderDetailResult.SHIPMENT_NUMBER;
+                odm.OrderId = orderDetailResult.ID_ORDER;
 
                 switch (orderDetailResult.SSCC_STATUS)
                 {
