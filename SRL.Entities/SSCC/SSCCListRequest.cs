@@ -19,7 +19,7 @@ namespace SRL.Models.SSCC
         public bool ValidationExceeded { get; set; }
         public bool ValidationPassed { get; set; }
         public string SsccNr { get; set; }
-        public decimal? OrderNr { get; set; }
+        public string OrderNr { get; set; }
         public bool CountingOK { get; set; }
         public bool CountingNOK { get; set; }
         public bool SlaOK { get; set; }
@@ -40,7 +40,7 @@ namespace SRL.Models.SSCC
             bool validationExceeded = false,
             bool validationPassed = false,
             string ssccNr = null,
-            decimal? orderNr = 0,
+            string orderNr = null,
             bool countingOK = false,
             bool countingNOK = false,
             bool slaOK = false,
