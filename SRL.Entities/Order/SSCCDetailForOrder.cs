@@ -18,5 +18,6 @@ namespace SRL.Models.Order
         public decimal ExpectedValueMax { get; set; }
         public string ActorOrigin { get; set; }
         public decimal Deviation { get; set; }
+        public int HasAnomalies { get; set; }
     }
 }

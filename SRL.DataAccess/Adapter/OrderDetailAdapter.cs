@@ -63,6 +63,7 @@ namespace SRL.Data_Access.Adapter
                     ExpectedValue = obj.EXPECTED_VALUE_MIN == obj.EXPECTED_VALUE_MAX ? obj.EXPECTED_VALUE_MIN.Value.ToString() : obj.EXPECTED_VALUE_MIN + " - " + obj.EXPECTED_VALUE_MAX,
                     ExpectedValueMax = obj.EXPECTED_VALUE_MAX ?? 0,
                     ExpectedValueMin = obj.EXPECTED_VALUE_MIN ?? 0,
+                    HasAnomalies = obj.HAS_ANOMALIES
                 };
                 ssccObj.Deviation = ssccObj.ReturnedValue <= ssccObj.ExpectedValueMin ? ssccObj.ReturnedValue - ssccObj.ExpectedValueMin :
                     ssccObj.ReturnedValue >= ssccObj.ExpectedValueMax ? ssccObj.ReturnedValue - ssccObj.ExpectedValueMax : 0;
