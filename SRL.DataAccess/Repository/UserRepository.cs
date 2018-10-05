@@ -200,6 +200,7 @@ namespace SRL.Data_Access.Repository
             var dbUsers = insertUsers.Select(user => new Users
                 {
                     CreatedDate = DateTime.Now,
+                    Language = "English",
                     Email = user.Email,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
@@ -211,6 +212,26 @@ namespace SRL.Data_Access.Repository
             {
                 ctx.Users.AddRange(dbUsers);
                 ctx.SaveChanges();
+            }
+        }
+
+        public void RemoveUsers(IEnumerable<Users> unverifiedUsers, int modifiedUserId)
+        {
+            using (var ctx = new SRLManagementEntities())
+            {
+                foreach (var unverifiedUser in unverifiedUsers)
+                {
+                    var user = ctx.Users.Find(unverifiedUser.UserId);
+                    if (user == null)
+                    {
+                        continue;
+                    }
+
+                    user.Active = false;
+                    user.ModifiedUserId = modifiedUserId;
+                    user.ModifiedDate = DateTime.Now;
+                    ctx.SaveChanges();
+                }
             }
         }
 

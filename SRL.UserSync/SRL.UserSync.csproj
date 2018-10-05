@@ -54,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserRetriever.cs" />
     <Compile Include="UserToDatabaseWriter.cs" />
+    <Compile Include="UserVerifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

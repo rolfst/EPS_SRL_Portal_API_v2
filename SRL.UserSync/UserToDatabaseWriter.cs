@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SRL.Data_Access.Entity;
 using SRL.Data_Access.Repository;
 using SRL.Models;
 
@@ -7,14 +8,17 @@ namespace SRL.UserSync
 {
     internal class UserToDatabaseWriter
     {
-        private readonly UserRepository _repository = new UserRepository();
+        private readonly UserRepository _userRepository = new UserRepository();
 
-        internal void WriteUsersToDatabase(IEnumerable<User> users, int createdUserId)
+        internal void WriteUsersToDatabase(IEnumerable<User> users, IEnumerable<Users> originalUsers, int createdUserId)
         {
-            var originalUsers = _repository.GetAllUsers();
-
             var newUsers = users.Where(x => !originalUsers.Select(y => y.Email).Contains(x.Email) );
-            _repository.AddUsers(newUsers, createdUserId);
+            _userRepository.AddUsers(newUsers, createdUserId);
+        }
+
+        internal void RemoveUnverifiedUsersFromDatabase(IEnumerable<Users> unverifiedUsers, int modifiedUserId)
+        {
+            _userRepository.RemoveUsers(unverifiedUsers, modifiedUserId);
         }
     }
 }
