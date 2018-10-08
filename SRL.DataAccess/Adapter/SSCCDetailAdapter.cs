@@ -233,7 +233,7 @@ namespace SRL.Data_Access.Adapter
             foreach (var item in imagesResult)
             {
                 SSCCImagesModel imageVm = new SSCCImagesModel();
-                imageVm.EncodedImage = ConvertImageToEncodedString(item.PICTURE_EVIDENCE_PATH).Result;
+                imageVm.EncodedImage = item.PICTURE_EVIDENCE_PATH;
                 imageVm.PicturePosition = item.PICTURE_POSITION;
                 imageVm.PalletPosition = item.PALLET_POSITION;
                 imageList.Add(imageVm);
@@ -263,26 +263,6 @@ namespace SRL.Data_Access.Adapter
             #endregion
 
             return sdModel;
-        }
-
-        private static async Task<string> ConvertImageToEncodedString(string itemPictureEvidencePath)
-        {
-            // todo: Get file from SFTP server.
-
-            if (!File.Exists(itemPictureEvidencePath))
-            {
-                itemPictureEvidencePath = "C:/pic/sscc.png";
-            }
-
-            // Grab image from local directory if requested file doesn't exist.
-            if (!File.Exists(itemPictureEvidencePath)) return "INVALID";
-
-            using (var stream = File.OpenRead(itemPictureEvidencePath))
-            {
-                var fileBytes = new byte[stream.Length];
-                await stream.ReadAsync(fileBytes, 0, Convert.ToInt32(stream.Length));
-                return Convert.ToBase64String(fileBytes);
-            }
         }
 
         public static SSCCPendingChangeResponse ConvertSSCCPendingChange(this List<API_PENDING_SSCC_CHANGE_Result> result)
