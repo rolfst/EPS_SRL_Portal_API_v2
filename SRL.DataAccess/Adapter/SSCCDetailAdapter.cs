@@ -28,39 +28,44 @@ namespace SRL.Data_Access.Adapter
             #region SSCCOrderDetails
             // Fill SSCCOrderDetailsModel from queryresult
             SSCCOrderDetailsModel odm = new SSCCOrderDetailsModel();
-            odm.OrderNumber = orderDetailResult.ORDER_NUMBER;
-            odm.SsccNumber = orderDetailResult.SSCC;
-            odm.PhysicalFrom = orderDetailResult.PHYSICAL_FROM;
-            odm.PhysicalTo = orderDetailResult.PHYSICAL_TO;
-            odm.TransportedBy = orderDetailResult.TRANSPORTED_BY;
-
-            switch (orderDetailResult.SSCC_STATUS)
+            if (orderDetailResult != null)
             {
-                case 1:
-                    odm.SsccStatus = "New";
-                    break;
-                case 2:
-                    odm.SsccStatus = "Processed";
-                    break;
-                case 3:
-                    odm.SsccStatus = "Validated";
-                    break;
-                case 4:
-                    odm.SsccStatus = "Processing";
-                    break;
-                default:
-                    odm.SsccStatus = "New";
-                    break;
-            }
+                odm.OrderNumber = orderDetailResult.ORDER_NUMBER;
+                odm.SsccNumber = orderDetailResult.SSCC;
+                odm.PhysicalFrom = orderDetailResult.PHYSICAL_FROM;
+                odm.PhysicalTo = orderDetailResult.PHYSICAL_TO;
+                odm.TransportedBy = orderDetailResult.TRANSPORTED_BY;
+                odm.ShipmentNumber = orderDetailResult.SHIPMENT_NUMBER;
+                odm.OrderId = orderDetailResult.ID_ORDER;
 
-            odm.AnomaliesCount = deviationsResult.Count();
-            if (orderDetailResult.VALIDATION_DEADLINE.HasValue)
-            {
-                odm.ValidationDeadline = Math.Round((orderDetailResult.VALIDATION_DEADLINE.Value - now).TotalHours, 0);
-            }
-            odm.Validated = orderDetailResult.VALIDATED? orderDetailResult.VALIDATED : odm.SsccStatus == "Validated"?true:false;
+                switch (orderDetailResult.SSCC_STATUS)
+                {
+                    case 1:
+                        odm.SsccStatus = "New";
+                        break;
+                    case 2:
+                        odm.SsccStatus = "Processed";
+                        break;
+                    case 3:
+                        odm.SsccStatus = "Validated";
+                        break;
+                    case 4:
+                        odm.SsccStatus = "Processing";
+                        break;
+                    default:
+                        odm.SsccStatus = "New";
+                        break;
+                }
 
-            sdModel.OrderDetails = odm;
+                odm.AnomaliesCount = deviationsResult.Count();
+                if (orderDetailResult.VALIDATION_DEADLINE.HasValue)
+                {
+                    odm.ValidationDeadline = Math.Round((orderDetailResult.VALIDATION_DEADLINE.Value - now).TotalHours, 0);
+                }
+                odm.Validated = orderDetailResult.VALIDATED ? orderDetailResult.VALIDATED : odm.SsccStatus == "Validated" ? true : false;
+
+                sdModel.OrderDetails = odm;
+            }
             #endregion
 
             #region SSCCLoadCarrier
@@ -69,6 +74,7 @@ namespace SRL.Data_Access.Adapter
             foreach (var item in transactionsResult)
             {
                 SSCCLoadCarrierModel lcm = new SSCCLoadCarrierModel();
+
                 lcm.TransactionDate = item.TRANSACTION_DATETIME;
                 lcm.Actor = item.ACTOR_NAME;
                 lcm.TransactionType = item.TRANSACTION_TYPE_ID;
@@ -96,15 +102,6 @@ namespace SRL.Data_Access.Adapter
                 {
                     ContainerName = item.RTI_NAME,
                     Esoft_Packing_Id = item.ESOFT_PACKING_ID ?? 0,
-                  //  LoadCarrierName = item.LOAD_CARRIER_NAME,
-                  //  LoadCarrierEAN = item.LOAD_CARRIER_EAN,
-                   // ReturnedValue = item.RETURNED_VALUE,
-                   //// Actor = item.ACTOR_ORIGIN,
-                  //  ActorId = item.ACTOR_ID,
-                   //// ExpectedValueMinMax = item.EXPECTED_VALUE_MIN == item.EXPECTED_VALUE_MAX ? item.EXPECTED_VALUE_MIN.Value.ToString() : item.EXPECTED_VALUE_MIN + " - " + item.EXPECTED_VALUE_MAX,
-                   //// Unit = item.UNIT,
-                  //  Deviation = item.RETURNED_VALUE <= item.EXPECTED_VALUE_MIN ? item.RETURNED_VALUE - item.EXPECTED_VALUE_MIN :
-                  //  item.RETURNED_VALUE >= item.EXPECTED_VALUE_MAX ? item.RETURNED_VALUE - item.EXPECTED_VALUE_MAX : 0,
                 };
 
                 foreach (var qtyItem in tList)
@@ -136,12 +133,16 @@ namespace SRL.Data_Access.Adapter
                 List<API_LCP_COUNTING_Result> tList = countingResult.Where(o => o.COUNTING_TYPE == countingType).ToList();
                 LoadCarrierDetail loadCarrierDetail = new LoadCarrierDetail();
                 loadCarrierDetail.CountingType = countingType;
+                //Code changes to show actor origin in general information section instead of load carrier detail section
+                if (tList[0] != null && sdModel.OrderDetails != null)
+                {
+                    sdModel.OrderDetails.ActorOriginId = tList[0].ACTOR_ID;
+                    sdModel.OrderDetails.ActorOriginName = tList[0].ACTOR_ORIGIN;
+                }
                 foreach (var item in tList)
                 {
                     loadCarrierDetail.ReturnedValue = +item.RETURNED_VALUE;
                     loadCarrierDetail.ExpectedValueMinMax = item.EXPECTED_VALUE_MIN == item.EXPECTED_VALUE_MAX ? item.EXPECTED_VALUE_MIN.Value.ToString() : item.EXPECTED_VALUE_MIN + " - " + item.EXPECTED_VALUE_MAX;
-                    loadCarrierDetail.Actor = item.ACTOR_ORIGIN;
-                    loadCarrierDetail.ActorId = item.ACTOR_ID;
                     loadCarrierDetail.LoadCarrierName = item.LOAD_CARRIER_NAME;
                     loadCarrierDetail.LoadCarrierEAN = item.LOAD_CARRIER_EAN;
                     loadCarrierDetail.ExpectedValueMin = item.EXPECTED_VALUE_MIN ?? 0;
@@ -249,9 +250,13 @@ namespace SRL.Data_Access.Adapter
                 if (i == 1)
                 {
                     deviations.TransactionDateTime = item.TRANSACTION_DATETIME;
-                    deviations.DeviationReasonList = new List<string>();
+                    deviations.DeviationReasonList = new List<DeviationResult>();
                 }
-                deviations.DeviationReasonList.Add(item.LOAD_UNIT_CONDITION_NAME);
+                deviations.DeviationReasonList.Add(new DeviationResult
+                {
+                    LoadUnitConditionName = item.LOAD_UNIT_CONDITION_NAME,
+                    LoadUnitConditionCode = item.LOAD_UNIT_CONDITION_CODE
+                });
                 i++;
             }
             sdModel.DeviationDetailsList = deviations;
@@ -280,23 +285,26 @@ namespace SRL.Data_Access.Adapter
             }
         }
 
-        public static List<SSCCPendingChange> ConvertSSCCPendingChange(this List<API_PENDING_SSCC_CHANGE_Result> result)
+        public static SSCCPendingChangeResponse ConvertSSCCPendingChange(this List<API_PENDING_SSCC_CHANGE_Result> result)
         {
+            SSCCPendingChangeResponse response = new SSCCPendingChangeResponse();
             List<SSCCPendingChange> pendingChanges = new List<SSCCPendingChange>();
             if (result.Any())
             {
+                response.UpdateUser = result[0].UPDATE_USER;
                 result.ForEach(p =>
                 {
                     pendingChanges.Add(new SSCCPendingChange
                     {
-                         ChangeType = p.CHANGE_TYPE,
-                         OldValue = p.OLD_VALUE,
-                         NewValue = p.NEW_VALUE
+                        ChangeType = p.CHANGE_TYPE,
+                        OldValue = p.OLD_VALUE,
+                        NewValue = p.NEW_VALUE
                     });
 
                 });
+                response.SSCCPendingChanges = pendingChanges;
             }
-            return pendingChanges;
+            return response;
         }
     }
 }

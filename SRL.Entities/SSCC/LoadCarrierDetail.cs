@@ -14,8 +14,6 @@ namespace SRL.Models.SSCC
         public decimal ExpectedValuemax { get; set; }
         public string Unit { get; set; }
         public Nullable<decimal> Deviation { get; set; }
-        public string Actor { get; set; }
-        public int ActorId { get; set; }
         public string LoadCarrierName { get; set; }
         public decimal? LoadCarrierEAN { get; set; }
     }

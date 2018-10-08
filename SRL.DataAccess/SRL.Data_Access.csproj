@@ -36,11 +36,18 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=3.19.8.16603, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.19.8\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.Platform, Version=3.19.8.16603, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.19.8\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -81,7 +88,7 @@
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\API_FN_SPLIT_Result.cs">
-      <DependentUpon>SRL.tt</DependentUpon>
+      <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\API_LCP_COUNTING_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
@@ -600,6 +607,7 @@
     <Compile Include="Entity\Users.cs">
       <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\ActiveDirectoryUserRepository.cs" />
     <Compile Include="Repository\ActorRepository.cs" />
     <Compile Include="Repository\AnomalyRepository.cs" />
     <Compile Include="Repository\LoadCarrierRepository.cs" />

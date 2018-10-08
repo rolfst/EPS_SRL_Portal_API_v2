@@ -158,5 +158,39 @@ namespace SRL.Data_Access.Entity
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUserForActor_Result>("sp_GetUserForActor", actorIdParameter, retailerChainIdParameter);
         }
+    
+        public virtual int InsertUser(string email, string firstName, string lastName)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("FirstName", firstName) :
+                new ObjectParameter("FirstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("LastName", lastName) :
+                new ObjectParameter("LastName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertUser", emailParameter, firstNameParameter, lastNameParameter);
+        }
+    
+        public virtual int sp_InsertUser(string email, string firstName, string lastName)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("FirstName", firstName) :
+                new ObjectParameter("FirstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("LastName", lastName) :
+                new ObjectParameter("LastName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertUser", emailParameter, firstNameParameter, lastNameParameter);
+        }
     }
 }

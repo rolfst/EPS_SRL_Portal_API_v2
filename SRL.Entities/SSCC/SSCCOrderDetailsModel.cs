@@ -8,6 +8,7 @@ namespace SRL.Models.SSCC
     {
         public string SsccNumber { get; set; }
         public string OrderNumber { get; set; }
+        public decimal? OrderId { get; set; }
         public string PhysicalFrom { get; set; }
         public string PhysicalTo { get; set; }
         public string TransportedBy { get; set; }
@@ -15,6 +16,9 @@ namespace SRL.Models.SSCC
         public double ValidationDeadline { get; set; }
         public bool Validated { get; set; }
         public string SsccStatus { get; set; }
+        public string ActorOriginName { get; set; }
+        public int ActorOriginId { get; set; }
+        public string ShipmentNumber { get; set; }
 
     }
 }

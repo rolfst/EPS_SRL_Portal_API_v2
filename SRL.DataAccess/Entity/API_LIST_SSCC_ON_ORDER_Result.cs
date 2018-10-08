@@ -25,6 +25,7 @@ namespace SRL.Data_Access.Entity
         public Nullable<decimal> EXPECTED_VALUE_MAX { get; set; }
         public string ACTOR_ORIGIN { get; set; }
         public Nullable<decimal> DEVIATION { get; set; }
-        public int SSCC_STATUS { get; set; }
+        public Nullable<int> SSCC_STATUS { get; set; }
+        public int HAS_ANOMALIES { get; set; }
     }
 }

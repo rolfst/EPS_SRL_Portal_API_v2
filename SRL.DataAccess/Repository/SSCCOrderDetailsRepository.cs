@@ -11,7 +11,7 @@ namespace SRL.Data_Access.Repository
 {
     public class SSCCOrderDetailsRepository
     {
-        
+
         public API_LCP_ORDER_DETAILS_Result GetSSCCOrderDetails(string id)
         {
             using (var dbEntity = new BACKUP_SRL_20180613Entities())
@@ -76,19 +76,37 @@ namespace SRL.Data_Access.Repository
             }
 
             //To save Order number
-            if (request.NewOrderNumber.HasValue)
+            if (!string.IsNullOrEmpty(request.NewOrderNumber))
             {
-                requestObj.NewOrderNumber = request.NewOrderNumber;
-                requestObj.OrderNumber = request.OrderNumber;
-                if (SaveSSCC(requestObj) == 0)
+                //Fetch order id for the order number passed
+                using (var dbEntity = new BACKUP_SRL_20180613Entities1())
                 {
-                    message.Append(string.Format("Insert failed for new Order number {0}", requestObj.NewOrderNumber.Value));
+                    try
+                    {
+                        request.NewOrderNumberNumeric = dbEntity.REF_ORDER.Where(o => o.ORD_ORDER_NUMBER == request.NewOrderNumber).Select(o => o.ID_ORDER).First();
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        message.Append(string.Format("Order with number {0} does not exists in the system", request.NewOrderNumber));
+                        message.Append(string.Format("Insert failed for new Order number {0}", requestObj.NewOrderNumber));
+                    }
+
                 }
-                requestObj.NewOrderNumber = null;
+
+                if (request.NewOrderNumberNumeric.HasValue)
+                {
+                    requestObj.NewOrderNumber = request.NewOrderNumberNumeric;
+                    requestObj.OrderNumber = request.OrderNumber;
+                    if (SaveSSCC(requestObj) == 0)
+                    {
+                        message.Append(string.Format("Insert failed for new Order number {0}", requestObj.NewOrderNumber));
+                    }
+                    requestObj.NewOrderNumber = null;
+                }
             }
 
             ///To save RTI quantities
-            if (request.RTIQuantities!= null && request.RTIQuantities.Any())
+            if (request.RTIQuantities != null && request.RTIQuantities.Any())
             {
                 foreach (SSCCEditRTIQty item in request.RTIQuantities)
                 {
@@ -117,15 +135,15 @@ namespace SRL.Data_Access.Repository
                 requestObj.NewLoadCarrierEAN = null;
             }
             //To save anomalies/deviation/Load unit condition code
-            if(request.Anomalies != null && request.Anomalies.Any())
+            if (request.Anomalies != null && request.Anomalies.Any())
             {
-                foreach(SSCCEditAnomaly item in request.Anomalies)
+                foreach (SSCCEditAnomaly item in request.Anomalies)
                 {
                     requestObj.OldLoadUnitConditionCode = item.OldAnomalyCode;
                     requestObj.NewLoadUnitConditionCode = item.NewAnomalyCode;
-                    if(SaveSSCC(requestObj) == 0)
+                    if (SaveSSCC(requestObj) == 0)
                     {
-                        message.Append(string.Format("Insert failed for anomaly with code {0}",requestObj.NewLoadUnitConditionCode ?? requestObj.OldLoadUnitConditionCode ));
+                        message.Append(string.Format("Insert failed for anomaly with code {0}", requestObj.NewLoadUnitConditionCode ?? requestObj.OldLoadUnitConditionCode));
                     }
                 }
             }
@@ -157,9 +175,8 @@ namespace SRL.Data_Access.Repository
             SSCCPendingChangeResponse response = new SSCCPendingChangeResponse();
             using (var dbEntity = new BACKUP_SRL_20180613Entities())
             {
-                response.SSCCPendingChanges = dbEntity.API_PENDING_SSCC_CHANGE(SSCCNumber).ToList().ConvertSSCCPendingChange();
+                return response = dbEntity.API_PENDING_SSCC_CHANGE(SSCCNumber).ToList().ConvertSSCCPendingChange();
             }
-            return response;
         }
 
     }

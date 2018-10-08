@@ -3491,6 +3491,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="ACTOR_DELIVERY" Type="int" Mode="In" />
           <Parameter Name="UPDATE_USER" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="API_FN_GET_SSCC_STATUS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="API_FN_SPLIT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TEXT" Type="varchar" Mode="In" />
           <Parameter Name="DELIMITER" Type="varchar" Mode="In" />
@@ -3606,6 +3609,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="VALIDATION_DEADLINE_EXCEEDED" Type="bit" Mode="In" />
           <Parameter Name="VALIDATION_DEADLINE_PASSED" Type="bit" Mode="In" />
           <Parameter Name="ACTOR_ID" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SHIPMENT_NUMBER" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="API_PENDING_SSCC_CHANGE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SSCC" Type="varchar" Mode="In" />
@@ -3638,12 +3642,13 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="VALIDATION_DEADLINE_EXCEEDED" Type="bit" Mode="In" />
           <Parameter Name="VALIDATION_DEADLINE_PASSED" Type="bit" Mode="In" />
           <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
-          <Parameter Name="ORDER_NUMBER" Type="numeric" Mode="In" />
+          <Parameter Name="ORDER_NUMBER" Type="nvarchar" Mode="In" />
           <Parameter Name="COUNTING_OK" Type="bit" Mode="In" />
           <Parameter Name="COUNTING_NOK" Type="bit" Mode="In" />
           <Parameter Name="SLA_OK" Type="bit" Mode="In" />
           <Parameter Name="SLA_NOK" Type="bit" Mode="In" />
           <Parameter Name="RETAILER_CHAIN_ID" Type="int" Mode="In" />
+          <Parameter Name="SHIPMENT_NUMBER" Type="varchar" Mode="In" />
         </Function>
         <Function Name="API_VALIDATE_MULTIPLE_SSCC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SSCC_LIST" Type="nvarchar(max)" Mode="In" />
@@ -3718,6 +3723,13 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
         <Function Name="ExportAuditXML" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ExportRCM500XML" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="FN_COUNT_NUMBER_OF_SSCC_ON_ORDER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="ORDER_NUMBER" Type="numeric" Mode="In" />
+          <Parameter Name="SSCC" Type="nvarchar" Mode="In" />
+          <Parameter Name="ORIGINAL_SSCC" Type="nvarchar" Mode="In" />
+          <Parameter Name="IS_MONO" Type="bit" Mode="In" />
+          <Parameter Name="IS_VALIDATED" Type="bit" Mode="In" />
         </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="FN_RTI_ACCEPTED_IN_SLA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
@@ -8889,12 +8901,13 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             <Parameter Name="VALIDATION_DEADLINE_EXCEEDED" Mode="In" Type="Boolean" />
             <Parameter Name="VALIDATION_DEADLINE_PASSED" Mode="In" Type="Boolean" />
             <Parameter Name="SSCC" Mode="In" Type="String" />
-            <Parameter Name="ORDER_NUMBER" Mode="In" Type="Decimal" />
+            <Parameter Name="ORDER_NUMBER" Mode="In" Type="String" />
             <Parameter Name="COUNTING_OK" Mode="In" Type="Boolean" />
             <Parameter Name="COUNTING_NOK" Mode="In" Type="Boolean" />
             <Parameter Name="SLA_OK" Mode="In" Type="Boolean" />
             <Parameter Name="SLA_NOK" Mode="In" Type="Boolean" />
             <Parameter Name="RETAILER_CHAIN_ID" Mode="In" Type="Int32" />
+            <Parameter Name="SHIPMENT_NUMBER" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="API_ORDER_LIST" ReturnType="Collection(BACKUP_SRL_20180613Model.ORDER_LIST_Result)">
             <Parameter Name="ORD_ORDER_NUMBER" Mode="In" Type="String" />
@@ -8918,6 +8931,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             <Parameter Name="VALIDATION_DEADLINE_EXCEEDED" Mode="In" Type="Boolean" />
             <Parameter Name="VALIDATION_DEADLINE_PASSED" Mode="In" Type="Boolean" />
             <Parameter Name="ACTOR_ID" Mode="In" Type="String" />
+            <Parameter Name="SHIPMENT_NUMBER" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetOrderDetail" ReturnType="Collection(BACKUP_SRL_20180613Model.GetOrderDetail_Result)">
             <Parameter Name="ORDER_ID" Mode="In" Type="Int32" />
@@ -9052,7 +9066,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="SSCC" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="API_SLA_DELETE" ReturnType="Collection(Int32)">
-            <Parameter Name="LOAD_UNIT_SLA_ID" Mode="In" Type="Int32" />
+          <Parameter Name="LOAD_UNIT_SLA_ID" Mode="In" Type="Int32" />
           </FunctionImport>
 
         </EntityContainer>
@@ -9082,6 +9096,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="Int32" Name="CI_SSCC_ON_ORDER" Nullable="true" />
           <Property Type="Int32" Name="NUMBER_SSCC_ON_ORDER_OPEN" Nullable="true" />
           <Property Type="Int32" Name="NUMBER_SSCC_ON_ORDER_VALIDATED" Nullable="true" />
+          <Property Type="DateTime" Name="FIRST_USAGE_DATE" Nullable="true" />
+          <Property Type="String" Name="USERNAME" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="VALIDATION_DEADLINE" Nullable="true" />
         </ComplexType>
         <ComplexType Name="API_FN_SPLIT_Result">
           <Property Type="Int32" Name="POSITION" Nullable="false" />
@@ -9145,6 +9162,8 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="DateTime" Name="VALIDATION_DEADLINE" Nullable="true" Precision="23" />
           <Property Type="Boolean" Name="VALIDATED" Nullable="false" />
           <Property Type="DateTime" Name="DATE_VALIDATED" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="FIRST_RECEIPT_DATE" Nullable="false" />
+          <Property Type="String" Name="SHIPMENT_NUMBER" Nullable="false" />
         </ComplexType>
         <ComplexType Name="API_LCP_COUNTING_Result">
           <Property Type="String" Name="SSCC" Nullable="false" MaxLength="20" />
@@ -9185,6 +9204,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="DateTime" Name="VALIDATION_DEADLINE" Nullable="true" Precision="23" />
           <Property Type="Boolean" Name="VALIDATED" Nullable="false" />
           <Property Type="Int32" Name="SSCC_STATUS" Nullable="false" />
+          <Property Type="Int32" Name="RETAILER_CHAIN_ID" Nullable="true" />
+          <Property Type="String" Name="SHIPMENT_NUMBER" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="ID_ORDER" Nullable="false" Precision="10" Scale="0" />
         </ComplexType>
         <ComplexType Name="API_LCP_TRANSACTIONS_Result">
           <Property Type="String" Name="SSCC" Nullable="false" MaxLength="20" />
@@ -9229,7 +9251,8 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="Decimal" Name="EXPECTED_VALUE_MAX" Nullable="true" Precision="18" Scale="2" />
           <Property Type="String" Name="ACTOR_ORIGIN" Nullable="true" MaxLength="400" />
           <Property Type="Decimal" Name="DEVIATION" Nullable="true" Precision="21" Scale="3" />
-          <Property Type="Int32" Name="SSCC_STATUS" Nullable="false" />
+          <Property Type="Int32" Name="SSCC_STATUS" Nullable="true" />
+          <Property Type="Int32" Name="HAS_ANOMALIES" Nullable="false" />
         </ComplexType>
         <ComplexType Name="API_LIST_ACTORID_FOR_RETAILERCHAIN_Result" >
           <Property Type="Int32" Name="ACTOR_ID" Nullable="false" />
@@ -9287,6 +9310,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="String" Name="CHANGE_TYPE" Nullable="false" MaxLength="58" />
           <Property Type="String" Name="OLD_VALUE" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="NEW_VALUE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="UPDATE_USER" Nullable="true" MaxLength="50" />
         </ComplexType>
 
       </Schema>
@@ -12132,6 +12156,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
                 <ScalarProperty Name="CI_SSCC_ON_ORDER" ColumnName="CI_SSCC_ON_ORDER" />
                 <ScalarProperty Name="NUMBER_SSCC_ON_ORDER_OPEN" ColumnName="NUMBER_SSCC_ON_ORDER_OPEN" />
                 <ScalarProperty Name="NUMBER_SSCC_ON_ORDER_VALIDATED" ColumnName="NUMBER_SSCC_ON_ORDER_VALIDATED" />
+                <ScalarProperty Name="FIRST_USAGE_DATE" ColumnName="FIRST_USAGE_DATE" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="VALIDATION_DEADLINE" ColumnName="VALIDATION_DEADLINE" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -12188,6 +12215,9 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
                 <ScalarProperty Name="VALIDATION_DEADLINE" ColumnName="VALIDATION_DEADLINE" />
                 <ScalarProperty Name="VALIDATED" ColumnName="VALIDATED" />
                 <ScalarProperty Name="SSCC_STATUS" ColumnName="SSCC_STATUS" />
+                <ScalarProperty Name="RETAILER_CHAIN_ID" ColumnName="RETAILER_CHAIN_ID" />
+                <ScalarProperty Name="SHIPMENT_NUMBER" ColumnName="SHIPMENT_NUMBER" />
+                <ScalarProperty Name="ID_ORDER" ColumnName="ID_ORDER" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -12258,6 +12288,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
                 <ScalarProperty Name="ACTOR_ORIGIN" ColumnName="ACTOR_ORIGIN" />
                 <ScalarProperty Name="DEVIATION" ColumnName="DEVIATION" />
                 <ScalarProperty Name="SSCC_STATUS" ColumnName="SSCC_STATUS" />
+                <ScalarProperty Name="HAS_ANOMALIES" ColumnName="HAS_ANOMALIES" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -12350,6 +12381,7 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
                 <ScalarProperty Name="CHANGE_TYPE" ColumnName="CHANGE_TYPE" />
                 <ScalarProperty Name="OLD_VALUE" ColumnName="OLD_VALUE" />
                 <ScalarProperty Name="NEW_VALUE" ColumnName="NEW_VALUE" />
+                <ScalarProperty Name="UPDATE_USER" ColumnName="UPDATE_USER" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

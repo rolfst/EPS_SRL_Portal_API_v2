@@ -24,7 +24,7 @@ namespace SRL.Data_Access.Adapter
                 var vm = new OrderResponse
                 {
                     OrderId = item.ID_ORDER,
-                    OrderDate = item.ORDER_DATE,
+                    OrderDate = item.UNLOADING_DATE, //SEPSSP-266 - BACKEND orders list change first usage date to first receipt date
                     OrderNumber = item.ORD_ORDER_NUMBER,
                     ActorFrom = item.FROM_NAME,
                     ActorTo = item.TO_NAME
@@ -40,6 +40,7 @@ namespace SRL.Data_Access.Adapter
                 vm.CIDate = item.CI_DATE;
                 vm.IsValidated = item.VALIDATED == 1;
                 vm.ValidationStatus = SetValidationStatus(item.VALIDATED == 1, item.VALIDATION_DEADLINE);
+                vm.ShipmentNumber = item.TOUR_NUMBER;
                 results.Add(vm);
             }
 
@@ -49,18 +50,22 @@ namespace SRL.Data_Access.Adapter
         public static NonValidatedOrderResponse ConvertNonValidatedOrder(this List<API_LIST_ORDERS_SSCC_FOR_APPROVAL_Result> result)
         {
             NonValidatedOrderResponse response = new NonValidatedOrderResponse();
-            if(result.Any())
+            if (result.Any())
             {
                 //Get SSCC list for each non validated order
                 List<string> orderNumbers = result.Select(r => r.ORD_ORDER_NUMBER).Distinct().ToList();
-                foreach(string ordNumber in orderNumbers)
+                if (orderNumbers.Count > 0)
                 {
-                    NonValidatedOrder nonValidatedOrder = new NonValidatedOrder
+                    response.NonValidatedOrderList = new List<NonValidatedOrder>();
+                    foreach (string ordNumber in orderNumbers)
                     {
-                        OrderNumber = ordNumber,
-                        SSCCs = result.Where(r => r.ORD_ORDER_NUMBER == ordNumber).Select(r => r.SSCC).ToList()
-                    };
-                    response.NonValidatedOrderList.Add(nonValidatedOrder);
+                        NonValidatedOrder nonValidatedOrder = new NonValidatedOrder
+                        {
+                            OrderNumber = ordNumber,
+                            SSCCs = result.Where(r => r.ORD_ORDER_NUMBER == ordNumber).Select(r => r.SSCC).ToList()
+                        };
+                        response.NonValidatedOrderList.Add(nonValidatedOrder);
+                    }
                 }
             }
             return response;

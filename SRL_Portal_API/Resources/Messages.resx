@@ -125,6 +125,14 @@
     <value>The SLA could not be deleted as it is in use</value>
     <comment>Used as header message to indicate exception state in deleting a SLA for an Actor</comment>
   </data>
+  <data name="SaveSSCC" xml:space="preserve">
+    <value>Edit SSCC</value>
+    <comment>Used to identify the location of call</comment>
+  </data>
+  <data name="SaveSSCCHeader" xml:space="preserve">
+    <value>Following detail('s) of SSCC could not be saved:</value>
+    <comment>Used as header message to indicate exception state in saving a SSCC</comment>
+  </data>
   <data name="ValidateMultipleOrder" xml:space="preserve">
     <value>Validate Order('s)</value>
     <comment>Used to identify the location of call</comment>

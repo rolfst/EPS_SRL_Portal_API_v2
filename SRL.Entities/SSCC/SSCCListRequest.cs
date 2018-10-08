@@ -19,12 +19,13 @@ namespace SRL.Models.SSCC
         public bool ValidationExceeded { get; set; }
         public bool ValidationPassed { get; set; }
         public string SsccNr { get; set; }
-        public decimal? OrderNr { get; set; }
+        public string OrderNr { get; set; }
         public bool CountingOK { get; set; }
         public bool CountingNOK { get; set; }
         public bool SlaOK { get; set; }
         public bool SlaNOK { get; set; }
         public int? RetailerChainId { get; set; }
+        public string ShipmentNumber { get; set; }
 
         public SSCCListRequest(string actorId = null,
             string actorOriginId = null,
@@ -39,12 +40,12 @@ namespace SRL.Models.SSCC
             bool validationExceeded = false,
             bool validationPassed = false,
             string ssccNr = null,
-            decimal? orderNr = 0,
+            string orderNr = null,
             bool countingOK = false,
             bool countingNOK = false,
             bool slaOK = false,
             bool slaNOK = false,
-            int? retailerChainId = -1)
+            int? retailerChainId = -1, string shipmentNumber = null)
         {
             ActorID = actorId;
             ActorOriginId = actorOriginId;
@@ -65,6 +66,7 @@ namespace SRL.Models.SSCC
             SlaOK = slaOK;
             SlaNOK = slaNOK;
             RetailerChainId = retailerChainId;
+            ShipmentNumber = shipmentNumber;
         }
     }
 }
