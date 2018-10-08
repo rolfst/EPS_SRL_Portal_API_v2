@@ -79,7 +79,6 @@ namespace SRL.Data_Access.Adapter
                 lcm.TransactionType = item.TRANSACTION_TYPE_ID;
                 lcm.TransactionSubType = item.TRANSACTION_SUBTYPE;
                 lcm.DeviceCode = item.DEVICE_CODE;
-                lcm.IsValidated = item.VALIDATED;
                 lcList.Add(lcm);
             }
             sdModel.LoadCarrierList = lcList;

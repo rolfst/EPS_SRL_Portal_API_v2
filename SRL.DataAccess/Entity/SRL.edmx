@@ -9215,7 +9215,6 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="String" Name="TRANSACTION_TYPE_ID" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="TRANSACTION_SUBTYPE" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="DEVICE_CODE" Nullable="true" MaxLength="100" />
-          <Property Type="Boolean" Name="VALIDATED" Nullable="false" />
         </ComplexType>
         <ComplexType Name="API_LIST_RETAILERS_Result">
           <Property Type="Int32" Name="RETAILER_CHAIN_ID" Nullable="false" />
@@ -12230,7 +12229,6 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
                 <ScalarProperty Name="TRANSACTION_TYPE_ID" ColumnName="TRANSACTION_TYPE_ID" />
                 <ScalarProperty Name="TRANSACTION_SUBTYPE" ColumnName="TRANSACTION_SUBTYPE" />
                 <ScalarProperty Name="DEVICE_CODE" ColumnName="DEVICE_CODE" />
-                <ScalarProperty Name="VALIDATED" ColumnName="VALIDATED" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
