@@ -65,5 +65,16 @@ namespace SRL.Data_Access.Repository
             result.ContainerNames = containerNames;
             return result;
         }
+
+        public LUCsForOrder GetSSCCLUCsForOrder(long orderId)
+        {
+            LUCsForOrder response = new LUCsForOrder();
+            List<string> conditionNames = new List<string>();
+            using (var cntx = new BACKUP_SRL_20180613Entities())
+            {
+                response = cntx.API_DEVIATION_ON_ORDER(orderId, Resources.Common.EnglishLanguage).ToList().ConvertSSCCLoadUnitCondition();
+            }
+            return response;
+        }
     }
 }

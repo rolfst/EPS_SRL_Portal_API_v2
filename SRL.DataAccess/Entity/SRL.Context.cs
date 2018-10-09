@@ -831,5 +831,18 @@ namespace SRL.Data_Access.Entity
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("API_SLA_DELETE", lOAD_UNIT_SLA_IDParameter);
         }
+    
+        public virtual ObjectResult<API_DEVIATION_ON_ORDER_Result> API_DEVIATION_ON_ORDER(Nullable<long> oRDER_ID, string lANGUAGE)
+        {
+            var oRDER_IDParameter = oRDER_ID.HasValue ?
+                new ObjectParameter("ORDER_ID", oRDER_ID) :
+                new ObjectParameter("ORDER_ID", typeof(long));
+    
+            var lANGUAGEParameter = lANGUAGE != null ?
+                new ObjectParameter("LANGUAGE", lANGUAGE) :
+                new ObjectParameter("LANGUAGE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_DEVIATION_ON_ORDER_Result>("API_DEVIATION_ON_ORDER", oRDER_IDParameter, lANGUAGEParameter);
+        }
     }
 }
