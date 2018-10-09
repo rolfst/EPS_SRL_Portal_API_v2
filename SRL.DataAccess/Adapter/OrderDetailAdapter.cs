@@ -39,7 +39,7 @@ namespace SRL.Data_Access.Adapter
                  CI = orderDetail.CI_SSCC_ON_ORDER,
                  ValidationDeadline = orderDetail.VALIDATION_DEADLINE
              };
-            result.ToApprovedPercentage = result.TotalSSCCs.HasValue ?(result.OpenSSCCs / result.TotalSSCCs.Value) * 100 : 0;
+            result.ToApprovedPercentage = result.TotalSSCCs.HasValue ? (result.OpenSSCCs / result.TotalSSCCs.Value) * 100 : 0;
             return result;
         }
         internal static List<SSCCDetailForOrder> ConvertSSCCListForOrder(this List<API_LIST_SSCC_ON_ORDER_Result> ssccList)
@@ -101,6 +101,40 @@ namespace SRL.Data_Access.Adapter
                 sSSCCForOrder.Add(ssccObj);
             }
             return sSSCCForOrder;
+        }
+
+        internal static LUCsForOrder ConvertSSCCLoadUnitCondition(this List<API_DEVIATION_ON_ORDER_Result> result)
+        {
+            LUCsForOrder response = new LUCsForOrder();
+            List<SSCCLoadUnitCondition> loadUnitConditions = new List<SSCCLoadUnitCondition>();
+
+            if (result != null && result.Any())
+            {
+                //Fetch all SSCCs
+                List<string> SSCCs = result.Select(item => item.SSCC).Distinct().ToList();
+
+                SSCCs.ForEach(s=>  {
+                    SSCCLoadUnitCondition sSCCLoadUnitCondition = new SSCCLoadUnitCondition();
+                    sSCCLoadUnitCondition.SSCC = s;
+                    List<LoadUnitCondition> lucs = new List<LoadUnitCondition>();
+                    //For each SSCC, fetch list of load unit condition
+                    result.Where(item=> item.SSCC == s).ToList().ForEach(item => 
+                    {
+                        //Add in a list of load unit condition
+                        lucs.Add(new LoadUnitCondition {
+                             LoadUnitConditionCode = item.LOAD_UNIT_CONDITION_CODE,
+                             LoadUnitConditionName = item.LOAD_UNIT_CONDITION_NAME
+                        });
+                        
+                    });
+                    sSCCLoadUnitCondition.LoadUnitConditions = lucs; //assign the list to each SSCC of SSCCLoadUnitCondition
+                    loadUnitConditions.Add(sSCCLoadUnitCondition); //add the SSCCLoadUnitCondition to the collection of SSCCLoadUnitCondition
+                });
+                response.LoadUnitConditions = loadUnitConditions;//assign the collection of SSCCLoadUnitCondition to the response
+                response.LoadUnitConditionNames = result.Select(item => item.LOAD_UNIT_CONDITION_NAME).Distinct().ToList(); //get distinct load unit condition names
+            }
+           
+            return  response;
         }
 
     }

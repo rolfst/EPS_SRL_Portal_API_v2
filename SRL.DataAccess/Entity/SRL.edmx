@@ -3475,6 +3475,10 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Parameter Name="ACTOR_DELIVERY" Type="int" Mode="In" />
           <Parameter Name="USER" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="API_DEVIATION_ON_ORDER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ORDER_ID" Type="bigint" Mode="In" />
+          <Parameter Name="LANGUAGE" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="API_EDIT_ACTOR_MASTERDATA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ACTOR_ID" Type="int" Mode="In" />
           <Parameter Name="ACTOR_TYPE_ID" Type="int" Mode="In" />
@@ -9068,6 +9072,10 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <FunctionImport Name="API_SLA_DELETE" ReturnType="Collection(Int32)">
           <Parameter Name="LOAD_UNIT_SLA_ID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="API_DEVIATION_ON_ORDER" ReturnType="Collection(BACKUP_SRL_20180613Model.API_DEVIATION_ON_ORDER_Result)">
+            <Parameter Name="ORDER_ID" Mode="In" Type="Int64" />
+            <Parameter Name="LANGUAGE" Mode="In" Type="String" />
+          </FunctionImport>
 
         </EntityContainer>
         <ComplexType Name="GetOrderDetail_Result">
@@ -9310,6 +9318,15 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="String" Name="OLD_VALUE" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="NEW_VALUE" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="UPDATE_USER" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="API_DEVIATION_ON_ORDER_Result">
+          <Property Type="String" Name="SSCC" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="TRANSACTION_DATETIME" Nullable="true" Precision="23" />
+          <Property Type="String" Name="TRANSACTION_TYPE_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TRANSACTION_SUBTYPE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LOAD_UNIT_CONDITION_CODE" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="LOAD_UNIT_CONDITION_SUB_CODE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LOAD_UNIT_CONDITION_NAME" Nullable="false" MaxLength="100" />
         </ComplexType>
 
       </Schema>
@@ -12384,6 +12401,19 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="API_SLA_DELETE" FunctionName="BACKUP_SRL_20180613Model.Store.API_SLA_DELETE" />
+          <FunctionImportMapping FunctionImportName="API_DEVIATION_ON_ORDER" FunctionName="BACKUP_SRL_20180613Model.Store.API_DEVIATION_ON_ORDER">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BACKUP_SRL_20180613Model.API_DEVIATION_ON_ORDER_Result">
+                <ScalarProperty Name="SSCC" ColumnName="SSCC" />
+                <ScalarProperty Name="TRANSACTION_DATETIME" ColumnName="TRANSACTION_DATETIME" />
+                <ScalarProperty Name="TRANSACTION_TYPE_ID" ColumnName="TRANSACTION_TYPE_ID" />
+                <ScalarProperty Name="TRANSACTION_SUBTYPE" ColumnName="TRANSACTION_SUBTYPE" />
+                <ScalarProperty Name="LOAD_UNIT_CONDITION_CODE" ColumnName="LOAD_UNIT_CONDITION_CODE" />
+                <ScalarProperty Name="LOAD_UNIT_CONDITION_SUB_CODE" ColumnName="LOAD_UNIT_CONDITION_SUB_CODE" />
+                <ScalarProperty Name="LOAD_UNIT_CONDITION_NAME" ColumnName="LOAD_UNIT_CONDITION_NAME" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
 
         </EntityContainerMapping>
       </Mapping>
