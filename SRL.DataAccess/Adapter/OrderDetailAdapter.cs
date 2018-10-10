@@ -131,7 +131,7 @@ namespace SRL.Data_Access.Adapter
                     loadUnitConditions.Add(sSCCLoadUnitCondition); //add the SSCCLoadUnitCondition to the collection of SSCCLoadUnitCondition
                 });
                 response.LoadUnitConditions = loadUnitConditions;//assign the collection of SSCCLoadUnitCondition to the response
-                response.LoadUnitConditionNames = result.Select(item => item.LOAD_UNIT_CONDITION_NAME).Distinct().ToList(); //get distinct load unit condition names
+                response.LoadUnitConditionNames = result.Select(item => item.LOAD_UNIT_CONDITION_NAME).Distinct().OrderBy(s=>s).ToList(); //get distinct sorted load unit condition names
             }
            
             return  response;
