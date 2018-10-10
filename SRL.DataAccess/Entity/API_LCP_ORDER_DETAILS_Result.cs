@@ -19,5 +19,10 @@ namespace SRL.Data_Access.Entity
         public string PHYSICAL_TO { get; set; }
         public string TRANSPORTED_BY { get; set; }
         public Nullable<System.DateTime> VALIDATION_DEADLINE { get; set; }
+        public bool VALIDATED { get; set; }
+        public int SSCC_STATUS { get; set; }
+        public Nullable<int> RETAILER_CHAIN_ID { get; set; }
+        public string SHIPMENT_NUMBER { get; set; }
+        public decimal ID_ORDER { get; set; }
     }
 }

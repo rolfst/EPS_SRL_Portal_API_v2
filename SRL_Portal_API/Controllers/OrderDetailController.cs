@@ -1,43 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using SRL.Models;
-using SRL.Data_Access.Repository;
+﻿using System.Web.Http;
 using SRL.Models.Order;
+using SRL.Data_Access.Repository;
+using SRL.Models.Constants;
+using SRL_Portal_API.Common;
+using System.Collections.Generic;
 
-namespace SRL.WebAPI.Controllers
+namespace SRL_Portal_API.Controllers
 {
     /// <summary>
-    /// Controller handling order related actions
+    /// To handle order detail actions
     /// </summary>
-    public class OrderDetailController : ApiController
+    [RoutePrefix("api")]
+    public class OrderDetailController : BaseController
     {
-        /// <summary>
-        /// Fetch order details based on order id for internal user
-        /// </summary>
-        /// <param name="orderId"></param>
-        /// <returns>Returns order details</returns>
-        [HttpGet]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator, UserRoles.Customer })]
         public OrderDetail Get(int orderId)
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\get?orderId={orderId}"));
             OrderDetailRepository repository = new OrderDetailRepository();
-           return repository.GetOrderDetail(orderId);
+            return repository.GetOrderDetail(orderId);
         }
 
-        /// <summary>
-        /// Fetch order details based on order id and retailer chain id for external user
-        /// </summary>
-        /// <param name="orderId"></param>
-        /// <param name="retailerChainId"></param>
-        /// <returns></returns>
-        [HttpGet]
+        [CustomAuthorizationFilter(new string[] { UserRoles.Customer })]
         public OrderDetail Get(int orderId, int retailerChainId)
         {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\get?orderId={orderId}&retailerChainId={retailerChainId}"));
             OrderDetailRepository repository = new OrderDetailRepository();
+
             return repository.GetOrderDetail(orderId, retailerChainId);
+        }
+
+        [HttpGet]
+        [Route("SSCCListForOrder")]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator, UserRoles.Customer })]
+        public SSCCsForOrder GetSSCCListForOrder(int orderId)
+        {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\SSCCListForOrder?orderId={orderId}"));
+            OrderDetailRepository repository = new OrderDetailRepository();
+            return repository.GetSSCCListForOrder(orderId, RequestContext.Principal.Identity.Name);
+        }
+
+        [HttpGet]
+        [Route("OpenSSCCListForOrder")]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator})]
+        public SSCCsForOrder GetOpenSSCCListForOrder(int orderId)
+        {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\OpenSSCCListForOrder?orderId={orderId}"));
+            OrderDetailRepository repository = new OrderDetailRepository();
+            return repository.GetOpenSSCCListForOrder(orderId);
+        }
+
+        [HttpGet]
+        [Route("LoadUnitConditionsForOrder")]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator, UserRoles.Customer })]
+        public LUCsForOrder GetLUCsForOrder(int orderId)
+        {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\LoadUnitConditionsForOrder?orderId={orderId}"));
+            OrderDetailRepository repository = new OrderDetailRepository();
+            return repository.GetSSCCLUCsForOrder(orderId);
         }
     }
 }

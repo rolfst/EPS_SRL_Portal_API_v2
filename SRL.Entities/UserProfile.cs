@@ -1,9 +1,13 @@
-﻿namespace SRL.Models
+﻿using System.Collections.Generic;
+
+namespace SRL.Models
 {
    public class UserProfile
     {
-        public string DisplayName { get; set; }
-        public string GivenName { get; set; }
-        public string Surname { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string EmailAddress { get; set; }
+        public List<string> Roles { get; set; }
+
     }
 }

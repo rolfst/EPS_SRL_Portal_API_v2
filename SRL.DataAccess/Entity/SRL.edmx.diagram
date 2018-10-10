@@ -25,7 +25,7 @@
         <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.LINK_TRANSACTION_LOAD_UNIT_CONDITION" Width="1.5" PointX="15.75" PointY="23" IsExpanded="true" />
         <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.LOAD_CARRIER" Width="1.5" PointX="3.75" PointY="7.625" IsExpanded="true" />
         <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.LOAD_CARRIER_TRANSLATION" Width="1.5" PointX="23" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.LOAD_UNIT" Width="1.5" PointX="6" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.LOAD_UNIT" Width="1.5" PointX="6" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.LOAD_UNIT_CONDITION" Width="1.5" PointX="13.5" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.LOAD_UNIT_CONDITION_TRANSLATION" Width="1.5" PointX="23" PointY="17.25" IsExpanded="true" />
         <EntityTypeShape EntityType="BACKUP_SRL_20180613Model.LOAD_UNIT_SLA" Width="1.5" PointX="8.25" PointY="23.375" IsExpanded="true" />

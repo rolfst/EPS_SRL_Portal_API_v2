@@ -7,6 +7,6 @@ namespace SRL.Models.SSCC
     public class SSCCDeviationsModel
     {
         public DateTime? TransactionDateTime { get; set; }
-        public List<string> DeviationReasonList { get; set; }
+        public List<DeviationResult> DeviationReasonList { get; set; }
     }
 }

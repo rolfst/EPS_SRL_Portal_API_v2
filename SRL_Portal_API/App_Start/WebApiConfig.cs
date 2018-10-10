@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Formatting;
-using System.Web.Http;
+﻿using System.Web.Http;
+using System.Web.Http.Cors;
+using Newtonsoft.Json.Serialization;
+using SRL_Portal_API.Common;
 
 namespace SRL_Portal_API
 {
@@ -11,10 +10,15 @@ namespace SRL_Portal_API
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            config.Formatters.Clear();
-            config.Formatters.Add(new JsonMediaTypeFormatter());
+            config.Filters.Add(new HandleExceptionAttribute());
+            var cors = new EnableCorsAttribute(System.Configuration.ConfigurationManager.AppSettings["ida:CORSOrigin"].ToString(), "*", "*");
+            config.EnableCors(cors);
+
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            config.Formatters.JsonFormatter.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

@@ -1,11 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Owin;
 
 namespace SRL_Portal_API
 {
-    public class Startup
+    public partial class Startup
     {
+        /// <summary>
+        /// Startup class to set entry point
+        /// </summary>
+        /// <param name="app"></param>
+        public void Configuration(IAppBuilder app)
+        {
+            ConfigureAuth(app);
+        }
     }
 }

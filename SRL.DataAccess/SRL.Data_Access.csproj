@@ -36,8 +36,18 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=3.19.8.16603, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.19.8\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.Platform, Version=3.19.8.16603, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.19.8\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -52,9 +62,13 @@
     <Compile Include="Adapter\ActorAdapter.cs" />
     <Compile Include="Adapter\OrderDetailAdapter.cs" />
     <Compile Include="Adapter\OrderListAdapter.cs" />
+    <Compile Include="Adapter\RetailerChainAdapter.cs" />
     <Compile Include="Adapter\SSCCDetailAdapter.cs" />
     <Compile Include="Adapter\SSCCListAdapter.cs" />
     <Compile Include="Adapter\UserAdapter.cs" />
+    <Compile Include="Common\ActorRetailerChain.cs" />
+    <Compile Include="Common\OrderStatusConvertor.cs" />
+    <Compile Include="Common\SSCCEditIntermediate.cs" />
     <Compile Include="Entity\ACTION.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
@@ -65,6 +79,15 @@
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\ACTOR_TYPE.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_ACTOR_MASTERDATA_DETAILS_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_ADD_ACTOR_MASTERDATA_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_DEVIATION_ON_ORDER_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\API_FN_SPLIT_Result.cs">
@@ -85,10 +108,46 @@
     <Compile Include="Entity\API_LCP_TRANSACTIONS_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\API_LIST_ACTORID_FOR_RETAILERCHAIN_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\API_LIST_ACTORS_TRANSACTION_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\API_LIST_ACTOR_MASTERDATA_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LIST_LOAD_CARRIER_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LIST_LOAD_UNIT_CONDITIONS_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LIST_ORDERS_SSCC_FOR_APPROVAL_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LIST_RETAILERS_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LIST_RTI_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LIST_SLA_FOR_ACTOR_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_LIST_SSCC_ON_ORDER_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_PENDING_SSCC_CHANGE_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_SLA_LIST_PER_RETAILER_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\API_SSCC_OVERVIEW_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\API_VALIDATE_MULTIPLE_SSCC_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\AUDIT.cs">
@@ -153,6 +212,9 @@
     </Compile>
     <Compile Include="Entity\EXPORT_MESSAGE_UPDATE_STATUS_2_SUM.cs">
       <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\GetAllUsers_Result.cs">
+      <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\GetOrderDetail_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
@@ -277,6 +339,18 @@
     <Compile Include="Entity\SORTING_STATUS_TRANSLATION.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\sp_GetScreensForUser_Result.cs">
+      <DependentUpon>SRLUser.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sp_GetUserForActor_Result.cs">
+      <DependentUpon>SRLUser.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sp_GetUserRoles_Result.cs">
+      <DependentUpon>SRLUser.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sp_GetUserScreens_Result.cs">
+      <DependentUpon>SRLUser.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\sp_GetUsers_Result.cs">
       <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
@@ -294,6 +368,21 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SRL.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SRLEdit.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SRLEdit.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SRLEdit.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SRLEdit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SRLEdit.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SRLEdit.edmx</DependentUpon>
     </Compile>
     <Compile Include="Entity\SSCC.cs">
       <DependentUpon>SRL.tt</DependentUpon>
@@ -521,16 +610,41 @@
     <Compile Include="Entity\Users.cs">
       <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\ActiveDirectoryUserRepository.cs" />
     <Compile Include="Repository\ActorRepository.cs" />
+    <Compile Include="Repository\AnomalyRepository.cs" />
+    <Compile Include="Repository\LoadCarrierRepository.cs" />
     <Compile Include="Repository\OrderDetailRepository.cs" />
     <Compile Include="Repository\OrderListRepository.cs" />
+    <Compile Include="Repository\RetailerChainRepository.cs" />
+    <Compile Include="Repository\RtiRepository.cs" />
     <Compile Include="Repository\SSCCDeviationDetailsRepository.cs" />
     <Compile Include="Repository\SSCCImagesRepository.cs" />
     <Compile Include="Repository\SSCCListRepository.cs" />
     <Compile Include="Repository\SSCCLoadCarrierRepository.cs" />
     <Compile Include="Repository\SSCCOrderDetailsRepository.cs" />
     <Compile Include="Repository\SSCCPalletCountingRepository.cs" />
-    <Compile Include="Repository\UserRespository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Resources\ActorLabelType.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ActorLabelType.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Common.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Common.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\OrderStatuses.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderStatuses.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\SSCCStatus.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SSCCStatus.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Entity\SRLUser.edmx">
@@ -547,6 +661,13 @@
     <None Include="Entity\SRL.edmx.diagram">
       <DependentUpon>SRL.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="Entity\SRLEdit.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SRLEdit.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Entity\SRLEdit.edmx.diagram">
+      <DependentUpon>SRLEdit.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Entity\SRLUser.edmx.diagram">
       <DependentUpon>SRLUser.edmx</DependentUpon>
@@ -562,6 +683,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SRL.edmx</DependentUpon>
       <LastGenOutput>SRL.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entity\SRLEdit.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SRLEdit.edmx</DependentUpon>
+      <LastGenOutput>SRLEdit.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entity\SRLEdit.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SRLEdit.edmx</DependentUpon>
+      <LastGenOutput>SRLEdit.cs</LastGenOutput>
     </Content>
     <Content Include="Entity\SRLUser.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -583,6 +714,23 @@
       <Name>SRL.Models</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ActorLabelType.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ActorLabelType.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Common.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Common.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\OrderStatuses.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OrderStatuses.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SSCCStatus.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SSCCStatus.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -33,14 +33,164 @@ namespace SRL.Data_Access.Entity
         public virtual DbSet<UserRole> UserRole { get; set; }
         public virtual DbSet<Users> Users { get; set; }
     
-        public virtual ObjectResult<Users> GetAllUsers()
+        [DbFunction("SRLManagementEntities", "API_FN_SPLIT")]
+        public virtual IQueryable<API_FN_SPLIT_Result> API_FN_SPLIT(string tEXT, string dELIMITER)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Users>("GetAllUsers");
+            var tEXTParameter = tEXT != null ?
+                new ObjectParameter("TEXT", tEXT) :
+                new ObjectParameter("TEXT", typeof(string));
+    
+            var dELIMITERParameter = dELIMITER != null ?
+                new ObjectParameter("DELIMITER", dELIMITER) :
+                new ObjectParameter("DELIMITER", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<API_FN_SPLIT_Result>("[SRLManagementEntities].[API_FN_SPLIT](@TEXT, @DELIMITER)", tEXTParameter, dELIMITERParameter);
         }
     
-        public virtual ObjectResult<Users> GetAllUsers(MergeOption mergeOption)
+        public virtual ObjectResult<sp_GetScreensForUser_Result> sp_GetScreensForUser(string userEmail)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Users>("GetAllUsers", mergeOption);
+            var userEmailParameter = userEmail != null ?
+                new ObjectParameter("UserEmail", userEmail) :
+                new ObjectParameter("UserEmail", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetScreensForUser_Result>("sp_GetScreensForUser", userEmailParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetUserRoles_Result> sp_GetUserRoles(string userEmail)
+        {
+            var userEmailParameter = userEmail != null ?
+                new ObjectParameter("UserEmail", userEmail) :
+                new ObjectParameter("UserEmail", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUserRoles_Result>("sp_GetUserRoles", userEmailParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetUserScreens_Result> sp_GetUserScreens(string userEmail)
+        {
+            var userEmailParameter = userEmail != null ?
+                new ObjectParameter("UserEmail", userEmail) :
+                new ObjectParameter("UserEmail", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUserScreens_Result>("sp_GetUserScreens", userEmailParameter);
+        }
+    
+        public virtual ObjectResult<GetAllUsers_Result> GetAllUsers(string viewingUserEmail, string firstName, string lastName, string email, Nullable<bool> isAssigned, Nullable<bool> isActive, Nullable<bool> hasTemplate, Nullable<bool> isAdmin, string retailerChainCode, Nullable<bool> isInternal)
+        {
+            var viewingUserEmailParameter = viewingUserEmail != null ?
+                new ObjectParameter("ViewingUserEmail", viewingUserEmail) :
+                new ObjectParameter("ViewingUserEmail", typeof(string));
+    
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("FirstName", firstName) :
+                new ObjectParameter("FirstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("LastName", lastName) :
+                new ObjectParameter("LastName", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var isAssignedParameter = isAssigned.HasValue ?
+                new ObjectParameter("IsAssigned", isAssigned) :
+                new ObjectParameter("IsAssigned", typeof(bool));
+    
+            var isActiveParameter = isActive.HasValue ?
+                new ObjectParameter("IsActive", isActive) :
+                new ObjectParameter("IsActive", typeof(bool));
+    
+            var hasTemplateParameter = hasTemplate.HasValue ?
+                new ObjectParameter("HasTemplate", hasTemplate) :
+                new ObjectParameter("HasTemplate", typeof(bool));
+    
+            var isAdminParameter = isAdmin.HasValue ?
+                new ObjectParameter("IsAdmin", isAdmin) :
+                new ObjectParameter("IsAdmin", typeof(bool));
+    
+            var retailerChainCodeParameter = retailerChainCode != null ?
+                new ObjectParameter("RetailerChainCode", retailerChainCode) :
+                new ObjectParameter("RetailerChainCode", typeof(string));
+    
+            var isInternalParameter = isInternal.HasValue ?
+                new ObjectParameter("IsInternal", isInternal) :
+                new ObjectParameter("IsInternal", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllUsers_Result>("GetAllUsers", viewingUserEmailParameter, firstNameParameter, lastNameParameter, emailParameter, isAssignedParameter, isActiveParameter, hasTemplateParameter, isAdminParameter, retailerChainCodeParameter, isInternalParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_CheckIfUserExternal(string userEmail)
+        {
+            var userEmailParameter = userEmail != null ?
+                new ObjectParameter("UserEmail", userEmail) :
+                new ObjectParameter("UserEmail", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_CheckIfUserExternal", userEmailParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_GetRetailerChainForUser(string userEmail)
+        {
+            var userEmailParameter = userEmail != null ?
+                new ObjectParameter("UserEmail", userEmail) :
+                new ObjectParameter("UserEmail", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_GetRetailerChainForUser", userEmailParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_GetActorsForUser(string userEmail)
+        {
+            var userEmailParameter = userEmail != null ?
+                new ObjectParameter("UserEmail", userEmail) :
+                new ObjectParameter("UserEmail", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_GetActorsForUser", userEmailParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetUserForActor_Result> sp_GetUserForActor(Nullable<int> actorId, Nullable<int> retailerChainId)
+        {
+            var actorIdParameter = actorId.HasValue ?
+                new ObjectParameter("ActorId", actorId) :
+                new ObjectParameter("ActorId", typeof(int));
+    
+            var retailerChainIdParameter = retailerChainId.HasValue ?
+                new ObjectParameter("RetailerChainId", retailerChainId) :
+                new ObjectParameter("RetailerChainId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUserForActor_Result>("sp_GetUserForActor", actorIdParameter, retailerChainIdParameter);
+        }
+    
+        public virtual int InsertUser(string email, string firstName, string lastName)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("FirstName", firstName) :
+                new ObjectParameter("FirstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("LastName", lastName) :
+                new ObjectParameter("LastName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertUser", emailParameter, firstNameParameter, lastNameParameter);
+        }
+    
+        public virtual int sp_InsertUser(string email, string firstName, string lastName)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("FirstName", firstName) :
+                new ObjectParameter("FirstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("LastName", lastName) :
+                new ObjectParameter("LastName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertUser", emailParameter, firstNameParameter, lastNameParameter);
         }
     }
 }

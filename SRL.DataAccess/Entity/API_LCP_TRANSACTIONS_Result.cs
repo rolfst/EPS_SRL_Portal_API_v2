@@ -19,6 +19,5 @@ namespace SRL.Data_Access.Entity
         public string TRANSACTION_TYPE_ID { get; set; }
         public string TRANSACTION_SUBTYPE { get; set; }
         public string DEVICE_CODE { get; set; }
-        public bool VALIDATED { get; set; }
     }
 }

@@ -11,6 +11,5 @@ namespace SRL.Models.SSCC
         public string TransactionType { get; set; }
         public string TransactionSubType { get; set; }
         public string DeviceCode { get; set; }
-        public bool IsValidated { get; set; }
     }
 }
