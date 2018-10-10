@@ -120,4 +120,10 @@
   <data name="EnglishLanguage" xml:space="preserve">
     <value>en</value>
   </data>
+  <data name="External" xml:space="preserve">
+    <value>E</value>
+  </data>
+  <data name="Internal" xml:space="preserve">
+    <value>I</value>
+  </data>
 </root>

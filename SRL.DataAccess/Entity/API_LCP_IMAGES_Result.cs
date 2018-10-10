@@ -17,5 +17,7 @@ namespace SRL.Data_Access.Entity
         public string PICTURE_EVIDENCE_PATH { get; set; }
         public string PICTURE_POSITION { get; set; }
         public string PALLET_POSITION { get; set; }
+        public string TRANSACTION_SUBTYPE { get; set; }
+        public string PURPOSE { get; set; }
     }
 }

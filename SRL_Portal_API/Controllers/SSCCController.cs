@@ -156,7 +156,12 @@ namespace SRL_Portal_API.Controllers
             var orderDetails = _ssccOrderDetailsRepository.GetSSCCOrderDetails(id);
             var loadCarrierDetailsList = _ssccLoadCarrierRepository.GetSSCCLoadCarrier(id);
             var palletCountingList = _ssccPalletCountingRepository.GetSSCCPalletCounting(id);
-            var imageList = _ssccImagesRepository.GetSSCCImages(id);
+            //Check if logged in user is external
+            UserRepository userRepository = new UserRepository();
+            bool isExternal = userRepository.IsExternalUser(RequestContext.Principal.Identity.Name);
+
+            var imageList = _ssccImagesRepository.GetSSCCImages(id, isExternal);
+
             var deviationDetailsList = _ssccDeviationDetailsRepository.GetSSCCDeviationDetails(id);
 
             return SSCCDetailAdapter.ConvertSSCCDetails(orderDetails, loadCarrierDetailsList, palletCountingList, imageList, deviationDetailsList);
@@ -286,9 +291,9 @@ namespace SRL_Portal_API.Controllers
                 request.Time = DateTime.Now.ToString("HH:mm:ss");
                 request.LoadMessageStatusId = 0;
                 response = repository.EditSSCC(request);
-                if(!string.IsNullOrEmpty(response))
+                if (!string.IsNullOrEmpty(response))
                 {
-                    throw HttpMessageExceptionBuilder.Build(HttpStatusCode.Accepted, HttpMessageType.Error,response, Messages.SaveSSCC, Messages.SaveSSCCHeader);
+                    throw HttpMessageExceptionBuilder.Build(HttpStatusCode.Accepted, HttpMessageType.Error, response, Messages.SaveSSCC, Messages.SaveSSCCHeader);
                 }
                 return response;
             }

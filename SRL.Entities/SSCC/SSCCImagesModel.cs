@@ -9,5 +9,6 @@ namespace SRL.Models.SSCC
         public string EncodedImage { get; set; }
         public string PicturePosition { get; set; }
         public string PalletPosition { get; set; }
+        public string TransactionSubType { get; set; }
     }
 }
