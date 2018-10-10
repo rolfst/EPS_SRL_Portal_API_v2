@@ -9202,6 +9202,8 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
           <Property Type="String" Name="PICTURE_EVIDENCE_PATH" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="PICTURE_POSITION" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="PALLET_POSITION" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="TRANSACTION_SUBTYPE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PURPOSE" Nullable="true" MaxLength="10" />
         </ComplexType>
         <ComplexType Name="API_LCP_ORDER_DETAILS_Result">
           <Property Type="String" Name="SSCC" Nullable="false" MaxLength="20" />
@@ -12217,6 +12219,8 @@ warning 6002: The table/view 'BACKUP_SRL_20180613.EPS\ADMIN AARAB1.temp_Z_STG_XM
                 <ScalarProperty Name="PICTURE_EVIDENCE_PATH" ColumnName="PICTURE_EVIDENCE_PATH" />
                 <ScalarProperty Name="PICTURE_POSITION" ColumnName="PICTURE_POSITION" />
                 <ScalarProperty Name="PALLET_POSITION" ColumnName="PALLET_POSITION" />
+                <ScalarProperty Name="TRANSACTION_SUBTYPE" ColumnName="TRANSACTION_SUBTYPE" />
+                <ScalarProperty Name="PURPOSE" ColumnName="PURPOSE" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

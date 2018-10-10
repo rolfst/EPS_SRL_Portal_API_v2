@@ -231,10 +231,13 @@ namespace SRL.Data_Access.Adapter
             List<SSCCImagesModel> imageList = new List<SSCCImagesModel>();
             foreach (var item in imagesResult)
             {
-                SSCCImagesModel imageVm = new SSCCImagesModel();
-                imageVm.EncodedImage = item.PICTURE_EVIDENCE_PATH;
-                imageVm.PicturePosition = item.PICTURE_POSITION;
-                imageVm.PalletPosition = item.PALLET_POSITION;
+                SSCCImagesModel imageVm = new SSCCImagesModel()
+                {
+                    EncodedImage = item.PICTURE_EVIDENCE_PATH,
+                    PicturePosition = item.PICTURE_POSITION,
+                    PalletPosition = item.PALLET_POSITION,
+                    TransactionSubType = item.TRANSACTION_SUBTYPE
+                };
                 imageList.Add(imageVm);
             }
             sdModel.ImageList = imageList;
