@@ -8,11 +8,15 @@ namespace SRL.Data_Access.Repository
     {
         public IEnumerable<API_LCP_IMAGES_Result> GetSSCCImages(string id, bool isExternal = false)
         {
+            IEnumerable<API_LCP_IMAGES_Result> imageList;
             string imageType = isExternal ? Resources.Common.External : Resources.Common.Internal;
             using (var dbEntity = new BACKUP_SRL_20180613Entities())
             {
                 dbEntity.Configuration.ProxyCreationEnabled = false;
-                var imageList = dbEntity.API_LCP_IMAGES(id).ToList<API_LCP_IMAGES_Result>().Where(i=>i.PURPOSE == imageType);
+                if (isExternal)
+                    imageList = dbEntity.API_LCP_IMAGES(id).ToList<API_LCP_IMAGES_Result>().Where(i => i.PURPOSE == imageType);
+                else
+                    imageList = dbEntity.API_LCP_IMAGES(id).ToList<API_LCP_IMAGES_Result>();
 
                 return imageList;
             }
