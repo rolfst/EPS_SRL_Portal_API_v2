@@ -22,7 +22,7 @@ namespace SRL.UserSync
 
             var verifiedUsers = _userVerifier.VerifyUsersInAd(users, originalUsers);
             var unverifiedUsers = originalUsers.Where(x => !verifiedUsers.Select(y => y.Email).Contains(x.Email));
-            _userToDatabaseWriter.RemoveUnverifiedUsersFromDatabase(unverifiedUsers, autoUserId);
+            _userToDatabaseWriter.DeactivateUnverifiedUsersFromDatabase(unverifiedUsers, autoUserId);
             _userToDatabaseWriter.WriteUsersToDatabase(users, originalUsers, autoUserId);
         }
     }

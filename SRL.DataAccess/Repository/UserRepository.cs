@@ -215,7 +215,7 @@ namespace SRL.Data_Access.Repository
             }
         }
 
-        public void RemoveUsers(IEnumerable<Users> unverifiedUsers, int modifiedUserId)
+        public void DeactivateUsers(IEnumerable<Users> unverifiedUsers, int modifiedUserId)
         {
             using (var ctx = new SRLManagementEntities())
             {
