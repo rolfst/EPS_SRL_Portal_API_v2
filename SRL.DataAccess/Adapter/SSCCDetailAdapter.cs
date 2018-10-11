@@ -236,7 +236,8 @@ namespace SRL.Data_Access.Adapter
                     EncodedImage = item.PICTURE_EVIDENCE_PATH,
                     PicturePosition = item.PICTURE_POSITION,
                     PalletPosition = item.PALLET_POSITION,
-                    TransactionSubType = item.TRANSACTION_SUBTYPE
+                    TransactionSubType = item.TRANSACTION_SUBTYPE,
+                    IsExternal =  item.PURPOSE == Resources.Common.External
                 };
                 imageList.Add(imageVm);
             }
