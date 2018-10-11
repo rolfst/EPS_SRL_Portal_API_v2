@@ -79,26 +79,19 @@ namespace SRL.Data_Access.Repository
             substring = substring.Substring(0, substring.LastIndexOf('}'));
             var res = (IEnumerable<object>)JsonConvert.DeserializeObject(substring);
 
-            return (from jsonUser in res select JObject.Parse(jsonUser.ToString()) 
-                into data
-                let userId = ((dynamic)data).objectId
-                let firstName = ((dynamic)data).givenName
-                let lastName = ((dynamic)data).surname
-                let userName = ((dynamic)data).userPrincipalName
-                let isInternal = GetUserGroup(userId.ToString()) == ConfigurationManager.AppSettings["b2c:InternalUserGroup"]
-                select new User { FirstName = firstName, LastName = lastName, Email = userName, IsInteranlUser = isInternal }).ToList();
-        }
+            List<User> list = new List<User>();
+            foreach (var jsonUser in res)
+            {
+                var data = JObject.Parse(jsonUser.ToString());
+                dynamic userId = ((dynamic) data).objectId;
+                dynamic firstName = ((dynamic) data).givenName;
+                dynamic lastName = ((dynamic) data).surname;
+                string userName = ((dynamic) data).userPrincipalName;
+                bool isInternal = userName.Contains(ConfigurationManager.AppSettings["b2c:InternalUserGroup"]);
+                list.Add(new User {FirstName = firstName, LastName = lastName, Email = userName, IsInteranlUser = isInternal});
+            }
 
-        private string GetUserGroup(string userId)
-        {
-            var result = SendGraphGetRequest($"/users/{userId}/memberOf", null);
-            var substring = result.Substring(result.IndexOf("[", StringComparison.Ordinal));
-            substring = substring.Substring(0, substring.LastIndexOf('}'));
-
-            var res = (IEnumerable<object>)JsonConvert.DeserializeObject(substring);
-            var data = JObject.Parse(res.First().ToString());
-            var displayName = ((dynamic)data).displayName;
-            return displayName;
+            return list;
         }
     }
 }

@@ -16,9 +16,9 @@ namespace SRL.UserSync
             _userRepository.AddUsers(newUsers, createdUserId);
         }
 
-        internal void RemoveUnverifiedUsersFromDatabase(IEnumerable<Users> unverifiedUsers, int modifiedUserId)
+        internal void DeactivateUnverifiedUsersFromDatabase(IEnumerable<Users> unverifiedUsers, int modifiedUserId)
         {
-            _userRepository.RemoveUsers(unverifiedUsers, modifiedUserId);
+            _userRepository.DeactivateUsers(unverifiedUsers, modifiedUserId);
         }
     }
 }
