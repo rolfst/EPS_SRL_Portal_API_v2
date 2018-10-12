@@ -2,6 +2,7 @@ using SRL.Data_Access.Entity;
 using SRL.Models.SSCC;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -233,7 +234,7 @@ namespace SRL.Data_Access.Adapter
             {
                 SSCCImagesModel imageVm = new SSCCImagesModel()
                 {
-                    EncodedImage = item.PICTURE_EVIDENCE_PATH,
+                    ImageUrl = ConvertUrlToCompliantUrl(item.PICTURE_EVIDENCE_PATH),
                     PicturePosition = item.PICTURE_POSITION,
                     PalletPosition = item.PALLET_POSITION,
                     TransactionSubType = item.TRANSACTION_SUBTYPE,
@@ -266,6 +267,13 @@ namespace SRL.Data_Access.Adapter
             #endregion
 
             return sdModel;
+        }
+
+        private static string ConvertUrlToCompliantUrl(string url)
+        {
+            var slashReplacedUrl = url.Replace(@"\\", "");
+            slashReplacedUrl = slashReplacedUrl.Replace('\\', '/');
+            return $"https://{ConfigurationManager.AppSettings["dom:Name"]}/images/{slashReplacedUrl}";
         }
 
         public static SSCCPendingChangeResponse ConvertSSCCPendingChange(this List<API_PENDING_SSCC_CHANGE_Result> result)
