@@ -36,6 +36,8 @@ namespace SRL.Data_Access.Adapter
                 odm.PhysicalFrom = orderDetailResult.PHYSICAL_FROM;
                 odm.PhysicalTo = orderDetailResult.PHYSICAL_TO;
                 odm.TransportedBy = orderDetailResult.TRANSPORTED_BY;
+                odm.ShipmentNumber = orderDetailResult.SHIPMENT_NUMBER;
+                odm.OrderId = orderDetailResult.ID_ORDER;
 
                 switch (orderDetailResult.SSCC_STATUS)
                 {
@@ -79,7 +81,6 @@ namespace SRL.Data_Access.Adapter
                 lcm.TransactionType = item.TRANSACTION_TYPE_ID;
                 lcm.TransactionSubType = item.TRANSACTION_SUBTYPE;
                 lcm.DeviceCode = item.DEVICE_CODE;
-                lcm.IsValidated = item.VALIDATED;
                 lcList.Add(lcm);
             }
             sdModel.LoadCarrierList = lcList;
@@ -231,10 +232,14 @@ namespace SRL.Data_Access.Adapter
             List<SSCCImagesModel> imageList = new List<SSCCImagesModel>();
             foreach (var item in imagesResult)
             {
-                SSCCImagesModel imageVm = new SSCCImagesModel();
-                imageVm.ImageUrl = ConvertUrlToCompliantUrl(item.PICTURE_EVIDENCE_PATH);
-                imageVm.PicturePosition = item.PICTURE_POSITION;
-                imageVm.PalletPosition = item.PALLET_POSITION;
+                SSCCImagesModel imageVm = new SSCCImagesModel()
+                {
+                    EncodedImage = item.PICTURE_EVIDENCE_PATH,
+                    PicturePosition = item.PICTURE_POSITION,
+                    PalletPosition = item.PALLET_POSITION,
+                    TransactionSubType = item.TRANSACTION_SUBTYPE,
+                    IsExternal =  item.PURPOSE == Resources.Common.External
+                };
                 imageList.Add(imageVm);
             }
             sdModel.ImageList = imageList;

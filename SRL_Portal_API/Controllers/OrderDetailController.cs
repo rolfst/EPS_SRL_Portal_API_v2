@@ -37,7 +37,7 @@ namespace SRL_Portal_API.Controllers
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\SSCCListForOrder?orderId={orderId}"));
             OrderDetailRepository repository = new OrderDetailRepository();
-            return repository.GetSSCCListForOrder(orderId);
+            return repository.GetSSCCListForOrder(orderId, RequestContext.Principal.Identity.Name);
         }
 
         [HttpGet]
@@ -45,9 +45,19 @@ namespace SRL_Portal_API.Controllers
         [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator})]
         public SSCCsForOrder GetOpenSSCCListForOrder(int orderId)
         {
-            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\get?orderId{orderId}"));
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\OpenSSCCListForOrder?orderId={orderId}"));
             OrderDetailRepository repository = new OrderDetailRepository();
             return repository.GetOpenSSCCListForOrder(orderId);
+        }
+
+        [HttpGet]
+        [Route("LoadUnitConditionsForOrder")]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator, UserRoles.Customer })]
+        public LUCsForOrder GetLUCsForOrder(int orderId)
+        {
+            log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, $"orderdetail\\LoadUnitConditionsForOrder?orderId={orderId}"));
+            OrderDetailRepository repository = new OrderDetailRepository();
+            return repository.GetSSCCLUCsForOrder(orderId);
         }
     }
 }

@@ -87,8 +87,11 @@
     <Compile Include="Entity\API_ADD_ACTOR_MASTERDATA_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\API_DEVIATION_ON_ORDER_Result.cs">
+      <DependentUpon>SRL.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\API_FN_SPLIT_Result.cs">
-      <DependentUpon>SRLUser.tt</DependentUpon>
+      <DependentUpon>SRL.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\API_LCP_COUNTING_Result.cs">
       <DependentUpon>SRL.tt</DependentUpon>
@@ -607,7 +610,7 @@
     <Compile Include="Entity\Users.cs">
       <DependentUpon>SRLUser.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\ActiveDirectoryRepository.cs" />
+    <Compile Include="Repository\ActiveDirectoryUserRepository.cs" />
     <Compile Include="Repository\ActorRepository.cs" />
     <Compile Include="Repository\AnomalyRepository.cs" />
     <Compile Include="Repository\LoadCarrierRepository.cs" />
@@ -626,6 +629,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ActorLabelType.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Common.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Common.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\OrderStatuses.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -710,6 +718,10 @@
     <EmbeddedResource Include="Resources\ActorLabelType.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ActorLabelType.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Common.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Common.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\OrderStatuses.resx">
       <Generator>ResXFileCodeGenerator</Generator>

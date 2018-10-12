@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SRL_Portal_API.Resources {
+namespace SRL.Data_Access.Resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace SRL_Portal_API.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Messages {
+    internal class Common {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Messages() {
+        internal Common() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace SRL_Portal_API.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SRL_Portal_API.Resources.Messages", typeof(Messages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SRL.Data_Access.Resources.Common", typeof(Common).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,74 +61,29 @@ namespace SRL_Portal_API.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete SLA for actor.
+        ///   Looks up a localized string similar to en.
         /// </summary>
-        internal static string DeleteSLAForActor {
+        internal static string EnglishLanguage {
             get {
-                return ResourceManager.GetString("DeleteSLAForActor", resourceCulture);
+                return ResourceManager.GetString("EnglishLanguage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The SLA could not be deleted as it is in use.
+        ///   Looks up a localized string similar to E.
         /// </summary>
-        internal static string DeleteSLAForActorHeader {
+        internal static string External {
             get {
-                return ResourceManager.GetString("DeleteSLAForActorHeader", resourceCulture);
+                return ResourceManager.GetString("External", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit SSCC.
+        ///   Looks up a localized string similar to I.
         /// </summary>
-        internal static string SaveSSCC {
+        internal static string Internal {
             get {
-                return ResourceManager.GetString("SaveSSCC", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Following detail(&apos;s) of SSCC could not be saved:.
-        /// </summary>
-        internal static string SaveSSCCHeader {
-            get {
-                return ResourceManager.GetString("SaveSSCCHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Validate Order(&apos;s).
-        /// </summary>
-        internal static string ValidateMultipleOrder {
-            get {
-                return ResourceManager.GetString("ValidateMultipleOrder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Following order(&apos;s) could not be validated: .
-        /// </summary>
-        internal static string ValidateMultipleOrderHeader {
-            get {
-                return ResourceManager.GetString("ValidateMultipleOrderHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Validate SSCC(&apos;s).
-        /// </summary>
-        internal static string ValidateMultipleSSCC {
-            get {
-                return ResourceManager.GetString("ValidateMultipleSSCC", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Following SSCC(&apos;s) could not be validated: .
-        /// </summary>
-        internal static string ValidateMultipleSSCCHeader {
-            get {
-                return ResourceManager.GetString("ValidateMultipleSSCCHeader", resourceCulture);
+                return ResourceManager.GetString("Internal", resourceCulture);
             }
         }
     }

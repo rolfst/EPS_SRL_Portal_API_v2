@@ -180,7 +180,7 @@ namespace SRL.Data_Access.Entity
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_LIST_ACTORS_TRANSACTION_Result>("API_LIST_ACTORS_TRANSACTION", rETAILER_CHAIN_IDParameter);
         }
     
-        public virtual ObjectResult<API_SSCC_OVERVIEW_Result> API_SSCC_OVERVIEW(string aCTOR_ID, string aCTOR_ORIGIN_ID, Nullable<bool> sSCC_STATUS_NEW, Nullable<bool> sSCC_STATUS_PROCESSED, Nullable<bool> sSCC_STATUS_VALIDATED, Nullable<System.DateTime> fIRST_SSCC_USAGE_FROM, Nullable<System.DateTime> fIRST_SSCC_USAGE_TO, Nullable<System.DateTime> cI_DATETIME_FROM, Nullable<System.DateTime> cI_DATETIME_TO, Nullable<bool> vALIDATION_DEADLINE_OPEN, Nullable<bool> vALIDATION_DEADLINE_EXCEEDED, Nullable<bool> vALIDATION_DEADLINE_PASSED, string sSCC, Nullable<decimal> oRDER_NUMBER, Nullable<bool> cOUNTING_OK, Nullable<bool> cOUNTING_NOK, Nullable<bool> sLA_OK, Nullable<bool> sLA_NOK, Nullable<int> rETAILER_CHAIN_ID)
+        public virtual ObjectResult<API_SSCC_OVERVIEW_Result> API_SSCC_OVERVIEW(string aCTOR_ID, string aCTOR_ORIGIN_ID, Nullable<bool> sSCC_STATUS_NEW, Nullable<bool> sSCC_STATUS_PROCESSED, Nullable<bool> sSCC_STATUS_VALIDATED, Nullable<System.DateTime> fIRST_SSCC_USAGE_FROM, Nullable<System.DateTime> fIRST_SSCC_USAGE_TO, Nullable<System.DateTime> cI_DATETIME_FROM, Nullable<System.DateTime> cI_DATETIME_TO, Nullable<bool> vALIDATION_DEADLINE_OPEN, Nullable<bool> vALIDATION_DEADLINE_EXCEEDED, Nullable<bool> vALIDATION_DEADLINE_PASSED, string sSCC, string oRDER_NUMBER, Nullable<bool> cOUNTING_OK, Nullable<bool> cOUNTING_NOK, Nullable<bool> sLA_OK, Nullable<bool> sLA_NOK, Nullable<int> rETAILER_CHAIN_ID, string sHIPMENT_NUMBER)
         {
             var aCTOR_IDParameter = aCTOR_ID != null ?
                 new ObjectParameter("ACTOR_ID", aCTOR_ID) :
@@ -234,9 +234,9 @@ namespace SRL.Data_Access.Entity
                 new ObjectParameter("SSCC", sSCC) :
                 new ObjectParameter("SSCC", typeof(string));
     
-            var oRDER_NUMBERParameter = oRDER_NUMBER.HasValue ?
+            var oRDER_NUMBERParameter = oRDER_NUMBER != null ?
                 new ObjectParameter("ORDER_NUMBER", oRDER_NUMBER) :
-                new ObjectParameter("ORDER_NUMBER", typeof(decimal));
+                new ObjectParameter("ORDER_NUMBER", typeof(string));
     
             var cOUNTING_OKParameter = cOUNTING_OK.HasValue ?
                 new ObjectParameter("COUNTING_OK", cOUNTING_OK) :
@@ -258,10 +258,14 @@ namespace SRL.Data_Access.Entity
                 new ObjectParameter("RETAILER_CHAIN_ID", rETAILER_CHAIN_ID) :
                 new ObjectParameter("RETAILER_CHAIN_ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SSCC_OVERVIEW_Result>("API_SSCC_OVERVIEW", aCTOR_IDParameter, aCTOR_ORIGIN_IDParameter, sSCC_STATUS_NEWParameter, sSCC_STATUS_PROCESSEDParameter, sSCC_STATUS_VALIDATEDParameter, fIRST_SSCC_USAGE_FROMParameter, fIRST_SSCC_USAGE_TOParameter, cI_DATETIME_FROMParameter, cI_DATETIME_TOParameter, vALIDATION_DEADLINE_OPENParameter, vALIDATION_DEADLINE_EXCEEDEDParameter, vALIDATION_DEADLINE_PASSEDParameter, sSCCParameter, oRDER_NUMBERParameter, cOUNTING_OKParameter, cOUNTING_NOKParameter, sLA_OKParameter, sLA_NOKParameter, rETAILER_CHAIN_IDParameter);
+            var sHIPMENT_NUMBERParameter = sHIPMENT_NUMBER != null ?
+                new ObjectParameter("SHIPMENT_NUMBER", sHIPMENT_NUMBER) :
+                new ObjectParameter("SHIPMENT_NUMBER", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_SSCC_OVERVIEW_Result>("API_SSCC_OVERVIEW", aCTOR_IDParameter, aCTOR_ORIGIN_IDParameter, sSCC_STATUS_NEWParameter, sSCC_STATUS_PROCESSEDParameter, sSCC_STATUS_VALIDATEDParameter, fIRST_SSCC_USAGE_FROMParameter, fIRST_SSCC_USAGE_TOParameter, cI_DATETIME_FROMParameter, cI_DATETIME_TOParameter, vALIDATION_DEADLINE_OPENParameter, vALIDATION_DEADLINE_EXCEEDEDParameter, vALIDATION_DEADLINE_PASSEDParameter, sSCCParameter, oRDER_NUMBERParameter, cOUNTING_OKParameter, cOUNTING_NOKParameter, sLA_OKParameter, sLA_NOKParameter, rETAILER_CHAIN_IDParameter, sHIPMENT_NUMBERParameter);
         }
     
-        public virtual ObjectResult<ORDER_LIST_Result> API_ORDER_LIST(string oRD_ORDER_NUMBER, Nullable<int> rETAILER_CHAIN_ID, Nullable<System.DateTime> oRDER_DATE_FROM, Nullable<System.DateTime> oRDER_DATE_TO, Nullable<bool> oRDER_NEW, Nullable<bool> oRDER_OPEN, Nullable<bool> oRDER_VALIDATED, string oRDER_ID, Nullable<System.DateTime> cI_DATE_FROM, Nullable<System.DateTime> cI_DATE_TO, Nullable<System.DateTime> vALIDATION_DEADLINE, string uSER, string aCTOR_ID_FROM, string aCTOR_ID_TO, string oRDER_NUMBER, Nullable<bool> sHOP_COUNT_OK, Nullable<bool> sHOP_COUNT_NOK, Nullable<bool> vALIDATION_DEADLINE_OPEN, Nullable<bool> vALIDATION_DEADLINE_EXCEEDED, Nullable<bool> vALIDATION_DEADLINE_PASSED, string aCTOR_ID)
+        public virtual ObjectResult<ORDER_LIST_Result> API_ORDER_LIST(string oRD_ORDER_NUMBER, Nullable<int> rETAILER_CHAIN_ID, Nullable<System.DateTime> oRDER_DATE_FROM, Nullable<System.DateTime> oRDER_DATE_TO, Nullable<bool> oRDER_NEW, Nullable<bool> oRDER_OPEN, Nullable<bool> oRDER_VALIDATED, string oRDER_ID, Nullable<System.DateTime> cI_DATE_FROM, Nullable<System.DateTime> cI_DATE_TO, Nullable<System.DateTime> vALIDATION_DEADLINE, string uSER, string aCTOR_ID_FROM, string aCTOR_ID_TO, string oRDER_NUMBER, Nullable<bool> sHOP_COUNT_OK, Nullable<bool> sHOP_COUNT_NOK, Nullable<bool> vALIDATION_DEADLINE_OPEN, Nullable<bool> vALIDATION_DEADLINE_EXCEEDED, Nullable<bool> vALIDATION_DEADLINE_PASSED, string aCTOR_ID, string sHIPMENT_NUMBER)
         {
             var oRD_ORDER_NUMBERParameter = oRD_ORDER_NUMBER != null ?
                 new ObjectParameter("ORD_ORDER_NUMBER", oRD_ORDER_NUMBER) :
@@ -347,7 +351,11 @@ namespace SRL.Data_Access.Entity
                 new ObjectParameter("ACTOR_ID", aCTOR_ID) :
                 new ObjectParameter("ACTOR_ID", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ORDER_LIST_Result>("API_ORDER_LIST", oRD_ORDER_NUMBERParameter, rETAILER_CHAIN_IDParameter, oRDER_DATE_FROMParameter, oRDER_DATE_TOParameter, oRDER_NEWParameter, oRDER_OPENParameter, oRDER_VALIDATEDParameter, oRDER_IDParameter, cI_DATE_FROMParameter, cI_DATE_TOParameter, vALIDATION_DEADLINEParameter, uSERParameter, aCTOR_ID_FROMParameter, aCTOR_ID_TOParameter, oRDER_NUMBERParameter, sHOP_COUNT_OKParameter, sHOP_COUNT_NOKParameter, vALIDATION_DEADLINE_OPENParameter, vALIDATION_DEADLINE_EXCEEDEDParameter, vALIDATION_DEADLINE_PASSEDParameter, aCTOR_IDParameter);
+            var sHIPMENT_NUMBERParameter = sHIPMENT_NUMBER != null ?
+                new ObjectParameter("SHIPMENT_NUMBER", sHIPMENT_NUMBER) :
+                new ObjectParameter("SHIPMENT_NUMBER", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ORDER_LIST_Result>("API_ORDER_LIST", oRD_ORDER_NUMBERParameter, rETAILER_CHAIN_IDParameter, oRDER_DATE_FROMParameter, oRDER_DATE_TOParameter, oRDER_NEWParameter, oRDER_OPENParameter, oRDER_VALIDATEDParameter, oRDER_IDParameter, cI_DATE_FROMParameter, cI_DATE_TOParameter, vALIDATION_DEADLINEParameter, uSERParameter, aCTOR_ID_FROMParameter, aCTOR_ID_TOParameter, oRDER_NUMBERParameter, sHOP_COUNT_OKParameter, sHOP_COUNT_NOKParameter, vALIDATION_DEADLINE_OPENParameter, vALIDATION_DEADLINE_EXCEEDEDParameter, vALIDATION_DEADLINE_PASSEDParameter, aCTOR_IDParameter, sHIPMENT_NUMBERParameter);
         }
     
         public virtual ObjectResult<GetOrderDetail_Result> GetOrderDetail(Nullable<int> oRDER_ID, Nullable<int> rETAILER_CHAIN_ID)
@@ -822,6 +830,19 @@ namespace SRL.Data_Access.Entity
                 new ObjectParameter("LOAD_UNIT_SLA_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("API_SLA_DELETE", lOAD_UNIT_SLA_IDParameter);
+        }
+    
+        public virtual ObjectResult<API_DEVIATION_ON_ORDER_Result> API_DEVIATION_ON_ORDER(Nullable<long> oRDER_ID, string lANGUAGE)
+        {
+            var oRDER_IDParameter = oRDER_ID.HasValue ?
+                new ObjectParameter("ORDER_ID", oRDER_ID) :
+                new ObjectParameter("ORDER_ID", typeof(long));
+    
+            var lANGUAGEParameter = lANGUAGE != null ?
+                new ObjectParameter("LANGUAGE", lANGUAGE) :
+                new ObjectParameter("LANGUAGE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<API_DEVIATION_ON_ORDER_Result>("API_DEVIATION_ON_ORDER", oRDER_IDParameter, lANGUAGEParameter);
         }
     }
 }

@@ -8,7 +8,8 @@ namespace SRL.Models.SSCC
     {
         public string SSCC { get; set; }
         public decimal OrderNumber { get; set; }
-        public decimal? NewOrderNumber { get; set; }
+        public string NewOrderNumber { get; set; }
+        public decimal? NewOrderNumberNumeric { get; set; }
         public decimal? OldActor { get; set; }
         public decimal? NewActor { get; set; }
         public int LoadMessageStatusId { get; set; }

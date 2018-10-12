@@ -36,7 +36,8 @@ namespace SRL.Data_Access.Repository
                     request.ValidationOpen, 
                     request.ValidationExceeded, 
                     request.ValidationPassed, 
-                    request.ActorId)
+                    request.ActorId,
+                    request.ShipmentNumber)
                     .Take(1000)
                     .ToList();
                 return result;
@@ -140,7 +141,8 @@ namespace SRL.Data_Access.Repository
                     request.ValidationOpen,
                     request.ValidationExceeded,
                     request.ValidationPassed,
-                    request.ActorId)
+                    request.ActorId,
+                    request.ShipmentNumber)
                     .ToList();
                 return result;
             };

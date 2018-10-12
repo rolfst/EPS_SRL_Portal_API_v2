@@ -53,6 +53,7 @@ namespace SRL.Data_Access.Adapter
                 slm.CIDate = item.CI_DATETIME;
                 slm.IsValidated = item.VALIDATED;
                 slm.ValidationStatus = SetValidationStatus(item.VALIDATED, item.VALIDATION_DEADLINE);
+                slm.ShipmentNumber = item.SHIPMENT_NUMBER;
                 slmList.Add(slm);
 
             });

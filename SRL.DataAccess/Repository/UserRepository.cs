@@ -195,20 +195,43 @@ namespace SRL.Data_Access.Repository
 
         }
 
-        public void AddUsers(IEnumerable<User> insertUsers)
+        public void AddUsers(IEnumerable<User> insertUsers, int createdUserId)
         {
             var dbUsers = insertUsers.Select(user => new Users
                 {
                     CreatedDate = DateTime.Now,
+                    Language = "English",
                     Email = user.Email,
                     FirstName = user.FirstName,
-                    LastName = user.LastName
+                    LastName = user.LastName,
+                    IsInternal = user.IsInteranlUser,
+                    CreatedUserId = createdUserId
                 })
                 .ToList();
             using (var ctx = new SRLManagementEntities())
             {
                 ctx.Users.AddRange(dbUsers);
                 ctx.SaveChanges();
+            }
+        }
+
+        public void DeactivateUsers(IEnumerable<Users> unverifiedUsers, int modifiedUserId)
+        {
+            using (var ctx = new SRLManagementEntities())
+            {
+                foreach (var unverifiedUser in unverifiedUsers)
+                {
+                    var user = ctx.Users.Find(unverifiedUser.UserId);
+                    if (user == null)
+                    {
+                        continue;
+                    }
+
+                    user.Active = false;
+                    user.ModifiedUserId = modifiedUserId;
+                    user.ModifiedDate = DateTime.Now;
+                    ctx.SaveChanges();
+                }
             }
         }
 
