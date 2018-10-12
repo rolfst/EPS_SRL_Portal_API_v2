@@ -234,7 +234,7 @@ namespace SRL.Data_Access.Adapter
             {
                 SSCCImagesModel imageVm = new SSCCImagesModel()
                 {
-                    EncodedImage = item.PICTURE_EVIDENCE_PATH,
+                    ImageUrl = ConvertUrlToCompliantUrl(item.PICTURE_EVIDENCE_PATH),
                     PicturePosition = item.PICTURE_POSITION,
                     PalletPosition = item.PALLET_POSITION,
                     TransactionSubType = item.TRANSACTION_SUBTYPE,
@@ -269,11 +269,11 @@ namespace SRL.Data_Access.Adapter
             return sdModel;
         }
 
-        private static string ConvertUrlToCompliantUrl(string itemPictureEvidencePath)
+        private static string ConvertUrlToCompliantUrl(string url)
         {
-            var slashReplacedUrl = itemPictureEvidencePath.Replace(@"\\", @"\");
+            var slashReplacedUrl = url.Replace(@"\\", "");
             slashReplacedUrl = slashReplacedUrl.Replace('\\', '/');
-            return $"https://{ConfigurationManager.AppSettings["dom:Name"]}{slashReplacedUrl}";
+            return $"https://{ConfigurationManager.AppSettings["dom:Name"]}/images/{slashReplacedUrl}";
         }
 
         public static SSCCPendingChangeResponse ConvertSSCCPendingChange(this List<API_PENDING_SSCC_CHANGE_Result> result)

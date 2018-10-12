@@ -144,7 +144,7 @@ namespace SRL_Portal_API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [System.Web.Http.HttpPost]
-        //[CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
+        [CustomAuthorizationFilter(new string[] { UserRoles.CustomerServiceAgent, UserRoles.Customer, UserRoles.SuperUser, UserRoles.UltraUser, UserRoles.WebPortalAdministrator })]
         public SSCCDetailsModel GetSsccDetails(string id)
         {
             log.Info(string.Format(LogMessages.RequestMethod, RequestContext.Principal.Identity.Name, "sscc\\details"));
